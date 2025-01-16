@@ -6,7 +6,7 @@ addLayer("ltf", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#f5ab3d",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "low taper fade points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
