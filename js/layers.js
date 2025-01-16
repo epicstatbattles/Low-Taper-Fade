@@ -26,11 +26,3 @@ addLayer("ltf", {
     ],
     layerShown(){return true}
 })
-upgrades: {
-        11: {
-            title: "Better Haircut",
-            description: "Multiply point gain by 2 from an improved haircut.",
-            cost: new Decimal(10),
-            effect() {
-                return player.points.times(2);
-            },
