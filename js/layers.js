@@ -26,3 +26,12 @@ addLayer("ltf", {
     ],
     layerShown(){return true}
 })
+upgrades: {
+			
+        11: {
+            title: "Double",
+            description: "Points gain is doubled.",
+            cost: new Decimal(1),
+      		effect() {
+                return player.points.times(2)
+        },
