@@ -1,25 +1,25 @@
 let modInfo = {
-	name: "The ??? Tree",
-	author: "nobody",
+	name: "The Low Taper Fade Tree",
+	author: "Epic Stat Battles",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (1), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.0.1",
+	name: "Low Taper Fade Start",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.0.1</h3><br>
+		- Created game.<br>
+		- Added low taper fade and upgrades.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
