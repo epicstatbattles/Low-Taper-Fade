@@ -78,7 +78,7 @@ upgrades: {
         cost: new Decimal(200),
         unlocked() { return hasUpgrade("ltf", 14); },
         effect() {
-            return player.ltf.points.add(1).log10().pow(1.625); // Logarithmic growth
+            return player.ltf.points.add(1).log10().add(1).pow(1.625); // Logarithmic growth
         },
         effectDisplay() { return "x" + format(this.effect()); },
     },
