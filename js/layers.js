@@ -20,8 +20,6 @@ addLayer("ltf", {
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-        if (player.ltf.points.gte(1000)) {
-            mult = mult.times(player.ltf.points.add(1).pow(0.04)); // Boost point gain by (LTF points + 1)^0.04
     }
         return mult;
     },
@@ -100,7 +98,7 @@ upgrades: {
     milestones: {
          0: {
             requirementDescription: "1000 Low Taper Fade Points",  // Milestone requirement
-            effectDescription: "Boost LTF point gain by (LTF points + 1)^0.08.",  // Updated effect description
+            effectDescription: "Certified Low Taper Fade Specialist",  // Updated effect description
             done() { return player.ltf.points.gte(1000); },  // Milestone unlock condition
      },
         },
