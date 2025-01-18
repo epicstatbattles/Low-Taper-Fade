@@ -23,7 +23,7 @@ addLayer("ltf", {
         if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ninja", 13)); // Scale gains further
         if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ninja", 14)); // Scale gains further
         if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ninja", 24)); // Scale gains further
-        if (hasUpgrade("massive", 12)) mult = mult.times(upgradeEffect("massive", 12));
+        if (hasUpgrade("massive", 11)) mult = mult.times(upgradeEffect("massive", 11));
         return mult; // Ensure the function closes correctly
     },
 
@@ -243,9 +243,9 @@ addLayer("ninja", {
 
     milestones: {
         0: {
-            requirementDescription: "100 Ninja Points",
+            requirementDescription: "10000 Ninja Points",
             effectDescription: "Meme Dragging Specialist",
-            done() { return player.ninja.points.gte(100); },
+            done() { return player.ninja.points.gte(10000); },
         },
     },
 
@@ -303,24 +303,24 @@ addLayer("massive", {
 
     upgrades: {
         11: {
-            title: "Massive Point Boost",
-            description: "Multiply point gain MASSIVELY based on their amount AND massive point amount.",
+            title: "Massive Low Taper Fade Boost",
+            description: "Low taper fade points are MASSIVELY boosted based on massive points.",
             cost: new Decimal(1),
+            effect() {
+            return player.massive.points.add(1).pow(0.375);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Massive Point Boost",
+            description: "Point gain is MASSIVELY boosted based on their amount and massive points.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("massive", 11); },
             effect() {
             let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
             let normalEffect = player.points.div(10).add(1).pow(0.125); // Effect based on normal points
 
             return normalEffect.times(massiveEffect);
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        12: {
-            title: "Massive Low Taper Fade Boost",
-            description: "Low taper fade points are MASSIVELY boosted based on massive points.",
-            cost: new Decimal(10),
-            unlocked() { return hasUpgrade("massive", 11); },
-            effect() {
-                return player.massive.points.add(1).pow(0.375);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
