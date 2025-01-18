@@ -23,6 +23,7 @@ addLayer("ltf", {
         if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ninja", 13)); // Scale gains further
         if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ninja", 14)); // Scale gains further
         if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ninja", 24)); // Scale gains further
+        if (hasUpgrade("massive", 12)) mult = mult.times(upgradeEffect("massive", 12));
         return mult; // Ensure the function closes correctly
     },
 
@@ -143,6 +144,7 @@ addLayer("ninja", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
+        if (hasUpgrade("massive", 13)) mult = mult.times(upgradeEffect("massive", 13));
         return mult;
     },
 
@@ -183,7 +185,7 @@ addLayer("ninja", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
-                return player.ninja.points.mul(0.3).add(1).pow(0.35);
+                return player.ninja.points.div(3).add(1).pow(0.35);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -242,7 +244,7 @@ addLayer("ninja", {
     milestones: {
         0: {
             requirementDescription: "100 Ninja Points",
-            effectDescription: "Keep all LTF upgrades on reset.",
+            effectDescription: "Meme Dragging Specialist",
             done() { return player.ninja.points.gte(100); },
         },
     },
@@ -260,6 +262,111 @@ addLayer("ninja", {
         "About": {
             content: [
                 ["raw-html", () => "Ninja has dragged the meme too far and now the Low Taper Fade is a MASSIVE haircut!"],
+            ],
+        },
+    },
+});
+addLayer("massive", {
+    name: "Massive", // Full name of the layer
+    symbol: "MSV", // Symbol displayed on the tree
+    position: 2, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#adadad", // Light Gray
+    requires: new Decimal(1000000), // Points required to unlock this layer
+    resource: "massive points", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.25, // Scaling factor for prestige points
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("massive", 14)) mult = mult.times(upgradeEffect("massive", 14));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 1, // Row in the tree (1 = second row)
+    branches: ["ltf"], // Branch from the LTF layer visually
+
+    hotkeys: [
+        { key: "f", description: "F: Reset for Massive points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Massive Point Boost",
+            description: "Multiply point gain MASSIVELY based on their amount AND massive point amount.",
+            cost: new Decimal(1),
+            effect() {
+            let massiveEffect = player.massive.points.add(10).log10().pow(0.5); // Effect based on massive points
+            let normalEffect = player.points.div(10).add(1).pow(0.1625); // Effect based on normal points
+
+            return normalEffect.pow(massiveEffect);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Massive Low Taper Fade Boost",
+            description: "Low taper fade points are MASSIVELY boosted based on massive points.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("massive", 11); },
+            effect() {
+                return player.massive.points.add(1).pow(0.375);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Massive Ninja Boost",
+            description: "Ninja points are MASSIVELY boosted based on massive points.",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("massive", 12); },
+            effect() {
+                return player.massive.points.div(2).add(1).pow(0.35);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Massive Self-Boost",
+            description: "Massive points boost themselves MASSIVELY (oh boy, this is about to get real).",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("massive", 13); },
+            effect() {
+                return player.massive.points.div(5).add(1).pow(0.275);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+
+    milestones: {
+        0: {
+            requirementDescription: "1000000 Massive Points",
+            effectDescription: "Meme Dragging Specialist",
+            done() { return player.massive.points.gte(1000000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The massiveness of the meme has become so unstable that it managed to branch off from the meme it originated from!"],
             ],
         },
     },
