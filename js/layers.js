@@ -307,10 +307,10 @@ addLayer("massive", {
             description: "Multiply point gain MASSIVELY based on their amount AND massive point amount.",
             cost: new Decimal(1),
             effect() {
-            let massiveEffect = player.massive.points.add(10).log10().pow(0.2); // Effect based on massive points
+            let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
             let normalEffect = player.points.div(10).add(1).pow(0.125); // Effect based on normal points
 
-            return normalEffect.pow(massiveEffect);
+            return normalEffect.times(massiveEffect);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
