@@ -43,8 +43,8 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
         if (hasUpgrade("ltf", 11)) gain = gain.times(2);
-        if (player.ltf && player.ltf.premiumClippers) {
-	     gain = gain.times(Decimal.pow(1.5, player.ltf.premiumClippers));
+	let buyableEffect = buyableEffect("ltf", 11); // Get the effect of the "Massive Meme Stimulant"
+  	  gain = gain.times(buyableEffect); // Apply the buyable effect to point gain
 	return gain
 }
 
