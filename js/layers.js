@@ -14,12 +14,15 @@ addLayer("ltf", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: player.ltf.points.gte(1000) ? 0.525 : 0.5, // Scaling factor for prestige points
+    exponent: 0.5, // Scaling factor for prestige points
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
+        if (player.ltf.points.gte(1000)) {
+            mult = mult.times(player.ltf.points.add(1).pow(0.04)); // Boost point gain by (LTF points + 1)^0.04
+    }
         return mult;
     },
 
@@ -95,10 +98,11 @@ upgrades: {
 },
 
     milestones: {
-        0: {
-            requirementDescription: "1000 Low Taper Fade Points",  // Updated requirement
-            effectDescription: "Keep all upgrades on reset and increase exponent from 0.5 to 0.52.",  // Updated effect description
-            done() { return player.ltf.points.gte(1000); },  // Changed condition to 1000 points
+         0: {
+            requirementDescription: "1000 Low Taper Fade Points",  // Milestone requirement
+            effectDescription: "Boost LTF point gain by (LTF points + 1)^0.08.",  // Updated effect description
+            done() { return player.ltf.points.gte(1000); },  // Milestone unlock condition
+     },
         },
     },
 
