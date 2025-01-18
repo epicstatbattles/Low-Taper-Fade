@@ -213,7 +213,7 @@ addLayer("ninja", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("ninja", 21); },
             effect() {
-                return player.ninja.points.div(20).add(1).pow(0.55);
+                return player.ninja.points.div(4).add(1).pow(0.55);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
