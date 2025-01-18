@@ -29,7 +29,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added new Ninja layer!<br>
 		- Added new layer upgrades!<br>
 		- Low Taper Fade Buyable completely removed.<br>
-		- Made the game have a higher ceiling (approx. 1.0e10).`
+		- Made the game have a higher ceiling (approx. 1.0e15).
+  	<h3>v0.1.1</h3><br>
+		- Fixed Upgrades doing unnecessary things.<br>
+		- Nerfed Ninja Upgrade 1:3<br>
+		- Fixed incorrect ceiling display on v0.1.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
