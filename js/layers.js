@@ -20,6 +20,9 @@ addLayer("ltf", {
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
+        if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
+        if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
+        if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
         return mult; // Ensure the function closes correctly
     },
 
@@ -139,7 +142,7 @@ addLayer("ninja", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("ninja", 12)) mult = mult.times(2); // Example multiplier upgrade
+        if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ltf", 13));
         return mult;
     },
 
@@ -186,12 +189,11 @@ addLayer("ninja", {
         },
         14: {
             title: "Prolonged Lifespan",
-            description: "Low taper fade point gain increases over time.",
+            description: "Low taper fade point gain increases based on their amount.",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ninja", 13); },
             effect() {
-                let time = player.time || 0; // Ensure time exists
-                return new Decimal(time).add(1).mul(0.05);
+                return player.ltf.points.div(20).add(1).pow(0.055);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -231,8 +233,7 @@ addLayer("ninja", {
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("ninja", 23); },
             effect() {
-                let time = player.time || 0; // Ensure time exists
-                return new Decimal(time).add(1).mul(0.0625).pow(1.125);
+                return player.ltf.points.div(20).add(1).pow(0.065);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
