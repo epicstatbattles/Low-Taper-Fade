@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1.1",
+	num: "0.2",
 	name: "Low Taper Fade Start",
 }
 
@@ -33,7 +33,11 @@ let changelog = `<h1>Changelog:</h1><br>
   	<h3>v0.1.1</h3><br>
 		- Fixed Upgrades doing unnecessary things.<br>
 		- Nerfed Ninja Upgrade 1:3<br>
-		- Fixed incorrect ceiling display on v0.1.`
+		- Fixed incorrect ceiling display on v0.1.
+	<h3>v0.2</h3><br>
+		- Added new massive layer!<br>
+		- slightly reworked a few upgrades.<br>
+		- Ceiling should now be ~1.0e30!`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -66,7 +70,7 @@ function getPointGen() {
     	if (hasUpgrade("ninja", 13)) gain = gain.times(upgradeEffect("ninja", 13));
     	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
     	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
-
+	if (hasUpgrade("massive", 11)) gain = gain.times(upgradeEffect("massive", 11));
 	return gain
 }
 
