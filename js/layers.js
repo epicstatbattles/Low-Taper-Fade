@@ -119,3 +119,147 @@ addLayer("ltf", {
         },
     },
 });
+addLayer("ninja", {
+    name: "Ninja", // Full name of the layer
+    symbol: "NJA", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#70f3ff", // Lighter than LTF
+    requires: new Decimal(10000), // Points required to unlock this layer
+    resource: "Ninja points", // Prestige currency name
+    baseResource: "low taper fade points", // Resource used to gain prestige points
+    baseAmount() { return player.ltf.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.4, // Scaling factor for prestige points
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("ninja", 12)) mult = mult.times(2); // Example multiplier upgrade
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 1, // Row in the tree (1 = second row)
+    branches: ["ltf"], // Branch from the LTF layer visually
+
+    hotkeys: [
+        { key: "e", description: "E: Reset for Ninja points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Ninja, Certified Meme Dragger",
+            description: "Multiply point gain by 3. This should get you back on your feet.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(3); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Hair Dye Incident",
+            description: "Points are now boosted based on your Ninja points.",
+            cost: new Decimal(1),
+            unlocked() { return hasUpgrade("ninja", 11); },
+            effect() {
+                return player.ninja.points.add(1).pow(0.175);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Operation Meme Drag",
+            description: "Low taper fade points are boosted based on your Ninja points.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("ninja", 12); },
+            effect() {
+                return player.ninja.points.mul(0.3).add(1).pow(0.75);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Prolonged Lifespan",
+            description: "Low taper fade point gain increases over time.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("ninja", 13); },
+            effect() {
+                let time = player.time || 0; // Ensure time exists
+                return new Decimal(time).add(1).mul(0.05);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Perpetual Fame",
+            description: "Points will now boost themselves!",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("ninja", 14); },
+            effect() {
+                return player.points.div(1000).add(1).pow(0.1);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Massive Meme Enhancer",
+            description: "MASSIVELY boost point gain based on Ninja points.",
+            cost: new Decimal(25),
+            unlocked() { return hasUpgrade("ninja", 21); },
+            effect() {
+                return player.ninja.points.div(20).add(1).pow(0.55);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Second Drag",
+            description: "Points boost Ninja point gain.",
+            cost: new Decimal(125),
+            unlocked() { return hasUpgrade("ninja", 22); },
+            effect() {
+                return player.points.add(1).pow(0.0375);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Improved Meme Spreading",
+            description: "Same as Prolonged Lifespan, but stronger.",
+            cost: new Decimal(1000),
+            unlocked() { return hasUpgrade("ninja", 23); },
+            effect() {
+                let time = player.time || 0; // Ensure time exists
+                return new Decimal(time).add(1).mul(0.0625).pow(1.125);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+
+    milestones: {
+        0: {
+            requirementDescription: "100 Ninja Points",
+            effectDescription: "Keep all LTF upgrades on reset.",
+            done() { return player.ninja.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Ninja has dragged the meme too far and now the Low Taper Fade is a MASSIVE haircut!"],
+            ],
+        },
+    },
+});
