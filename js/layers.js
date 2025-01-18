@@ -307,7 +307,7 @@ addLayer("massive", {
             description: "Low taper fade points are MASSIVELY boosted based on massive points.",
             cost: new Decimal(1),
             effect() {
-            return player.massive.points.add(1).pow(0.375);
+                return player.massive.points.add(1).pow(0.375);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -317,10 +317,10 @@ addLayer("massive", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("massive", 11); },
             effect() {
-            let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
-            let normalEffect = player.points.div(10).add(1).pow(0.125); // Effect based on normal points
+                let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
+                let normalEffect = player.points.div(10).add(1).pow(0.125); // Effect based on normal points
 
-            return normalEffect.times(massiveEffect);
+                return normalEffect.times(massiveEffect);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
