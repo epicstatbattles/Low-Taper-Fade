@@ -12,14 +12,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.1",
+	num: "0.0.2",
 	name: "Low Taper Fade Start",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0.1</h3><br>
 		- Created game.<br>
-		- Added low taper fade and upgrades.`
+		- Added low taper fade and upgrades.
+	<h3>v0.0.2</h3><br>
+		- Added 3 new upgrades!<br>
+		- Improved point gain system with scaling effects.<br>
+		- Planning on reworking the buyable in v0.1<br>
+		- Made the game have a higher ceiling (approx. 1.0e6).`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
