@@ -20,8 +20,7 @@ addLayer("ltf", {
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-    }
-        return mult;
+        return mult; // Make sure to close the function here
     },
 
     gainExp() { // Exponential bonus to prestige point gain
@@ -33,74 +32,73 @@ addLayer("ltf", {
         { key: "l", description: "L: Reset for low taper fade points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
-upgrades: {
-    11: {
-        title: "Fresh Comb",
-        description: "Multiply point gain by 2, simple little upgrade.",
-        cost: new Decimal(2),
-        effect() {
-            return new Decimal(2); // Multiplier for point gain
+    upgrades: {
+        11: {
+            title: "Fresh Comb",
+            description: "Multiply point gain by 2, simple little upgrade.",
+            cost: new Decimal(2),
+            effect() {
+                return new Decimal(2); // Multiplier for point gain
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
-    },
-    12: {
-        title: "Sharp Clippers",
-        description: "Double low taper fade point gain.",
-        cost: new Decimal(3),
-        unlocked() { return hasUpgrade("ltf", 11); },
-        effect() {
-            return new Decimal(2);
+        12: {
+            title: "Sharp Clippers",
+            description: "Double low taper fade point gain.",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("ltf", 11); },
+            effect() {
+                return new Decimal(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
-    },
-    13: {
-        title: "The Meme begins to grow... Grow MASSIVE!",
-        description: "Boost low taper fade points based on their amount.",
-        cost: new Decimal(10),
-        unlocked() { return hasUpgrade("ltf", 12); },
-        effect() {
-            return player.ltf.points.add(1).log10().add(1);
+        13: {
+            title: "The Meme begins to grow... Grow MASSIVE!",
+            description: "Boost low taper fade points based on their amount.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("ltf", 12); },
+            effect() {
+                return player.ltf.points.add(1).log10().add(1);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
-    },
-    14: {
-        title: "People are getting the haircut",
-        description: "Increase point gain by 2.5x.",
-        cost: new Decimal(25),
-        unlocked() { return hasUpgrade("ltf", 13); },
-        effect() {
-            return new Decimal(2.5); // 2.5x multiplier for point gain
+        14: {
+            title: "People are getting the haircut",
+            description: "Increase point gain by 2.5x.",
+            cost: new Decimal(25),
+            unlocked() { return hasUpgrade("ltf", 13); },
+            effect() {
+                return new Decimal(2.5); // 2.5x multiplier for point gain
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
-    },
-    15: {
-        title: "Ninja's Dragging The Meme",
-        description: "Increase point gain based on your low taper fade points.",
-        cost: new Decimal(100),
-        unlocked() { return hasUpgrade("ltf", 14); },
-        effect() {
-            return player.ltf.points.add(10).log10().pow(1.625); // Logarithmic growth
+        15: {
+            title: "Ninja's Dragging The Meme",
+            description: "Increase point gain based on your low taper fade points.",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("ltf", 14); },
+            effect() {
+                return player.ltf.points.add(10).log10().pow(1.625); // Logarithmic growth
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
-    },
-    16: {
-        title: "Imagine If Ninja got a LOW TAPER FADE",
-        description: "Boost point gain MASSIVELY based on low taper fade points.",
-        cost: new Decimal(500),
-        unlocked() { return hasUpgrade("ltf", 15); },
-        effect() {
-            return player.ltf.points.add(1).pow(0.425); // Power scaling
+        16: {
+            title: "Imagine If Ninja got a LOW TAPER FADE",
+            description: "Boost point gain MASSIVELY based on low taper fade points.",
+            cost: new Decimal(500),
+            unlocked() { return hasUpgrade("ltf", 15); },
+            effect() {
+                return player.ltf.points.add(1).pow(0.425); // Power scaling
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
-        effectDisplay() { return "x" + format(this.effect()); },
     },
-},
 
     milestones: {
-         0: {
+        0: {
             requirementDescription: "1000 Low Taper Fade Points",  // Milestone requirement
             effectDescription: "Certified Low Taper Fade Specialist",  // Updated effect description
             done() { return player.ltf.points.gte(1000); },  // Milestone unlock condition
-     },
         },
     },
 
