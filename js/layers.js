@@ -14,7 +14,7 @@ addLayer("ltf", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.5, // Scaling factor for prestige points
+    exponent: player.ltf.points.gte(1000) ? 0.525 : 0.5, // Scaling factor for prestige points
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -65,7 +65,7 @@ upgrades: {
     14: {
         title: "People are getting the haircut",
         description: "Increase point gain by 2.5x.",
-        cost: new Decimal(50),
+        cost: new Decimal(25),
         unlocked() { return hasUpgrade("ltf", 13); },
         effect() {
             return new Decimal(2.5); // 2.5x multiplier for point gain
@@ -74,21 +74,21 @@ upgrades: {
     },
     15: {
         title: "Ninja's Dragging The Meme",
-        description: "Increase point gain based on the logarithm of your low taper fade points.",
-        cost: new Decimal(200),
+        description: "Increase point gain based on your low taper fade points.",
+        cost: new Decimal(100),
         unlocked() { return hasUpgrade("ltf", 14); },
         effect() {
-            return player.ltf.points.add(1).log10().pow(1.625).add(1); // Logarithmic growth
+            return player.ltf.points.add(10).log10().pow(1.625); // Logarithmic growth
         },
         effectDisplay() { return "x" + format(this.effect()); },
     },
     16: {
         title: "Imagine If Ninja got a LOW TAPER FADE",
         description: "Boost point gain MASSIVELY based on low taper fade points.",
-        cost: new Decimal(1000),
+        cost: new Decimal(500),
         unlocked() { return hasUpgrade("ltf", 15); },
         effect() {
-            return player.ltf.points.add(1).pow(0.4625); // Power scaling
+            return player.ltf.points.add(1).pow(0.425); // Power scaling
         },
         effectDisplay() { return "x" + format(this.effect()); },
     },
@@ -96,9 +96,9 @@ upgrades: {
 
     milestones: {
         0: {
-            requirementDescription: "10 Low Taper Fade Points",
-            effectDescription: "Keep all upgrades on reset.",
-            done() { return player.ltf.points.gte(10); },
+            requirementDescription: "1000 Low Taper Fade Points",  // Updated requirement
+            effectDescription: "Keep all upgrades on reset and increase exponent from 0.5 to 0.52.",  // Updated effect description
+            done() { return player.ltf.points.gte(1000); },  // Changed condition to 1000 points
         },
     },
 
