@@ -20,7 +20,7 @@ addLayer("ltf", {
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-        return mult; // Make sure to close the function here
+        return mult; // Ensure the function closes correctly
     },
 
     gainExp() { // Exponential bonus to prestige point gain
@@ -102,20 +102,6 @@ addLayer("ltf", {
         },
     },
 
-    buyables: {
-        11: {
-            title: "Massive Meme Stimulant",
-            cost(x) { return new Decimal(20).times(Decimal.pow(2, x)); }, // Scaling cost
-            effect(x) { return Decimal.pow(1.4, x); }, // Multiplier effect
-            display() { return `Increase point gain by x${format(this.effect())}<br>Cost: ${format(this.cost())} low taper fade points`; },
-            canAfford() { return player.ltf.points.gte(this.cost()); },
-            buy() {
-                player.ltf.points = player.ltf.points.sub(this.cost());
-                addBuyables(this.layer, 11, 1);
-            },
-        },
-    },
-
     tabFormat: {
         "Main Tab": {
             content: [
@@ -124,7 +110,6 @@ addLayer("ltf", {
                 "resource-display",
                 "upgrades",
                 "milestones",
-                "buyables",
             ],
         },
         "About": {
