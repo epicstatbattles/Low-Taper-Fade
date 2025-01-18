@@ -20,9 +20,9 @@ addLayer("ltf", {
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-        if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-        if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
-        if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
+        if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ninja", 13)); // Scale gains further
+        if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ninja", 14)); // Scale gains further
+        if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ninja", 24)); // Scale gains further
         return mult; // Ensure the function closes correctly
     },
 
@@ -142,7 +142,7 @@ addLayer("ninja", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ltf", 13));
+        if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
         return mult;
     },
 
