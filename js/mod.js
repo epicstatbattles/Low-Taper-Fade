@@ -51,6 +51,12 @@ function getPointGen() {
 	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5)
    	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15))
    	if (hasUpgrade("ltf", 16)) gain = gain.times(upgradeEffect("ltf", 16))
+	// Ninja (NJA) Layer Effects
+    	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
+    	if (hasUpgrade("ninja", 13)) gain = gain.times(upgradeEffect("ninja", 13));
+    	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
+    	if (hasUpgrade("ninja", 23)) gain = gain.times(upgradeEffect("ninja", 23));
+
 	return gain
 }
 
