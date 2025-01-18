@@ -19,27 +19,30 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.0.1</h3><br>
 		- Created game.<br>
-		- Added low taper fade and upgrades.
+		- Added low taper fade and upgrades.<br>
 	<h3>v0.0.2</h3><br>
 		- Added 3 new upgrades!<br>
 		- Improved point gain system with scaling effects.<br>
 		- Planning on reworking the buyable in v0.1<br>
-		- Made the game have a higher ceiling (approx. 1.0e6).
+		- Made the game have a higher ceiling (approx. 1.0e6).<br>
 	<h3>v0.1</h3><br>
 		- Added new Ninja layer!<br>
 		- Added new layer upgrades!<br>
 		- Low Taper Fade Buyable completely removed.<br>
-		- Made the game have a higher ceiling (approx. 1.0e15).
+		- Made the game have a higher ceiling (approx. 1.0e15).<br>
   	<h3>v0.1.1</h3><br>
 		- Fixed Upgrades doing unnecessary things.<br>
 		- Nerfed Ninja Upgrade 1:3<br>
-		- Fixed incorrect ceiling display on v0.1.
+		- Fixed incorrect ceiling display on v0.1.<br>
 	<h3>v0.2</h3><br>
 		- Added new massive layer!<br>
 		- slightly reworked a few upgrades.<br>
-		- Ceiling should now be ~1.0e30!
+		- Ceiling should now be ~1.0e30!<br>
   	<h3>v0.2.1</h3><br>
-		- Heavily nerfed massive upgrade 1 since it had an incredibly powerful effect.`
+		- Heavily nerfed massive upgrade 1 since it had an incredibly powerful effect.<br>
+	<h3>v0.2.1</h3><br>
+		- Swapped Upgrade 1 and 2 in the massive layer<br>
+		- Reworked point boost formula in massive upgrade 2 (prev. upg 1)
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -72,7 +75,7 @@ function getPointGen() {
     	if (hasUpgrade("ninja", 13)) gain = gain.times(upgradeEffect("ninja", 13));
     	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
     	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
-	if (hasUpgrade("massive", 11)) gain = gain.times(upgradeEffect("massive", 11));
+	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
 	return gain
 }
 
