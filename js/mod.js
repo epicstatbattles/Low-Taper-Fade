@@ -55,8 +55,8 @@ function getPointGen() {
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
     	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
     	if (hasUpgrade("ninja", 13)) gain = gain.times(upgradeEffect("ninja", 13));
+    	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
     	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
-    	if (hasUpgrade("ninja", 23)) gain = gain.times(upgradeEffect("ninja", 23));
 
 	return gain
 }
