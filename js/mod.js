@@ -61,7 +61,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Reworked a few CT upgrade formulas.<br>
 		- Nerfed massive upgrade 4 AGAIN (not as much as the last time though).<br>
 	<h3>v0.3.4</h3><br>
-		- Slightly buffed massive upgrade 4, but not to its pre-v0.3.3 strength.<br>`
+		- Slightly buffed massive upgrade 4, but not to its pre-v0.3.3 strength.
+	<h3>v0.3.5</h3><br>
+		- Nerfed Ninja Upgrade 2:3.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
