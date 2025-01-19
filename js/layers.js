@@ -24,6 +24,8 @@ addLayer("ltf", {
         if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ninja", 14)); // Scale gains further
         if (hasUpgrade("ninja", 24)) mult = mult.times(upgradeEffect("ninja", 24)); // Scale gains further
         if (hasUpgrade("massive", 11)) mult = mult.times(upgradeEffect("massive", 11));
+        if (hasUpgrade("ct", 12)) mult = mult.times(upgradeEffect("ct", 12));
+        if (hasUpgrade("ct", 21)) mult = mult.times(upgradeEffect("ct", 21));
         return mult; // Ensure the function closes correctly
     },
 
@@ -145,6 +147,7 @@ addLayer("ninja", {
         let mult = new Decimal(1);
         if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
         if (hasUpgrade("massive", 13)) mult = mult.times(upgradeEffect("massive", 13));
+        if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
         return mult;
     },
 
@@ -287,6 +290,7 @@ addLayer("massive", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 14)) mult = mult.times(upgradeEffect("massive", 14));
+        if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
         return mult;
     },
 
@@ -367,6 +371,128 @@ addLayer("massive", {
         "About": {
             content: [
                 ["raw-html", () => "The massiveness of the meme has become so unstable that it managed to branch off from the meme it originated from!"],
+            ],
+        },
+    },
+});
+addLayer("ct", {
+    name: "Codename Trademark", // Full name of the layer
+    symbol: "CT", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#000078", // Navy color
+    requires: new Decimal(1e33), // Points required to unlock this layer
+    resource: "Codename Trademark subscribers", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.1625, // Scaling factor for prestige points
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 2, // Row in the tree (2 = third row)
+    branches: ["ninja, massive"], // Branch from the 2 row 2 layers visually
+
+    hotkeys: [
+        { key: "c", description: "c: Reset for CT subs", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Develop CT",
+            description: "Codename Trademark development begins! Multiply point gain by 10.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(10); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Update CT",
+            description: "CT is receiving updates! Receive a 5x boost to low taper fade point gain.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("ct", 11); },
+            effect() {
+                return new Decimal(5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Stream CT",
+            description: "CT is being streamed! Gain more points based on your CT subscribers!",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("ct", 12); },
+            effect() {
+                return player.ct.points.add(10).log10().pow(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Release CT",
+            description: "CT Ultra 1.00 has been released! LTF gain is boosted based on your CT subscribers!",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("ct", 13); },
+            effect() {
+                return player.ct.points.add(10).log10().pow(1.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Upload to CT",
+            description: "You uploaded to CT! CT subscriber gain is slightly boosted by point amount.",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("ct", 21); },
+            effect() {
+                return player.points.div(1000000).add(1).pow(0.014);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Grind CT",
+            description: "You are grinding in CT! CT subs boost both Ninja and massive points!",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("ct", 22); },
+            effect() {
+                return player.ct.points.div(2).add(1).pow(0.125);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+
+    milestones: {
+        0: {
+            requirementDescription: "100000 CT Subscribers",
+            effectDescription: "Verified CT Player",
+            done() { return player.ct.points.gte(100000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The meme is so massive, it somehow managed to translate into CT subscriber gain!"],
             ],
         },
     },
