@@ -56,7 +56,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed new ceiling not showing in v0.3 changelog.<br>
 		- Fixed CT layer disappearing after prestiging.<br>
 	<h3>v0.3.2</h3><br>
-		- Reworked LTF upgrade 6's formula to be a bit stronger early game but slightly weaker late-game.`
+		- Reworked LTF upgrade 6's formula to be a bit stronger early game but slightly weaker late-game.<br>
+	<h3>v0.3.3</h3><br>
+		- Reworked a few CT upgrade formulas.<br>
+		- Nerfed massive upgrade 4 AGAIN (not as much as the last time though).`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
