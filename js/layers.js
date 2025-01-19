@@ -94,7 +94,7 @@ addLayer("ltf", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
-                return player.ltf.points.times(2).add(1).pow(0.325); // Power scaling
+                return player.ltf.points.times(3).add(1).pow(0.325); // Power scaling
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
