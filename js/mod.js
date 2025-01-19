@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.3",
+	num: "0.3",
 	name: "Low Taper Fade Beta",
 }
 
@@ -45,7 +45,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Reworked point boost formula in massive upgrade 2 (prev. upg 1)<br>
 	<h3>v0.2.3</h3><br>
 		- Weakened the first 3 massive upgrades by around 25%<br>
-		- Weakened massive upgrade 4 so the boost becomes balanced and not absolutely massive.`
+		- Weakened massive upgrade 4 so the boost becomes balanced and not absolutely massive.<br>
+		- Fixed changelog html showing version next to last change in previous version.<br>
+	<h3>v0.3</h3><br>
+		- Added new CT layer, which resets everything before it (including points, LTF, Ninja, and massive points).<br>
+		- Added 6 new CT upgrades, 3 more will come soon as those will boost 2 other future layers (in the same row as CT layer)`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
