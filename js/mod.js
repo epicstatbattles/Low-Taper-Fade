@@ -63,7 +63,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.4</h3><br>
 		- Slightly buffed massive upgrade 4, but not to its pre-v0.3.3 strength.<br>
 	<h3>v0.3.5</h3><br>
-		- Nerfed Ninja Upgrade 2:3.
+		- Nerfed Ninja Upgrade 2:3.<br>
 		- Slightly nerfed massive upgrades 1, 3, and 4.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
