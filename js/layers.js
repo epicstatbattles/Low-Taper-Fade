@@ -308,10 +308,10 @@ addLayer("massive", {
     upgrades: {
         11: {
             title: "Massive Low Taper Fade Boost",
-            description: "Low taper fade points are MASSIVELY boosted based on massive points.",
+            description: "Low taper fade points are boosted based on massive points.",
             cost: new Decimal(1),
             effect() {
-                return player.massive.points.div(2).add(1).pow(0.275);
+                return player.massive.points.div(2).add(1).pow(0.26);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -330,11 +330,11 @@ addLayer("massive", {
         },
         13: {
             title: "Massive Ninja Boost",
-            description: "Ninja points are MASSIVELY boosted based on massive points.",
+            description: "Ninja points are boosted based on massive points.",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("massive", 12); },
             effect() {
-                return player.massive.points.div(3).add(1).pow(0.25);
+                return player.massive.points.div(3).add(1).pow(0.22);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -344,7 +344,7 @@ addLayer("massive", {
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("massive", 13); },
             effect() {
-                return player.massive.points.div(10).add(1).pow(0.17);
+                return player.massive.points.div(20).add(1).pow(0.17);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
