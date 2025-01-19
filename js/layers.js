@@ -394,8 +394,8 @@ addLayer("ct", {
     exponent: 0.1625, // Scaling factor for prestige points
 
     layerShown() {
-        // Check if the player has at least 0.1% of the requirement
-        return player.points.gte(new Decimal(1e30));
+        // Check if the player has at least 1e21 points
+        return player.points.gte(new Decimal(1e21)) || player.ct.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -409,7 +409,7 @@ addLayer("ct", {
     },
 
     row: 2, // Row in the tree (2 = third row)
-    branches: ["ninja, massive"], // Branch from the 2 row 2 layers visually
+    branches: ["ninja","massive"], // Branch from the 2 row 2 layers visually
 
     hotkeys: [
         { key: "c", description: "c: Reset for CT subs", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
