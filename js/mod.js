@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3",
+	num: "0.3.1",
 	name: "Low Taper Fade Beta",
 }
 
@@ -49,7 +49,12 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed changelog html showing version next to last change in previous version.<br>
 	<h3>v0.3</h3><br>
 		- Added new CT layer, which resets everything before it (including points, LTF, Ninja, and massive points).<br>
-		- Added 6 new CT upgrades, 3 more will come soon as those will boost 2 other future layers (in the same row as CT layer)`
+		- Added 6 new CT upgrades, 3 more will come soon as those will boost 2 other future layers (in the same row as CT layer)<br>
+		- Ceiling/endgame should now be ~1.0e60. <br>
+	<h3>v0.3.1</h3><br>
+		- Fixed CT layer not branching visually.<br>
+		- Fixed new ceiling not showing in v0.3 changelog.<br>
+		- Fixed CT layer disappearing after prestiging.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
