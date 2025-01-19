@@ -393,6 +393,11 @@ addLayer("ct", {
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
 
+    layerShown() {
+        // Check if the player has at least 0.1% of the requirement
+        return player.points.gte(new Decimal(1e30));
+    },
+
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
