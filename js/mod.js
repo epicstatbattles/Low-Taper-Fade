@@ -59,7 +59,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Reworked LTF upgrade 6's formula to be a bit stronger early game but slightly weaker late-game.<br>
 	<h3>v0.3.3</h3><br>
 		- Reworked a few CT upgrade formulas.<br>
-		- Nerfed massive upgrade 4 AGAIN (not as much as the last time though).
+		- Nerfed massive upgrade 4 AGAIN (not as much as the last time though).<br>
 	<h3>v0.3.4</h3><br>
 		- Slightly buffed massive upgrade 4, but not to its pre-v0.3.3 strength.<br>`
 
