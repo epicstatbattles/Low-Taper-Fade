@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.2",
-	name: "Low Taper Fade Start",
+	num: "0.2.3",
+	name: "Low Taper Fade Beta",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -42,7 +42,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Heavily nerfed massive upgrade 1 since it had an incredibly powerful effect.<br>
 	<h3>v0.2.2</h3><br>
 		- Swapped Upgrade 1 and 2 in the massive layer<br>
-		- Reworked point boost formula in massive upgrade 2 (prev. upg 1)`
+		- Reworked point boost formula in massive upgrade 2 (prev. upg 1)<br>
+	<h3>v0.2.3</h3><br>
+		- Weakened the first 3 massive upgrades by around 25%<br>
+		- Weakened massive upgrade 4 so the boost becomes balanced and not absolutely massive.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
