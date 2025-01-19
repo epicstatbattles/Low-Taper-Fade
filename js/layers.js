@@ -340,11 +340,11 @@ addLayer("massive", {
         },
         14: {
             title: "Self-Boost",
-            description: "Massive points boost themselves! (Might lead to inflation)",
+            description: "Massive points boost themselves! (Warning: Might lead to inflation)",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("massive", 13); },
             effect() {
-                return player.massive.points.div(5).add(1).pow(0.2);
+                return player.massive.points.div(10).add(1).pow(0.1625);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -441,7 +441,7 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                return player.ct.points.add(10).log10().pow(2);
+                return player.ct.points.times(2).add(10).log10().pow(3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
