@@ -353,7 +353,7 @@ addLayer("massive", {
     milestones: {
         0: {
             requirementDescription: "1000000 Massive Points",
-            effectDescription: "Meme Dragging Specialist",
+            effectDescription: "Meme Dragging Expert",
             done() { return player.massive.points.gte(1000000); },
         },
     },
@@ -451,7 +451,7 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                return player.ct.points.add(10).log10().pow(1.5);
+                return player.ct.points.times(1.5).add(10).log10().pow(2.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -461,7 +461,7 @@ addLayer("ct", {
             cost: new Decimal(20),
             unlocked() { return hasUpgrade("ct", 21); },
             effect() {
-                return player.points.div(1000000).add(1).pow(0.014);
+                return player.points.div(100000000).add(1).pow(0.01);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
