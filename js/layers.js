@@ -104,7 +104,15 @@ addLayer("ltf", {
 
                 return base.div(diminishingFactor); // Final effect
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() { 
+                let isSoftcapped = player.ltf.points.gte(1e15); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
 
@@ -206,7 +214,15 @@ addLayer("ninja", {
 
                 return base.div(diminishingFactor); // Final effect
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() { 
+                let isSoftcapped = player.ninja.points.gte(1e10); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         14: {
             title: "Prolonged Lifespan",
@@ -244,7 +260,15 @@ addLayer("ninja", {
 
                 return base.div(diminishingFactor); // Final effect
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() { 
+                let isSoftcapped = player.ninja.points.gte(1e10); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         23: {
             title: "Second Drag",
