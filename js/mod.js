@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.13",
+	num: "0.3.14",
 	name: "Low Taper Fade Gamma Plus",
 }
 
@@ -80,7 +80,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.12</h3><br>
 		- Active Softcaps now have an indicator next to their effect.<br>
         <h3>v0.3.13</h3><br>
-                - Fixed Ninja upgrade 3 boosting normal point gain.`
+                - Fixed Ninja upgrade 3 boosting normal point gain.
+	<h3>v0.3.14</h3><br>
+                - Slightly buffed LTF upgrade 6 and massive upgrade 1 to compensate for the "nerf" to progression from the  v0.3.13 change.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
