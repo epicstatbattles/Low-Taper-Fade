@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.12",
+	num: "0.3.13",
 	name: "Low Taper Fade Gamma Plus",
 }
 
@@ -78,7 +78,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.11</h3><br>
 		- Slightly buffed LTF upgrade 6.<br>
 	<h3>v0.3.12</h3><br>
-		- Active Softcaps now have an indicator next to their effect.`
+		- Active Softcaps now have an indicator next to their effect.<br>
+        <h3>v0.3.13</h3><br>
+                - Fixed Ninja upgrade 3 boosting normal point gain.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -108,7 +110,6 @@ function getPointGen() {
 	// Ninja (NJA) Layer Effects
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
     	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
-    	if (hasUpgrade("ninja", 13)) gain = gain.times(upgradeEffect("ninja", 13));
     	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
     	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
 	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
