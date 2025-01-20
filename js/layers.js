@@ -98,14 +98,14 @@ addLayer("ltf", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.ltf.points.gte(new Decimal(1e15))) {
-                    diminishingFactor = player.ltf.points.div(1e15).pow(0.2); // Slight division factor
+                if (player.ltf.points.gte(new Decimal(1e20))) {
+                    diminishingFactor = player.ltf.points.div(1e20).pow(0.2); // Slight division factor
                 }
 
                 return base.div(diminishingFactor); // Final effect
             },
             effectDisplay() { 
-                let isSoftcapped = player.ltf.points.gte(1e15); // Check if softcap applies
+                let isSoftcapped = player.ltf.points.gte(1e20); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
