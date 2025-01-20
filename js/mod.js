@@ -92,7 +92,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.17</h3><br>
                 - Reduced CT prestige requirement to 1e30 points.<br>
 	<h3>v0.3.18</h3><br>
-                - Slightly weakened LTF upgrade 6's effectiveness.<br>
+                - Slightly weakened LTF upgrade 6's softcap strength.<br>
 		- Added small initial multipliers to massive upgrades 1 and 3.<br>
 	<h3>v0.3.18.1</h3><br>
                 - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.`
