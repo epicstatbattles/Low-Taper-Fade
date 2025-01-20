@@ -395,6 +395,16 @@ addLayer("massive", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        15: {
+            title: "Point Powerizer",
+            description: "Point gain is RAISED to an exponent based on massive points.",
+            cost: new Decimal(500000),
+            unlocked() { return hasUpgrade("massive", 13); },
+            effect() {
+                return player.massive.points.div(200).add(10).log10().pow(0.15);
+            },
+            effectDisplay() { return "^" + format(this.effect()); },
+        },
     },
 
     milestones: {
