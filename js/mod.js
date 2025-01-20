@@ -97,7 +97,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.18.1</h3><br>
                 - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.<br>
 	<h3>v0.3.19</h3><br>
-                - Added a new massive upgrade!
+                - Added a new massive upgrade!<br>
 	<h3>v0.3.20</h3><br>
                 - Nerfed massive upgrade 5's effect.`
 
