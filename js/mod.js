@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.14.1",
+	num: "0.3.15",
 	name: "Low Taper Fade Gamma Plus",
 }
 
@@ -84,7 +84,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.14</h3><br>
                 - Slightly buffed LTF upgrade 6 and massive upgrade 2 to compensate for the "nerf" to progression from the v0.3.13 change.<br>
 	<h3>v0.3.14.1</h3><br>
-                - Fixed previous changelog showing wrong massive upgrade.`
+                - Fixed previous changelog showing wrong massive upgrade.
+	<h3>v0.3.15</h3><br>
+                - Slightly buffed Ninja upgrade 2:3.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
