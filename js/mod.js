@@ -95,7 +95,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly weakened LTF upgrade 6's softcap strength.<br>
 		- Added small initial multipliers to massive upgrades 1 and 3.<br>
 	<h3>v0.3.18.1</h3><br>
-                - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.`
+                - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.
+	<h3>v0.3.19</h3><br>
+                - Added a new massive upgrade!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -123,7 +125,6 @@ function getPointGen() {
 	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5)
    	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
    	if (hasUpgrade("ltf", 16)) gain = gain.times(upgradeEffect("ltf", 16));
-	// Ninja (NJA) Layer Effects
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
     	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
     	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
@@ -131,6 +132,7 @@ function getPointGen() {
 	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
+	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
 
