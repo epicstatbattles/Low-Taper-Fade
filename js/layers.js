@@ -94,7 +94,15 @@ addLayer("ltf", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
-                return player.ltf.points.times(4).add(1).pow(0.325); // Power scaling
+                let base = player.points.times(4).add(1).pow(0.325); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.points.gte(new Decimal(1e12))) {
+                    diminishingFactor = player.points.div(1e12).pow(0.2); // Slight division factor
+                }
+
+                return base.div(diminishingFactor); // Final effect
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -218,7 +226,15 @@ addLayer("ninja", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("ninja", 21); },
             effect() {
-                return player.ninja.points.div(4).add(1).pow(0.55);
+                let base = player.ninja.points.div(4).add(1).pow(0.55); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ninja.points.gte(new Decimal(1e10))) {
+                    diminishingFactor = player.ninja.points.div(1e10).pow(0.25); // Slight division factor
+                }
+
+                return base.div(diminishingFactor); // Final effect
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
