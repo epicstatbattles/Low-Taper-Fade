@@ -196,7 +196,15 @@ addLayer("ninja", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
-                return player.ninja.points.div(3).add(1).pow(0.35);
+                let base = player.ninja.points.div(3).add(1).pow(0.35); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ninja.points.gte(new Decimal(1e10))) {
+                    diminishingFactor = player.ninja.points.div(1e10).pow(0.15); // Slight division factor
+                }
+
+                return base.div(diminishingFactor); // Final effect
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
