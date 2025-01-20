@@ -434,7 +434,7 @@ addLayer("ct", {
         };
     },
     color: "#000078", // Navy color
-    requires: new Decimal(1e33), // Points required to unlock this layer
+    requires: new Decimal(1e30), // Points required to unlock this layer
     resource: "Codename Trademark subscribers", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
