@@ -98,8 +98,8 @@ addLayer("ltf", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.points.gte(new Decimal(1e12))) {
-                    diminishingFactor = player.points.div(1e12).pow(0.2); // Slight division factor
+                if (player.points.gte(new Decimal(1e15))) {
+                    diminishingFactor = player.points.div(1e15).pow(0.2); // Slight division factor
                 }
 
                 return base.div(diminishingFactor); // Final effect
