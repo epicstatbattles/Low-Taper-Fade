@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.18.1",
+	num: "0.3.19",
 	name: "Low Taper Fade Gamma Plus",
 }
 
@@ -95,7 +95,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly weakened LTF upgrade 6's softcap strength.<br>
 		- Added small initial multipliers to massive upgrades 1 and 3.<br>
 	<h3>v0.3.18.1</h3><br>
-                - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.
+                - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.<br>
 	<h3>v0.3.19</h3><br>
                 - Added a new massive upgrade!`
 
