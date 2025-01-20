@@ -94,12 +94,12 @@ addLayer("ltf", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
-                let base = player.points.times(4).add(1).pow(0.325); // Original effect formula
+                let base = player.ltf.points.times(4).add(1).pow(0.325); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.points.gte(new Decimal(1e15))) {
-                    diminishingFactor = player.points.div(1e15).pow(0.2); // Slight division factor
+                if (player.ltf.points.gte(new Decimal(1e15))) {
+                    diminishingFactor = player.ltf.points.div(1e15).pow(0.2); // Slight division factor
                 }
 
                 return base.div(diminishingFactor); // Final effect
