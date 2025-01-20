@@ -182,21 +182,21 @@ addLayer("ninja", {
         },
         12: {
             title: "Hair Dye Incident",
-            description: "Points are now boosted based on your Ninja points.",
+            description: "Points are now boosted based on your Ninja points (initial multiplier of 1.2x).",
             cost: new Decimal(1),
             unlocked() { return hasUpgrade("ninja", 11); },
             effect() {
-                return player.ninja.points.add(1).pow(0.175);
+                return player.ninja.points.add(1).pow(0.175).times(1.2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Operation Meme Drag",
-            description: "Low taper fade points are boosted based on your Ninja points.",
+            description: "Low taper fade points are boosted based on your Ninja points (initial multiplier of 1.2x).",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
-                let base = player.ninja.points.div(3).add(1).pow(0.35); // Original effect formula
+                let base = player.ninja.points.div(3).add(1).pow(0.35).times(1.2) // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -230,11 +230,11 @@ addLayer("ninja", {
         },
         22: {
             title: "Massive Meme Enhancer",
-            description: "MASSIVELY boost point gain based on Ninja points.",
+            description: "MASSIVELY boost point gain based on Ninja points (initial multiplier of 1.44x).",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("ninja", 21); },
             effect() {
-                let base = player.ninja.points.div(4).add(1).pow(0.55); // Original effect formula
+                let base = player.ninja.points.div(4).add(1).pow(0.55).times(1.44); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
