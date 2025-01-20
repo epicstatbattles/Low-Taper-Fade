@@ -94,7 +94,7 @@ addLayer("ltf", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
-                let base = player.ltf.points.times(4).add(1).pow(0.35); // Original effect formula
+                let base = player.ltf.points.times(4).add(1).pow(0.375); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -370,7 +370,7 @@ addLayer("massive", {
             unlocked() { return hasUpgrade("massive", 11); },
             effect() {
                 let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
-                let normalEffect = player.points.div(10).add(1).pow(0.1); // Effect based on normal points
+                let normalEffect = player.points.div(10).add(1).pow(0.1125); // Effect based on normal points
 
                 return normalEffect.times(massiveEffect);
             },
