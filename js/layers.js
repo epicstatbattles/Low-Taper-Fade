@@ -95,15 +95,19 @@ addLayer("ltf", {
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
                 let base = player.ltf.points.times(4).add(1).pow(0.375); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let diminishingFactor = new Decimal(1); // Default factor (no reduction)
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Check if points exceed the starting threshold for diminishing returns
                 if (player.ltf.points.gte(new Decimal(1e20))) {
-                    diminishingFactor = player.ltf.points.div(1e20).pow(0.2); // Slight division factor
-                }
+                    let start = new Decimal(1e20); // Start of diminishing returns
+                    let end = new Decimal(1e25); // Full effect of diminishing returns
 
-                return base.div(diminishingFactor); // Final effect
-            },
+                    // Calculate progress for diminishing returns
+                    let progress = Decimal.log10(player.ltf.points).sub(Decimal.log10(start)).div(Decimal.log10(end).sub(Decimal.log10(start))).clamp(0,1);
+                diminishingFactor = new Decimal(1).div(player.ltf.points.div(start).pow(0.2).pow(progress));
+            }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
             effectDisplay() { 
                 let isSoftcapped = player.ltf.points.gte(1e20); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
