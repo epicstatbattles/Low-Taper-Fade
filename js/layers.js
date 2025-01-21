@@ -587,9 +587,24 @@ addLayer("mady", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                return player.mady.points.div(20).add(10).log10().pow(0.1125);
+                let base = player.mady.points.div(20).add(10).log10().pow(0.1125); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.mady.points.gte(new Decimal(1e5))) {
+                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.0325); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.mady.points.gte(1e5); // Check if softcap applies
+                let display = "^" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "^" + format(this.effect()); },
         },
         23: {
             title: "Song Development",
