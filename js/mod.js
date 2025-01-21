@@ -103,7 +103,6 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.4</h3><br>
                 - FINALLY ADDED A NEW LAYER.<br>
 		- Rebalanced several upgrades.<br>
-		- Introduced a buyable (beta).<br>
 		- Ceiling should be ~1e120 now.`
 
 
@@ -140,8 +139,6 @@ function getPointGen() {
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
 	if (hasUpgrade("mady", 12)) gain = gain.times(upgradeEffect("mady", 12));
-	let buyableEffect1 = layers.mady.buyables[11].effect(getBuyableAmount("mady", 11));
-    	gain = gain.times(buyableEffect1); // Boost point gain with the buyable effect
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
