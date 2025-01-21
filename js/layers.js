@@ -912,7 +912,7 @@ addLayer("aub", {
             title: "Widespread Recognition",
             description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
             cost: new Decimal(200),
-            unlocked() { return hasUpgrade("aub", 12); },
+            unlocked() { return hasUpgrade("aub", 21); },
             effect() {
                 return player.points.div(1e10).add(1).pow(0.00875);
             },
@@ -922,7 +922,7 @@ addLayer("aub", {
             title: "Massive Celebrity",
             description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
             cost: new Decimal(4000),
-            unlocked() { return hasUpgrade("aub", 12); },
+            unlocked() { return hasUpgrade("aub", 22); },
             effect() {
                 return player.points.div(5).add(1).pow(0.1875);
             },
@@ -932,7 +932,7 @@ addLayer("aub", {
             title: "Trying CT Out!",
             description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
             cost: new Decimal(10000),
-            unlocked() { return hasUpgrade("aub", 12); },
+            unlocked() { return hasUpgrade("aub", 23); },
             effect() {
                 return new Decimal(1.4);
             },
@@ -942,9 +942,9 @@ addLayer("aub", {
     
     milestones: {
         0: {
-            requirementDescription: "100 Aubrinators",
+            requirementDescription: "100000 Aubrinators",
             effectDescription: "I guess u just won since idk what to put here.",
-            done() { return player.aub.points.gte(100); },
+            done() { return player.aub.points.gte(100000); },
         },
     },
 
