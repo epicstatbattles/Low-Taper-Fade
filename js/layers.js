@@ -163,7 +163,6 @@ addLayer("ltf", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
-
     milestones: {
         0: {
             requirementDescription: "1000 Low Taper Fade Points",  // Milestone requirement
@@ -589,34 +588,7 @@ addLayer("mady", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
-    buyables: {
-        11: {
-            title: "Madelizer Enhancer",
-            description: "Boost LTF and Ninja points based on Madelizers",
-            cost(x) { 
-                return new Decimal(10).times(Decimal.pow(4, x)); 
-            }, // Cost increases exponentially with level
-            effect(x) { 
-                return player.mady.points.add(1)pow(0.05).pow(x); // Apply the scaling formula
-            },
-            display() { 
-                let amt = getBuyableAmount(this.layer, this.id); // Get current level
-                return `Level: ${amt}\nEffect: x${format(this.effect(amt))}\nCost: ${format(this.cost(amt))} points`;
-            },
-            unlocked() { return true; }, // Unlock condition
-            canAfford() { 
-                return player.points.gte(this.cost(getBuyableAmount(this.layer, this.id))); 
-            },
-            buy() {
-                let cost = this.cost(getBuyableAmount(this.layer, this.id)); // Calculate cost
-                if (this.canAfford()) {
-                    player.mady.points = player.mady.points.sub(cost); // Subtract cost
-                    addBuyables(this.layer, this.id, 1); // Increase level
-                }
-            },
-        },
-    }
-
+    
     milestones: {
         0: {
             requirementDescription: "100000 CT Subscribers",
@@ -632,7 +604,6 @@ addLayer("mady", {
                 "prestige-button",
                 "resource-display",
                 "upgrades",
-                "buyables",
                 "milestones",
             ],
         },
