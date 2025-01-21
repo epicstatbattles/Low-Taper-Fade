@@ -788,7 +788,7 @@ addLayer("ct", {
             cost: new Decimal(1e8),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
-                let aubBoost = player.mady.div(1e4).add(1).pow(0.1); // Aubrinator boost
+                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
                 let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
                 return { aubBoost, madyBoost };
             },
