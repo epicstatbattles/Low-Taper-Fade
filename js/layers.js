@@ -467,7 +467,7 @@ addLayer("massive", {
         },
             effectDisplay() { 
                 let isSoftcapped = player.massive.points.gte(1e10); // Check if softcap applies
-                let display = "x" + format(this.effect()); // Base effect display
+                let display = "^" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
                     display += " (SC)"; // Append softcap indicator
