@@ -456,9 +456,24 @@ addLayer("massive", {
             cost: new Decimal(500000),
             unlocked() { return hasUpgrade("massive", 14); },
             effect() {
-                return player.massive.points.div(40000).add(10).log10().pow(0.06);
+                let base = player.massive.points.div(40000).add(10).log10().pow(0.06); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e10))) {
+                    diminishingFactor = player.massive.points.div(1e9).log10().pow(0.0175); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e10); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "^" + format(this.effect()); },
         },
     },
 
