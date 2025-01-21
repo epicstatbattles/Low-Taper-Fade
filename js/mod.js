@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6",
-	name: "Low Taper Fade Epsilon",
+	num: "0.6.1",
+	name: "Low Taper Fade Zeta",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -118,7 +118,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.5</h3><br>
                 - Added the layer again. It is very simple at the moment due to fear of another malfunction.<br>
 	<h3>v0.6</h3><br>
-                - Added LOTS of features to the new layer and 3 new CT upgrades!`
+                - Added LOTS of features to the new layer and 3 new CT upgrades!<br>
+	<h3>v0.6.1</h3><br>
+                - Rebalanced the new CT upgrade costs.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
