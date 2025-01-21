@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5",
+	num: "0.5.-1",
 	name: "Low Taper Fade Epsilon",
 }
 
@@ -113,9 +113,8 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a softcap to massive upgrade 5 at 1e10 massive points.<br>
 	<h3>v0.4.4</h3><br>
                 - Added a softcap to Madelizer upgrade 2:2 at 100,000 Madelizers.<br>
-	<h3>v0.5</h3><br>
-                - Added ANOTHER new layer! (wow 2 layers in 1 day).<br>
-		- Reworked a few upgrade effects.`
+	<h3>v0.5.-1</h3><br>
+                - Added, but then removed a layer due to malfunction.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -151,7 +150,6 @@ function getPointGen() {
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
 	if (hasUpgrade("mady", 12)) gain = gain.times(upgradeEffect("mady", 12));
-	if (hasUpgrade("aub", 13)) gain = gain.times(upgradeEffect("aub", 13));
 	if (hasUpgrade("ltf", 22)) gain = gain.times(upgradeEffect("ltf", 22).pointsBoost);
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
