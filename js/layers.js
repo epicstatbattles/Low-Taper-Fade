@@ -572,7 +572,7 @@ addLayer("mady", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                return player.mady.points.div(200).add(1).log10().pow(0.1);
+                return player.mady.points.div(200).add(10).log10().pow(0.1);
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
