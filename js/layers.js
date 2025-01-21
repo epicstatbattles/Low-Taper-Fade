@@ -31,6 +31,7 @@ addLayer("ltf", {
         if (hasUpgrade("mady", 21)) mult = mult.times(upgradeEffect("mady", 21));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("aub", 12)) mult = mult.times(upgradeEffect("aub", 12));
+        if (hasUpgrade("ct", 31)) mult = mult.times(upgradeEffect("ct", 31));
         return mult; // Ensure the function closes correctly
     },
 
@@ -213,6 +214,7 @@ addLayer("ninja", {
         if (hasUpgrade("massive", 13)) mult = mult.times(upgradeEffect("massive", 13));
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
+        if (hasUpgrade("aub", 21)) mult = mult.times(upgradeEffect("aub", 21));
         return mult;
     },
 
@@ -395,6 +397,7 @@ addLayer("massive", {
         if (hasUpgrade("mady", 23)) mult = mult.times(upgradeEffect("mady", 23));
         if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
         if (hasUpgrade("aub", 11)) mult = mult.times(upgradeEffect("aub", 11));
+        if (hasUpgrade("aub", 23)) mult = mult.times(upgradeEffect("aub", 23));
         return mult;
     },
 
@@ -528,7 +531,8 @@ addLayer("mady", {
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
-        let mult = new Decimal(1)
+        let mult = new Decimal(1);
+        if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).madyBoost);
         return mult;
     },
 
@@ -618,6 +622,16 @@ addLayer("mady", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        31: {
+            title: "Song Releases",
+            description: "The song releases and now people just have to watch it. Boost point gain heavily based on Madelizers",
+            cost: new Decimal(256000),
+            unlocked() { return hasUpgrade("mady", 23); },
+            effect() {
+                return player.mady.points.div(100).add(1).pow(0.48);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
     },
     
     milestones: {
@@ -672,6 +686,8 @@ addLayer("ct", {
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
         if (hasUpgrade("ltf", 24)) mult = mult.times(upgradeEffect("ltf", 24));
+        if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
+        if (hasUpgrade("ct", 32)) mult = mult.times(upgradeEffect("ct", 32));
         return mult;
     },
 
@@ -746,6 +762,41 @@ addLayer("ct", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        31: {
+            title: "Elite CT Player",
+            description: "You manage to reach the top ranks in CT! Boost point and LTF point gain based on CT subs.",
+            cost: new Decimal(50000),
+            unlocked() { return hasUpgrade("ct", 23) && hasUpgrade("aub", 31); },
+            effect() {
+                return player.ct.points.div(1.5).add(1).pow(0.1625);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        32: {
+            title: "CT = Sigma",
+            description: "You call CT sigma, so you gain another CT sub boost, this time based on LTF points.",
+            cost: new Decimal(1000000),
+            unlocked() { return hasUpgrade("ct", 31); },
+            effect() {
+                return player.ltf.points.div(100000).add(1).pow(0.01625);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        33: {
+            title: "Codename Synergy",
+            description: "A bond forms between Aubrie and Madelyn, causing their respective points to be boosted by each other's amount.",
+            cost: new Decimal(1e33),
+            unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
+            effect() {
+                let aubBoost = player.mady.div(1e4).add(1).pow(0.1); // Aubrinator boost
+                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
+                return { aubBoost, madyBoost };
+            },
+            effectDisplay() { 
+                let eff = this.effect();
+                return ` To Aubrinators: x${format(eff.aubBoost)}, To Madelizers: x${format(eff.madyBoost)}`; 
+            },
+        },
     },
 
     milestones: {
@@ -797,7 +848,9 @@ addLayer("aub", {
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
-        let mult = new Decimal(1)
+        let mult = new Decimal(1);
+        if (hasUpgrade("aub", 22)) mult = mult.times(upgradeEffect("aub", 22));
+        if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).aubBoost);
         return mult;
     },
 
@@ -842,6 +895,49 @@ addLayer("aub", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        21: {
+            title: "Documentary",
+            description: "Aubrie makes a 2-hour documentary on the low taper fade, boosting Ninja's popularity! Boost Ninja point gain based on their amount and Aubrinators.",
+            cost: new Decimal(25),
+            unlocked() { return hasUpgrade("aub", 13); },
+            effect() {
+                let aubEffect = player.aub.points.add(1).pow(0.325); // Effect based on aub points
+                let njaEffect = player.nja.div(10000).add(1).pow(0.0675); // Effect based on nja points
+
+                return aubEffect.times(njaEffect);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Widespread Recognition",
+            description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("aub", 12); },
+            effect() {
+                return player.points.div(1e10).add(1).pow(0.00875);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Massive Celebrity",
+            description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
+            cost: new Decimal(4000),
+            unlocked() { return hasUpgrade("aub", 12); },
+            effect() {
+                return player.points.div(5).add(1).pow(0.1875);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        31: {
+            title: "Trying CT Out!",
+            description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("aub", 12); },
+            effect() {
+                return new Decimal(1.4);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
     },
     
     milestones: {
@@ -864,7 +960,7 @@ addLayer("aub", {
         },
         "About": {
             content: [
-                ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up dragging the meme along with Ninja and Madelyn."],
+                ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up being a household name."],
             ],
         },
     },
