@@ -30,6 +30,7 @@ addLayer("ltf", {
         if (hasUpgrade("mady", 13)) mult = mult.times(upgradeEffect("mady", 13));
         if (hasUpgrade("mady", 21)) mult = mult.times(upgradeEffect("mady", 21));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
+        if (hasUpgrade("aub", 12)) mult = mult.times(upgradeEffect("aub", 12));
         return mult; // Ensure the function closes correctly
     },
 
@@ -123,8 +124,8 @@ addLayer("ltf", {
             cost: new Decimal(1e33),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
-                let ltfBoost = player.points.div(1e15).add(1).pow(0.06); // LTF point boost
-                let pointsBoost = player.ltf.points.div(1e10).add(1).pow(0.08);  // Regular point boost
+                let ltfBoost = player.points.div(1e15).add(1).pow(0.05); // LTF point boost
+                let pointsBoost = player.ltf.points.div(1e10).add(1).pow(0.0675);  // Regular point boost
                 return { ltfBoost, pointsBoost };
             },
             effectDisplay() { 
@@ -212,6 +213,7 @@ addLayer("ninja", {
         if (hasUpgrade("massive", 13)) mult = mult.times(upgradeEffect("massive", 13));
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
+        if (hasUpgrade("aub", 21)) mult = mult.times(upgradeEffect("aub", 21));
         return mult;
     },
 
@@ -393,6 +395,8 @@ addLayer("massive", {
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("mady", 23)) mult = mult.times(upgradeEffect("mady", 23));
         if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
+        if (hasUpgrade("aub", 11)) mult = mult.times(upgradeEffect("aub", 11));
+        if (hasUpgrade("aub", 23)) mult = mult.times(upgradeEffect("aub", 23));
         return mult;
     },
 
@@ -527,6 +531,7 @@ addLayer("mady", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("aub", 13)) mult = mult.times(upgradeEffect("aub", 13)).pow(0.4);
         return mult;
     },
 
@@ -620,7 +625,7 @@ addLayer("mady", {
     
     milestones: {
         0: {
-            requirementDescription: "1.00e9 Madelizers",
+            requirementDescription: "100000 Madelizers",
             effectDescription: "Meme Dragging Beast",
             done() { return player.mady.points.gte(1e9); },
         },
@@ -767,6 +772,136 @@ addLayer("ct", {
         "About": {
             content: [
                 ["raw-html", () => "The meme is so massive, it somehow managed to translate into CT subscriber gain!"],
+            ],
+        },
+    },
+});
+addLayer("aub", {
+    name: "Aubrinators", // Full name of the layer
+    symbol: "AUB", // Symbol displayed on the tree
+    position: 3, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#fa46e5", // Pink color
+    requires: new Decimal(1e8), // Points required to unlock this layer
+    resource: "Aubrinators", // Prestige currency name
+    baseResource: "massive points", // Resource used to gain prestige points
+    baseAmount() { return player.massive.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.225, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has at least 1e6 massive points
+        return player.massive.points.gte(new Decimal(1e21)) || player.aub.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("aub", 22)) mult = mult.times(upgradeEffect("aub", 22));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 2, // Row in the tree (2 = third row)
+    branches: ["massive"], // Branch from the 2 row 2 layers visually
+
+    hotkeys: [
+        { key: "2", description: "2: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Massive Upload",
+            description: "Aubrie posts an incredibly viral video on the Low Taper Fade! Boost massive point gain by 2.5x.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(2.5); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Video Effect",
+            description: "The video ended up causing a lasting effect on the meme's popularity. LTF point gain is boosted based on Aubrinators.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("aub", 11); },
+            effect() {
+                return player.aub.points.times(1.4).add(10).log10().pow(2.4);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Low Taper Playlist",
+            description: "Aubrie made an entire playlist about the meme (featuring Ninja and Madelyn collabs)! Boost point gain and Madelizer gain based on Aubrinators.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("aub", 12); },
+            effect() {
+                return player.aub.points.add(1).pow(0.35);
+            },
+            effectDisplay() { return "x" + format(this.effect()) + "(^0.4 to Madelizers)"; },
+        },
+        21: {
+            title: "Documentary",
+            description: "Aubrie makes a 2-hour long documentary about the Low Taper Fade, boosting Ninja's popularity! Boost Ninja point gain based on their amount and Aubrinators",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("aub", 13); },
+            effect() {
+                let aubrieEffect = player.aub.points.mult(2).add(10).log10().pow(1.4); // Effect based on aubrinators
+                let ninjaEffect = player.ninja.points.div(100).add(1).pow(0.05); // Effect based on Ninja points
+
+                return aubrieEffect.times(ninjaEffect);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Widespread Recognition",
+            description: "All of Aubrie's videos give her recognition. Slightly boost Aubrinators based on points.",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("aub", 21); },
+            effect() {
+                return player.points.div(1e9).add(1).pow(0.008);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Global Celebrity",
+            description: "The recognition is so MASSIVE that it begins to rival Ninja's popularity! Boost massive point gain based on Aubrinators.",
+            cost: new Decimal(1000),
+            unlocked() { return hasUpgrade("aub", 22); },
+            effect() {
+                return player.aub.points.add(1).pow(0.2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+
+    milestones: {
+        0: {
+            requirementDescription: "1000000 Aubrinators",
+            effectDescription: "World-Class Low Taper Fade Documentary",
+            done() { return player.ct.points.gte(1000000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up dragging the meme along with Ninja and Madelyn."],
             ],
         },
     },
