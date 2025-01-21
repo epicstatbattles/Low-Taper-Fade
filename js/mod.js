@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.20",
-	name: "Low Taper Fade Gamma Plus^2",
+	num: "0.4",
+	name: "Low Taper Fade Delta",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -99,7 +99,12 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.3.19</h3><br>
                 - Added a new massive upgrade!<br>
 	<h3>v0.3.20</h3><br>
-                - Nerfed massive upgrade 5's effect.`
+                - Nerfed massive upgrade 5's effect.<br>
+	<h3>v0.4</h3><br>
+                - FINALLY ADDED A NEW LAYER.<br>
+		- Rebalanced several upgrades.<br>
+		- Introduced a buyable (beta).<br>
+		- Ceiling should be ~1e120 now.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -134,6 +139,9 @@ function getPointGen() {
 	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
+	if (hasUpgrade("mady", 12)) gain = gain.times(upgradeEffect("mady", 12));
+	let buyableEffect1 = layers.mady.buyables[11].effect(getBuyableAmount("mady", 11));
+    	gain = gain.times(buyableEffect1); // Boost point gain with the buyable effect
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
