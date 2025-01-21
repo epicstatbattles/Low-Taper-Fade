@@ -796,7 +796,7 @@ addLayer("aub", {
 
     layerShown() {
         // Check if the player has at least 1e6 massive points
-        return player.massive.points.gte(new Decimal(1e21)) || player.aub.points.gte(1);
+        return player.massive.points.gte(new Decimal(1e6)) || player.aub.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -838,13 +838,13 @@ addLayer("aub", {
         },
         13: {
             title: "Low Taper Playlist",
-            description: "Aubrie made an entire playlist about the meme (featuring Ninja and Madelyn collabs)! Boost point gain and Madelizer gain based on Aubrinators.",
+            description: "Aubrie made an entire playlist about the meme (featuring Ninja and Madelyn collabs)! Boost point gain and Madelizer gain (^0.4) based on Aubrinators.",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
                 return player.aub.points.add(1).pow(0.35);
             },
-            effectDisplay() { return "x" + format(this.effect()) + "(^0.4 to Madelizers)"; },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Documentary",
@@ -885,7 +885,7 @@ addLayer("aub", {
         0: {
             requirementDescription: "1000000 Aubrinators",
             effectDescription: "World-Class Low Taper Fade Documentary",
-            done() { return player.ct.points.gte(1000000); },
+            done() { return player.aub.points.gte(1000000); },
         },
     },
 
