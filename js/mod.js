@@ -107,7 +107,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.4.1</h3><br>
                 - Fixed a bunch of upgrade effects malfunctioning.<br>
 	<h3>v0.4.2</h3><br>
-                - Fixed LTF upgrade 2:2 point boost effect malfunctioning.`
+                - Fixed LTF upgrade 2:2 point boost effect malfunctioning.<br>
+		- Slightly buffed Madelizer 2:2 upgrade formula.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
