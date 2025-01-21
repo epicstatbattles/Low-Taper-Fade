@@ -425,7 +425,7 @@ addLayer("massive", {
         12: {
             title: "Massive Point Boost",
             description: "Point gain is MASSIVELY boosted based on their amount and massive points.",
-            cost: new Decimal(10),
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade("massive", 11); },
             effect() {
                 let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
@@ -438,7 +438,7 @@ addLayer("massive", {
         13: {
             title: "Massive Ninja Boost",
             description: "Ninja points are boosted based on massive points (initial multiplier of 1.2x).",
-            cost: new Decimal(100),
+            cost: new Decimal(40),
             unlocked() { return hasUpgrade("massive", 12); },
             effect() {
                 return player.massive.points.div(3).add(1).pow(0.22).times(1.2);
@@ -448,7 +448,7 @@ addLayer("massive", {
         14: {
             title: "Self-Boost",
             description: "Massive points boost themselves! (Warning: Might lead to inflation)",
-            cost: new Decimal(10000),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("massive", 13); },
             effect() {
                 return player.massive.points.div(20).add(1).pow(0.17);
@@ -458,7 +458,7 @@ addLayer("massive", {
         15: {
             title: "Point Powerizer",
             description: "Point gain is RAISED to an exponent based on massive points.",
-            cost: new Decimal(500000),
+            cost: new Decimal(200000),
             unlocked() { return hasUpgrade("massive", 14); },
             effect() {
                 let base = player.massive.points.div(40000).add(10).log10().pow(0.06); // Original effect formula
