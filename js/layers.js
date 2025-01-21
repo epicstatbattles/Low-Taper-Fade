@@ -30,6 +30,7 @@ addLayer("ltf", {
         if (hasUpgrade("mady", 13)) mult = mult.times(upgradeEffect("mady", 13));
         if (hasUpgrade("mady", 21)) mult = mult.times(upgradeEffect("mady", 21));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
+        if (hasUpgrade("aub", 12)) mult = mult.times(upgradeEffect("aub", 12));
         return mult; // Ensure the function closes correctly
     },
 
@@ -393,6 +394,7 @@ addLayer("massive", {
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("mady", 23)) mult = mult.times(upgradeEffect("mady", 23));
         if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
+        if (hasUpgrade("aub", 11)) mult = mult.times(upgradeEffect("aub", 11));
         return mult;
     },
 
@@ -622,7 +624,7 @@ addLayer("mady", {
         0: {
             requirementDescription: "100000 Madelizers",
             effectDescription: "Meme Dragging Beast",
-            done() { return player.mady.points.gte(1e9); },
+            done() { return player.mady.points.gte(100000); },
         },
     },
 
@@ -767,6 +769,102 @@ addLayer("ct", {
         "About": {
             content: [
                 ["raw-html", () => "The meme is so massive, it somehow managed to translate into CT subscriber gain!"],
+            ],
+        },
+    },
+});
+addLayer("aub", {
+    name: "Aubrinators", // Full name of the layer
+    symbol: "AUB", // Symbol displayed on the tree
+    position: 3, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#ff5ee2", // pink
+    requires: new Decimal(100000000), // Points required to unlock this layer
+    resource: "Aubrinators", // Prestige currency name
+    baseResource: "massive points", // Resource used to gain prestige points
+    baseAmount() { return player.massive.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.1875, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has at least 1e6 massive points
+        return player.massive.points.gte(new Decimal(1e6)) || player.aub.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1)
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 2, // Row in the tree (2 = third row)
+    branches: ["massive"], // Branch from massive visually
+
+    hotkeys: [
+        { key: "u", description: "u: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Low Taper Fade Video",
+            description: "Aubrie posts a video on the low taper fade, boosting massive point gain by 2.5x.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(2.5); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Lasting Effect",
+            description: "The video gains a lot of traction, extending the longevity of the meme. Boost LTF point gain based on Aubrinators.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("aub", 11); },
+            effect() {
+                return player.aub.points.times(1.4).add(10).log10().pow(2.4);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Low Taper Playlist",
+            description: "Aubrie just made a playlist on the low taper fade! Boost point gain based on Aubrinators.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("aub", 12); },
+            effect() {
+                return player.aub.points.add(1).pow(0.36);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    
+    milestones: {
+        0: {
+            requirementDescription: "100 Aubrinators",
+            effectDescription: "I guess u just won since idk what to put here.",
+            done() { return player.aub.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up dragging the meme along with Ninja and Madelyn."],
             ],
         },
     },
