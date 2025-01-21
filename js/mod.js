@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4.1",
+	num: "0.4.2",
 	name: "Low Taper Fade Delta",
 }
 
@@ -105,7 +105,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Rebalanced several upgrades.<br>
 		- Ceiling should be ~1e120 now.<br>
 	<h3>v0.4.1</h3><br>
-                - Fixed a bunch of upgrade effects malfunctioning.`
+                - Fixed a bunch of upgrade effects malfunctioning.<br>
+	<h3>v0.4.2</h3><br>
+                - Fixed LTF upgrade 2:2 point boost effect malfunctioning.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
