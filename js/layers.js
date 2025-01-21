@@ -785,7 +785,7 @@ addLayer("ct", {
         33: {
             title: "Codename Synergy",
             description: "A bond forms between Aubrie and Madelyn, causing their respective points to be boosted by each other's amount.",
-            cost: new Decimal(1e33),
+            cost: new Decimal(1e8),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
                 let aubBoost = player.mady.div(1e4).add(1).pow(0.1); // Aubrinator boost
