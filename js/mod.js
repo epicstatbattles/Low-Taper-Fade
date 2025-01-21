@@ -116,7 +116,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.5.-1</h3><br>
                 - Added, but then removed a layer due to malfunction.<br>
 	<h3>v0.5</h3><br>
-                - Added the layer again. It is very simple at the moment due to fear of another malfunction.
+                - Added the layer again. It is very simple at the moment due to fear of another malfunction.<br>
 	<h3>v0.6</h3><br>
                 - Added LOTS of features to the new layer and 3 new CT upgrades!`
 
