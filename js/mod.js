@@ -141,7 +141,7 @@ function getPointGen() {
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
 	if (hasUpgrade("mady", 12)) gain = gain.times(upgradeEffect("mady", 12));
-	if (hasUpgrade("ltf", 23)) gain = gain.times(upgradeEffect("ltf", 23).pointsBoost);
+	if (hasUpgrade("ltf", 22)) gain = gain.times(upgradeEffect("ltf", 22).pointsBoost);
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
