@@ -755,7 +755,7 @@ addLayer("ct", {
         23: {
             title: "Grind CT",
             description: "You are grinding in CT! CT subs boost both Ninja and massive points!",
-            cost: new Decimal(100),
+            cost: new Decimal(200),
             unlocked() { return hasUpgrade("ct", 22); },
             effect() {
                 return player.ct.points.div(2).add(1).pow(0.125);
@@ -765,7 +765,7 @@ addLayer("ct", {
         31: {
             title: "Elite CT Player",
             description: "You manage to reach the top ranks in CT! Boost point and LTF point gain based on CT subs.",
-            cost: new Decimal(5e7),
+            cost: new Decimal(1e9),
             unlocked() { return hasUpgrade("ct", 23) && hasUpgrade("aub", 31); },
             effect() {
                 return player.ct.points.div(1.5).add(1).pow(0.1625);
@@ -775,7 +775,7 @@ addLayer("ct", {
         32: {
             title: "CT = Sigma",
             description: "You call CT sigma, so you gain another CT sub boost, this time based on LTF points.",
-            cost: new Decimal(1e10),
+            cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("ct", 31); },
             effect() {
                 return player.ltf.points.div(100000).add(1).pow(0.01625);
@@ -785,7 +785,7 @@ addLayer("ct", {
         33: {
             title: "Codename Synergy",
             description: "A bond forms between Aubrie and Madelyn, causing their respective points to be boosted by each other's amount.",
-            cost: new Decimal(1e15),
+            cost: new Decimal(5e16),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
                 let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
