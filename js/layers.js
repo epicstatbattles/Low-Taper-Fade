@@ -531,7 +531,7 @@ addLayer("mady", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("aub", 13)) mult = mult.times(upgradeEffect("aub", 13)).pow(0.4);
+        if (hasUpgrade("aub", 13)) mult = mult.times(upgradeEffect("aub", 13));
         return mult;
     },
 
@@ -838,11 +838,11 @@ addLayer("aub", {
         },
         13: {
             title: "Low Taper Playlist",
-            description: "Aubrie made an entire playlist about the meme (featuring Ninja and Madelyn collabs)! Boost point gain and Madelizer gain (^0.4) based on Aubrinators.",
+            description: "Aubrie made an entire playlist about the meme featuring Ninja and Madelyn collabs! Boost point gain and Madelizer gain based on Aubrinators.",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
-                return player.aub.points.add(1).pow(0.35);
+                return player.aub.points.add(1).pow(0.235);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
