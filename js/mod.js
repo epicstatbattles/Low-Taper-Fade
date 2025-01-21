@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4.3",
+	num: "0.4.4",
 	name: "Low Taper Fade Delta",
 }
 
@@ -110,7 +110,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Fixed LTF upgrade 2:2 point boost effect malfunctioning.<br>
 		- Slightly buffed Madelizer 2:2 upgrade formula.<br>
 	<h3>v0.4.3</h3><br>
-                - Added a softcap to massive upgrade 5 at 1e10 massive points.`
+                - Added a softcap to massive upgrade 5 at 1e10 massive points.<br>
+	<h3>v0.4.4</h3><br>
+                - Added a softcap to Madelizer upgrade 2:2 at 1e5 Madelizer points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
