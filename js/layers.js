@@ -686,7 +686,7 @@ addLayer("ct", {
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
         if (hasUpgrade("ltf", 24)) mult = mult.times(upgradeEffect("ltf", 24));
-        if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
+        if (hasUpgrade("aub", 22)) mult = mult.times(upgradeEffect("aub", 22));
         if (hasUpgrade("ct", 32)) mult = mult.times(upgradeEffect("ct", 32));
         return mult;
     },
@@ -766,7 +766,7 @@ addLayer("ct", {
             title: "Elite CT Player",
             description: "You manage to reach the top ranks in CT! Boost point and LTF point gain based on CT subs.",
             cost: new Decimal(1e9),
-            unlocked() { return hasUpgrade("ct", 23) && hasUpgrade("aub", 31); },
+            unlocked() { return hasUpgrade("ct", 23) && hasUpgrade("aub", 22); },
             effect() {
                 return player.ct.points.div(1.5).add(1).pow(0.1625);
             },
@@ -849,7 +849,7 @@ addLayer("aub", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("aub", 22)) mult = mult.times(upgradeEffect("aub", 22));
+        if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).aubBoost);
         return mult;
     },
@@ -909,12 +909,12 @@ addLayer("aub", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         22: {
-            title: "Widespread Recognition",
-            description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
-            cost: new Decimal(200),
-            unlocked() { return hasUpgrade("aub", 21); },
+            title: "Trying CT Out!",
+            description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("aub", 23); },
             effect() {
-                return player.points.div(1e10).add(1).pow(0.00875);
+                return new Decimal(1.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -929,12 +929,12 @@ addLayer("aub", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         31: {
-            title: "Trying CT Out!",
-            description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
-            cost: new Decimal(10000),
-            unlocked() { return hasUpgrade("aub", 23); },
+            title: "Widespread Recognition",
+            description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("aub", 21); },
             effect() {
-                return new Decimal(1.4);
+                return player.points.div(1e10).add(1).pow(0.00875);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
