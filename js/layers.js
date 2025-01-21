@@ -120,8 +120,8 @@ addLayer("ltf", {
         22: {
             title: "The Edits Go VIRAL!",
             description: "Points and LTF points boost each other.",
-            cost: new Decimal(50),
-            unlocked() { return hasUpgrade("mady", 21); },
+            cost: new Decimal(1e33),
+            unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
                 let ltfBoost = player.points.div(1e15).add(1).pow(0.06); // LTF point boost
                 let pointsBoost = player.ltf.points.div(1e10).add(1).pow(0.08);  // Regular point boost
@@ -512,7 +512,6 @@ addLayer("mady", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
         return mult;
     },
 
@@ -591,9 +590,9 @@ addLayer("mady", {
     
     milestones: {
         0: {
-            requirementDescription: "100000 CT Subscribers",
-            effectDescription: "Verified CT Player",
-            done() { return player.ct.points.gte(100000); },
+            requirementDescription: "1.00e9 Madelizers",
+            effectDescription: "Meme Dragging Beast",
+            done() { return player.mady.points.gte(1e9); },
         },
     },
 
