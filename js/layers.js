@@ -26,6 +26,10 @@ addLayer("ltf", {
         if (hasUpgrade("massive", 11)) mult = mult.times(upgradeEffect("massive", 11));
         if (hasUpgrade("ct", 12)) mult = mult.times(upgradeEffect("ct", 12));
         if (hasUpgrade("ct", 21)) mult = mult.times(upgradeEffect("ct", 21));
+        if (hasUpgrade("ltf", 22)) mult = mult.times(upgradeEffect("ltf", 22).ltfBoost);
+        if (hasUpgrade("mady", 13)) mult = mult.times(upgradeEffect("mady", 13));
+        if (hasUpgrade("mady", 21)) mult = mult.times(upgradeEffect("mady", 21));
+        if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         return mult; // Ensure the function closes correctly
     },
 
@@ -88,7 +92,7 @@ addLayer("ltf", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
-        16: {
+        21: {
             title: "Imagine If Ninja got a LOW TAPER FADE",
             description: "Boost point gain MASSIVELY based on low taper fade points.",
             cost: new Decimal(500),
@@ -112,6 +116,51 @@ addLayer("ltf", {
                 }
                 return display; // Return the final string
             },
+        },
+        22: {
+            title: "The Edits Go VIRAL!",
+            description: "Points and LTF points boost each other.",
+            cost: new Decimal(50),
+            unlocked() { return hasUpgrade("mady", 21); },
+            effect() {
+                let ltfBoost = player.points.div(1e15).add(1).pow(0.06); // LTF point boost
+                let pointsBoost = player.ltf.points.div(1e10).add(1).pow(0.08);  // Regular point boost
+                return { ltfBoost, pointsBoost };
+            },
+            effectDisplay() { 
+                let eff = this.effect();
+                return `LTF Boost: x${format(eff.ltfBoost)}, Point Boost: x${format(eff.pointsBoost)}`; 
+            },
+        },
+        23: {
+            title: "The 2 Draggers",
+            description: "Ninja and Madelyn drag the meme A LOT! Massive point gain is boosted by LTF points.",
+            cost: new Decimal(1e39),
+            unlocked() { return hasUpgrade("ltf", 22); },
+            effect() {
+                return player.ltf.points.add(10).log10().pow(0.3125); // Logarithmic growth
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Codename Low Taper Fade",
+            description: "CT sub gain is boosted by LTF points.",
+            cost: new Decimal(1e45),
+            unlocked() { return hasUpgrade("ltf", 23); },
+            effect() {
+                return player.ltf.points.add(10).log10().pow(0.2625); // Logarithmic growth
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        25: {
+            title: "Widespread Meme",
+            description: "Boost LTF, Ninja, and massive points based on points.",
+            cost: new Decimal(1e60),
+            unlocked() { return hasUpgrade("ltf", 24); },
+            effect() {
+                return player.points.add(10).log10().pow(0.3125); // Logarithmic growth
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
 
@@ -163,11 +212,14 @@ addLayer("ninja", {
         if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
         if (hasUpgrade("massive", 13)) mult = mult.times(upgradeEffect("massive", 13));
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
+        if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         return mult;
     },
 
-    gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1); // Default is no additional exponential scaling
+    gainExp() {
+        let exp = new Decimal(1); // Default exponent
+        if (hasUpgrade("mady", 22)) exp = exp.times(upgradeEffect("mady",22)); // Example upgrade adding 0.2 to the exponent
+        return exp;
     },
 
     row: 1, // Row in the tree (1 = second row)
@@ -338,11 +390,15 @@ addLayer("massive", {
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 14)) mult = mult.times(upgradeEffect("massive", 14));
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
+        if (hasUpgrade("mady", 11)) mult = mult.times(upgradeEffect("mady", 11));
+        if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
+        if (hasUpgrade("mady", 23)) mult = mult.times(upgradeEffect("mady", 23));
+        if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
         return mult;
     },
 
     gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1); // Default is no additional exponential scaling
+        return new Decimal(1);
     },
 
     row: 1, // Row in the tree (1 = second row)
@@ -399,9 +455,9 @@ addLayer("massive", {
             title: "Point Powerizer",
             description: "Point gain is RAISED to an exponent based on massive points.",
             cost: new Decimal(500000),
-            unlocked() { return hasUpgrade("massive", 13); },
+            unlocked() { return hasUpgrade("massive", 14); },
             effect() {
-                return player.massive.points.div(20000).add(10).log10().pow(0.075);
+                return player.massive.points.div(40000).add(10).log10().pow(0.06);
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
@@ -432,10 +488,165 @@ addLayer("massive", {
         },
     },
 });
+addLayer("mady", {
+    name: "Madelizers", // Full name of the layer
+    symbol: "MDL", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#7b00ff", // purple
+    requires: new Decimal(1e12), // Points required to unlock this layer
+    resource: "Madelizers", // Prestige currency name
+    baseResource: "Ninja points", // Resource used to gain prestige points
+    baseAmount() { return player.ninja.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.2, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has at least 1e9 Ninja points
+        return player.ninja.points.gte(new Decimal(1e9)) || player.mady.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 2, // Row in the tree (2 = third row)
+    branches: ["ninja"], // Branch from Ninja visually
+
+    hotkeys: [
+        { key: "1", description: "1: Reset for Madelizers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "New Meme Dragger",
+            description: "Madelyn begins dragging the meme too? Gain a 3x boost to Ninja points.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(3); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "In Public, Too?",
+            description: "Madelyn goes out of her way to drag the meme in public. Points are boosted based on Madelizers.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("mady", 11); },
+            effect() {
+                return player.mady.points.times(1.5).add(10).log10().pow(2.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Video Collab",
+            description: "Ninja and Madelyn make a video together to drag the meme some more. Madelizers boost LTF points.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("mady", 12); },
+            effect() {
+                return player.mady.points.add(1).pow(0.4);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "New Dragging Methods",
+            description: "Madelyn finds new ways to drag the meme. Unlock 4 new LTF upgrades and slightly boost their gain (1.25x).",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("mady", 13); },
+            effect() {
+                return new Decimal(1.25);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "More Video Appearances",
+            description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers.",
+            cost: new Decimal(500),
+            unlocked() { return hasUpgrade("mady", 21); },
+            effect() {
+                return player.mady.points.div(200).add(1).log10().pow(0.1);
+            },
+            effectDisplay() { return "^" + format(this.effect()); },
+        },
+        23: {
+            title: "Song Development",
+            description: "Madelyn instructs someone to make a Low Taper Fade song... Boost massive point gain based on Madelizers.",
+            cost: new Decimal(40000),
+            unlocked() { return hasUpgrade("mady", 22); },
+            effect() {
+                return player.mady.points.div(4).add(1).pow(0.3);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Madelizer Enhancer",
+            description: "Boost LTF and Ninja points based on Madelizers",
+            cost(x) { 
+                return new Decimal(10).times(Decimal.pow(4, x)); 
+            }, // Cost increases exponentially with level
+            effect(x) { 
+                return player.mady.points.add(1)pow(0.05).pow(x); // Apply the scaling formula
+            },
+            display() { 
+                let amt = getBuyableAmount(this.layer, this.id); // Get current level
+                return `Level: ${amt}\nEffect: x${format(this.effect(amt))}\nCost: ${format(this.cost(amt))} points`;
+            },
+            unlocked() { return true; }, // Unlock condition
+            canAfford() { 
+                return player.points.gte(this.cost(getBuyableAmount(this.layer, this.id))); 
+            },
+            buy() {
+                let cost = this.cost(getBuyableAmount(this.layer, this.id)); // Calculate cost
+                if (this.canAfford()) {
+                    player.mady.points = player.mady.points.sub(cost); // Subtract cost
+                    addBuyables(this.layer, this.id, 1); // Increase level
+                }
+            },
+        },
+    }
+
+    milestones: {
+        0: {
+            requirementDescription: "100000 CT Subscribers",
+            effectDescription: "Verified CT Player",
+            done() { return player.ct.points.gte(100000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "buyables",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Ninja needs to drag the meme longer so it doesn't fade! The problem is, he just can't do it on his own. So he hired Madelyn to essentially increase the dragging effect so the meme lasts longer."],
+            ],
+        },
+    },
+});
 addLayer("ct", {
     name: "Codename Trademark", // Full name of the layer
     symbol: "CT", // Symbol displayed on the tree
-    position: 1, // Position in the tree
+    position: 2, // Position in the tree
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
@@ -458,6 +669,7 @@ addLayer("ct", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 22)) mult = mult.times(upgradeEffect("ct", 22));
+        if (hasUpgrade("ltf", 24)) mult = mult.times(upgradeEffect("ltf", 24));
         return mult;
     },
 
@@ -475,20 +687,20 @@ addLayer("ct", {
     upgrades: {
         11: {
             title: "Develop CT",
-            description: "Codename Trademark development begins! Multiply point gain by 10.",
+            description: "Codename Trademark development begins! Multiply point gain by 5.",
             cost: new Decimal(1),
             effect() {
-                return new Decimal(10); // Simple multiplier
+                return new Decimal(5); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Update CT",
-            description: "CT is receiving updates! Receive a 5x boost to low taper fade point gain.",
+            description: "CT is receiving updates! Receive a 3x boost to low taper fade point gain.",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ct", 11); },
             effect() {
-                return new Decimal(5);
+                return new Decimal(3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
