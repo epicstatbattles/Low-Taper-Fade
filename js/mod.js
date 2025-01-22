@@ -130,9 +130,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.6.5</h3><br>
                 - Added initial multipliers to some of the CT subscriber, Madelizer, and Aubrinator upgrades.<br>
 	<h3>v0.6.6</h3><br>
-                - Reworked Aubrinator and Madelizer upgrade costs.
+                - Reworked Aubrinator and Madelizer upgrade costs.<br>
 	<h3>v0.6.7</h3><br>
-                - Fixed Madelizer upgrade 1:1 not working.`
+                - Fixed Madelizer upgrade 1:1 not working as intended.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
