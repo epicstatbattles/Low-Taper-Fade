@@ -580,7 +580,7 @@ addLayer("mady", {
         21: {
             title: "New Dragging Methods",
             description: "Madelyn finds new ways to drag the meme. Unlock 4 new LTF upgrades and slightly boost their gain (1.25x).",
-            cost: new Decimal(20),
+            cost: new Decimal(10),
             unlocked() { return hasUpgrade("mady", 13); },
             effect() {
                 return new Decimal(1.25);
@@ -590,7 +590,7 @@ addLayer("mady", {
         22: {
             title: "More Video Appearances",
             description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers (initial 1.35x multi).",
-            cost: new Decimal(500),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
                 let base = player.mady.points.div(20).add(10).log10().pow(0.1125).times(1.35); // Original effect formula
@@ -615,7 +615,7 @@ addLayer("mady", {
         23: {
             title: "Song Development",
             description: "Madelyn instructs someone to make a Low Taper Fade song... Boost massive point gain based on Madelizers (initial 1.4x multi).",
-            cost: new Decimal(40000),
+            cost: new Decimal(4000),
             unlocked() { return hasUpgrade("mady", 22); },
             effect() {
                 return player.mady.points.div(4).add(1).pow(0.3).times(1.4);
@@ -625,7 +625,7 @@ addLayer("mady", {
         31: {
             title: "Song Releases",
             description: "The song releases and now people just have to watch it. Boost point gain heavily based on Madelizers.",
-            cost: new Decimal(256000),
+            cost: new Decimal(25600),
             unlocked() { return hasUpgrade("mady", 23); },
             effect() {
                 return player.mady.points.div(100).add(1).pow(0.48);
@@ -888,7 +888,7 @@ addLayer("aub", {
         13: {
             title: "Low Taper Playlist",
             description: "Aubrie just made a playlist on the low taper fade! Boost point gain based on Aubrinators (initial 1.3x multi).",
-            cost: new Decimal(5),
+            cost: new Decimal(3),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
                 return player.aub.points.add(1).pow(0.36).times(1.3);
@@ -898,7 +898,7 @@ addLayer("aub", {
         21: {
             title: "Documentary",
             description: "Aubrie makes a 2-hour documentary on the low taper fade, boosting Ninja's popularity! Boost Ninja point gain based on their amount and Aubrinators (initial 1.2x multi).",
-            cost: new Decimal(25),
+            cost: new Decimal(10),
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
                 let aubEffect = player.aub.points.add(1).pow(0.325).times(1.2); // Effect based on aub points
@@ -911,7 +911,7 @@ addLayer("aub", {
         22: {
             title: "Trying CT Out!",
             description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
-            cost: new Decimal(10000),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
                 return new Decimal(1.4);
@@ -921,7 +921,7 @@ addLayer("aub", {
         23: {
             title: "Massive Celebrity",
             description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
-            cost: new Decimal(40000),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
                 return player.points.div(5).add(1).pow(0.1875);
@@ -931,7 +931,7 @@ addLayer("aub", {
         31: {
             title: "Widespread Recognition",
             description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
-            cost: new Decimal(250000),
+            cost: new Decimal(10000),
             unlocked() { return hasUpgrade("aub", 21); },
             effect() {
                 return player.points.div(1e10).add(1).pow(0.00875);
