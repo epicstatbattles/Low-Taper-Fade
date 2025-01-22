@@ -393,7 +393,6 @@ addLayer("massive", {
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 14)) mult = mult.times(upgradeEffect("massive", 14));
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
-        if (hasUpgrade("mady", 11)) mult = mult.times(upgradeEffect("mady", 11));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("mady", 23)) mult = mult.times(upgradeEffect("mady", 23));
         if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
