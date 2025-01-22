@@ -589,11 +589,11 @@ addLayer("mady", {
         },
         22: {
             title: "More Video Appearances",
-            description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers (initial 1.35x multi).",
+            description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers (initial ^1.01 exponent).",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                let base = player.mady.points.div(20).add(10).log10().pow(0.1125).times(1.35); // Original effect formula
+                let base = player.mady.points.div(20).add(10).log10().pow(0.1125).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -786,7 +786,7 @@ addLayer("ct", {
             title: "Codename Synergy",
             description: "A bond forms between Aubrie and Madelyn, causing their respective points to be boosted by each other's amount.",
             cost: new Decimal(5e16),
-            unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
+            unlocked() { return hasUpgrade("ct", 32); },
             effect() {
                 let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
                 let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
@@ -912,7 +912,7 @@ addLayer("aub", {
             title: "Trying CT Out!",
             description: "Aubrie decides to try out Codename Trademark. Unlock 3 new CT upgrades and slightly boost their gain (1.4x).",
             cost: new Decimal(100),
-            unlocked() { return hasUpgrade("aub", 23); },
+            unlocked() { return hasUpgrade("aub", 21); },
             effect() {
                 return new Decimal(1.4);
             },
@@ -932,7 +932,7 @@ addLayer("aub", {
             title: "Widespread Recognition",
             description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
             cost: new Decimal(10000),
-            unlocked() { return hasUpgrade("aub", 21); },
+            unlocked() { return hasUpgrade("aub", 23); },
             effect() {
                 return player.points.div(1e10).add(1).pow(0.00875);
             },
