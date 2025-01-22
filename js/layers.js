@@ -559,21 +559,21 @@ addLayer("mady", {
         },
         12: {
             title: "In Public, Too?",
-            description: "Madelyn goes out of her way to drag the meme in public. Points are boosted based on Madelizers.",
+            description: "Madelyn goes out of her way to drag the meme in public. Points are boosted based on Madelizers. (initial 1.25x multi)",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("mady", 11); },
             effect() {
-                return player.mady.points.times(1.5).add(10).log10().pow(2.5);
+                return player.mady.points.times(1.5).add(10).log10().pow(2.5).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Video Collab",
-            description: "Ninja and Madelyn make a video together to drag the meme some more. Madelizers boost LTF points.",
+            description: "Ninja and Madelyn make a video together to drag the meme some more. Madelizers boost LTF points (initial 1.3x multi).",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("mady", 12); },
             effect() {
-                return player.mady.points.add(1).pow(0.4);
+                return player.mady.points.add(1).pow(0.4).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -589,11 +589,11 @@ addLayer("mady", {
         },
         22: {
             title: "More Video Appearances",
-            description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers.",
+            description: "Ninja and Madelyn make nearly video together, sometimes to drag the meme more. Raise Ninja point gain based on Madelizers (initial 1.35x multi).",
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                let base = player.mady.points.div(20).add(10).log10().pow(0.1125); // Original effect formula
+                let base = player.mady.points.div(20).add(10).log10().pow(0.1125).times(1.35); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -614,17 +614,17 @@ addLayer("mady", {
         },
         23: {
             title: "Song Development",
-            description: "Madelyn instructs someone to make a Low Taper Fade song... Boost massive point gain based on Madelizers.",
+            description: "Madelyn instructs someone to make a Low Taper Fade song... Boost massive point gain based on Madelizers (initial 1.4x multi).",
             cost: new Decimal(40000),
             unlocked() { return hasUpgrade("mady", 22); },
             effect() {
-                return player.mady.points.div(4).add(1).pow(0.3);
+                return player.mady.points.div(4).add(1).pow(0.3).times(1.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         31: {
             title: "Song Releases",
-            description: "The song releases and now people just have to watch it. Boost point gain heavily based on Madelizers",
+            description: "The song releases and now people just have to watch it. Boost point gain heavily based on Madelizers.",
             cost: new Decimal(256000),
             unlocked() { return hasUpgrade("mady", 23); },
             effect() {
@@ -724,21 +724,21 @@ addLayer("ct", {
         },
         13: {
             title: "Stream CT",
-            description: "CT is being streamed! Gain more points based on your CT subscribers!",
+            description: "CT is being streamed! Gain more points based on your CT subscribers! (initial 1.25x multi)",
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                return player.ct.points.times(2).add(10).log10().pow(3);
+                return player.ct.points.times(2).add(10).log10().pow(3).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Release CT",
-            description: "CT Ultra 1.00 has been released! LTF gain is boosted based on your CT subscribers!",
+            description: "CT Ultra 1.00 has been released! LTF gain is boosted based on your CT subscribers! (initial 1.3x multi)",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                return player.ct.points.times(1.5).add(10).log10().pow(2.25);
+                return player.ct.points.times(1.5).add(10).log10().pow(2.25).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -754,11 +754,11 @@ addLayer("ct", {
         },
         23: {
             title: "Grind CT",
-            description: "You are grinding in CT! CT subs boost both Ninja and massive points!",
+            description: "You are grinding in CT! CT subs boost both Ninja and massive points! (initial 1.1x multi)",
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("ct", 22); },
             effect() {
-                return player.ct.points.div(2).add(1).pow(0.125);
+                return player.ct.points.div(2).add(1).pow(0.125).times(1.1);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -877,31 +877,31 @@ addLayer("aub", {
         },
         12: {
             title: "Lasting Effect",
-            description: "The video gains a lot of traction, extending the longevity of the meme. Boost LTF point gain based on Aubrinators.",
+            description: "The video gains a lot of traction, extending the longevity of the meme. Boost LTF point gain based on Aubrinators (initial 1.25x multi).",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("aub", 11); },
             effect() {
-                return player.aub.points.times(1.4).add(10).log10().pow(2.4);
+                return player.aub.points.times(1.4).add(10).log10().pow(2.4).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Low Taper Playlist",
-            description: "Aubrie just made a playlist on the low taper fade! Boost point gain based on Aubrinators.",
+            description: "Aubrie just made a playlist on the low taper fade! Boost point gain based on Aubrinators (initial 1.3x multi).",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
-                return player.aub.points.add(1).pow(0.36);
+                return player.aub.points.add(1).pow(0.36).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Documentary",
-            description: "Aubrie makes a 2-hour documentary on the low taper fade, boosting Ninja's popularity! Boost Ninja point gain based on their amount and Aubrinators.",
+            description: "Aubrie makes a 2-hour documentary on the low taper fade, boosting Ninja's popularity! Boost Ninja point gain based on their amount and Aubrinators (initial 1.2x multi).",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
-                let aubEffect = player.aub.points.add(1).pow(0.325); // Effect based on aub points
+                let aubEffect = player.aub.points.add(1).pow(0.325).times(1.2); // Effect based on aub points
                 let njaEffect = player.ninja.points.div(10000).add(1).pow(0.0675); // Effect based on nja points
 
                 return aubEffect.times(njaEffect);
@@ -921,7 +921,7 @@ addLayer("aub", {
         23: {
             title: "Massive Celebrity",
             description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
-            cost: new Decimal(4000),
+            cost: new Decimal(40000),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
                 return player.points.div(5).add(1).pow(0.1875);
@@ -931,7 +931,7 @@ addLayer("aub", {
         31: {
             title: "Widespread Recognition",
             description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
-            cost: new Decimal(200),
+            cost: new Decimal(250000),
             unlocked() { return hasUpgrade("aub", 21); },
             effect() {
                 return player.points.div(1e10).add(1).pow(0.00875);
@@ -942,9 +942,9 @@ addLayer("aub", {
     
     milestones: {
         0: {
-            requirementDescription: "100000 Aubrinators",
+            requirementDescription: "1000000 Aubrinators",
             effectDescription: "I guess u just won since idk what to put here.",
-            done() { return player.aub.points.gte(100000); },
+            done() { return player.aub.points.gte(1000000); },
         },
     },
 
