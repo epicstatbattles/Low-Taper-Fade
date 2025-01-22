@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.8",
+	num: "0.6.9",
 	name: "Low Taper Fade Zeta",
 }
 
@@ -134,7 +134,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.6.7</h3><br>
                 - Fixed Madelizer upgrade 1:1 not working as intended.<br>
 	<h3>v0.6.8</h3><br>
-                - Buffed Aubrinator and Madelizer conversion rates.`
+                - Buffed Aubrinator and Madelizer conversion rates.<br>
+	<h3>v0.6.9</h3><br>
+                - Fixed a few unlock conditions being buggy.<br>
+		- Fixed accidental mega-buffing of Madelizer upgrade 2:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
