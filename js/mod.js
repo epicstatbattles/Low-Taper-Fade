@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.5",
+	num: "0.6.6",
 	name: "Low Taper Fade Zeta",
 }
 
@@ -128,7 +128,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.6.4</h3><br>
                 - Slightly buffed massive upgrade 4.<br>
 	<h3>v0.6.5</h3><br>
-                - Added initial multipliers to some of the CT subscriber, Madelizer, and Aubrinator upgrades.`
+                - Added initial multipliers to some of the CT subscriber, Madelizer, and Aubrinator upgrades.<br>
+	<h3>v0.6.6</h3><br>
+                - Reworked Aubrinator and Madelizer upgrade costs.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
