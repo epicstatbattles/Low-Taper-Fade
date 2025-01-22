@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.12",
+	num: "0.6.13",
 	name: "Low Taper Fade Zeta Plus",
 }
 
@@ -145,7 +145,10 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly rebalanced Aubrinator costs.<br>
 		- Nerfed LTF upgrade 2:2.<br>
 	<h3>v0.6.12</h3><br>
-                - Slightly nerfed all dynamic boosts for CT subs, Madelizers, and Aubrinators.`
+                - Slightly nerfed all dynamic boosts for CT subs, Madelizers, and Aubrinators.<br>
+	<h3>v0.6.13</h3><br>
+                - Added a super softcap for LTF upgrade 2:1 at 1e80 LTF points.<br>
+		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
