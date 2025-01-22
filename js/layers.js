@@ -101,20 +101,29 @@ addLayer("ltf", {
             unlocked() { return hasUpgrade("ltf", 15); },
             effect() {
                 let base = player.ltf.points.times(4).add(1).pow(0.375); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for points >= 1e20
                 if (player.ltf.points.gte(new Decimal(1e20))) {
-                    diminishingFactor = player.ltf.points.div(1e20).pow(0.175); // Slight division factor
+                    firstDiminishingFactor = player.ltf.points.div(1e20).pow(0.175);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for points >= 1e80
+                if (player.ltf.points.gte(new Decimal(1e80))) {
+                    secondDiminishingFactor = player.ltf.points.div(1e80).pow(0.125);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.ltf.points.gte(1e20); // Check if softcap applies
+                let isSuperSoftcapped = player.ltf.points.gte(1e80); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -258,22 +267,30 @@ addLayer("ninja", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
-                let base = player.ninja.points.div(3).add(1).pow(0.35).times(1.2) // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let base = player.ninja.points.div(3).add(1).pow(0.35).times(1.2); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for points >= 1e20
                 if (player.ninja.points.gte(new Decimal(1e10))) {
-                    diminishingFactor = player.ninja.points.div(1e10).pow(0.15); // Slight division factor
+                    firstDiminishingFactor = player.ninja.points.div(1e10).pow(0.15);
                 }
 
-                return base.div(diminishingFactor); // Final effect
+                // Apply second diminishing factor for points >= 1e80
+                if (player.ninja.points.gte(new Decimal(1e40))) {
+                    secondDiminishingFactor = player.ninja.points.div(1e40).pow(0.1);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() { 
                 let isSoftcapped = player.ninja.points.gte(1e10); // Check if softcap applies
+                let isSuperSoftcapped = player.ninja.points.gte(1e40); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
