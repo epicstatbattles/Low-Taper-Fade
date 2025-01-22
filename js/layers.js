@@ -523,7 +523,7 @@ addLayer("mady", {
     baseResource: "Ninja points", // Resource used to gain prestige points
     baseAmount() { return player.ninja.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.2, // Scaling factor for prestige points
+    exponent: 0.275, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has at least 1e9 Ninja points
@@ -840,7 +840,7 @@ addLayer("aub", {
     baseResource: "massive points", // Resource used to gain prestige points
     baseAmount() { return player.massive.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.1875, // Scaling factor for prestige points
+    exponent: 0.25, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has at least 1e6 massive points
