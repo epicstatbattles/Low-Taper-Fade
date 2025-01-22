@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.10",
+	num: "0.6.11",
 	name: "Low Taper Fade Zeta Plus",
 }
 
@@ -140,7 +140,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed accidental mega-buffing of Madelizer upgrade 2:2.<br>
 	<h3>v0.6.10</h3><br>
                 - Buffed Madelizer upgrade 3:1.<br>
-		- Reduced softcap effectiveness of massive upgrade 5 to prevent its effect from decaying at ~2e10 massive points.`
+		- Reduced softcap effectiveness of massive upgrade 5 to prevent its effect from decaying at ~2e10 massive points.<br>
+	<h3>v0.6.11</h3><br>
+                - Slightly rebalanced Aubrinator costs.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
