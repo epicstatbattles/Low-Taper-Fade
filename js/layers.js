@@ -215,6 +215,7 @@ addLayer("ninja", {
         if (hasUpgrade("ct", 23)) mult = mult.times(upgradeEffect("ct", 23));
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("aub", 21)) mult = mult.times(upgradeEffect("aub", 21));
+        if (hasUpgrade("mady", 11)) mult = mult.times(upgradeEffect("mady", 11));
         return mult;
     },
 
