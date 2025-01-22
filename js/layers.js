@@ -268,7 +268,7 @@ addLayer("ninja", {
         },
             effectDisplay() { 
                 let isSoftcapped = player.ninja.points.gte(1e20); // Check if softcap applies
-                let display = "^" + format(this.effect()); // Base effect display
+                let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
                     display += " (SC)"; // Append softcap indicator
