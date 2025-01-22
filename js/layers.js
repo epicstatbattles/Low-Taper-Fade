@@ -466,7 +466,7 @@ addLayer("massive", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.massive.points.gte(new Decimal(1e10))) {
-                    diminishingFactor = player.massive.points.div(1e9).log10().pow(0.0175); // Slight division factor
+                    diminishingFactor = player.massive.points.div(1e9).log10().pow(0.0125); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
