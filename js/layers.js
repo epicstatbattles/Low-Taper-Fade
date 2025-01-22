@@ -458,9 +458,24 @@ addLayer("massive", {
             description: "Low taper fade points are boosted based on massive points (initial multiplier of 1.1x).",
             cost: new Decimal(1),
             effect() {
-                return player.massive.points.div(2).add(1).pow(0.26).times(1.1);
+                let base = player.massive.points.div(2).add(1).pow(0.26).times(1.1); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e15))) {
+                    diminishingFactor = player.massive.points.div(1e15).pow(0.125); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e15); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Massive Point Boost",
@@ -481,9 +496,24 @@ addLayer("massive", {
             cost: new Decimal(40),
             unlocked() { return hasUpgrade("massive", 12); },
             effect() {
-                return player.massive.points.div(3).add(1).pow(0.22).times(1.2);
+                let base = player.massive.points.div(3).add(1).pow(0.22).times(1.2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e15))) {
+                    diminishingFactor = player.massive.points.div(1e15).pow(0.1); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e15); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
             title: "Self-Boost",
@@ -491,9 +521,24 @@ addLayer("massive", {
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("massive", 13); },
             effect() {
-                return player.massive.points.div(20).add(1).pow(0.175);
+                let base = player.massive.points.div(20).add(1).pow(0.175); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e20))) {
+                    diminishingFactor = player.massive.div(1e20).pow(0.0875); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e20); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         15: {
             title: "Point Powerizer",
