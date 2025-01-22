@@ -888,7 +888,7 @@ addLayer("aub", {
         13: {
             title: "Low Taper Playlist",
             description: "Aubrie just made a playlist on the low taper fade! Boost point gain based on Aubrinators (initial 1.3x multi).",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
                 return player.aub.points.add(1).pow(0.36).times(1.3);
@@ -921,7 +921,7 @@ addLayer("aub", {
         23: {
             title: "Massive Celebrity",
             description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
-            cost: new Decimal(1000),
+            cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
                 return player.points.div(5).add(1).pow(0.1875);
@@ -931,7 +931,7 @@ addLayer("aub", {
         31: {
             title: "Widespread Recognition",
             description: "Aubrie gained tons of recognition from her countless videos on the low taper fade. Boost Aubrinator gain based on points.",
-            cost: new Decimal(10000),
+            cost: new Decimal(20000),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
                 return player.points.div(1e10).add(1).pow(0.00875);
