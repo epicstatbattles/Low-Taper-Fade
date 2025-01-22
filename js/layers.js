@@ -624,11 +624,11 @@ addLayer("mady", {
         },
         31: {
             title: "Song Releases",
-            description: "The song releases and now people just have to watch it. Boost point gain heavily based on Madelizers.",
+            description: "The song releases and now people just have to watch it. Boost point gain MASSIVELY based on Madelizers.",
             cost: new Decimal(25600),
             unlocked() { return hasUpgrade("mady", 23); },
             effect() {
-                return player.mady.points.div(100).add(1).pow(0.48);
+                return player.mady.points.div(4).add(1).pow(0.5625);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
