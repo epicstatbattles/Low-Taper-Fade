@@ -138,7 +138,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.6.9</h3><br>
                 - Fixed a few unlock conditions being buggy.<br>
 		- Fixed accidental mega-buffing of Madelizer upgrade 2:2.<br>
-	<h3>v0.6.10/h3><br>
+	<h3>v0.6.10</h3><br>
                 - Buffed Madelizer upgrade 3:1.<br>
 		- Reduced softcap effectiveness of massive upgrade 5 to prevent its effect from decaying at ~2e10 massive points.`
 
