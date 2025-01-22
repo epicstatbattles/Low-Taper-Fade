@@ -451,7 +451,7 @@ addLayer("massive", {
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("massive", 13); },
             effect() {
-                return player.massive.points.div(20).add(1).pow(0.17);
+                return player.massive.points.div(20).add(1).pow(0.175);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
