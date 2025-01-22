@@ -257,9 +257,24 @@ addLayer("ninja", {
             cost: new Decimal(1),
             unlocked() { return hasUpgrade("ninja", 11); },
             effect() {
-                return player.ninja.points.add(1).pow(0.175).times(1.2);
+                let base = player.ninja.points.add(1).pow(0.175); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ninja.points.gte(new Decimal(1e20))) {
+                    diminishingFactor = player.ninja.points.div(1e20).pow(0.0875); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.ninja.points.gte(1e20); // Check if softcap applies
+                let display = "^" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Operation Meme Drag",
