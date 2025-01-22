@@ -125,8 +125,8 @@ addLayer("ltf", {
             cost: new Decimal(1e33),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
-                let ltfBoost = player.points.div(1e22).add(1).pow(0.05); // LTF point boost
-                let pointsBoost = player.ltf.points.div(1e16).add(1).pow(0.0675);  // Regular point boost
+                let ltfBoost = player.points.div(1e36).add(1).pow(0.05); // LTF point boost
+                let pointsBoost = player.ltf.points.div(1e27).add(1).pow(0.0675);  // Regular point boost
                 return { ltfBoost, pointsBoost };
             },
             effectDisplay() { 
