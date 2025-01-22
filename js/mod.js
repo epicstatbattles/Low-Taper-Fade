@@ -142,7 +142,8 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Buffed Madelizer upgrade 3:1.<br>
 		- Reduced softcap effectiveness of massive upgrade 5 to prevent its effect from decaying at ~2e10 massive points.<br>
 	<h3>v0.6.11</h3><br>
-                - Slightly rebalanced Aubrinator costs.`
+                - Slightly rebalanced Aubrinator costs.<br>
+		- Nerfed LTF upgrade 2:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
