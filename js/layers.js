@@ -563,7 +563,7 @@ addLayer("mady", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("mady", 11); },
             effect() {
-                return player.mady.points.times(1.5).add(10).log10().pow(2.5).times(1.25);
+                return player.mady.points.times(1.5).add(10).log10().pow(2).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -573,7 +573,7 @@ addLayer("mady", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("mady", 12); },
             effect() {
-                return player.mady.points.add(1).pow(0.4).times(1.3);
+                return player.mady.points.add(1).pow(0.32).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -593,12 +593,12 @@ addLayer("mady", {
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                let base = player.mady.points.div(20).add(10).log10().pow(0.1125).times(1.01); // Original effect formula
+                let base = player.mady.points.div(20).add(10).log10().pow(0.1).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.0325); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.0225); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -618,7 +618,7 @@ addLayer("mady", {
             cost: new Decimal(4000),
             unlocked() { return hasUpgrade("mady", 22); },
             effect() {
-                return player.mady.points.div(4).add(1).pow(0.3).times(1.4);
+                return player.mady.points.div(4).add(1).pow(0.25).times(1.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -628,7 +628,7 @@ addLayer("mady", {
             cost: new Decimal(25600),
             unlocked() { return hasUpgrade("mady", 23); },
             effect() {
-                return player.mady.points.div(4).add(1).pow(0.5625);
+                return player.mady.points.div(4).add(1).pow(0.525);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -728,7 +728,7 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                return player.ct.points.times(2).add(10).log10().pow(3).times(1.25);
+                return player.ct.points.times(2).add(10).log10().pow(2.4).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -738,7 +738,7 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                return player.ct.points.times(1.5).add(10).log10().pow(2.25).times(1.3);
+                return player.ct.points.times(1.5).add(10).log10().pow(1.8).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -758,7 +758,7 @@ addLayer("ct", {
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("ct", 22); },
             effect() {
-                return player.ct.points.div(2).add(1).pow(0.125).times(1.1);
+                return player.ct.points.div(2).add(1).pow(0.1125).times(1.1);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -768,7 +768,7 @@ addLayer("ct", {
             cost: new Decimal(1e9),
             unlocked() { return hasUpgrade("ct", 23) && hasUpgrade("aub", 22); },
             effect() {
-                return player.ct.points.div(1.5).add(1).pow(0.1625);
+                return player.ct.points.div(1.5).add(1).pow(0.1325);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -778,7 +778,7 @@ addLayer("ct", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("ct", 31); },
             effect() {
-                return player.ltf.points.div(100000).add(1).pow(0.01625);
+                return player.ltf.points.div(100000).add(1).pow(0.01225);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -788,8 +788,8 @@ addLayer("ct", {
             cost: new Decimal(5e16),
             unlocked() { return hasUpgrade("ct", 32); },
             effect() {
-                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
-                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
+                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.08); // Aubrinator boost
+                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.1);  // Madelizer boost
                 return { aubBoost, madyBoost };
             },
             effectDisplay() { 
@@ -881,7 +881,7 @@ addLayer("aub", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("aub", 11); },
             effect() {
-                return player.aub.points.times(1.4).add(10).log10().pow(2.4).times(1.25);
+                return player.aub.points.times(1.4).add(10).log10().pow(1.96).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -891,7 +891,7 @@ addLayer("aub", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
-                return player.aub.points.add(1).pow(0.36).times(1.3);
+                return player.aub.points.add(1).pow(0.32).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -901,8 +901,8 @@ addLayer("aub", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
-                let aubEffect = player.aub.points.add(1).pow(0.325).times(1.2); // Effect based on aub points
-                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.0675); // Effect based on nja points
+                let aubEffect = player.aub.points.add(1).pow(0.3).times(1.2); // Effect based on aub points
+                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.06); // Effect based on nja points
 
                 return aubEffect.times(njaEffect);
             },
@@ -924,7 +924,7 @@ addLayer("aub", {
             cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
-                return player.points.div(5).add(1).pow(0.1875);
+                return player.points.div(5).add(1).pow(0.15);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -934,7 +934,7 @@ addLayer("aub", {
             cost: new Decimal(20000),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
-                return player.points.div(1e10).add(1).pow(0.00875);
+                return player.points.div(1e10).add(1).pow(0.0075);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
