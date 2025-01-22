@@ -148,7 +148,8 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly nerfed all dynamic boosts for CT subs, Madelizers, and Aubrinators.<br>
 	<h3>v0.6.13</h3><br>
                 - Added a super softcap for LTF upgrade 2:1 at 1e80 LTF points.<br>
-		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.`
+		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.<br>
+		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
