@@ -32,6 +32,8 @@ addLayer("ltf", {
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("aub", 12)) mult = mult.times(upgradeEffect("aub", 12));
         if (hasUpgrade("ct", 31)) mult = mult.times(upgradeEffect("ct", 31));
+        if (hasUpgrade("infi", 11)) mult = mult.times(4);
+        if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
         return mult; // Ensure the function closes correctly
     },
 
@@ -225,6 +227,8 @@ addLayer("ninja", {
         if (hasUpgrade("ltf", 25)) mult = mult.times(upgradeEffect("ltf", 25));
         if (hasUpgrade("aub", 21)) mult = mult.times(upgradeEffect("aub", 21));
         if (hasUpgrade("mady", 11)) mult = mult.times(upgradeEffect("mady", 11));
+        if (hasUpgrade("infi", 11)) mult = mult.times(4);
+        if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         return mult;
     },
 
@@ -438,6 +442,8 @@ addLayer("massive", {
         if (hasUpgrade("ltf", 23)) mult = mult.times(upgradeEffect("ltf", 23));
         if (hasUpgrade("aub", 11)) mult = mult.times(upgradeEffect("aub", 11));
         if (hasUpgrade("aub", 23)) mult = mult.times(upgradeEffect("aub", 23));
+        if (hasUpgrade("infi", 11)) mult = mult.times(4);
+        if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         return mult;
     },
 
@@ -618,6 +624,7 @@ addLayer("mady", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).madyBoost);
+        if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         return mult;
     },
 
@@ -773,6 +780,8 @@ addLayer("ct", {
         if (hasUpgrade("ltf", 24)) mult = mult.times(upgradeEffect("ltf", 24));
         if (hasUpgrade("aub", 22)) mult = mult.times(upgradeEffect("aub", 22));
         if (hasUpgrade("ct", 32)) mult = mult.times(upgradeEffect("ct", 32));
+        if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
+        if (hasUpgrade("infi", 22)) mult = mult.times(upgradeEffect("infi", 22));
         return mult;
     },
 
@@ -936,6 +945,7 @@ addLayer("aub", {
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).aubBoost);
+        if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         return mult;
     },
 
@@ -1046,6 +1056,133 @@ addLayer("aub", {
         "About": {
             content: [
                 ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up being a household name."],
+            ],
+        },
+    },
+});
+addLayer("infi", {
+    name: "Infinity", // Full name of the layer
+    symbol: "INF", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#27d986", // turquoise
+    requires: new Decimal(1.7976e308), // Points required to unlock this layer
+    resource: "Infinity points", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.025, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has at least 1e200 points
+        return player.massive.points.gte(new Decimal(1e200)) || player.infi.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 3, // Row in the tree (3 = fourth row)
+    branches: ["mady", "ct", "aub"], // Branch from all 3 third-row points visually
+
+    hotkeys: [
+        { key: "u", description: "u: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "New Beginning",
+            description: "This is a really big reset. Here are some buffs to help you out. 16x boost to point gain, and 4x boost to LTF, Ninja, and massive point gain.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(16); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()) + "(^0.5 to LTF, Ninja, and massive points)"; },
+        },
+        12: {
+            title: "More Buffs",
+            description: "Gain a 2.5x boost to CT subscriber, Madelizer, and Aubrinator gain.",
+            cost: new Decimal(1),
+            unlocked() { return hasUpgrade("infi", 11); },
+            effect() {
+                return new Decimal(2.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Here's a scaling upgrade",
+            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi).",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("infi", 12); },
+            effect() {
+                return player.infi.points.add(1).pow(0.64).times(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "The Meme of all Memes",
+            description: "Boost low taper fade point gain based on infinity points (initial 2x multi).",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("infi", 13); },
+            effect() {
+                return player.infi.points.div(1.5).add(1).pow(0.56).times(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Ninja, The Transcendent",
+            description: "Ninja drags the meme to the point where he becomes the most popular man on the planet. Boost Ninja and massive point gain based on infinity points. (initial 2x multi)",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("infi", 14); },
+            effect() {
+                return player.infi.points.div(2).add(1).pow(0.5).times(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Infinitrademark",
+            description: "CT has become a powerful force to not be messed with. Boost CT subscriber gain based on infinity points. (initial multi 2.5x)",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("infi", 21); },
+            effect() {
+                return player.infi.points.div(2.5).add(1).pow(0.45).times(2.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    
+    milestones: {
+        0: {
+            requirementDescription: "100 Infinity Points",
+            effectDescription: "Reached Endgame!",
+            done() { return player.infi.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "You have earned so many points that you can now infinity. Reset everything prior to infinity in exchange for monumental boosts."],
             ],
         },
     },
