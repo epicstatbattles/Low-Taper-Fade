@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.14",
-	name: "Low Taper Fade Zeta Plus",
+	num: "1.0",
+	name: "Low Taper Fade Ultra",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -151,7 +151,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.<br>
 		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.<br>
 	<h3>v0.6.14</h3><br>
-                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.`
+                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.
+	<h3>v1.0</h3><br>
+                - Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -191,6 +193,8 @@ function getPointGen() {
 	if (hasUpgrade("aub", 13)) gain = gain.times(upgradeEffect("aub", 13));
 	if (hasUpgrade("ltf", 22)) gain = gain.times(upgradeEffect("ltf", 22).pointsBoost);
 	if (hasUpgrade("ct", 31)) gain = gain.times(upgradeEffect("ct", 31));
+	if (hasUpgrade("infi", 11)) mult = mult.times(upgradeEffect("infi", 11));
+        if (hasUpgrade("infi", 13)) mult = mult.times(upgradeEffect("infi", 13));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
