@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.13",
+	num: "0.6.14",
 	name: "Low Taper Fade Zeta Plus",
 }
 
@@ -149,7 +149,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.6.13</h3><br>
                 - Added a super softcap for LTF upgrade 2:1 at 1e80 LTF points.<br>
 		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.<br>
-		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.`
+		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.<br>
+	<h3>v0.6.14</h3><br>
+                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
