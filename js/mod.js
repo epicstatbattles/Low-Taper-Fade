@@ -151,9 +151,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.<br>
 		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.<br>
 	<h3>v0.6.14</h3><br>
-                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.
+                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.<br>
 	<h3>v1.0</h3><br>
-                - Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points.`
+                - Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points with 6 upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
