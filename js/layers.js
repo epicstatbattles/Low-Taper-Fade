@@ -136,7 +136,7 @@ addLayer("ltf", {
             cost: new Decimal(1e33),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
-                let ltfBoost = player.points.div(1e45).add(1).pow(0.05); // LTF point boost
+                let ltfBoost = player.points.div(1e40).add(1).pow(0.05); // LTF point boost
                 let pointsBoost = player.ltf.points.div(1e27).add(1).pow(0.0675);  // Regular point boost
                 return { ltfBoost, pointsBoost };
             },
@@ -957,7 +957,7 @@ addLayer("aub", {
     branches: ["massive"], // Branch from massive visually
 
     hotkeys: [
-        { key: "u", description: "u: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "r", description: "r: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
@@ -1019,7 +1019,7 @@ addLayer("aub", {
             cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
-                return player.points.div(5).add(1).pow(0.15);
+                return player.aub.points.div(5).add(1).pow(0.18);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
