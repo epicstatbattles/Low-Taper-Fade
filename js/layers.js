@@ -549,10 +549,10 @@ addLayer("massive", {
         15: {
             title: "Point Powerizer",
             description: "Point gain is RAISED to an exponent based on massive points.",
-            cost: new Decimal(200000),
+            cost: new Decimal(100000),
             unlocked() { return hasUpgrade("massive", 14); },
             effect() {
-                let base = player.massive.points.div(40000).add(10).log10().pow(0.06); // Original effect formula
+                let base = player.massive.points.div(20000).add(10).log10().pow(0.06); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
