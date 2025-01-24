@@ -1107,7 +1107,6 @@ addLayer("infi", {
             effect() {
                 return new Decimal(16); // Simple multiplier
             },
-            effectDisplay() { return "x" + format(this.effect()) + "(^0.5 to LTF, Ninja, and massive points)"; },
         },
         12: {
             title: "More Buffs",
