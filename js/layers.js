@@ -1080,7 +1080,7 @@ addLayer("infi", {
 
     layerShown() {
         // Check if the player has at least 1e200 points
-        return player.massive.points.gte(new Decimal(1e200)) || player.infi.points.gte(1);
+        return player.points.gte(new Decimal(1e200)) || player.infi.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1097,7 +1097,7 @@ addLayer("infi", {
     branches: ["mady", "ct", "aub"], // Branch from all 3 third-row points visually
 
     hotkeys: [
-        { key: "u", description: "u: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "n", description: "n: Reset for Infinity Points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
