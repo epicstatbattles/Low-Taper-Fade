@@ -1085,7 +1085,6 @@ addLayer("infi", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
         return mult;
     },
 
