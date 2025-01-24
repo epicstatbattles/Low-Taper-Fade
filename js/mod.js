@@ -161,7 +161,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly nerfed Madelizer upgrade 2:2.<br>
 	<h3>v1.1.2</h3><br>
                 - Slightly buffed Infinity upgrade 1:2.<br>
-		- Reduced massive upgrade 5's cost to 100,000.`
+		- Reduced massive upgrade 5's cost to 100,000 and slightly buffed its effect.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
