@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1",
+	num: "1.1.1",
 	name: "Low Taper Fade Ultra",
 }
 
@@ -156,7 +156,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points with 6 upgrades.<br>
 	<h3>v1.1</h3><br>
                 - Rebalanced/fixed several upgrades and made the game not crash when buying Infinity upgrade 1:1.<br>
-		- Fixed infinity layer not showing up at the correct amount of points.`
+		- Fixed infinity layer not showing up at the correct amount of points.<br>
+	<h3>v1.1.1</h3><br>
+                - Slightly nerfed Madelizer upgrade 2:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
