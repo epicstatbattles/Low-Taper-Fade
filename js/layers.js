@@ -1110,11 +1110,11 @@ addLayer("infi", {
         },
         12: {
             title: "More Buffs",
-            description: "Gain a 2.5x boost to CT subscriber, Madelizer, and Aubrinator gain.",
+            description: "Gain a 3x boost to CT subscriber, Madelizer, and Aubrinator gain.",
             cost: new Decimal(1),
             unlocked() { return hasUpgrade("infi", 11); },
             effect() {
-                return new Decimal(2.5);
+                return new Decimal(3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
