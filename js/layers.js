@@ -1045,7 +1045,7 @@ addLayer("aub", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
-                let aubEffect = player.aub.points.add(1).pow(0.225).times(1.2); // Effect based on aub points
+                let aubEffect = player.aub.points.add(1).pow(0.25).times(1.2); // Effect based on aub points
                 let njaEffect = player.ninja.points.div(10000).add(1).pow(0.056); // Effect based on nja points
 
                 return aubEffect.times(njaEffect);
