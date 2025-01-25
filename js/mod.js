@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.4",
+	num: "1.2.5",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -172,7 +172,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2.3</h3><br>
                 - Slightly buffed Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.4</h3><br>
-                - Buffed Madelizer upgrade 2:2.`
+                - Buffed Madelizer upgrade 2:2.<br>
+	<h3>v1.2.5</h3><br>
+                - Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
