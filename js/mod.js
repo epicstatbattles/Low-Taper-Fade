@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.2",
+	num: "1.2.3",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -168,7 +168,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a softcap to LTF upgrade 2:5 at 1e300 points.<br>
 		- Nerfed Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.2</h3><br>
-                - Added softcaps to both LTF upgrade 2:2 effects (at 1e200 points and 1e180 LTF points)`
+                - Added softcaps to both LTF upgrade 2:2 effects (at 1e200 points and 1e180 LTF points)<br>
+	<h3>v1.2.3</h3><br>
+                - Slightly buffed Aubrinator upgrade 2:1.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
