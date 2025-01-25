@@ -734,12 +734,12 @@ addLayer("mady", {
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                let base = player.mady.points.div(40).add(10).log10().pow(0.085).times(1.01); // Original effect formula
+                let base = player.mady.points.div(40).add(10).log10().pow(0.096).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.018); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.0192); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
