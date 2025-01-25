@@ -1015,7 +1015,7 @@ addLayer("aub", {
         },
         23: {
             title: "Massive Celebrity",
-            description: "Aubrie's popularity's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators (initial 1.2x multi).",
+            description: "Aubrie's popularity's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators (initial 1.2x).",
             cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
