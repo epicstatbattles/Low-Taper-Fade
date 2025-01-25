@@ -997,7 +997,7 @@ addLayer("aub", {
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
                 let aubEffect = player.aub.points.add(1).pow(0.3).times(1.2); // Effect based on aub points
-                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.056); // Effect based on nja points
+                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.06); // Effect based on nja points
 
                 return aubEffect.times(njaEffect);
             },
@@ -1038,7 +1038,7 @@ addLayer("aub", {
     milestones: {
         0: {
             requirementDescription: "1000000 Aubrinators",
-            effectDescription: "I guess u just won since idk what to put here.",
+            effectDescription: "Approaching Infinity!",
             done() { return player.aub.points.gte(1000000); },
         },
     },
