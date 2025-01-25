@@ -136,13 +136,47 @@ addLayer("ltf", {
             cost: new Decimal(1e33),
             unlocked() { return hasUpgrade("mady", 21) && hasUpgrade("ltf", 21); },
             effect() {
-                let ltfBoost = player.points.div(1e40).add(1).pow(0.05); // LTF point boost
-                let pointsBoost = player.ltf.points.div(1e27).add(1).pow(0.0675);  // Regular point boost
-                return { ltfBoost, pointsBoost };
+                // LTF point boost calculation
+                let baseLtfBoost = player.points.div(1e40).add(1).pow(0.05); // Original effect formula for LTF boost
+                let diminishingFactorLtfBoost = new Decimal(1); // Default factor for LTF boost
+            
+                // Apply diminishing factor for LTF boost if points exceed 1e200
+                if (player.points.gte(new Decimal(1e200))) {
+                    diminishingFactorLtfBoost = player.points.div(1e200).pow(0.025); // Softcap factor for LTF points
+                }
+            
+                // Points boost calculation
+                let basePointsBoost = player.ltf.points.div(1e27).add(1).pow(0.0675); // Original effect formula for points boost
+                let diminishingFactorPointsBoost = new Decimal(1); // Default factor for points boost
+            
+                // Apply diminishing factor for points boost if LTF points exceed 1e200
+                if (player.ltf.points.gte(new Decimal(1e180))) {
+                    diminishingFactorPointsBoost = player.ltf.points.div(1e180).pow(0.03375); // Softcap factor for LTF points
+                }
+            
+                // Calculate final effects after applying both diminishing factors
+                let finalLtfBoost = baseLtfBoost.div(diminishingFactorLtfBoost);
+                let finalPointsBoost = basePointsBoost.div(diminishingFactorPointsBoost);
+            
+                return { ltfBoost: finalLtfBoost, pointsBoost: finalPointsBoost };
             },
+
             effectDisplay() { 
                 let eff = this.effect();
-                return `LTF Boost: x${format(eff.ltfBoost)}, Point Boost: x${format(eff.pointsBoost)}`; 
+                // Check if the respective points exceed the threshold for softcap
+                let isLtfBoostSoftcapped = player.points.gte(1e200);  // LTF Boost softcap check
+                let isPointsBoostSoftcapped = player.ltf.points.gte(1e180);  // Points Boost softcap check
+                // Build the display string
+                let display = `LTF Boost: x${format(eff.ltfBoost)}`;
+                if (isLtfBoostSoftcapped) {
+                    display += " (SC)";  // Append "(SC)" if the LTF Boost exceeds the softcap threshold
+                }
+                display += `, Point Boost: x${format(eff.pointsBoost)}`;
+                if (isPointsBoostSoftcapped) {
+                    display += " (SC)";  // Append "(SC)" if the Points Boost exceeds the softcap threshold
+                }
+            
+                return display;  // Return the final string
             },
         },
         23: {
