@@ -882,8 +882,8 @@ addLayer("ct", {
             cost: new Decimal(5e16),
             unlocked() { return hasUpgrade("ct", 32); },
             effect() {
-                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
-                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
+                let aubBoost = player.mady.points.div(100).add(1).pow(0.125); // Aubrinator boost
+                let madyBoost = player.aub.points.div(100).add(1).pow(0.125);  // Madelizer boost
                 return { aubBoost, madyBoost };
             },
             effectDisplay() { 
@@ -986,7 +986,7 @@ addLayer("aub", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("aub", 12); },
             effect() {
-                return player.aub.points.add(1).pow(0.32).times(1.3);
+                return player.aub.points.add(1).pow(0.34).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1029,7 +1029,7 @@ addLayer("aub", {
             cost: new Decimal(20000),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
-                return player.points.div(1e10).add(1).pow(0.0075);
+                return player.points.div(1e10).add(1).pow(0.008);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
