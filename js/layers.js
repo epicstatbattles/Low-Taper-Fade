@@ -557,7 +557,7 @@ addLayer("massive", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.massive.points.gte(new Decimal(1e10))) {
-                    diminishingFactor = player.massive.points.div(1e9).log10().pow(0.0125); // Slight division factor
+                    diminishingFactor = player.massive.points.div(1e9).log10().pow(0.014); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -997,7 +997,7 @@ addLayer("aub", {
             unlocked() { return hasUpgrade("aub", 13); },
             effect() {
                 let aubEffect = player.aub.points.add(1).pow(0.3).times(1.2); // Effect based on aub points
-                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.06); // Effect based on nja points
+                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.056); // Effect based on nja points
 
                 return aubEffect.times(njaEffect);
             },
