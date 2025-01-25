@@ -151,7 +151,7 @@ addLayer("ltf", {
             cost: new Decimal(1e39),
             unlocked() { return hasUpgrade("ltf", 22); },
             effect() {
-                return player.ltf.points.add(10).log10().pow(0.3125); // Logarithmic growth
+                return player.ltf.points.div(1e20).add(1).pow(0.025); // Slow but steady growth
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -161,7 +161,7 @@ addLayer("ltf", {
             cost: new Decimal(1e45),
             unlocked() { return hasUpgrade("ltf", 23); },
             effect() {
-                return player.ltf.points.add(10).log10().pow(0.2625); // Logarithmic growth
+                return player.ltf.points.div(1e25).add(1).pow(0.01625); // Logarithmic growth
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -171,7 +171,7 @@ addLayer("ltf", {
             cost: new Decimal(1e60),
             unlocked() { return hasUpgrade("ltf", 24); },
             effect() {
-                return player.points.add(10).log10().pow(0.3125); // Logarithmic growth
+                return player.points.div(1e60).add(1).pow(0.0125); // Slow but steady growth
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -685,12 +685,12 @@ addLayer("mady", {
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("mady", 21); },
             effect() {
-                let base = player.mady.points.div(40).add(10).log10().pow(0.0925).times(1.01); // Original effect formula
+                let base = player.mady.points.div(40).add(10).log10().pow(0.085).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.02); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.018); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -710,7 +710,7 @@ addLayer("mady", {
             cost: new Decimal(4000),
             unlocked() { return hasUpgrade("mady", 22); },
             effect() {
-                return player.mady.points.div(4).add(1).pow(0.25).times(1.4);
+                return player.mady.points.div(4).add(1).pow(0.225).times(1.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -882,8 +882,8 @@ addLayer("ct", {
             cost: new Decimal(5e16),
             unlocked() { return hasUpgrade("ct", 32); },
             effect() {
-                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.08); // Aubrinator boost
-                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.1);  // Madelizer boost
+                let aubBoost = player.mady.points.div(1e4).add(1).pow(0.1); // Aubrinator boost
+                let madyBoost = player.aub.points.div(1e3).add(1).pow(0.125);  // Madelizer boost
                 return { aubBoost, madyBoost };
             },
             effectDisplay() { 
@@ -1015,11 +1015,11 @@ addLayer("aub", {
         },
         23: {
             title: "Massive Celebrity",
-            description: "Aubrie's popularity is so high that it's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators.",
+            description: "Aubrie's popularity's beginning to rival that of major celebrities. Boost massive point gain based on Aubrinators (initial 1.2x multi).",
             cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
-                return player.aub.points.div(5).add(1).pow(0.18);
+                return player.aub.points.div(5).add(1).pow(0.22).times(1.2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
