@@ -171,9 +171,24 @@ addLayer("ltf", {
             cost: new Decimal(1e60),
             unlocked() { return hasUpgrade("ltf", 24); },
             effect() {
-                return player.points.div(1e50).add(1).pow(0.0125); // Slow but steady growth
+                let base = player.points.div(1e50).add(1).pow(0.0125); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.points.gte(new Decimal(1e300))) {
+                    diminishingFactor = player.points.div(1e300).pow(0.00625); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.points.gte(1e300); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
