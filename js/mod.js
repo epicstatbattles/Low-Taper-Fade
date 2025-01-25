@@ -165,7 +165,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2</h3><br>
                 - Rebalanced several mid to late-game upgrades.<br>
 	<h3>v1.2.1</h3><br>
-                - Added a softcap to LTF upgrade 2:5 at 1e300 points.`
+                - Added a softcap to LTF upgrade 2:5 at 1e300 points.<br>
+		- Nerfed Aubrinator upgrade 2:1.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
