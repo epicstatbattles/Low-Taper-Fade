@@ -739,7 +739,7 @@ addLayer("mady", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.0196); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e4).log10().pow(0.02); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
