@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1.2",
-	name: "Low Taper Fade Ultra",
+	num: "1.2",
+	name: "Low Taper Fade Ultra Plus",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -161,7 +161,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly nerfed Madelizer upgrade 2:2.<br>
 	<h3>v1.1.2</h3><br>
                 - Slightly buffed Infinity upgrade 1:2.<br>
-		- Reduced massive upgrade 5's cost to 100,000 and slightly buffed its effect.`
+		- Reduced massive upgrade 5's cost to 100,000 and slightly buffed its effect.<br>
+	<h3>v1.2</h3><br>
+                - Rebalanced several mid to late-game upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
