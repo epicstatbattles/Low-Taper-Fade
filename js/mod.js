@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2",
+	num: "1.2.1",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -163,7 +163,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly buffed Infinity upgrade 1:2.<br>
 		- Reduced massive upgrade 5's cost to 100,000 and slightly buffed its effect.<br>
 	<h3>v1.2</h3><br>
-                - Rebalanced several mid to late-game upgrades.`
+                - Rebalanced several mid to late-game upgrades.<br>
+	<h3>v1.2.1</h3><br>
+                - Added a softcap to LTF upgrade 2:5 at 1e300 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
