@@ -171,7 +171,7 @@ addLayer("ltf", {
             cost: new Decimal(1e60),
             unlocked() { return hasUpgrade("ltf", 24); },
             effect() {
-                return player.points.div(1e60).add(1).pow(0.0125); // Slow but steady growth
+                return player.points.div(1e50).add(1).pow(0.0125); // Slow but steady growth
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1019,7 +1019,7 @@ addLayer("aub", {
             cost: new Decimal(1250),
             unlocked() { return hasUpgrade("aub", 22); },
             effect() {
-                return player.aub.points.div(5).add(1).pow(0.22).times(1.2);
+                return player.aub.points.div(5).add(1).pow(0.2).times(1.2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
