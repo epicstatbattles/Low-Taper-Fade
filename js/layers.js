@@ -1023,7 +1023,7 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                return player.ct.points.add(10).log10().pow(2.4).times(1.25);
+                return player.ct.points.times(2).add(10).log10().pow(2.4).times(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1033,7 +1033,7 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                return player.ct.points.add(10).log10().pow(2).times(1.3);
+                return player.ct.points.times(2).add(10).log10().pow(2).times(1.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
