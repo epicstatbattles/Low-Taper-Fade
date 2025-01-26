@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.3",
+	num: "1.4",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -183,7 +183,10 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added softcaps to Madelizer upgrades 1:3, 2:3, and 3:1, all at 1e40 Madelizers.<br>
 		- Added softcaps to Aubrinator upgrades 1:3 (at 1e32), 2:1 (at 1e28), and 2:3 (at 1e32).<br>
 		- Slightly buffed Infinity buyable effect.<br>
-		- Changed Infinity milestone requirement to 1,000 IP.`
+		- Changed Infinity milestone requirement to 1,000 IP.<br>
+	<h3>v1.4</h3><br>
+                - Added 2 new Infinity upgrades.<br>
+                - Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
