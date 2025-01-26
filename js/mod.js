@@ -181,7 +181,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Set an endgame at 1e800 points.<br>
 	<h3>v1.3</h3><br>
                 - Added softcaps to Madelizer upgrades 1:3, 2:3, and 3:1, all at 1e40 Madelizers.<br>
-		- Added softcaps to Aubrinator upgrades 1:3 (at 1e32), 2:1 (at 1e28), and 2:3 (at 1e32).`
+		- Added softcaps to Aubrinator upgrades 1:3 (at 1e32), 2:1 (at 1e28), and 2:3 (at 1e32).<br>
+		- Slightly buffed Infinity buyable effect.<br>
+		- Changed Infinity milestone requirement to 1,000 IP.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
