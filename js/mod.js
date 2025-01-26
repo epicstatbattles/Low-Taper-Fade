@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.6",
+	num: "1.2.6.1",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -176,7 +176,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2.5</h3><br>
                 - Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.6</h3><br>
-                - Added a buyable to Infinity layer, costing 40 IP.`
+                - Added a buyable to Infinity layer, costing 40 IP.<br>
+	<h3>v1.2.6.1</h3><br>
+                - Set an endgame at 1e800 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -233,7 +235,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return player.points.gte(new Decimal("1e800"))
 }
 
 
