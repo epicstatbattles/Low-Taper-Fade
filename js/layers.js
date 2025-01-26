@@ -1222,7 +1222,7 @@ addLayer("infi", {
             // Effect of the buyable
             effect(x) {
                 let infipoints = player.infi.points.add(1); // Ensure no zero points
-                return infipoints.pow(0.05).pow(x); // Formula based on points and level
+                return infipoints.pow(0.125).pow(x); // Formula based on points and level
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
