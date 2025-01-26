@@ -1023,24 +1023,9 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                let base = player.ct.points.times(3).add(1).pow(0.175).times(1.25); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
-
-                // Apply diminishing factor only if points exceed the threshold
-                if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.0875); // Slight division factor
-                }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
-                let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
-                let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
-                }
-                return display; // Return the final string
+                return player.ct.points.add(10).log10().pow(2.8).times(1.25);
             },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Release CT",
@@ -1048,24 +1033,9 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                let base = player.ct.points.times(5).add(1).pow(0.14).times(1.3); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
-
-                // Apply diminishing factor only if points exceed the threshold
-                if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.07); // Slight division factor
-                }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
-                let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
-                let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
-                }
-                return display; // Return the final string
+                return player.ct.points.add(10).log10().pow(2.4).times(1.3);
             },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
         22: {
             title: "Upload to CT",
