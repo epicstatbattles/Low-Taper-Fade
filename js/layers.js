@@ -1309,7 +1309,7 @@ addLayer("infi", {
     
             // Effect of the buyable
             effect(x) {
-                let infipoints = player.infi.points.add(1); // Ensure no zero points
+                let infipoints = player.infi.points.times(2).add(1); // Ensure no zero points
                 return infipoints.pow(0.125).pow(x); // Formula based on points and level
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
@@ -1333,9 +1333,9 @@ addLayer("infi", {
 
     milestones: {
         0: {
-            requirementDescription: "100 Infinity Points",
+            requirementDescription: "1000 Infinity Points",
             effectDescription: "Reached Endgame!",
-            done() { return player.infi.points.gte(100); },
+            done() { return player.infi.points.gte(1000); },
         },
     },
 
