@@ -1208,7 +1208,31 @@ addLayer("infi", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
+    buyables: {
+        11: {
+            title: "Point Boost",
+            description: "Boosts point generation based on your infinity points and level.",
+            cost(x) { return new Decimal(10).times(new Decimal(4).pow(x)); },  // The cost formula
     
+            // Unlock condition
+            unlocked() {
+                return player.infi.points.gte(new Decimal(5));  // Buyable unlocks when player has 5 infinity points
+            },
+    
+            // Effect of the buyable
+            effect(x) {
+                let infipoints = player.infi.points.add(1); // Ensure no zero points
+                return infipoints.pow(0.05).pow(x); // Formula based on points and level
+            },
+    
+            // Display the effect
+            effectDisplay() {
+                let amt = getBuyableAmount("infi", 11); // Current level of the buyable
+                return "x" + format(this.effect(amt));  // Format and display effect
+            },
+        },
+    },
+
     milestones: {
         0: {
             requirementDescription: "100 Infinity Points",
@@ -1224,6 +1248,7 @@ addLayer("infi", {
                 "prestige-button",
                 "resource-display",
                 "upgrades",
+                "buyables",
                 "milestones",
             ],
         },
