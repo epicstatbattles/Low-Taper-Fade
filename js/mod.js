@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.5",
+	num: "1.2.6",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -174,7 +174,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2.4</h3><br>
                 - Buffed Madelizer upgrade 2:2.<br>
 	<h3>v1.2.5</h3><br>
-                - Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.`
+                - Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.<br>
+	<h3>v1.2.6</h3><br>
+                - Added a buyable to Infinity layer, costing 40 IP.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -216,6 +218,7 @@ function getPointGen() {
 	if (hasUpgrade("ct", 31)) gain = gain.times(upgradeEffect("ct", 31));
 	if (hasUpgrade("infi", 11)) gain = gain.times(upgradeEffect("infi", 11));
         if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
+    	gain = getBuyableEffect("infi", 11);
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	return gain
 }
