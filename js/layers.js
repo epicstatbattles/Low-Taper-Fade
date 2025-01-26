@@ -1023,12 +1023,12 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                let base = player.ct.points.times(3).add(1).pow(0.22).times(1.25); // Original effect formula
+                let base = player.ct.points.times(3).add(1).pow(0.2).times(1.25); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.11); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.1); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1048,12 +1048,12 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                let base = player.ct.points.times(5).add(1).pow(0.18).times(1.3); // Original effect formula
+                let base = player.ct.points.times(5).add(1).pow(0.16).times(1.3); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.09); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.08); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
