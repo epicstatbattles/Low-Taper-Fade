@@ -231,6 +231,7 @@ function getPointGen() {
 	if (hasUpgrade("infi", 11)) gain = gain.times(upgradeEffect("infi", 11));
         if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
     	gain = gain.times(buyableEffect("infi", 11));
+	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.75).div(100);
 	return gain
