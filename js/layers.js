@@ -1235,6 +1235,7 @@ addLayer("infi", {
                 let cost = this.cost(amt); // Cost for the next level
                 let effect = this.effect(amt); // Current effect of the buyable
                 return `
+                    ${this.description}<br>
                     Level: ${format(amt)}<br>
                     Effect: x${format(effect)}<br>
                     Cost: ${format(cost)} Infinity Points`;
