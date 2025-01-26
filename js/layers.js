@@ -1226,7 +1226,7 @@ addLayer("infi", {
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
-            player[this.layer].points = player.infi.points.sub(this.cost())
+            player.infi.points = player.infi.points.sub(this.cost())
             setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             // Display the effect
