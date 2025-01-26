@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.1",
+	num: "1.4.2",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -188,7 +188,10 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added 2 new Infinity upgrades.<br>
                 - Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).<br>
 	<h3>v1.4.1</h3><br>
-                - Added an Infinity challenge!`
+                - Added an Infinity challenge!<br>
+	<h3>v1.4.2</h3><br>
+                - Delayed 1:3, 2:3, and 3:3 Madelizer softcaps to 1e50.<br>
+		- Delayed 1:3 and 2:3 Aubrinator softcaps to 1e40 and 2:1 to 1e36.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
