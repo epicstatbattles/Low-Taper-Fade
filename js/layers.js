@@ -34,6 +34,7 @@ addLayer("ltf", {
         if (hasUpgrade("ct", 31)) mult = mult.times(upgradeEffect("ct", 31));
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
+        if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
         return mult; // Ensure the function closes correctly
     },
 
@@ -278,6 +279,7 @@ addLayer("ninja", {
         if (hasUpgrade("mady", 11)) mult = mult.times(upgradeEffect("mady", 11));
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
+        if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         return mult;
     },
 
@@ -437,6 +439,56 @@ addLayer("ninja", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        31: {
+            title: "Fanmade LTF Convention",
+            description: "A fan makes a Low Taper Fade convention to honor Ninja's meme dragging. Boost LTF point gain based on Ninja points.",
+            cost: new Decimal(1e250),
+            unlocked() { return hasUpgrade("ninja", 24) && hasUpgrade("infi", 24); },
+            effect() {
+                let base = player.ninja.points.div(1e240).add(1).pow(0.08); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ninja.points.gte(new Decimal(1e480))) {
+                    diminishingFactor = player.ninja.points.div(1e480).pow(0.04); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.ninja.points.gte(1e480); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        32: {
+            title: "Codename Madelize",
+            description: "Madelizer and CT sub gain are boosted based on Ninja points.",
+            cost: new Decimal(1e300),
+            unlocked() { return hasUpgrade("ninja", 31); },
+            effect() {
+                let base = player.ninja.points.div(1e290).add(1).pow(0.035); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ninja.points.gte(new Decimal(1e540))) {
+                    diminishingFactor = player.ninja.points.div(1e540).pow(0.0175); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.ninja.points.gte(1e540); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
 
     milestones: {
@@ -493,6 +545,8 @@ addLayer("massive", {
         if (hasUpgrade("aub", 23)) mult = mult.times(upgradeEffect("aub", 23));
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
+        if (hasUpgrade("infi", 23)) mult = mult.times(upgradeEffect("infi", 23));
+        if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         return mult;
     },
 
@@ -620,6 +674,56 @@ addLayer("massive", {
                 return display; // Return the final string
             },
         },
+        21: {
+            title: "Infinity Enhancer",
+            description: "Boost Infinity point gain based on massive points (initial 1.1x multi).",
+            cost: new Decimal(1e150),
+            unlocked() { return hasUpgrade("massive", 15) && hasUpgrade("infi", 24); },
+            effect() {
+                let base = player.massive.points.div(1e148).add(1).pow(0.01).times(1.1); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e280))) {
+                    diminishingFactor = player.massive.points.div(1e280).pow(0.005); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e280); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        22: {
+            title: "Codified Aubrination",
+            description: "Aubrinator and CT sub gain are boosted based on massive points.",
+            cost: new Decimal(1e190),
+            unlocked() { return hasUpgrade("ninja", 31); },
+            effect() {
+                let base = player.massive.points.div(1e188).add(1).pow(0.04); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.massive.points.gte(new Decimal(1e320))) {
+                    diminishingFactor = player.massive.points.div(1e320).pow(0.02); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.massive.points.gte(1e320); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
 
     milestones: {
@@ -674,6 +778,7 @@ addLayer("mady", {
         let mult = new Decimal(1);
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).madyBoost);
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
+        if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         return mult;
     },
 
@@ -876,6 +981,8 @@ addLayer("ct", {
         if (hasUpgrade("ct", 32)) mult = mult.times(upgradeEffect("ct", 32));
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("infi", 22)) mult = mult.times(upgradeEffect("infi", 22));
+        if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
+        if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         return mult;
     },
 
@@ -1040,6 +1147,7 @@ addLayer("aub", {
         if (hasUpgrade("aub", 31)) mult = mult.times(upgradeEffect("aub", 31));
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).aubBoost);
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
+        if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         return mult;
     },
 
@@ -1222,6 +1330,7 @@ addLayer("infi", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("massive", 21)) mult = mult.times(upgradeEffect("massive", 21));
         return mult;
     },
 
@@ -1295,6 +1404,51 @@ addLayer("infi", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        22: {
+            title: "Infinitrademark",
+            description: "CT has become a powerful force to not be messed with. Boost CT subscriber gain based on infinity points. (initial multi 2.5x)",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("infi", 21); },
+            effect() {
+                return player.infi.points.div(2.5).add(1).pow(0.45).times(2.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Astronomical Fame",
+            description: "Aubrie's documentary from a while back now begin to affect massive point gain (initial 3x multi).",
+            cost: new Decimal(80),
+            unlocked() { return hasUpgrade("infi", 22); },
+            effect() {
+                let base = player.aub.points.add(1).pow(0.24).times(3); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.aub.points.gte(new Decimal(1e40))) {
+                    diminishingFactor = player.aub.points.div(1e40).pow(0.12); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        24: {
+            title: "Dragging Endeavors",
+            description: "Gain a 2x multiplier to Ninja and massive point gain and unlock 2 new upgrades for each.",
+            cost: new Decimal(400),
+            unlocked() { return hasUpgrade("infi", 23); },
+            effect() {
+                return new Decimal(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
     },
     buyables: {
         11: {
@@ -1333,9 +1487,9 @@ addLayer("infi", {
 
     milestones: {
         0: {
-            requirementDescription: "1000 Infinity Points",
+            requirementDescription: "10000 Infinity Points",
             effectDescription: "Reached Endgame!",
-            done() { return player.infi.points.gte(1000); },
+            done() { return player.infi.points.gte(10000); },
         },
     },
 
