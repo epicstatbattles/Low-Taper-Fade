@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.3",
+	num: "1.4.4",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -194,7 +194,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Delayed 1:3 and 2:3 Aubrinator softcaps to 1e40 and 2:1 to 1e36.<br>
 	<h3>v1.4.3</h3><br>
                 - Significantly buffed CT upgrades 1:3 and 2:1, and slightly buffed CT upgrades 2:3 and 3:1.<br>
-		- Added softcaps to all mentioned CT upgrades at 1e45 CT subscribers.`
+		- Added softcaps to all mentioned CT upgrades at 1e45 CT subscribers.<br>
+	<h3>v1.4.4</h3><br>
+                - Returned 1:3 and 2:1 formulas to before v1.4.3, but slightly buffed.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
