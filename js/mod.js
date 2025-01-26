@@ -186,7 +186,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Changed Infinity milestone requirement to 1,000 IP.<br>
 	<h3>v1.4</h3><br>
                 - Added 2 new Infinity upgrades.<br>
-                - Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).`
+                - Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).<br>
+	<h3>v1.4.1</h3><br>
+                - Added an Infinity challenge!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
