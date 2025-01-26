@@ -703,7 +703,7 @@ addLayer("massive", {
             title: "Codified Aubrination",
             description: "Aubrinator and CT sub gain are boosted based on massive points.",
             cost: new Decimal(1e190),
-            unlocked() { return hasUpgrade("ninja", 31); },
+            unlocked() { return hasUpgrade("massive", 21); },
             effect() {
                 let base = player.massive.points.div(1e188).add(1).pow(0.04); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
