@@ -196,7 +196,8 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Significantly buffed CT upgrades 1:3 and 2:1, and slightly buffed CT upgrades 2:3 and 3:1.<br>
 		- Added softcaps to all mentioned CT upgrades at 1e45 CT subscribers.<br>
 	<h3>v1.4.4</h3><br>
-                - Returned 1:3 and 2:1 formulas to before v1.4.3, but slightly buffed.`
+                - Returned 1:3 and 2:1 formulas to before v1.4.3 (and removed the softcaps), but slightly buffed.<br>
+		- Weakened softcap effectiveness of CT upgrades 2:3 and 3:1.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
