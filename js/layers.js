@@ -908,13 +908,13 @@ addLayer("mady", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.mady.points.gte(new Decimal(1e40))) {
-                    diminishingFactor = player.mady.points.div(1e40).pow(0.2625); // Slight division factor
+                if (player.mady.points.gte(new Decimal(1e50))) {
+                    diminishingFactor = player.mady.points.div(1e50).pow(0.2625); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.mady.points.gte(1e40); // Check if softcap applies
+                let isSoftcapped = player.mady.points.gte(1e50); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
