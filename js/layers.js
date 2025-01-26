@@ -1057,13 +1057,13 @@ addLayer("ct", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.0625); // Slight division factor
+                if (player.ct.points.gte(new Decimal(1e40))) {
+                    diminishingFactor = player.ct.points.div(1e40).pow(0.03125); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
+                let isSoftcapped = player.ct.points.gte(1e40); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -1082,13 +1082,13 @@ addLayer("ct", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.075); // Slight division factor
+                if (player.ct.points.gte(new Decimal(1e40))) {
+                    diminishingFactor = player.ct.points.div(1e40).pow(0.0375); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
+                let isSoftcapped = player.ct.points.gte(1e40); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
