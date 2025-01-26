@@ -1484,7 +1484,22 @@ addLayer("infi", {
             },
         },
     },
-
+    challenges: {
+        11: {
+            name: "Restricted Growth",
+            challengeDescription: "All point gain is raised to the power of 0.75.",
+            goalDescription: "Reach 1.7976e308 points.",
+            rewardDescription: "Point gain is boosted based on Infinity points.",
+            unlocked() { return hasUpgrade("infi", 24); },
+            canComplete: function() {return player.points.gte(1.7976e308)},
+            rewardEffect() {
+                return player.infi.points.add(1).pow(0.4);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to point gain";
+            },
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "10000 Infinity Points",
@@ -1502,6 +1517,7 @@ addLayer("infi", {
                 "upgrades",
                 "buyables",
                 "milestones",
+                "challenges",
             ],
         },
         "About": {
