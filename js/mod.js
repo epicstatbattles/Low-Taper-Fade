@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.2.6.1",
+	num: "1.3",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -178,7 +178,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.2.6</h3><br>
                 - Added a buyable to Infinity layer, costing 40 IP.<br>
 	<h3>v1.2.6.1</h3><br>
-                - Set an endgame at 1e800 points.`
+                - Set an endgame at 1e800 points.<br>
+	<h3>v1.3</h3><br>
+                - Added softcaps to Madelizer upgrades 1:3, 2:3, and 3:1, all at 1e40 Madelizers.<br>
+		- Added softcaps to Aubrinator upgrades 1:3 (at 1e32), 2:1 (at 1e28), and 2:3 (at 1e32).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
