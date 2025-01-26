@@ -1212,11 +1212,11 @@ addLayer("infi", {
         11: {
             title: "Point Boost",
             description: "Boosts point generation based on your infinity points and level.",
-            cost(x) { return new Decimal(10).times(new Decimal(4).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(40).times(new Decimal(4).pow(x)); },  // The cost formula
     
             // Unlock condition
             unlocked() {
-                return player.infi.points.gte(new Decimal(5));  // Buyable unlocks when player has 5 infinity points
+                return player.infi.points.gte(new Decimal(10));  // Buyable unlocks when player has 10 infinity points
             },
     
             // Effect of the buyable
@@ -1224,7 +1224,11 @@ addLayer("infi", {
                 let infipoints = player.infi.points.add(1); // Ensure no zero points
                 return infipoints.pow(0.05).pow(x); // Formula based on points and level
             },
-    
+            canAfford() { return player.infi.points.gte(this.cost()) },
+            buy() {
+            player[this.layer].points = player.infi.points.sub(this.cost())
+            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
             // Display the effect
             display() {
                 let amt = getBuyableAmount("infi", 11); // Current level of the buyable
