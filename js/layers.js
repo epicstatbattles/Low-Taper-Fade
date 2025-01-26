@@ -1226,9 +1226,14 @@ addLayer("infi", {
             },
     
             // Display the effect
-            effectDisplay() {
+            display() {
                 let amt = getBuyableAmount("infi", 11); // Current level of the buyable
-                return "x" + format(this.effect(amt));  // Format and display effect
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} Infinity Points`;
             },
         },
     },
