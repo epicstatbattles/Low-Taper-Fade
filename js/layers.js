@@ -1446,18 +1446,19 @@ addLayer("infi", {
         },
         23: {
             title: "Astronomical Fame",
-            description: "Aubrie's documentary from a while back now begin to affect massive point gain (initial 3x multi).",
+            description: "Aubrie's documentary from a while back now begin to boost massive point gain (initial 3x multi).",
             cost: new Decimal(80),
             unlocked() { return hasUpgrade("infi", 22); },
             effect() {
-                let base = player.aub.points.add(1).pow(0.24).times(3); // Original effect formula
+                let aubEffect = player.aub.points.add(1).pow(0.25).times(3); // Effect based on aub points
+                let njaEffect = player.ninja.points.div(10000).add(1).pow(0.048); // Effect based on nja points
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.aub.points.gte(new Decimal(1e40))) {
-                    diminishingFactor = player.aub.points.div(1e40).pow(0.12); // Slight division factor
+                    diminishingFactor = player.aub.points.div(1e40).pow(0.1); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
+            return aubEffect.times(njaEffect).div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
                 let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
