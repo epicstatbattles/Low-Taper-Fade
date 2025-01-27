@@ -442,10 +442,10 @@ addLayer("ninja", {
         31: {
             title: "Fanmade LTF Convention",
             description: "A fan makes a Low Taper Fade convention to honor Ninja's meme dragging. Boost LTF point gain based on Ninja points.",
-            cost: new Decimal(1e250),
+            cost: new Decimal(1e260),
             unlocked() { return hasUpgrade("ninja", 24) && hasUpgrade("infi", 24); },
             effect() {
-                let base = player.ninja.points.div(1e240).add(1).pow(0.08); // Original effect formula
+                let base = player.ninja.points.div(1e250).add(1).pow(0.08); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -467,10 +467,10 @@ addLayer("ninja", {
         32: {
             title: "Codename Madelize",
             description: "Madelizer and CT sub gain are boosted based on Ninja points.",
-            cost: new Decimal(1e300),
+            cost: new Decimal(1e320),
             unlocked() { return hasUpgrade("ninja", 31); },
             effect() {
-                let base = player.ninja.points.div(1e290).add(1).pow(0.035); // Original effect formula
+                let base = player.ninja.points.div(1e310).add(1).pow(0.035); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -677,20 +677,20 @@ addLayer("massive", {
         21: {
             title: "Infinity Enhancer",
             description: "Boost Infinity point gain based on massive points (initial 1.1x multi).",
-            cost: new Decimal(1e150),
+            cost: new Decimal(1e180),
             unlocked() { return hasUpgrade("massive", 15) && hasUpgrade("infi", 24); },
             effect() {
-                let base = player.massive.points.div(1e148).add(1).pow(0.01).times(1.1); // Original effect formula
+                let base = player.massive.points.div(1e178).add(1).pow(0.01).times(1.1); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.massive.points.gte(new Decimal(1e280))) {
-                    diminishingFactor = player.massive.points.div(1e280).pow(0.005); // Slight division factor
+                if (player.massive.points.gte(new Decimal(1e300))) {
+                    diminishingFactor = player.massive.points.div(1e300).pow(0.005); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.massive.points.gte(1e280); // Check if softcap applies
+                let isSoftcapped = player.massive.points.gte(1e300); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -702,20 +702,20 @@ addLayer("massive", {
         22: {
             title: "Codified Aubrination",
             description: "Aubrinator and CT sub gain are boosted based on massive points.",
-            cost: new Decimal(1e190),
+            cost: new Decimal(1e225),
             unlocked() { return hasUpgrade("massive", 21); },
             effect() {
-                let base = player.massive.points.div(1e188).add(1).pow(0.04); // Original effect formula
+                let base = player.massive.points.div(1e223).add(1).pow(0.04); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.massive.points.gte(new Decimal(1e320))) {
-                    diminishingFactor = player.massive.points.div(1e320).pow(0.02); // Slight division factor
+                if (player.massive.points.gte(new Decimal(1e360))) {
+                    diminishingFactor = player.massive.points.div(1e360).pow(0.02); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.massive.points.gte(1e320); // Check if softcap applies
+                let isSoftcapped = player.massive.points.gte(1e360); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
