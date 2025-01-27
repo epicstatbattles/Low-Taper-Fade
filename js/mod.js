@@ -201,7 +201,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.5</h3><br>
                 - Delayed CT upgrades 2:3 and 3:1 to 1e45.<br>
 		- Delayed Aubrinator upgrades 1:3 and 2:3 to 1e45 and Aubrinator upgrade 2:1 to 1e40.<br>
-		- Delayed Madelizer upgrades 1:3, 2:3, and 3:1 to 1e55.`
+		- Delayed Madelizer upgrades 1:3, 2:3, and 3:1 to 1e55.<br>
+		- Slightly reduced the effectiveness of most of the above mentioned's softcaps.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
