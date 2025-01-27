@@ -1456,7 +1456,7 @@ addLayer("infi", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.aub.points.gte(new Decimal(1e40))) {
-                    diminishingFactor = player.aub.points.div(1e40).pow(0.1); // Slight division factor
+                    diminishingFactor = player.aub.points.div(1e40).pow(0.075); // Slight division factor
                 }
             return aubEffect.times(njaEffect).div(diminishingFactor); // Apply the diminishing factor
         },
