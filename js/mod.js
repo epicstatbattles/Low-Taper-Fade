@@ -197,7 +197,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added softcaps to all mentioned CT upgrades at 1e45 CT subscribers.<br>
 	<h3>v1.4.4</h3><br>
                 - Returned 1:3 and 2:1 formulas to before v1.4.3 (and removed the softcaps), but slightly buffed.<br>
-		- Weakened softcap effectiveness of CT upgrades 2:3 and 3:1 and adjusted the softcap start to 1e40.<br>
+		- Slightly weakened softcap effectiveness of CT upgrades 2:3 and 3:1 and adjusted the softcap start to 1e40.<br>
 	<h3>v1.4.5</h3><br>
                 - Delayed CT upgrades 2:3 and 3:1 to 1e45.<br>
 		- Delayed Aubrinator upgrades 1:3 and 2:3 to 1e45 and Aubrinator upgrade 2:1 to 1e40.<br>
