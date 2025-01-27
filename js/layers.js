@@ -824,7 +824,7 @@ addLayer("mady", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e55))) {
-                    diminishingFactor = player.mady.points.div(1e55).pow(0.16); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e55).pow(0.128); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -884,7 +884,7 @@ addLayer("mady", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e55))) {
-                    diminishingFactor = player.mady.points.div(1e55).pow(0.1125); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e55).pow(0.09); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -909,7 +909,7 @@ addLayer("mady", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.mady.points.gte(new Decimal(1e55))) {
-                    diminishingFactor = player.mady.points.div(1e55).pow(0.2625); // Slight division factor
+                    diminishingFactor = player.mady.points.div(1e55).pow(0.21); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1058,7 +1058,7 @@ addLayer("ct", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.03125); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.025); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1083,7 +1083,7 @@ addLayer("ct", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.0375); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.03); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1223,7 +1223,7 @@ addLayer("aub", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.aub.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.aub.points.div(1e45).pow(0.17); // Slight division factor
+                    diminishingFactor = player.aub.points.div(1e45).pow(0.136); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1249,7 +1249,7 @@ addLayer("aub", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.aub.points.gte(new Decimal(1e40))) {
-                    diminishingFactor = player.aub.points.div(1e40).pow(0.125); // Slight division factor
+                    diminishingFactor = player.aub.points.div(1e40).pow(0.1); // Slight division factor
                 }
             return aubEffect.times(njaEffect).div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1284,7 +1284,7 @@ addLayer("aub", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.aub.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.aub.points.div(1e45).pow(0.08); // Slight division factor
+                    diminishingFactor = player.aub.points.div(1e45).pow(0.064); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
