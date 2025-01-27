@@ -449,13 +449,13 @@ addLayer("ninja", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.ninja.points.gte(new Decimal(1e480))) {
-                    diminishingFactor = player.ninja.points.div(1e480).pow(0.04); // Slight division factor
+                if (player.ninja.points.gte(new Decimal("1e480"))) {
+                    diminishingFactor = player.ninja.points.div("1e480").pow(0.04); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.ninja.points.gte(1e480); // Check if softcap applies
+                let isSoftcapped = player.ninja.points.gte("1e480"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -470,17 +470,17 @@ addLayer("ninja", {
             cost: new Decimal("1e320"),
             unlocked() { return hasUpgrade("ninja", 31); },
             effect() {
-                let base = player.ninja.points.div(1e310).add(1).pow(0.035); // Original effect formula
+                let base = player.ninja.points.div("1e310").add(1).pow(0.035); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.ninja.points.gte(new Decimal(1e540))) {
-                    diminishingFactor = player.ninja.points.div(1e540).pow(0.0175); // Slight division factor
+                if (player.ninja.points.gte(new Decimal("1e540"))) {
+                    diminishingFactor = player.ninja.points.div("1e540").pow(0.0175); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.ninja.points.gte(1e540); // Check if softcap applies
+                let isSoftcapped = player.ninja.points.gte("1e540"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -709,13 +709,13 @@ addLayer("massive", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.massive.points.gte(new Decimal(1e360))) {
-                    diminishingFactor = player.massive.points.div(1e360).pow(0.02); // Slight division factor
+                if (player.massive.points.gte(new Decimal("1e360"))) {
+                    diminishingFactor = player.massive.points.div("1e360").pow(0.02); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.massive.points.gte(1e360); // Check if softcap applies
+                let isSoftcapped = player.massive.points.gte("1e360"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
