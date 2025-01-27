@@ -467,7 +467,7 @@ addLayer("ninja", {
         32: {
             title: "Codename Madelize",
             description: "Madelizer and CT sub gain are boosted based on Ninja points.",
-            cost: new Decimal(1e320),
+            cost: new Decimal("1e320"),
             unlocked() { return hasUpgrade("ninja", 31); },
             effect() {
                 let base = player.ninja.points.div(1e310).add(1).pow(0.035); // Original effect formula
