@@ -1058,7 +1058,7 @@ addLayer("ct", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.025); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.03125); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1083,7 +1083,7 @@ addLayer("ct", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.ct.points.gte(new Decimal(1e45))) {
-                    diminishingFactor = player.ct.points.div(1e45).pow(0.03); // Slight division factor
+                    diminishingFactor = player.ct.points.div(1e45).pow(0.0375); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
