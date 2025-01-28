@@ -1706,10 +1706,10 @@ addLayer("infi", {
         31: {
             name: "FYSC's Worst Nightmare",
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
-            goalDescription: "Reach 1e400 points.",
+            goalDescription: "Reach 1e450 points.",
             rewardDescription: "Unlock 2 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
-            canComplete: function() {return player.points.gte("1e400")},
+            canComplete: function() {return player.points.gte("1e450")},
             rewardEffect() {
                 return player.infi.points.div(1e13).add(10).log10().pow(1.5);
             },
