@@ -1555,7 +1555,7 @@ addLayer("infi", {
     challenges: {
         11: {
             name: "Restricted Growth",
-            challengeDescription: "All point gain is raised to the power of 0.9 and then divided by 20.",
+            challengeDescription: "All point gain is raised to the power of 0.9 and then divided by 100.",
             goalDescription: "Reach 1.7976e308 points.",
             rewardDescription: "Point gain is boosted based on Infinity points.",
             unlocked() { return hasUpgrade("infi", 24); },
