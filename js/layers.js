@@ -1405,9 +1405,24 @@ addLayer("infi", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("infi", 12); },
             effect() {
-                return player.infi.points.add(1).pow(0.64).times(2);
+                let base = player.infi.points.add(1).pow(0.64).times(2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.32); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
             title: "The Meme of all Memes",
@@ -1415,9 +1430,24 @@ addLayer("infi", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("infi", 13); },
             effect() {
-                return player.infi.points.div(1.5).add(1).pow(0.56).times(2);
+                let base = player.infi.points.div(1.5).add(1).pow(0.56).times(2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.28); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Ninja, The Transcendent",
@@ -1425,9 +1455,24 @@ addLayer("infi", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("infi", 14); },
             effect() {
-                return player.infi.points.div(2).add(1).pow(0.5).times(2);
+                let base = player.infi.points.div(2).add(1).pow(0.5).times(2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.25); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         22: {
             title: "Infinitrademark",
@@ -1445,9 +1490,24 @@ addLayer("infi", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("infi", 21); },
             effect() {
-                return player.infi.points.div(2.5).add(1).pow(0.45).times(2.5);
+                let base = player.infi.points.div(2.5).add(1).pow(0.45).times(2.5); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.225); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         23: {
             title: "Astronomical Fame",
