@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.11",
+	num: "1.4.12",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -216,7 +216,11 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly buffed massive upgrade 2:2.<br>
 	<h3>v1.4.11</h3><br>
                 - Added softcaps to the buyables at 1,000,000 Infinity points.<br>
-		- Adjusted goal of IC2 to be 1e84 points.`
+		- Adjusted goal of IC2 to be 1e84 points.<br>
+	<h3>v1.4.12</h3><br>
+                - Added a third Infinity challenge.<br>
+		- Adjusted endgame to be 1e1000 points.<br>
+		- Added 2 new Infinity upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -275,7 +279,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e800"))
+	return player.points.gte(new Decimal("1e1000"))
 }
 
 
