@@ -1614,7 +1614,7 @@ addLayer("infi", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.0625); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.0625).pow(x); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1652,7 +1652,7 @@ addLayer("infi", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.05); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.05).pow(x); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
