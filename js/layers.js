@@ -707,7 +707,7 @@ addLayer("massive", {
             cost: new Decimal(1e225),
             unlocked() { return hasUpgrade("massive", 21); },
             effect() {
-                let base = player.massive.points.div(1e223).add(1).pow(0.05); // Original effect formula
+                let base = player.massive.points.div(1e223).add(1).pow(0.045); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
