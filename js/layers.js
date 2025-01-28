@@ -1548,10 +1548,10 @@ addLayer("infi", {
         31: {
             title: "LTF Exponent",
             description: "Gain an exponent to LTF point gain based on infinity points (initial ^1.01 exponent).",
-            cost: new Decimal(1e13),
+            cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(1e12).add(10).log10().pow(0.072).times(1.01); // Original effect formula
+                let base = player.infi.points.div(1e11).add(10).log10().pow(0.072).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -1573,10 +1573,10 @@ addLayer("infi", {
         32: {
             title: "Quality of Life",
             description: "Boost LTF, Ninja, and massive point gain based on Infinity points and unlock auto-purchase for all 3.",
-            cost: new Decimal(1e18),
+            cost: new Decimal(1e16),
             unlocked() { return hasUpgrade("infi", 31);},
             effect() {
-                let base = player.infi.points.div(1e16).add(1).pow(0.08); // Original effect formula
+                let base = player.infi.points.div(1e14).add(1).pow(0.08); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -1711,7 +1711,7 @@ addLayer("infi", {
             unlocked() { return hasChallenge("infi", 21); },
             canComplete: function() {return player.points.gte("1e450")},
             rewardEffect() {
-                return player.infi.points.div(1e13).add(10).log10().pow(1.5);
+                return player.infi.points.div(1e11).add(10).log10().pow(1.5);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to Infinity point gain";
