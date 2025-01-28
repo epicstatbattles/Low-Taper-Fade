@@ -1575,10 +1575,10 @@ addLayer("infi", {
             unlocked() { return hasChallenge("infi", 11); },
             canComplete: function() {return player.points.gte(1e200)},
             rewardEffect() {
-                return player.ltf.points.div(1e100).pow(0.001).pow(player.infi.points.add(10).log10());
+                return player.ltf.points.div(1e100).add(1).pow(0.001).pow(player.infi.points.add(10).log10());
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to point gain";
+                return format(this.rewardEffect()) + "x to all layer 3 currency gain";
             },
         },
     },
