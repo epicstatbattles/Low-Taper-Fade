@@ -35,6 +35,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
         if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
+        if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -1366,6 +1367,7 @@ addLayer("infi", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 21)) mult = mult.times(upgradeEffect("massive", 21));
+        if (hasChallenge("infi", 31)) mult = mult.times(challengeEffect("infi", 31));
         return mult;
     },
 
@@ -1480,16 +1482,6 @@ addLayer("infi", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("infi", 21); },
             effect() {
-                return player.infi.points.div(2.5).add(1).pow(0.45).times(2.5);
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        22: {
-            title: "Infinitrademark",
-            description: "CT has become a powerful force to not be messed with. Boost CT subscriber gain based on infinity points. (initial multi 2.5x)",
-            cost: new Decimal(10),
-            unlocked() { return hasUpgrade("infi", 21); },
-            effect() {
                 let base = player.infi.points.div(2.5).add(1).pow(0.45).times(2.5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
@@ -1540,6 +1532,16 @@ addLayer("infi", {
             description: "Gain a 2x multiplier to Ninja and massive point gain and unlock 2 new upgrades for each.",
             cost: new Decimal(400),
             unlocked() { return hasUpgrade("infi", 23); },
+            effect() {
+                return new Decimal(2);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        31: {
+            title: "Reach endgame, for now.",
+            description: "Right now, this just 2x's LTF points as I am saving this for later.",
+            cost: new Decimal(1e13),
+            unlocked() { return hasUpgrade("infi", 24); && hasChallenge("infi", 31)},
             effect() {
                 return new Decimal(2);
             },
@@ -1651,6 +1653,20 @@ addLayer("infi", {
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to all layer 3 currency gain";
+            },
+        },
+        31: {
+            name: "FYSC's Worst Nightmare",
+            challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
+            goalDescription: "Reach 1e400 points.",
+            rewardDescription: "Unlock 2 new infinity upgrades and slightly boost their own gain.",
+            unlocked() { return hasChallenge("infi", 21); },
+            canComplete: function() {return player.points.gte("1e400")},
+            rewardEffect() {
+                return player.infi.points.div(1e12).add(10).log10().pow(0.5);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "^ to LTF point gain";
             },
         },
     },
