@@ -15,6 +15,7 @@ addLayer("ltf", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
+    autoUpgrade: return hasUpgrade("infi", 32);,
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -35,13 +36,15 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
         if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
-        if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
+        if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
 
-    gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1); // Default is no additional exponential scaling
+    gainExp() {
+        let exp = new Decimal(1); // Default exponent
+        if (hasUpgrade("infi", 31)) exp = exp.times(upgradeEffect("infi", 31));
+        return exp;
     },
 
     row: 0, // Row in the tree (0 = top row)
@@ -270,6 +273,7 @@ addLayer("ninja", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
+    autoUpgrade: return hasUpgrade("infi", 32);,
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -282,6 +286,7 @@ addLayer("ninja", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
+        if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -536,6 +541,7 @@ addLayer("massive", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
+    autoUpgrade: return hasUpgrade("infi", 32);,
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -550,6 +556,7 @@ addLayer("massive", {
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         if (hasUpgrade("infi", 23)) mult = mult.times(upgradeEffect("infi", 23));
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
+        if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         return mult;
     },
 
@@ -988,6 +995,7 @@ addLayer("ct", {
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
+        if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
 
@@ -1538,14 +1546,54 @@ addLayer("infi", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         31: {
-            title: "Reach endgame, for now.",
-            description: "Right now, this just 2x's LTF points as I am saving this for later.",
+            title: "LTF Exponent",
+            description: "Gain an exponent to LTF point gain based on infinity points (initial ^1.01 exponent).",
             cost: new Decimal(1e13),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                return new Decimal(2);
+                let base = player.infi.points.div(1e12).add(10).log10().pow(0.072).times(1.01); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e22))) {
+                    diminishingFactor = player.infi.points.div(1e21).log10().pow(0.014); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e22); // Check if softcap applies
+                let display = "^" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        32: {
+            title: "Quality of Life",
+            description: "Boost LTF, Ninja, and massive point gain based on Infinity points and unlock auto-purchase for all 3.",
+            cost: new Decimal(1e18),
+            unlocked() { return hasUpgrade("infi", 31);},
+            effect() {
+                let base = player.infi.points.div(1e16).add(1).pow(0.08); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e32))) {
+                    diminishingFactor = player.infi.points.div(1e32).pow(0.04); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e32); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     buyables: {
@@ -1659,11 +1707,11 @@ addLayer("infi", {
             name: "FYSC's Worst Nightmare",
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
             goalDescription: "Reach 1e400 points.",
-            rewardDescription: "Unlock 2 new infinity upgrades and slightly boost their own gain.",
+            rewardDescription: "Unlock 2 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
             canComplete: function() {return player.points.gte("1e400")},
             rewardEffect() {
-                return player.infi.points.div(1e12).add(10).log10().pow(0.5);
+                return player.infi.points.div(1e13).add(10).log10().pow(1.5);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "^ to LTF point gain";
