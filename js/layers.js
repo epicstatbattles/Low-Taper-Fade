@@ -789,7 +789,6 @@ addLayer("mady", {
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).madyBoost);
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
-        if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         return mult;
     },
 
