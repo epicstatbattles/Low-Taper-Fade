@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.9",
+	num: "1.4.10",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -211,7 +211,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.8</h3><br>
                 - Exponent nerf in IC1 is now 0.9.<br>
 	<h3>v1.4.9</h3><br>
-                - Added softcaps for Infinity upgrades 1:3, 1:4, 2:1, and 2:2 at 1,000,000 Infinity points.`
+                - Added softcaps for Infinity upgrades 1:3, 1:4, 2:1, and 2:2 at 1,000,000 Infinity points.<br>
+	<h3>v1.4.10</h3><br>
+                - Slightly buffed massive upgrade 2:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
