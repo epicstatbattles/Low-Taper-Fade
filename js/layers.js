@@ -15,7 +15,7 @@ addLayer("ltf", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
-    autoUpgrade: if (hasUpgrade("infi", 32)) return true,
+    autoUpgrade: hasUpgrade("infi", 32),
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -273,7 +273,7 @@ addLayer("ninja", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
-    autoUpgrade: if (hasUpgrade("infi", 32)) return true,
+    autoUpgrade: hasUpgrade("infi", 32),
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -541,7 +541,7 @@ addLayer("massive", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
-    autoUpgrade: if (hasUpgrade("infi", 32)) return true,
+    autoUpgrade: hasUpgrade("infi", 32),
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
