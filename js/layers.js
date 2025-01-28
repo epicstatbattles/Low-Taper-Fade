@@ -1549,7 +1549,7 @@ addLayer("infi", {
     buyables: {
         11: {
             title: "Point Boost",
-            description: "Boosts point generation based on your infinity points and level.",
+            description: "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)",
             cost(x) { return new Decimal(10).times(new Decimal(5).pow(x)); },  // The cost formula
     
             // Unlock condition
@@ -1559,9 +1559,15 @@ addLayer("infi", {
     
             // Effect of the buyable
             effect(x) {
-                let infipoints = player.infi.points.times(2).add(1); // Ensure no zero points
-                return infipoints.pow(0.125).pow(x); // Formula based on points and level
-            },
+                let base = player.infi.points.times(2).add(1).pow(0.125).pow(x); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.0625); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
             player.infi.points = player.infi.points.sub(this.cost())
@@ -1581,7 +1587,7 @@ addLayer("infi", {
         },
         12: {
             title: "LTF Boost",
-            description: "Boosts LTF gain based on your infinity points and level.",
+            description: "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)",
             cost(x) { return new Decimal(100).times(new Decimal(5).pow(x)); },  // The cost formula
     
             // Unlock condition
@@ -1591,9 +1597,15 @@ addLayer("infi", {
     
             // Effect of the buyable
             effect(x) {
-                let infipoints = player.infi.points.add(1); // Ensure no zero points
-                return infipoints.pow(0.1).pow(x); // Formula based on points and level
-            },
+                let base = player.infi.points.add(1).pow(0.1).pow(x); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.infi.points.div(1e6).pow(0.05); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
             player.infi.points = player.infi.points.sub(this.cost())
