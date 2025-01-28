@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.14",
+	num: "1.4.15",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -225,7 +225,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Adjusted IC3 goal to 1e450 points.<br>
 		- Adjusted endgame to be 1e1200 points.<br>
 	<h3>v1.4.14</h3><br>
-                - Slightly reworked Infinity upgrade 3:1 and 3:2 upgrade costs and formulas.`
+                - Slightly reworked Infinity upgrade 3:1 and 3:2 upgrade costs and formulas.<br>
+	<h3>v1.4.15</h3><br>
+                - Strengthened the softcaps of CT upgrades 2:3 and 3:1 to be similar to those of Aubrinator and Madelizer upgrade softcaps.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
