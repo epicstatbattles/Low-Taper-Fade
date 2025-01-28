@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.7",
+	num: "1.4.8",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -206,8 +206,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.6</h3><br>
                 - Rebalanced the recently added massive and Ninja upgrade costs.<br>
 	<h3>v1.4.7</h3><br>
-                - Reduced the exponent-based nerf in the first Infinity challenge.<br>
-		- Added a new Infinity challenge and buyable!`
+                - Reduced the exponent-based nerf (now 0.85) in the first Infinity challenge.<br>
+		- Added a new Infinity challenge and buyable!<br>
+	<h3>v1.4.8</h3><br>
+                - Divisor in IC1 has now been changed to 20.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -252,7 +254,7 @@ function getPointGen() {
     	gain = gain.times(buyableEffect("infi", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
-	if (inChallenge("infi", 11)) gain = gain.pow(0.85).div(100);
+	if (inChallenge("infi", 11)) gain = gain.pow(0.85).div(20);
 	return gain
 }
 
