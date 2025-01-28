@@ -223,7 +223,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added 2 new Infinity upgrades.<br>
 	<h3>v1.4.13</h3><br>
                 - Adjusted IC3 goal to 1e450 points.<br>
-		- Adjusted endgame to be 1e1200 points.`
+		- Adjusted endgame to be 1e1200 points.<br>
+		- Fixed Infinity upgrade 2:1 boosting Madelizers when they shouldn't have been buffed.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
