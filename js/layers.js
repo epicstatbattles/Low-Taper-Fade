@@ -35,6 +35,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
         if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
+        mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
 
@@ -280,6 +281,7 @@ addLayer("ninja", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
+        if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
 
@@ -779,6 +781,7 @@ addLayer("mady", {
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).madyBoost);
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
+        if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         return mult;
     },
 
@@ -983,6 +986,7 @@ addLayer("ct", {
         if (hasUpgrade("infi", 22)) mult = mult.times(upgradeEffect("infi", 22));
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
+        if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         return mult;
     },
 
@@ -1178,6 +1182,7 @@ addLayer("aub", {
         if (hasUpgrade("ct", 33)) mult = mult.times(upgradeEffect("ct", 33).aubBoost);
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
+        if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         return mult;
     },
 
@@ -1563,14 +1568,14 @@ addLayer("infi", {
             },
         },
         21: {
-            name: "Dragless Meme",
+            name: "Anti-Dragging Measures Taken",
             challengeDescription: "You cannot gain Ninja points or Madelizers.",
             goalDescription: "Reach 1e200 points.",
-            rewardDescription: "LTF gain is boosted based on time in this Infinity reset.",
+            rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
             canComplete: function() {return player.points.gte(1e200)},
             rewardEffect() {
-                return player.infi.resetTime.div(20).add(1).pow(player.infi.points.add(10).log10());
+                return player.ltf.points.div(1e100).pow(0.001).pow(player.infi.points.add(10).log10());
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to point gain";
