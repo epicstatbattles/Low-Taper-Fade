@@ -1714,7 +1714,7 @@ addLayer("infi", {
                 return player.infi.points.div(1e13).add(10).log10().pow(1.5);
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "^ to LTF point gain";
+                return format(this.rewardEffect()) + "x to Infinity point gain";
             },
         },
     },
