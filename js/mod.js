@@ -209,7 +209,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Reduced the exponent-based nerf (now 0.85) in the first Infinity challenge.<br>
 		- Added a new Infinity challenge and buyable!<br>
 	<h3>v1.4.8</h3><br>
-                - Divisor in IC1 has now been changed to 20.`
+                - Divisor in IC1 has now been changed to 20 and exponent nerf is now ^0.9.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -254,7 +254,7 @@ function getPointGen() {
     	gain = gain.times(buyableEffect("infi", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
-	if (inChallenge("infi", 11)) gain = gain.pow(0.85).div(20);
+	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(20);
 	return gain
 }
 
