@@ -1541,7 +1541,7 @@ addLayer("infi", {
             title: "Reach endgame, for now.",
             description: "Right now, this just 2x's LTF points as I am saving this for later.",
             cost: new Decimal(1e13),
-            unlocked() { return hasUpgrade("infi", 24); && hasChallenge("infi", 31)},
+            unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
                 return new Decimal(2);
             },
