@@ -215,7 +215,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.10</h3><br>
                 - Slightly buffed massive upgrade 2:2.<br>
 	<h3>v1.4.11</h3><br>
-                - Added softcaps to the buyables at 1,000,000 Infinity points.`
+                - Added softcaps to the buyables at 1,000,000 Infinity points.<br>
+		- Adjusted goal of IC2 to be 1e100 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
