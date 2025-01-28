@@ -1642,10 +1642,10 @@ addLayer("infi", {
         21: {
             name: "Anti-Dragging Measures Taken",
             challengeDescription: "You cannot gain Ninja points or Madelizers.",
-            goalDescription: "Reach 1e100 points.",
+            goalDescription: "Reach 1e90 points.",
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
-            canComplete: function() {return player.points.gte(1e100)},
+            canComplete: function() {return player.points.gte(1e90)},
             rewardEffect() {
                 return player.ltf.points.div(1e100).add(1).pow(0.001).pow(player.infi.points.add(10).log10());
             },
