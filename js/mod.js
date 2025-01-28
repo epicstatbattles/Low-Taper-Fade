@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.6",
+	num: "1.4.7",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -204,7 +204,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Delayed Madelizer upgrades 1:3, 2:3, and 3:1 to 1e55.<br>
 		- Slightly reduced the effectiveness of most of the above mentioned's softcaps.<br>
 	<h3>v1.4.6</h3><br>
-                - Rebalanced the recently added massive and Ninja upgrade costs.`
+                - Rebalanced the recently added massive and Ninja upgrade costs.<br>
+	<h3>v1.4.7</h3><br>
+                - Reduced the exponent-based nerf in the first Infinity challenge.<br>
+		- Added a new Infinity challenge and buyable!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -249,7 +252,7 @@ function getPointGen() {
     	gain = gain.times(buyableEffect("infi", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
-	if (inChallenge("infi", 11)) gain = gain.pow(0.75).div(100);
+	if (inChallenge("infi", 11)) gain = gain.pow(0.85).div(100);
 	return gain
 }
 
