@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.13",
+	num: "1.4.14",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -224,7 +224,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.13</h3><br>
                 - Adjusted IC3 goal to 1e450 points.<br>
 		- Adjusted endgame to be 1e1200 points.<br>
-		- Fixed Infinity upgrade 2:1 boosting Madelizers when they shouldn't have been buffed.`
+	<h3>v1.4.14</h3><br>
+                - Slightly reworked Infinity upgrade 3:1 and 3:2 upgrade costs and formulas.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
