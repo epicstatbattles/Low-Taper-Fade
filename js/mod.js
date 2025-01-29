@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.17",
+	num: "1.4.18",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -232,7 +232,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Slightly nerfed Infinity upgrade 3:1 and made its softcap start sooner (1e18).<br>
 	<h3>v1.4.17</h3><br>
                 - Added a new infinity upgrade and nerfed Infinity upgrade 3:1.<br>
-		- Adjusted endgame to be at 1e1500 points.`
+		- Adjusted endgame to be at 1e1500 points.<br>
+	<h3>v1.4.18</h3><br>
+                - Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
