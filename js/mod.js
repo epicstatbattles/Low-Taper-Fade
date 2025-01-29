@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.16",
+	num: "1.4.17",
 	name: "Low Taper Fade Ultra Plus",
 }
 
@@ -229,7 +229,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v1.4.15</h3><br>
                 - Strengthened the softcaps of CT upgrades 2:3 and 3:1 to be similar to those of Aubrinator and Madelizer upgrade softcaps.<br>
 	<h3>v1.4.16</h3><br>
-                - Slightly nerfed Infinity upgrade 3:1 and made its softcap start sooner (1e18).`
+                - Slightly nerfed Infinity upgrade 3:1 and made its softcap start sooner (1e18).<br>
+	<h3>v1.4.17</h3><br>
+                - Added a new infinity upgrade and nerfed Infinity upgrade 3:1.<br>
+		- Adjusted endgame to be at 1e1500 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -288,7 +291,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e1200"))
+	return player.points.gte(new Decimal("1e1500"))
 }
 
 
