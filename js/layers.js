@@ -1611,8 +1611,8 @@ addLayer("infi", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         31: {
-            title: "Proportional LTF Boost",
-            description: "Gain a multiplier to LTF point gain equal to ((Infinity Points)/1e10)+1.",
+            title: "Linear LTF Boost",
+            description: "Gain a linear boost to LTF point gain based on Infinity points (softcaps at 1e20).",
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
@@ -1620,8 +1620,8 @@ addLayer("infi", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.infi.points.gte(new Decimal(1e28))) {
-                    diminishingFactor = player.infi.points.div(1e28).pow(0.5); // Slight division factor
+                if (player.infi.points.gte(new Decimal(1e20))) {
+                    diminishingFactor = player.infi.points.div(1e20).pow(0.6); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1666,18 +1666,43 @@ addLayer("infi", {
             cost: new Decimal(1e20),
             unlocked() { return hasUpgrade("infi", 32); },
             effect() {
-                let base = player.infi.points.div(2.5e18).add(10).log10().pow(0.032).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e18).add(10).log10().pow(0.036).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e28))) {
-                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.008); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.009); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e28); // Check if softcap applies
                 let display = "^" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        34: {
+            title: "Meme Discovery",
+            description: "Unlock 3 new layers!! Also, boost point gain quadratically based on IP (softcaps at 1e36 IP)",
+            cost: new Decimal(1e25),
+            unlocked() { return hasUpgrade("infi", 33); },
+            effect() {
+                let base = player.infi.points.div(1e24).add(1).pow(2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e36))) {
+                    diminishingFactor = player.infi.points.div(1e36).pow(1.2); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e36); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
                     display += " (SC)"; // Append softcap indicator
@@ -1787,7 +1812,7 @@ addLayer("infi", {
             unlocked() { return hasChallenge("infi", 11); },
             canComplete: function() {return player.points.gte(1e84)},
             rewardEffect() {
-                return player.ltf.points.div(1e100).add(1).pow(0.001).pow(player.infi.points.add(10).log10());
+                return player.ltf.points.div(1e100).add(1).pow(0.002).pow(player.infi.points.add(10).log10().pow(0.5));
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to all layer 3 currency gain";
@@ -1797,7 +1822,7 @@ addLayer("infi", {
             name: "FYSC's Worst Nightmare",
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
             goalDescription: "Reach 1e450 points.",
-            rewardDescription: "Unlock 3 new infinity upgrades and boost their own gain.",
+            rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
             canComplete: function() {return player.points.gte("1e450")},
             rewardEffect() {
