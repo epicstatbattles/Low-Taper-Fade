@@ -36,6 +36,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 11)) mult = mult.times(4);
         if (hasUpgrade("infi", 14)) mult = mult.times(upgradeEffect("infi", 14));
         if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
+        if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
@@ -43,7 +44,6 @@ addLayer("ltf", {
 
     gainExp() {
         let exp = new Decimal(1); // Default exponent
-        if (hasUpgrade("infi", 31)) exp = exp.times(upgradeEffect("infi", 31));
         return exp;
     },
 
@@ -1548,23 +1548,23 @@ addLayer("infi", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         31: {
-            title: "LTF Exponent",
-            description: "Gain an exponent to LTF point gain based on infinity points (initial ^1.01 exponent).",
+            title: "Proportional LTF Boost",
+            description: "Gain a multiplier to LTF point gain equal to ((Infinity Points)/1e10)+1.",
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(2.5e10).add(10).log10().pow(0.04).times(1.01); // Original effect formula
+                let base = player.infi.points.div(1e10).add(1); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.infi.points.gte(new Decimal(1e18))) {
-                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.01); // Slight division factor
+                if (player.infi.points.gte(new Decimal(1e28))) {
+                    diminishingFactor = player.infi.points.div(1e28).pow(0.5); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e18); // Check if softcap applies
-                let display = "^" + format(this.effect()); // Base effect display
+                let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
                     display += " (SC)"; // Append softcap indicator
