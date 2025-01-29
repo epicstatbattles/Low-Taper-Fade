@@ -560,8 +560,10 @@ addLayer("massive", {
         return mult;
     },
 
-    gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1);
+    gainExp() {
+        let exp = new Decimal(1); // Default exponent
+        if (hasUpgrade("infi", 33)) exp = exp.times(upgradeEffect("infi", 33));
+        return exp;
     },
 
     row: 1, // Row in the tree (1 = second row)
@@ -1551,12 +1553,12 @@ addLayer("infi", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.068).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.056).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e18))) {
-                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.014); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.0112); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1588,6 +1590,31 @@ addLayer("infi", {
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e32); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        33: {
+            title: "Massive Point Exponent",
+            description: "Gain an exponent to massive point gain based on infinity points (initial ^1.01 exponent).",
+            cost: new Decimal(1e20),
+            unlocked() { return hasUpgrade("infi", 32); },
+            effect() {
+                let base = player.infi.points.div(2.5e19).add(10).log10().pow(0.052).times(1.01); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.infi.points.gte(new Decimal(1e28))) {
+                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.01); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e28); // Check if softcap applies
+                let display = "^" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
                     display += " (SC)"; // Append softcap indicator
@@ -1707,7 +1734,7 @@ addLayer("infi", {
             name: "FYSC's Worst Nightmare",
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
             goalDescription: "Reach 1e450 points.",
-            rewardDescription: "Unlock 2 new infinity upgrades and boost their own gain.",
+            rewardDescription: "Unlock 3 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
             canComplete: function() {return player.points.gte("1e450")},
             rewardEffect() {
