@@ -1553,12 +1553,12 @@ addLayer("infi", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.056).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e10).add(10).log10().pow(0.04).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e18))) {
-                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.0112); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.01); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
@@ -1603,12 +1603,12 @@ addLayer("infi", {
             cost: new Decimal(1e20),
             unlocked() { return hasUpgrade("infi", 32); },
             effect() {
-                let base = player.infi.points.div(2.5e19).add(10).log10().pow(0.052).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e18).add(10).log10().pow(0.032).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e28))) {
-                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.01); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.008); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
