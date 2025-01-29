@@ -1551,17 +1551,17 @@ addLayer("infi", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(1e11).add(10).log10().pow(0.072).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.072).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.infi.points.gte(new Decimal(1e22))) {
-                    diminishingFactor = player.infi.points.div(1e21).log10().pow(0.014); // Slight division factor
+                if (player.infi.points.gte(new Decimal(1e18))) {
+                    diminishingFactor = player.infi.points.div(1e17).log10().pow(0.014); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.infi.points.gte(1e22); // Check if softcap applies
+                let isSoftcapped = player.infi.points.gte(1e18); // Check if softcap applies
                 let display = "^" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
