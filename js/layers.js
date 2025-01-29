@@ -1310,15 +1310,15 @@ addLayer("aub", {
                     firstDiminishingFactor = player.aub.points.div(1e40).pow(0.1);
                 }
 
-                if (player.ninja.points.gte(new Decimal("1e400"))) {
-                    secondDiminishingFactor = player.ninja.points.div("1e400").pow(0.03);
+                if (player.ninja.points.gte(new Decimal("1e500"))) {
+                    secondDiminishingFactor = player.ninja.points.div("1e500").pow(0.03);
                 }
 
                 return aubEffect.times(njaEffect).div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() { 
                 let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
-                let isSuperSoftcapped = player.ninja.points.gte("1e400"); // Check if super softcap applies
+                let isSuperSoftcapped = player.ninja.points.gte("1e500"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
@@ -1582,15 +1582,15 @@ addLayer("infi", {
                     firstDiminishingFactor = player.aub.points.div(1e40).pow(0.075);
                 }
 
-                if (player.ninja.points.gte(new Decimal("1e400"))) {
-                    secondDiminishingFactor = player.ninja.points.div("1e400").pow(0.0216);
+                if (player.ninja.points.gte(new Decimal("1e500"))) {
+                    secondDiminishingFactor = player.ninja.points.div("1e500").pow(0.0216);
                 }
 
                 return aubEffect.times(njaEffect).div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() { 
                 let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
-                let isSuperSoftcapped = player.ninja.points.gte("1e400"); // Check if super softcap applies
+                let isSuperSoftcapped = player.ninja.points.gte("1e500"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
