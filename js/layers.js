@@ -1551,7 +1551,7 @@ addLayer("infi", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
-                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.072).times(1.01); // Original effect formula
+                let base = player.infi.points.div(2.5e11).add(10).log10().pow(0.064).times(1.01); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
