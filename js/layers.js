@@ -1886,7 +1886,7 @@ addLayer("vex", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34); || player.vex.points.gte(1);
+        return hasUpgrade("infi", 34) || player.vex.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
