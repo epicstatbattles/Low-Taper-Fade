@@ -39,6 +39,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -289,6 +290,7 @@ addLayer("ninja", {
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -560,6 +562,7 @@ addLayer("massive", {
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         return mult;
     },
 
@@ -796,6 +799,7 @@ addLayer("mady", {
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         return mult;
     },
 
@@ -1023,6 +1027,7 @@ addLayer("ct", {
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1235,6 +1240,7 @@ addLayer("aub", {
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
+        if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         return mult;
     },
 
@@ -1440,6 +1446,7 @@ addLayer("infi", {
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 21)) mult = mult.times(upgradeEffect("massive", 21));
         if (hasChallenge("infi", 31)) mult = mult.times(challengeEffect("infi", 31));
+        if (hasUpgrade("enhance", 13)) mult = mult.times(upgradeEffect("enhance", 13));
         return mult;
     },
 
@@ -1940,6 +1947,101 @@ addLayer("vex", {
         0: {
             requirementDescription: "100 Vexbolts Points",
             effectDescription: "Reached Endgame!",
+            done() { return player.vex.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
+            ],
+        },
+    },
+});
+addLayer("enhance", {
+    name: "Enhancers", // Full name of the layer
+    symbol: "ENH", // Symbol displayed on the tree
+    position: 2, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#ff8c00", // orange
+    requires: new Decimal("1e350"), // Points required to unlock this layer
+    resource: "Enhancers", // Prestige currency name
+    baseResource: "Codename Trademark subscribers", // Resource used to gain prestige points
+    baseAmount() { return player.ct.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.01625, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has Infinity Upgrade 3:4
+        return hasUpgrade("infi", 34) || player.enhance.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 4, // Row in the tree (4 = fifth row)
+    branches: ["infi"], // Branch from Infinity visually
+
+    hotkeys: [
+        { key: "3", description: "3: Reset for Enhancers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Resource Multiplier",
+            description: "Multiply all pre-infinity resource gain by 5, except for regular points.",
+            cost: new Decimal(1),
+            effect() {
+                return new Decimal(5); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Point Enhancer",
+            description: "Boost point gain drastically based on enhancers and Infinity points (initial 20x multi).",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("enhance", 11); },
+            effect() {
+                return player.enhance.points.add(1).pow(1.5).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(20);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Infinity Enhancer",
+            description: "Boost Infinity point gain based on enhancers (initial 5x multi).",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("enhance", 12); },
+            effect() {
+                return player.enhance.points.add(1).pow(0.6).times(5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Enhance Points",
+            effectDescription: "Reached Endgame 2.0!",
             done() { return player.vex.points.gte(100); },
         },
     },
