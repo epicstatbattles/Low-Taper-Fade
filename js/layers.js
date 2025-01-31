@@ -1918,7 +1918,7 @@ addLayer("vex", {
             title: "Unemployed Brainrot Banger",
             description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 10x multi)",
             cost: new Decimal(2),
-            unlocked() { return hasUpgrade("infi", 11); },
+            unlocked() { return hasUpgrade("vex", 11); },
             effect() {
                 return player.vex.points.times(10).add(10);
             },
@@ -1928,7 +1928,7 @@ addLayer("vex", {
             title: "Mass Unfollowing",
             description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 5x multi).",
             cost: new Decimal(3),
-            unlocked() { return hasUpgrade("infi", 12); },
+            unlocked() { return hasUpgrade("vex", 12); },
             effect() {
                 return player.vex.points.times(5).add(5);
             },
