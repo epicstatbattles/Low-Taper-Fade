@@ -38,6 +38,7 @@ addLayer("ltf", {
         if (hasUpgrade("ninja", 31)) mult = mult.times(upgradeEffect("ninja", 31));
         if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
+        if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -287,6 +288,7 @@ addLayer("ninja", {
         if (hasUpgrade("infi", 21)) mult = mult.times(upgradeEffect("infi", 21));
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
+        if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -557,6 +559,7 @@ addLayer("massive", {
         if (hasUpgrade("infi", 23)) mult = mult.times(upgradeEffect("infi", 23));
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
+        if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         return mult;
     },
 
@@ -792,6 +795,7 @@ addLayer("mady", {
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
+        if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         return mult;
     },
 
@@ -1018,6 +1022,7 @@ addLayer("ct", {
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
+        if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1229,6 +1234,7 @@ addLayer("aub", {
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
+        if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         return mult;
     },
 
@@ -1687,7 +1693,7 @@ addLayer("infi", {
         },
         34: {
             title: "Meme Discovery",
-            description: "Unlock 3 new layers!! Also, boost point gain quadratically based on IP (softcaps at 1e36 IP)",
+            description: "Unlock 3 new layers (in development)!! Also, boost point gain quadratically based on IP (softcaps at 1e36 IP)",
             cost: new Decimal(1e25),
             unlocked() { return hasUpgrade("infi", 33); },
             effect() {
@@ -1836,7 +1842,7 @@ addLayer("infi", {
     milestones: {
         0: {
             requirementDescription: "10000 Infinity Points",
-            effectDescription: "Reached Endgame!",
+            effectDescription: "Transcendent Taper Fade!",
             done() { return player.infi.points.gte(10000); },
         },
     },
@@ -1856,6 +1862,100 @@ addLayer("infi", {
         "About": {
             content: [
                 ["raw-html", () => "You have earned so many points that you can now infinity. Reset everything prior to infinity in exchange for monumental boosts."],
+            ],
+        },
+    },
+});
+addLayer("vex", {
+    name: "Vexbolts", // Full name of the layer
+    symbol: "VEX", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#f2f2f2", // light gray
+    requires: new Decimal("1e420"), // Points required to unlock this layer
+    resource: "Vexbolts points", // Prestige currency name
+    baseResource: "Madelizers", // Resource used to gain prestige points
+    baseAmount() { return player.infi.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.0125, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has Infinity Upgrade 3:4
+        return hasUpgrade("infi", 34); || player.vex.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 4, // Row in the tree (4 = fifth row)
+    branches: ["infi"], // Branch from Infinity visually
+
+    hotkeys: [
+        { key: "2", description: "2: Reset for Vexbolts points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "LET HIM COOK!",
+            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points.",
+            cost: new Decimal(1),
+            effect() {
+                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(1000).add(1).pow(0.03)).times(player.ninja.points.div(250).add(1).pow(0.04)).times(player.massive.points.div(100).add(1).pow(0.05)); // Complex multiplier
+            },
+        },
+        12: {
+            title: "Unemployed Brainrot Banger",
+            description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 10x multi)",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("infi", 11); },
+            effect() {
+                return player.vex.points.times(10).add(10);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Mass Unfollowing",
+            description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 5x multi).",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("infi", 12); },
+            effect() {
+                return player.vex.points.times(5).add(5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Vexbolts Points",
+            effectDescription: "Reached Endgame!",
+            done() { return player.vex.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
             ],
         },
     },
