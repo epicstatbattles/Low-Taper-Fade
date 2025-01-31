@@ -1908,10 +1908,10 @@ addLayer("vex", {
     upgrades: {
         11: {
             title: "LET HIM COOK!",
-            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points (initial 100x multi).",
+            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points (initial 250x multi).",
             cost: new Decimal(1),
             effect() {
-                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(10).add(1).pow(0.02)).times(player.ninja.points.div(2.5).add(1).pow(0.025)).times(player.massive.points.add(1).pow(0.03)).times(100); // Complex multiplier
+                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(10).add(1).pow(0.02)).times(player.ninja.points.div(2.5).add(1).pow(0.025)).times(player.massive.points.add(1).pow(0.03)).times(250); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
