@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.18",
-	name: "Low Taper Fade Ultra Plus",
+	num: "2.0",
+	name: "Low Taper Fade Hyper",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -234,7 +234,10 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a new infinity upgrade and reworked Infinity upgrade 3:1 entirely.<br>
 		- Adjusted endgame to be at 1e1500 points.<br>
 	<h3>v1.4.18</h3><br>
-                - Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2`
+                - Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2.<br>
+	<h3>v2.0</h3><br>
+                - Added a new post-infinity layer! (2 more are on the way).<br>
+		- Adjusted endgame to now be at 1e3000 points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -279,6 +282,7 @@ function getPointGen() {
     	gain = gain.times(buyableEffect("infi", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
+	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	return gain
@@ -294,7 +298,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e1500"))
+	return player.points.gte(new Decimal("1e3000"))
 }
 
 
