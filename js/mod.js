@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.0",
+	num: "2.1",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -237,7 +237,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2.<br>
 	<h3>v2.0</h3><br>
                 - Added a new post-infinity layer! (2 more are on the way).<br>
-		- Adjusted endgame to now be at 1e3000 points.`
+		- Adjusted endgame to now be at 1e3000 points.<br>
+	<h3>v2.1</h3><br>
+                - Added another post-infinity layer! (1 more is on the way).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
