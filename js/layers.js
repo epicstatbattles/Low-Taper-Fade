@@ -1913,6 +1913,7 @@ addLayer("vex", {
             effect() {
                 return player.vex.points.add(1).pow(2).times(player.ltf.points.div(1000).add(1).pow(0.03)).times(player.ninja.points.div(250).add(1).pow(0.04)).times(player.massive.points.div(100).add(1).pow(0.05)); // Complex multiplier
             },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Unemployed Brainrot Banger",
