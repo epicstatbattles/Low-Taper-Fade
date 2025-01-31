@@ -1880,7 +1880,7 @@ addLayer("vex", {
     requires: new Decimal("1e420"), // Points required to unlock this layer
     resource: "Vexbolts points", // Prestige currency name
     baseResource: "Madelizers", // Resource used to gain prestige points
-    baseAmount() { return player.infi.points; }, // Current amount of baseResource
+    baseAmount() { return player.mady.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.0125, // Scaling factor for prestige points
 
