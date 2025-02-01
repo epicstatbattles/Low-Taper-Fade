@@ -2049,7 +2049,7 @@ addLayer("enhance", {
         0: {
             requirementDescription: "100 Enhance Points",
             effectDescription: "Reached Endgame 2.0!",
-            done() { return player.vex.points.gte(100); },
+            done() { return player.enhance.points.gte(100); },
         },
     },
 
@@ -2142,9 +2142,9 @@ addLayer("sunny", {
     },
     milestones: {
         0: {
-            requirementDescription: "100 Enhance Points",
-            effectDescription: "Reached Endgame 2.0!",
-            done() { return player.vex.points.gte(100); },
+            requirementDescription: "100 SunnyV2 Points",
+            effectDescription: "Reached Endgame 3.0!",
+            done() { return player.sunny.points.gte(100); },
         },
     },
 
