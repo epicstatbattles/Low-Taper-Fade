@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.1",
+	num: "2.2",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -239,7 +239,9 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a new post-infinity layer! (2 more are on the way).<br>
 		- Adjusted endgame to now be at 1e3000 points.<br>
 	<h3>v2.1</h3><br>
-                - Added another post-infinity layer! (1 more is on the way).`
+                - Added another post-infinity layer! (1 more is on the way).<br>
+	<h3>v2.2</h3><br>
+                - Added the final post-infinity layer in the set (all basic right now with 3 upgrades).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -286,6 +288,7 @@ function getPointGen() {
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
 	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
+	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	return gain
