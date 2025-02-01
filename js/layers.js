@@ -40,6 +40,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -291,6 +292,7 @@ addLayer("ninja", {
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -562,6 +564,7 @@ addLayer("massive", {
         if (hasUpgrade("infi", 24)) mult = mult.times(upgradeEffect("infi", 24));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
+        if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         return mult;
     },
@@ -693,7 +696,7 @@ addLayer("massive", {
             },
         },
         21: {
-            title: "Infinity Enhancer",
+            title: "Infinity Booster",
             description: "Boost Infinity point gain based on massive points (initial 1.1x multi).",
             cost: new Decimal(1e180),
             unlocked() { return hasUpgrade("massive", 15) && hasUpgrade("infi", 24); },
@@ -800,6 +803,7 @@ addLayer("mady", {
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         return mult;
     },
 
@@ -1028,6 +1032,7 @@ addLayer("ct", {
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1241,6 +1246,8 @@ addLayer("aub", {
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
+        if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
         return mult;
     },
 
@@ -2023,7 +2030,7 @@ addLayer("enhance", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("enhance", 11); },
             effect() {
-                return player.enhance.points.add(1).pow(1.5).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(20);
+                return player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(20);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2058,7 +2065,102 @@ addLayer("enhance", {
         },
         "About": {
             content: [
-                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
+                ["raw-html", () => "Now you can get enhancers to drastically boost many aspects of progression!"],
+            ],
+        },
+    },
+});
+addLayer("sunny", {
+    name: "SunnyV2", // Full name of the layer
+    symbol: "SV2", // Symbol displayed on the tree
+    position: 3, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#9db1e0", // ultralight blue
+    requires: new Decimal(1e300), // Points required to unlock this layer
+    resource: "SunnyV2 points", // Prestige currency name
+    baseResource: "Aubrinators", // Resource used to gain prestige points
+    baseAmount() { return player.aub.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.02, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has Infinity Upgrade 3:4
+        return hasUpgrade("infi", 34) || player.sunny.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 4, // Row in the tree (4 = fifth row)
+    branches: ["infi"], // Branch from Infinity visually
+
+    hotkeys: [
+        { key: "3", description: "3: Reset for Enhancers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Rise and Shine",
+            description: "SunnyV2's documentaries gain some popularity. Boost point and layer 3 currency gain linearly based on SunnyV2 points (initial 20x multi).",
+            cost: new Decimal(1),
+            effect() {
+                return player.sunny.points.times(20).add(20); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Collab Documentary",
+            description: "SunnyV2 decides to collab with Aubrie for a massive documentary! Boost Aubrinator gain drastically based on SunnyV2 points (initial 40x multi).",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("sunny", 11); },
+            effect() {
+                return player.sunny.points.add(1).pow(1.25).times(40);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Behind The Scenes",
+            description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 15x multi).",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("sunny", 12); },
+            effect() {
+                return player.sunny.points.add(1).pow(1.3).times(15);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Enhance Points",
+            effectDescription: "Reached Endgame 2.0!",
+            done() { return player.vex.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Now you can get enhancers to drastically boost many aspects of progression!"],
             ],
         },
     },
