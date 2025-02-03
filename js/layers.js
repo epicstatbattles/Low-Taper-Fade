@@ -2081,7 +2081,7 @@ addLayer("sunny", {
         };
     },
     color: "#9db1e0", // ultralight blue
-    requires: new Decimal(1e300), // Points required to unlock this layer
+    requires: new Decimal("1e310"), // Points required to unlock this layer
     resource: "SunnyV2 points", // Prestige currency name
     baseResource: "Aubrinators", // Resource used to gain prestige points
     baseAmount() { return player.aub.points; }, // Current amount of baseResource
