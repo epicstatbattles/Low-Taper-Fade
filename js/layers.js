@@ -1395,7 +1395,7 @@ addLayer("aub", {
             cost: new Decimal(20000),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
-                return player.points.div(1e10).add(1).pow(0.015);
+                return player.points.div(1e10).add(1).pow(0.014);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
