@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.2",
+	num: "2.2.1",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -241,7 +241,11 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.1</h3><br>
                 - Added another post-infinity layer! (1 more is on the way).<br>
 	<h3>v2.2</h3><br>
-                - Added the final post-infinity layer in the set (all basic right now with 3 upgrades).`
+                - Added the final post-infinity layer in the set (all basic right now with 3 upgrades).<br>
+	<h3>v2.2.1</h3><br>
+                - Changed Vexbolts requirement amount to 1e400.<br>
+		- Buffed enhancer upgrade 1 to be based on enhancers instead of just being static.<br>
+		- Fixed SunnyV2 description showing enhancer description.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
