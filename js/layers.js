@@ -2106,7 +2106,7 @@ addLayer("sunny", {
     branches: ["infi"], // Branch from Infinity visually
 
     hotkeys: [
-        { key: "3", description: "3: Reset for Enhancers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "4", description: "4: Reset for SunnyV2 points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
