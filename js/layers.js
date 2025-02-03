@@ -1891,7 +1891,7 @@ addLayer("vex", {
         };
     },
     color: "#f2f2f2", // light gray
-    requires: new Decimal("1e420"), // Points required to unlock this layer
+    requires: new Decimal("1e400"), // Points required to unlock this layer
     resource: "Vexbolts points", // Prestige currency name
     baseResource: "Madelizers", // Resource used to gain prestige points
     baseAmount() { return player.mady.points; }, // Current amount of baseResource
@@ -2017,10 +2017,10 @@ addLayer("enhance", {
     upgrades: {
         11: {
             title: "Resource Multiplier",
-            description: "Multiply all pre-infinity resource gain by 5, except for regular points.",
+            description: "Boost all pre-infinity resource gain based on enhancers, except for regular points. (initial 5x multi)",
             cost: new Decimal(1),
             effect() {
-                return new Decimal(5); // Simple multiplier
+                return player.enhance.points.times(2.5).add(5); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2160,7 +2160,7 @@ addLayer("sunny", {
         },
         "About": {
             content: [
-                ["raw-html", () => "Now you can get enhancers to drastically boost many aspects of progression!"],
+                ["raw-html", () => "SunnyV2 has been making documentaries of this meme and other things for a while now."],
             ],
         },
     },
