@@ -1931,21 +1931,21 @@ addLayer("vex", {
         },
         12: {
             title: "Unemployed Brainrot Banger",
-            description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 10x multi)",
+            description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 40x multi)",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("vex", 11); },
             effect() {
-                return player.vex.points.times(10).add(10);
+                return player.vex.points.times(40).add(40);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Mass Unfollowing",
-            description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 5x multi).",
+            description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 10x multi).",
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("vex", 12); },
             effect() {
-                return player.vex.points.times(5).add(5);
+                return player.vex.points.times(10).add(10);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2026,11 +2026,11 @@ addLayer("enhance", {
         },
         12: {
             title: "Point Enhancer",
-            description: "Boost point gain drastically based on enhancers and Infinity points (initial 20x multi).",
+            description: "Boost point gain drastically based on enhancers and Infinity points (initial 50x multi).",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("enhance", 11); },
             effect() {
-                return player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(20);
+                return player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(50);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2131,11 +2131,11 @@ addLayer("sunny", {
         },
         13: {
             title: "Behind The Scenes",
-            description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 15x multi).",
+            description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 25x multi).",
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("sunny", 12); },
             effect() {
-                return player.sunny.points.add(1).pow(1.3).times(15);
+                return player.sunny.points.add(1).pow(1.3).times(25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
