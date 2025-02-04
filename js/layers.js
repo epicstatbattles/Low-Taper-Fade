@@ -1715,13 +1715,13 @@ addLayer("infi", {
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
-                if (player.infi.points.gte(new Decimal(1e36))) {
-                    diminishingFactor = player.infi.points.div(1e36).pow(1.2); // Slight division factor
+                if (player.infi.points.gte(new Decimal(1e33))) {
+                    diminishingFactor = player.infi.points.div(1e33).pow(1.2); // Slight division factor
                 }
             return base.div(diminishingFactor); // Apply the diminishing factor
         },
             effectDisplay() { 
-                let isSoftcapped = player.infi.points.gte(1e36); // Check if softcap applies
+                let isSoftcapped = player.infi.points.gte(1e33); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
