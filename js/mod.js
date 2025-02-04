@@ -251,7 +251,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Changed SunnyV2 requirement amount to 1e310.<br>
 	<h3>v2.2.3</h3><br>
                 - Buffed a few Vexbolts, enhancers, and SunnyV2 upgrades.<br>
-		- Changed Infinity upgrade 3:4 softcap to 1e33.`
+		- Changed Infinity upgrade 3:4 softcap to 1e33.<br>
+		- Reworked cost scaling for the Infinity buyables.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
