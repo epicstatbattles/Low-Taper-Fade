@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.2.2",
+	num: "2.2.3",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -248,7 +248,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed SunnyV2 description showing enhancer description.<br>
 	<h3>v2.2.2</h3><br>
                 - Buffed Aubrinator upgrade 3:1.<br>
-		- Changed SunnyV2 requirement amount to 1e310.`
+		- Changed SunnyV2 requirement amount to 1e310.<br>
+	<h3>v2.2.3</h3><br>
+                - Buffed a few Vexbolts, enhancers, and SunnyV2 upgrades.<br>
+		- Changed Infinity upgrade 3:4 softcap to 1e33.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
