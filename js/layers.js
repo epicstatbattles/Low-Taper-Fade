@@ -1735,7 +1735,7 @@ addLayer("infi", {
         11: {
             title: "Point Boost",
             description: "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)",
-            cost(x) { return new Decimal(10).times(new Decimal(15).div(8).add(x).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(10).times(new Decimal(15).add(x).div(8).pow(x)); },  // The cost formula
     
             // Unlock condition
             unlocked() {
@@ -1773,7 +1773,7 @@ addLayer("infi", {
         12: {
             title: "LTF Boost",
             description: "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)",
-            cost(x) { return new Decimal(100).times(new Decimal(15).div(8).add(x).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(100).times(new Decimal(15).add(x).div(8).pow(x)); },  // The cost formula
     
             // Unlock condition
             unlocked() {
