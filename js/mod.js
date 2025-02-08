@@ -298,6 +298,7 @@ function getPointGen() {
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
 	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
+	if (hasUpgrade("vex", 14)) gain = gain.times(upgradeEffect("vex", 14));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
