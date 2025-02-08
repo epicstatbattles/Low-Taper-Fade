@@ -12,12 +12,12 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.2.3",
+	num: "2.3",
 	name: "Low Taper Fade Hyper",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0.1</h3><br>
+	<h3>v0.0.1 (Sorry if it's in reverse order)</h3><br>
 		- Created game.<br>
 		- Added low taper fade and upgrades.<br>
 	<h3>v0.0.2</h3><br>
@@ -252,7 +252,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.2.3</h3><br>
                 - Buffed a few Vexbolts, enhancers, and SunnyV2 upgrades.<br>
 		- Changed Infinity upgrade 3:4 softcap to 1e33.<br>
-		- Reworked cost scaling for the Infinity buyables.`
+		- Reworked cost scaling for the Infinity buyables.<br>
+	<h3>v2.3</h3><br>
+                - Added softcaps to many layer 5 currency upgrades at 10,000 of their respective currencies.<br>
+		- Added 1 new upgrade for each layer 5 currency.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
