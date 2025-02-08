@@ -255,7 +255,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Reworked cost scaling for the Infinity buyables.<br>
 	<h3>v2.3</h3><br>
                 - Added softcaps to many layer 5 currency upgrades at 10,000 of their respective currencies.<br>
-		- Added 1 new upgrade for each layer 5 currency.`
+		- Added 1 new upgrade for each layer 5 currency.<br>
+		- Made the Infinity buyable cost scaling for both buyables a bit more aggressive.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
