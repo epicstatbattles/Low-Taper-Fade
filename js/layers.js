@@ -1033,6 +1033,7 @@ addLayer("ct", {
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
+        if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1935,25 +1936,80 @@ addLayer("vex", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("vex", 11); },
             effect() {
-                return player.vex.points.times(40).add(40);
+                let base = player.vex.points.times(40).add(40); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.vex.points.div(10000).pow(0.5); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Mass Unfollowing",
             description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 10x multi).",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade("vex", 12); },
             effect() {
-                return player.vex.points.times(10).add(10);
+                let base = player.vex.points.times(10).add(10); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.vex.points.div(10000).pow(0.5); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Mass Refollowing",
+            description: "...only for them to revive him. The second trend causes Vexbolts points to cubically boost point gain. (initial 10x multi)",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("vex", 13); },
+            effect() {
+                let base = player.vex.points.add(1).pow(3).times(10); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.vex.points.div(10000).pow(1.5); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     milestones: {
         0: {
             requirementDescription: "100 Vexbolts Points",
-            effectDescription: "Reached Endgame!",
+            effectDescription: "Brainrot Artist!",
             done() { return player.vex.points.gte(100); },
         },
     },
@@ -2020,9 +2076,24 @@ addLayer("enhance", {
             description: "Boost all pre-infinity resource gain based on enhancers, except for regular points. (initial 10x multi)",
             cost: new Decimal(1),
             effect() {
-                return player.enhance.points.times(5).add(10); // Simple multiplier
+                let base = player.enhance.points.times(5).add(10); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.enhance.points.div(10000).pow(0.5); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Point Enhancer",
@@ -2030,19 +2101,74 @@ addLayer("enhance", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("enhance", 11); },
             effect() {
-                return player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(50);
+                let base = player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(50); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.enhance.points.div(10000).pow(0.875); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Infinity Enhancer",
             description: "Boost Infinity point gain based on enhancers (initial 5x multi).",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade("enhance", 12); },
             effect() {
-                return player.enhance.points.add(1).pow(0.6).times(5);
+                let base = player.enhance.points.add(1).pow(0.6).times(5); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.enhance.points.div(10000).pow(0.3); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Galaxies",
+            description: "Unlock Galaxies (not yet released), and they power Infinity point gain.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("enhance", 13); },
+            effect() {
+                let base = player.enhance.points.add(1).pow(0.6).times(5); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.enhance.points.div(10000).pow(0.3); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     milestones: {
@@ -2115,9 +2241,24 @@ addLayer("sunny", {
             description: "SunnyV2's documentaries gain some popularity. Boost point and layer 3 currency gain linearly based on SunnyV2 points (initial 100x multi).",
             cost: new Decimal(1),
             effect() {
-                return player.sunny.points.times(100).add(100); // Simple multiplier
+                let base = player.sunny.points.times(100).add(100); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.sunny.points.div(10000).pow(0.5); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Collab Documentary",
@@ -2125,19 +2266,74 @@ addLayer("sunny", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("sunny", 11); },
             effect() {
-                return player.sunny.points.add(1).pow(1.25).times(40);
+                let base = player.sunny.points.add(1).pow(1.25).times(40); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.sunny.points.div(10000).pow(0.625); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Behind The Scenes",
             description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 25x multi).",
-            cost: new Decimal(3),
+            cost: new Decimal(5),
             unlocked() { return hasUpgrade("sunny", 12); },
             effect() {
-                return player.sunny.points.add(1).pow(1.3).times(25);
+                let base = player.sunny.points.add(1).pow(1.3).times(25); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.sunny.points.div(10000).pow(0.65); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Codename Documentary",
+            description: "SunnyV2 makes a CT documentary. Boost CT point gain quadratically based on SunnyV2 points. (initial 10x multi).",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("sunny", 13); },
+            effect() {
+                let base = player.sunny.points.add(1).pow(2).times(10); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.sunny.points.div(10000); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     milestones: {
