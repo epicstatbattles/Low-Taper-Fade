@@ -2421,7 +2421,7 @@ addLayer("gal", {
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
-    exponent: 1.25, // Scaling factor for prestige points
+    exponent: new Decimal(1.25), // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
