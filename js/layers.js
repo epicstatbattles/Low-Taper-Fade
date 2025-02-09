@@ -40,6 +40,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
@@ -2428,12 +2429,12 @@ addLayer("gal", {
     color: "#3c0a4f", // purple
     requires: new Decimal(1e36), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
-    base: new Decimal(1.75),
+    base: new Decimal(100),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
-    exponent: 1.8, // Scaling factor for prestige points
+    exponent: 1.2, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
@@ -2456,11 +2457,21 @@ addLayer("gal", {
 
     upgrades: {
         11: {
-            title: "LET HIM COOK!",
-            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points (initial 1,000x multi).",
-            cost: new Decimal(1),
+            title: "Illuminant Galaxies!",
+            description: "Make Galaxies boost points!",
+            cost: new Decimal(5),
             effect() {
-                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(10).add(1).pow(0.02)).times(player.ninja.points.div(2.5).add(1).pow(0.025)).times(player.massive.points.add(1).pow(0.03)).times(1000); // Complex multiplier
+                return player.gal.points.add(1).pow(4); // Complex multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Patience Boost!",
+            description: "Make Galaxies boost LTF points over time! The rate of increase is based on unspent Galaxies.",
+            cost: new Decimal(10),
+            effect() {
+                let galaxyTime = new Decimal(player.infi.resetTime); // Complex multiplier
+                return galaxyTime.div(10).add(1).pow(player.gal.points.add(1).pow(0.8));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
