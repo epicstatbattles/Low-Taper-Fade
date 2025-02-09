@@ -2428,12 +2428,12 @@ addLayer("gal", {
     color: "#3c0a4f", // purple
     requires: new Decimal(1e36), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
-    base: new Decimal(1.7),
+    base: new Decimal(1.75),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
-    exponent: 0.8, // Scaling factor for prestige points
+    exponent: 1.8, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
