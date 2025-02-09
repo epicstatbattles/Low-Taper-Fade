@@ -2420,9 +2420,6 @@ addLayer("gal", {
     symbol: "G",
     row: "side",  // Places it on the sidebar
     type: "none",
-    requires: new Decimal(10), // Points required to gain this layer
-    baseResource: "enhancers",
-    baseAmount() { return player.enhance.points; }, // Current amount of baseResource
     startData() {
         return { unlocked: false, galaxies: new Decimal(0) }; // Locked by default
     },
