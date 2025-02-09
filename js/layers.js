@@ -2419,6 +2419,8 @@ addLayer("gal", {
     name: "Galaxies",
     symbol: "G",
     row: "side",  // Places it on the sidebar
+    requires: new Decimal(10), // Points required to gain this layer
+    baseAmount() { return player.enhance.points; }, // Current amount of baseResource
     startData() {
         return { galaxies: new Decimal(0) }; // Locked by default
     },
@@ -2464,9 +2466,4 @@ addLayer("gal", {
     layerShown() {
         return hasUpgrade("enhance", 14);
     },
-
-    unlocked() {
-        return player.enhance.points.gte(5);
-    },
 });
-
