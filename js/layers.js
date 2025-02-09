@@ -2416,7 +2416,7 @@ addLayer("gal", {
     color: "#3c0a4f", // purple
     requires: new Decimal(1e40), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
-    base: new Decimal(100),
+    base: new Decimal(10000),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
