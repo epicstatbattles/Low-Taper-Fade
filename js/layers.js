@@ -2419,7 +2419,7 @@ addLayer("gal", {
     name: "Galaxies",
     symbol: "G",
     row: "side", // Places it on the sidebar
-    startData() { return { unlocked: false, galaxies: new Decimal(0) }}, // Locked by default
+    startData() { return { galaxies: new Decimal(0) }}, // Locked by default
     color: "#562287",
 
     tabFormat: {
