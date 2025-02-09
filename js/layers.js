@@ -294,6 +294,7 @@ addLayer("ninja", {
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
+        if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -567,6 +568,7 @@ addLayer("massive", {
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         return mult;
     },
 
@@ -2202,28 +2204,13 @@ addLayer("enhance", {
         },
         14: {
             title: "Galaxies",
-            description: "Unlock Galaxies (not yet released), and they power Infinity point gain.",
+            description: "Unlock Galaxies, and they boost Ninja and massive point gain.",
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enhance", 13); },
             effect() {
-                let base = player.enhance.points.add(1).pow(0.6).times(5); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
-
-                // Apply diminishing factor only if points exceed the threshold
-                if (player.enhance.points.gte(new Decimal(10000))) {
-                    diminishingFactor = player.enhance.points.div(10000).pow(0.3); // Slight division factor
-                }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
-                let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
-                let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
-                }
-                return display; // Return the final string
+                return new Decimal(4).pow(player.gal.points); // Complex multiplier
             },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
@@ -2427,14 +2414,14 @@ addLayer("gal", {
         };
     },
     color: "#3c0a4f", // purple
-    requires: new Decimal(1e36), // Points required to unlock this layer
+    requires: new Decimal(1e40), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
     base: new Decimal(100),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
-    exponent: 1.2, // Scaling factor for prestige points
+    exponent: 1.25, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
@@ -2461,7 +2448,7 @@ addLayer("gal", {
             description: "Make Galaxies boost points!",
             cost: new Decimal(5),
             effect() {
-                return player.gal.points.add(1).pow(4); // Complex multiplier
+                return new Decimal(16).pow(player.gal.points); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2471,16 +2458,16 @@ addLayer("gal", {
             cost: new Decimal(10),
             effect() {
                 let galaxyTime = new Decimal(player.infi.resetTime); // Complex multiplier
-                return galaxyTime.div(10).add(1).pow(player.gal.points.add(1).pow(0.8));
+                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.8));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
         0: {
-            requirementDescription: "100 Vexbolts Points",
-            effectDescription: "Brainrot Artist!",
-            done() { return player.vex.points.gte(100); },
+            requirementDescription: "20 Galaxies",
+            effectDescription: "Intergalactic!",
+            done() { return player.gal.points.gte(20); },
         },
     },
 
