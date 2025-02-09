@@ -2421,7 +2421,7 @@ addLayer("gal", {
     row: "side",  // Places it on the sidebar
     type: "none",
     startData() {
-        return { unlocked: false, galaxies: new Decimal(0) }; // Locked by default
+        return { galaxies: new Decimal(0) }; // Locked by default
     },
     color: "#562287",
 
@@ -2464,8 +2464,5 @@ addLayer("gal", {
 
     layerShown() {
         return hasUpgrade("enhance", 14);
-    },
-    unlocked() {
-        return player.enhance.points.gte(10);
     },
 });
