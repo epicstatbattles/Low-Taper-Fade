@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.3",
+	num: "2.3.1",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -256,7 +256,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.3</h3><br>
                 - Added softcaps to many layer 5 currency upgrades at 10,000 of their respective currencies.<br>
 		- Added 1 new upgrade for each layer 5 currency.<br>
-		- Made the Infinity buyable cost scaling for both buyables a bit more aggressive.`
+		- Made the Infinity buyable cost scaling for both buyables a bit more aggressive.<br>
+	<h3>v2.3.1</h3><br>
+                - Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
