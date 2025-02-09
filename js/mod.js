@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.3.1",
+	num: "2.4",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -258,7 +258,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added 1 new upgrade for each layer 5 currency.<br>
 		- Made the Infinity buyable cost scaling for both buyables a bit more aggressive.<br>
 	<h3>v2.3.1</h3><br>
-                - Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.`
+                - Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.<br>
+	<h3>v2.4</h3><br>
+                - Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -305,6 +307,7 @@ function getPointGen() {
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
 	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
 	if (hasUpgrade("vex", 14)) gain = gain.times(upgradeEffect("vex", 14));
+	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
