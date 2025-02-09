@@ -1495,20 +1495,29 @@ addLayer("infi", {
             unlocked() { return hasUpgrade("infi", 12); },
             effect() {
                 let base = player.infi.points.add(1).pow(0.64).times(2); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e6
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.32); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e6).pow(0.32);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for Infi points >= 1e24
+                if (player.infi.points.gte(new Decimal(1e24))) {
+                    secondDiminishingFactor = player.infi.points.div(1e24).pow(0.16);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -1520,20 +1529,29 @@ addLayer("infi", {
             unlocked() { return hasUpgrade("infi", 13); },
             effect() {
                 let base = player.infi.points.div(1.5).add(1).pow(0.56).times(2); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e6
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.28); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e6).pow(0.28);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for Infi points >= 1e24
+                if (player.infi.points.gte(new Decimal(1e24))) {
+                    secondDiminishingFactor = player.infi.points.div(1e24).pow(0.14);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -1545,20 +1563,29 @@ addLayer("infi", {
             unlocked() { return hasUpgrade("infi", 14); },
             effect() {
                 let base = player.infi.points.div(2).add(1).pow(0.5).times(2); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e6
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.25); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e6).pow(0.25);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for Infi points >= 1e24
+                if (player.infi.points.gte(new Decimal(1e24))) {
+                    secondDiminishingFactor = player.infi.points.div(1e24).pow(0.125);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -1569,21 +1596,30 @@ addLayer("infi", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("infi", 21); },
             effect() {
-                let base = player.infi.points.div(2.5).add(1).pow(0.45).times(2.5); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let base = player.infi.points.div(2.5).add(1).pow(0.6).times(2.5); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e6
                 if (player.infi.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.infi.points.div(1e6).pow(0.225); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e6).pow(0.3);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for Infi points >= 1e24
+                if (player.infi.points.gte(new Decimal(1e24))) {
+                    secondDiminishingFactor = player.infi.points.div(1e24).pow(0.15);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -1638,20 +1674,29 @@ addLayer("infi", {
             unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
             effect() {
                 let base = player.infi.points.div(1e10).add(1); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e20
                 if (player.infi.points.gte(new Decimal(1e20))) {
-                    diminishingFactor = player.infi.points.div(1e20).pow(0.6); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e20).pow(0.6);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
-                let isSoftcapped = player.infi.points.gte(1e18); // Check if softcap applies
-                let display = "x" + format(this.effect()); // Base effect display
 
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                // Apply second diminishing factor for Infi points >= 1e54
+                if (player.infi.points.gte(new Decimal(1e54))) {
+                    secondDiminishingFactor = player.infi.points.div(1e54).pow(0.2);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
+            effectDisplay() { 
+                let isSoftcapped = player.infi.points.gte(1e20); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e54); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
@@ -1708,25 +1753,34 @@ addLayer("infi", {
         },
         34: {
             title: "Meme Discovery",
-            description: "Unlock 3 new layers (in development)!! Also, boost point gain quadratically based on IP (softcaps at 1e36 IP)",
+            description: "Unlock 3 new layers! Also, boost point gain quadratically based on IP (softcaps at 1e33 IP)",
             cost: new Decimal(1e25),
             unlocked() { return hasUpgrade("infi", 33); },
             effect() {
                 let base = player.infi.points.div(1e24).add(1).pow(2); // Original effect formula
-                let diminishingFactor = new Decimal(1); // Default factor
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                // Apply diminishing factor only if points exceed the threshold
+                // Apply first diminishing factor for Infi points >= 1e33
                 if (player.infi.points.gte(new Decimal(1e33))) {
-                    diminishingFactor = player.infi.points.div(1e33).pow(1.2); // Slight division factor
+                    firstDiminishingFactor = player.infi.points.div(1e33).pow(1.2);
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+
+                // Apply second diminishing factor for Infi points >= 1e60
+                if (player.infi.points.gte(new Decimal(1e60))) {
+                    secondDiminishingFactor = player.infi.points.div(1e60).pow(0.4);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
             effectDisplay() { 
                 let isSoftcapped = player.infi.points.gte(1e33); // Check if softcap applies
+                let isSuperSoftcapped = player.infi.points.gte(1e60); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
-
-                if (isSoftcapped) {
-                    display += " (SC)"; // Append softcap indicator
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
                 }
                 return display; // Return the final string
             },
