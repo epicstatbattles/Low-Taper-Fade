@@ -2420,6 +2420,7 @@ addLayer("gal", {
     symbol: "G",
     row: "side",  // Places it on the sidebar
     type: "none",
+    tooltip: "Galaxies",
     startData() {
         return { galaxies: new Decimal(0) }; // Locked by default
     },
@@ -2463,6 +2464,9 @@ addLayer("gal", {
     },
 
     layerShown() {
+        return hasUpgrade("enhance", 14);
+    },
+    unlocked() {
         return hasUpgrade("enhance", 14);
     },
 });
