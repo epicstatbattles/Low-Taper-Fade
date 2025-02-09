@@ -2416,57 +2416,77 @@ addLayer("sunny", {
     },
 });
 addLayer("gal", {
-    name: "Galaxies",
-    symbol: "G",
-    row: "side",  // Places it on the sidebar
-    type: "none",
-    tooltip: "Galaxies",
+    name: "Galaxies", // Full name of the layer
+    symbol: "G", // Symbol displayed on the tree
+    position: 2, // Position in the tree
     startData() {
-        return { galaxies: new Decimal(0) }; // Locked by default
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
     },
-    color: "#562287",
-
-    tabFormat: {
-        "Main": {
-            content: [
-                "main-display",
-                ["display-text", function() { 
-                    return "You have " + format(player.gal.galaxies) + " Galaxies!";
-                }],
-                "blank",
-                ["buyable", 11],
-            ],
-        },
-    },
-
-    buyables: {
-        11: {
-            title: "Convert Enhancers to Galaxies",
-            cost(x) { return new Decimal(10).times(x.plus(1)); }, // Cost increases
-            display() {
-                const currentGalaxies = player.gal.galaxies;
-                const nextCost = this.cost();
-
-                return `
-                    Conversion rate increases by 10 per galaxy.
-                    Currently: ${format(currentGalaxies)} Galaxies
-                    Cost for next: ${format(nextCost)} Enhancers
-                `;
-            },
-            canAfford() {
-                return player.enhance.points.gte(this.cost());
-            },
-            buy() {
-                player.enhance.points = player.enhance.points.sub(this.cost());
-                player.gal.galaxies = player.gal.galaxies.add(1);
-            },
-        },
-    },
+    color: "#3c0a4f", // purple
+    requires: new Decimal(1e36), // Points required to unlock this layer
+    resource: "Galaxies", // Prestige currency name
+    base: new Decimal(1.7),
+    canBuyMax: false,
+    baseResource: "Infinity points", // Resource used to gain prestige points
+    baseAmount() { return player.infi.points; }, // Current amount of baseResource
+    type: "static", // Standard prestige layer type
+    exponent: 0.0125, // Scaling factor for prestige points
 
     layerShown() {
-        return hasUpgrade("enhance", 14);
+        // Check if the player has Enhancer Upgrade 1:4
+        return hasUpgrade("enhance", 14) || player.gal.points.gte(1);
     },
-    unlocked() {
-        return hasUpgrade("enhance", 14);
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 3, // Row in the tree (3 = fourth row)
+    hotkeys: [
+        { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "LET HIM COOK!",
+            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points (initial 1,000x multi).",
+            cost: new Decimal(1),
+            effect() {
+                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(10).add(1).pow(0.02)).times(player.ninja.points.div(2.5).add(1).pow(0.025)).times(player.massive.points.add(1).pow(0.03)).times(1000); // Complex multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Vexbolts Points",
+            effectDescription: "Brainrot Artist!",
+            done() { return player.vex.points.gte(100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
+            ],
+        },
     },
 });
