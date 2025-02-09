@@ -2446,11 +2446,11 @@ addLayer("gal", {
             buy() {
                 player.enhance.points = player.enhance.points.sub(this.cost());
                 player.gal.galaxies = player.gal.galaxies.add(1);
-            }
-        }
+            },
+        },
     },
 
-    layerShown() { return hasUpgrade("enhance", 14); }
+    layerShown() { return hasUpgrade("enhance", 14); },
     unlocked() { return hasUpgrade("enhance", 14); },
 });
 
