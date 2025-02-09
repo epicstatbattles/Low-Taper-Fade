@@ -2451,6 +2451,6 @@ addLayer("gal", {
     },
 
     layerShown() { return hasUpgrade("enhance", 14); },
-    unlocked() { return hasUpgrade("enhance", 14); },
+    unlocked() { return player.enhance.points.gte(10); },
 });
 
