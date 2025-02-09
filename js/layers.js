@@ -2418,31 +2418,42 @@ addLayer("sunny", {
 addLayer("gal", {
     name: "Galaxies",
     symbol: "G",
-    row: "side", // Places it on the sidebar
-    startData() { return { galaxies: new Decimal(0) }}, // Locked by default
+    row: "side",  // Places it on the sidebar
+    startData() {
+        return { galaxies: new Decimal(0) }; // Locked by default
+    },
     color: "#562287",
 
     tabFormat: {
         "Main": {
             content: [
                 "main-display",
-                ["display-text", function() { return "You have " + format(player.gal.galaxies) + " Galaxies!" }],
+                ["display-text", function() { 
+                    return "You have " + format(player.gal.galaxies) + " Galaxies!";
+                }],
                 "blank",
-                ["buyable", 11]
-            ]
-        }
+                ["buyable", 11],
+            ],
+        },
     },
 
     buyables: {
         11: {
             title: "Convert Enhancers to Galaxies",
-            cost(x) { return new Decimal(100).times(x.plus(1)); }, // Cost increases
-            display() { 
-                return "Conversion rate quadruples per galaxy.\n" +
-                       "Currently: " + format(player.gal.galaxies) + " Galaxies\n" +
-                       "Cost for next: " + format(this.cost()) + " Enhancers";
+            cost(x) { return new Decimal(10).times(x.plus(1)); }, // Cost increases
+            display() {
+                const currentGalaxies = player.gal.galaxies;
+                const nextCost = this.cost();
+
+                return `
+                    Conversion rate increases by 10 per galaxy.
+                    Currently: ${format(currentGalaxies)} Galaxies
+                    Cost for next: ${format(nextCost)} Enhancers
+                `;
             },
-            canAfford() { return player.enhance.points.gte(this.cost()); },
+            canAfford() {
+                return player.enhance.points.gte(this.cost());
+            },
             buy() {
                 player.enhance.points = player.enhance.points.sub(this.cost());
                 player.gal.galaxies = player.gal.galaxies.add(1);
@@ -2450,7 +2461,12 @@ addLayer("gal", {
         },
     },
 
-    layerShown() { return hasUpgrade("enhance", 14); },
-    unlocked() { return player.enhance.points.gte(10); },
+    layerShown() {
+        return hasUpgrade("enhance", 14);
+    },
+
+    unlocked() {
+        return player.enhance.points.gte(5);
+    },
 });
 
