@@ -2419,6 +2419,7 @@ addLayer("gal", {
     name: "Galaxies",
     symbol: "G",
     row: "side",  // Places it on the sidebar
+    type: "none",
     requires: new Decimal(10), // Points required to gain this layer
     baseResource: "enhancers",
     baseAmount() { return player.enhance.points; }, // Current amount of baseResource
