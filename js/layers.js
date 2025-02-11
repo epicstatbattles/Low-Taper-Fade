@@ -39,9 +39,11 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 31)) mult = mult.times(upgradeEffect("infi", 31));
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
+        if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
+        if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -807,6 +809,7 @@ addLayer("mady", {
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
+        if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         return mult;
     },
 
@@ -1037,6 +1040,7 @@ addLayer("ct", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
+        if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1252,6 +1256,7 @@ addLayer("aub", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
+        if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         return mult;
     },
 
@@ -1433,7 +1438,7 @@ addLayer("aub", {
 addLayer("infi", {
     name: "Infinity", // Full name of the layer
     symbol: "INF", // Symbol displayed on the tree
-    position: 1, // Position in the tree
+    position: 2, // Position in the tree
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
@@ -1456,8 +1461,10 @@ addLayer("infi", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 21)) mult = mult.times(upgradeEffect("massive", 21));
+        if (hasUpgrade("vex", 21)) mult = mult.times(upgradeEffect("vex", 21));
         if (hasChallenge("infi", 31)) mult = mult.times(challengeEffect("infi", 31));
         if (hasUpgrade("enhance", 13)) mult = mult.times(upgradeEffect("enhance", 13));
+        if (hasUpgrade("sunny", 22)) mult = mult.times(upgradeEffect("sunny", 22));
         return mult;
     },
 
@@ -2062,6 +2069,56 @@ addLayer("vex", {
                 return display; // Return the final string
             },
         },
+        21: {
+            title: "Should Have Left Bro In 2024",
+            description: "He has went too far... Boost Infinity point gain based on Vexbolts points. (initial 4x multi)",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("vex", 14); },
+            effect() {
+                let base = player.vex.points.add(1).pow(0.6).times(4); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(100000))) {
+                    diminishingFactor = player.vex.points.div(100000).pow(0.3); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.vex.points.gte(100000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        22: {
+            title: "Another Haircut to Meme On?",
+            description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points.",
+            cost: new Decimal(2500),
+            unlocked() { return hasUpgrade("vex", 21); },
+            effect() {
+                let base = player.vex.points.add(1).pow(1.25); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.vex.points.div(1e6).pow(0.625); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.vex.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
     milestones: {
         0: {
@@ -2211,6 +2268,41 @@ addLayer("enhance", {
                 return new Decimal(4).pow(player.gal.points); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Milestones now do stuff!",
+            description: "Each milestone now awards a 4x boost to point gain!",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("enhance", 14); },
+            effect() {
+                return new Decimal(4); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()) + "per milestone."; },
+        },
+        22: {
+            title: "Layer 3 Enhancer",
+            description: "All layer 3 currencies gain a boost based on enhancers!",
+            cost: new Decimal(2500),
+            unlocked() { return hasUpgrade("enhance", 21); },
+            effect() {
+                let base = player.enhance.points.add(1).pow(0.4); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.enhance.points.div(1e6).pow(0.2); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     milestones: {
@@ -2377,6 +2469,56 @@ addLayer("sunny", {
                 return display; // Return the final string
             },
         },
+        21: {
+            title: "The Low Taper Fade Documentary...",
+            description: "SunnyV2 points boost LTF points!",
+            cost: new Decimal(100),
+            unlocked() { return hasUpgrade("sunny", 14); },
+            effect() {
+                let base = player.sunny.points.add(1).pow(1.1); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(1e5))) {
+                    diminishingFactor = player.sunny.points.div(1e5).pow(0.55); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.sunny.points.gte(1e5); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        22: {
+            title: "It Goes Super Viral",
+            description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points!",
+            cost: new Decimal(2500),
+            unlocked() { return hasUpgrade("sunny", 21); },
+            effect() {
+                let base = player.sunny.points.add(1).pow(3.2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.sunny.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.sunny.points.div(1e6).pow(1.6); // Slight division factor
+                }
+            return base.div(diminishingFactor); // Apply the diminishing factor
+        },
+            effectDisplay() { 
+                let isSoftcapped = player.enhance.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
     milestones: {
         0: {
@@ -2406,7 +2548,7 @@ addLayer("sunny", {
 addLayer("gal", {
     name: "Galaxies", // Full name of the layer
     symbol: "G", // Symbol displayed on the tree
-    position: 2, // Position in the tree
+    position: 1, // Position in the tree
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
