@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.4",
+	num: "2.5",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -260,7 +260,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.3.1</h3><br>
                 - Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.<br>
 	<h3>v2.4</h3><br>
-                - Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.`
+                - Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.<br>
+	<h3>v2.5</h3><br>
+                - Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -310,6 +312,17 @@ function getPointGen() {
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("mady", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("ct", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("aub", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("infi", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("gal", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 11) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	return gain
