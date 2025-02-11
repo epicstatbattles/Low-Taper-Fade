@@ -2277,7 +2277,7 @@ addLayer("enhance", {
             effect() {
                 return new Decimal(4); // Simple multiplier
             },
-            effectDisplay() { return "x" + format(this.effect()) + "per milestone."; },
+            effectDisplay() { return "x" + format(this.effect()) + " per milestone."; },
         },
         22: {
             title: "Layer 3 Enhancer",
