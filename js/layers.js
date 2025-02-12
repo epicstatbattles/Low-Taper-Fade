@@ -2700,6 +2700,7 @@ addLayer("val", {
             title: "Going on Dates",
             description: "Valentine's Day points slightly boost layer 2 currencies!",
             cost: new Decimal(5),
+            unlocked() { return hasUpgrade("val", 12); },
             effect() {
                 return player.val.points.div(15).add(1); // Complex multiplier
             },
@@ -2709,6 +2710,7 @@ addLayer("val", {
             title: "Love Stimulation!",
             description: "Valentine's Day points boost Madelizers and Aubrinators! CT also gets buffed, but to a lesser degree (^0.5).",
             cost: new Decimal(10),
+            unlocked() { return hasUpgrade("val", 13); },
             effect() {
                 return player.val.points.div(25).add(1);
             },
