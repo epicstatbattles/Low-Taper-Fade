@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.5",
+	num: "2.5.Valentine",
 	name: "Low Taper Fade Hyper",
 }
 
@@ -262,7 +262,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.4</h3><br>
                 - Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.<br>
 	<h3>v2.5</h3><br>
-                - Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!`
+                - Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!<br>
+	<h3>v2.5.Valentine</h3><br>
+                - Added a limited-time Valentine's Day currency! It will award some small boosts to layers 1-3 and will extend to the 15th of February. On Valentine's Day, the bonuses will be squared.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -312,6 +314,7 @@ function getPointGen() {
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
+	if (hasUpgrade("val", 11)) gain = gain.times(upgradeEffect("val", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 11));
