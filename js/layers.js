@@ -131,7 +131,7 @@ addLayer("ltf", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.ltf.points.gte(1e20); // Check if softcap applies
                 let isSuperSoftcapped = player.ltf.points.gte(1e80); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -152,29 +152,29 @@ addLayer("ltf", {
                 // LTF point boost calculation
                 let baseLtfBoost = player.points.div(1e40).add(1).pow(0.05); // Original effect formula for LTF boost
                 let diminishingFactorLtfBoost = new Decimal(1); // Default factor for LTF boost
-            
+
                 // Apply diminishing factor for LTF boost if points exceed 1e200
                 if (player.points.gte(new Decimal(1e200))) {
                     diminishingFactorLtfBoost = player.points.div(1e200).pow(0.025); // Softcap factor for LTF points
                 }
-            
+
                 // Points boost calculation
                 let basePointsBoost = player.ltf.points.div(1e27).add(1).pow(0.0675); // Original effect formula for points boost
                 let diminishingFactorPointsBoost = new Decimal(1); // Default factor for points boost
-            
+
                 // Apply diminishing factor for points boost if LTF points exceed 1e200
                 if (player.ltf.points.gte(new Decimal(1e180))) {
                     diminishingFactorPointsBoost = player.ltf.points.div(1e180).pow(0.03375); // Softcap factor for LTF points
                 }
-            
+
                 // Calculate final effects after applying both diminishing factors
                 let finalLtfBoost = baseLtfBoost.div(diminishingFactorLtfBoost);
                 let finalPointsBoost = basePointsBoost.div(diminishingFactorPointsBoost);
-            
+
                 return { ltfBoost: finalLtfBoost, pointsBoost: finalPointsBoost };
             },
 
-            effectDisplay() { 
+            effectDisplay() {
                 let eff = this.effect();
                 // Check if the respective points exceed the threshold for softcap
                 let isLtfBoostSoftcapped = player.points.gte(1e200);  // LTF Boost softcap check
@@ -188,7 +188,7 @@ addLayer("ltf", {
                 if (isPointsBoostSoftcapped) {
                     display += " (SC)";  // Append "(SC)" if the Points Boost exceeds the softcap threshold
                 }
-            
+
                 return display;  // Return the final string
             },
         },
@@ -225,9 +225,9 @@ addLayer("ltf", {
                 if (player.points.gte(new Decimal(1e300))) {
                     diminishingFactor = player.points.div(1e300).pow(0.00625); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.points.gte(1e300); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -305,7 +305,7 @@ addLayer("ninja", {
 
     gainExp() {
         let exp = new Decimal(1); // Default exponent
-        if (hasUpgrade("mady", 22)) exp = exp.times(upgradeEffect("mady",22)); // Example upgrade adding 0.2 to the exponent
+        if (hasUpgrade("mady", 22)) exp = exp.times(upgradeEffect("mady", 22)); // Example upgrade adding 0.2 to the exponent
         return exp;
     },
 
@@ -339,9 +339,9 @@ addLayer("ninja", {
                 if (player.ninja.points.gte(new Decimal(1e20))) {
                     diminishingFactor = player.ninja.points.div(1e20).pow(0.0875); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.ninja.points.gte(1e20); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -373,7 +373,7 @@ addLayer("ninja", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.ninja.points.gte(1e10); // Check if softcap applies
                 let isSuperSoftcapped = player.ninja.points.gte(1e40); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -427,7 +427,7 @@ addLayer("ninja", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.ninja.points.gte(1e10); // Check if softcap applies
                 let isSuperSoftcapped = player.ninja.points.gte(1e40); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -472,9 +472,9 @@ addLayer("ninja", {
                 if (player.ninja.points.gte(new Decimal("1e480"))) {
                     diminishingFactor = player.ninja.points.div("1e480").pow(0.04); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.ninja.points.gte("1e480"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -497,9 +497,9 @@ addLayer("ninja", {
                 if (player.ninja.points.gte(new Decimal("1e540"))) {
                     diminishingFactor = player.ninja.points.div("1e540").pow(0.0175); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.ninja.points.gte("1e540"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -603,9 +603,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal(1e15))) {
                     diminishingFactor = player.massive.points.div(1e15).pow(0.125); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte(1e15); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -641,9 +641,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal(1e15))) {
                     diminishingFactor = player.massive.points.div(1e15).pow(0.1); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte(1e15); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -666,9 +666,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal(1e20))) {
                     diminishingFactor = player.massive.points.div(1e20).pow(0.0875); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte(1e20); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -691,9 +691,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal(1e10))) {
                     diminishingFactor = player.massive.points.div(1e9).log10().pow(0.014); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte(1e10); // Check if softcap applies
                 let display = "^" + format(this.effect()); // Base effect display
 
@@ -716,9 +716,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal(1e300))) {
                     diminishingFactor = player.massive.points.div(1e300).pow(0.005); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte(1e300); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -741,9 +741,9 @@ addLayer("massive", {
                 if (player.massive.points.gte(new Decimal("1e360"))) {
                     diminishingFactor = player.massive.points.div("1e360").pow(0.02); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.massive.points.gte("1e360"); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -868,7 +868,7 @@ addLayer("mady", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.mady.points.gte(1e55); // Check if softcap applies
                 let isSuperSoftcapped = player.mady.points.gte(1e165); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -903,9 +903,9 @@ addLayer("mady", {
                 if (player.mady.points.gte(new Decimal(1e5))) {
                     diminishingFactor = player.mady.points.div(1e4).log10().pow(0.02); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.mady.points.gte(1e5); // Check if softcap applies
                 let display = "^" + format(this.effect()); // Base effect display
 
@@ -935,7 +935,7 @@ addLayer("mady", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.mady.points.gte(1e55); // Check if softcap applies
                 let isSuperSoftcapped = player.mady.points.gte(1e165); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -967,7 +967,7 @@ addLayer("mady", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.mady.points.gte(1e55); // Check if softcap applies
                 let isSuperSoftcapped = player.mady.points.gte(1e165); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -980,7 +980,7 @@ addLayer("mady", {
             },
         },
     },
-    
+
     milestones: {
         0: {
             requirementDescription: "100000 Madelizers",
@@ -1055,7 +1055,7 @@ addLayer("ct", {
     },
 
     row: 2, // Row in the tree (2 = third row)
-    branches: ["ninja","massive"], // Branch from the 2 row 2 layers visually
+    branches: ["ninja", "massive"], // Branch from the 2 row 2 layers visually
 
     hotkeys: [
         { key: "c", description: "c: Reset for CT subs", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
@@ -1131,7 +1131,7 @@ addLayer("ct", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
                 let isSuperSoftcapped = player.ct.points.gte(1e135); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1163,7 +1163,7 @@ addLayer("ct", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.ct.points.gte(1e45); // Check if softcap applies
                 let isSuperSoftcapped = player.ct.points.gte(1e135); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1195,9 +1195,9 @@ addLayer("ct", {
                 let madyBoost = player.aub.points.div(100).add(1).pow(0.125);  // Madelizer boost
                 return { aubBoost, madyBoost };
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let eff = this.effect();
-                return ` To Aubrinators: x${format(eff.aubBoost)}, To Madelizers: x${format(eff.madyBoost)}`; 
+                return ` To Aubrinators: x${format(eff.aubBoost)}, To Madelizers: x${format(eff.madyBoost)}`;
             },
         },
     },
@@ -1317,7 +1317,7 @@ addLayer("aub", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.aub.points.gte(1e45); // Check if softcap applies
                 let isSuperSoftcapped = player.aub.points.gte(1e135); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1350,7 +1350,7 @@ addLayer("aub", {
 
                 return aubEffect.times(njaEffect).div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
                 let isSuperSoftcapped = player.ninja.points.gte("1e500"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1392,7 +1392,7 @@ addLayer("aub", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.aub.points.gte(1e45); // Check if softcap applies
                 let isSuperSoftcapped = player.aub.points.gte(1e135); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1415,7 +1415,7 @@ addLayer("aub", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
-    
+
     milestones: {
         0: {
             requirementDescription: "1000000 Aubrinators",
@@ -1526,7 +1526,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1560,7 +1560,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1594,7 +1594,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1628,7 +1628,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e6); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e24); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1661,7 +1661,7 @@ addLayer("infi", {
 
                 return aubEffect.times(njaEffect).div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.aub.points.gte(1e40); // Check if softcap applies
                 let isSuperSoftcapped = player.ninja.points.gte("1e500"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1687,7 +1687,7 @@ addLayer("infi", {
             title: "Linear LTF Boost",
             description: "Gain a linear boost to LTF point gain based on Infinity points (softcaps at 1e20).",
             cost: new Decimal(1e12),
-            unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31);},
+            unlocked() { return hasUpgrade("infi", 24) && hasChallenge("infi", 31); },
             effect() {
                 let base = player.infi.points.div(1e10).add(1); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
@@ -1705,7 +1705,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e20); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e54); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1721,7 +1721,7 @@ addLayer("infi", {
             title: "Quality of Life",
             description: "Boost LTF, Ninja, and massive point gain based on Infinity points and unlock auto-purchase for all 3.",
             cost: new Decimal(1e16),
-            unlocked() { return hasUpgrade("infi", 31);},
+            unlocked() { return hasUpgrade("infi", 31); },
             effect() {
                 let base = player.infi.points.div(1e14).add(1).pow(0.08); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -1730,9 +1730,9 @@ addLayer("infi", {
                 if (player.infi.points.gte(new Decimal(1e32))) {
                     diminishingFactor = player.infi.points.div(1e32).pow(0.04); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e32); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -1755,9 +1755,9 @@ addLayer("infi", {
                 if (player.infi.points.gte(new Decimal(1e28))) {
                     diminishingFactor = player.infi.points.div(1e27).log10().pow(0.009); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e28); // Check if softcap applies
                 let display = "^" + format(this.effect()); // Base effect display
 
@@ -1789,7 +1789,7 @@ addLayer("infi", {
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { 
+            effectDisplay() {
                 let isSoftcapped = player.infi.points.gte(1e33); // Check if softcap applies
                 let isSuperSoftcapped = player.infi.points.gte(1e60); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
@@ -1807,12 +1807,12 @@ addLayer("infi", {
             title: "Point Boost",
             description: "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)",
             cost(x) { return new Decimal(10).times(new Decimal(11).add(x).div(6).pow(x)); },  // The cost formula
-    
+
             // Unlock condition
             unlocked() {
                 return player.infi.points.gte(new Decimal(5));  // Buyable unlocks when player has 5 infinity points
             },
-    
+
             // Effect of the buyable
             effect(x) {
                 let base = player.infi.points.times(2).add(1).pow(0.125).pow(x); // Original effect formula
@@ -1822,12 +1822,12 @@ addLayer("infi", {
                 if (player.infi.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.infi.points.div(1e6).pow(0.0625).pow(x); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
-            player.infi.points = player.infi.points.sub(this.cost())
-            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player.infi.points = player.infi.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             // Display the effect
             display() {
@@ -1845,12 +1845,12 @@ addLayer("infi", {
             title: "LTF Boost",
             description: "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)",
             cost(x) { return new Decimal(100).times(new Decimal(11).add(x).div(6).pow(x)); },  // The cost formula
-    
+
             // Unlock condition
             unlocked() {
                 return player.infi.points.gte(new Decimal(50));  // Buyable unlocks when player has 50 infinity points
             },
-    
+
             // Effect of the buyable
             effect(x) {
                 let base = player.infi.points.add(1).pow(0.1).pow(x); // Original effect formula
@@ -1860,12 +1860,12 @@ addLayer("infi", {
                 if (player.infi.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.infi.points.div(1e6).pow(0.05).pow(x); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
-            player.infi.points = player.infi.points.sub(this.cost())
-            setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                player.infi.points = player.infi.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             // Display the effect
             display() {
@@ -1887,7 +1887,7 @@ addLayer("infi", {
             goalDescription: "Reach 1.7976e308 points.",
             rewardDescription: "Point gain is boosted based on Infinity points.",
             unlocked() { return hasUpgrade("infi", 24); },
-            canComplete: function() {return player.points.gte(1.7976e308)},
+            canComplete: function() { return player.points.gte(1.7976e308) },
             rewardEffect() {
                 return player.infi.points.add(1).pow(0.75);
             },
@@ -1901,7 +1901,7 @@ addLayer("infi", {
             goalDescription: "Reach 1e84 points.",
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
-            canComplete: function() {return player.points.gte(1e84)},
+            canComplete: function() { return player.points.gte(1e84) },
             rewardEffect() {
                 return player.ltf.points.div(1e100).add(1).pow(0.002).pow(player.infi.points.add(10).log10().pow(0.5));
             },
@@ -1915,7 +1915,7 @@ addLayer("infi", {
             goalDescription: "Reach 1e450 points.",
             rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
-            canComplete: function() {return player.points.gte("1e450")},
+            canComplete: function() { return player.points.gte("1e450") },
             rewardEffect() {
                 return player.infi.points.div(1e11).add(10).log10().pow(1.5);
             },
@@ -2013,9 +2013,9 @@ addLayer("vex", {
                 if (player.vex.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.vex.points.div(10000).pow(0.5); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2038,9 +2038,9 @@ addLayer("vex", {
                 if (player.vex.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.vex.points.div(10000).pow(0.5); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2063,9 +2063,9 @@ addLayer("vex", {
                 if (player.vex.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.vex.points.div(10000).pow(1.5); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2088,9 +2088,9 @@ addLayer("vex", {
                 if (player.vex.points.gte(new Decimal(100000))) {
                     diminishingFactor = player.vex.points.div(100000).pow(0.3); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.vex.points.gte(100000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2113,9 +2113,9 @@ addLayer("vex", {
                 if (player.vex.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.vex.points.div(1e6).pow(0.625); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.vex.points.gte(1e6); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2167,7 +2167,7 @@ addLayer("enhance", {
     baseResource: "Codename Trademark subscribers", // Resource used to gain prestige points
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.01625, // Scaling factor for prestige points
+    exponent: 0.025, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2203,9 +2203,9 @@ addLayer("enhance", {
                 if (player.enhance.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.enhance.points.div(10000).pow(0.5); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2228,9 +2228,9 @@ addLayer("enhance", {
                 if (player.enhance.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.enhance.points.div(10000).pow(0.875); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2253,9 +2253,9 @@ addLayer("enhance", {
                 if (player.enhance.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.enhance.points.div(10000).pow(0.3); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.enhance.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2298,9 +2298,9 @@ addLayer("enhance", {
                 if (player.enhance.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.enhance.points.div(1e6).pow(0.2); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.enhance.points.gte(1e6); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2388,9 +2388,9 @@ addLayer("sunny", {
                 if (player.sunny.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.sunny.points.div(10000).pow(0.5); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2413,9 +2413,9 @@ addLayer("sunny", {
                 if (player.sunny.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.sunny.points.div(10000).pow(0.625); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2438,9 +2438,9 @@ addLayer("sunny", {
                 if (player.sunny.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.sunny.points.div(10000).pow(0.65); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2463,9 +2463,9 @@ addLayer("sunny", {
                 if (player.sunny.points.gte(new Decimal(10000))) {
                     diminishingFactor = player.sunny.points.div(10000); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.sunny.points.gte(10000); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2481,16 +2481,16 @@ addLayer("sunny", {
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("sunny", 14); },
             effect() {
-                let base = player.sunny.points.add(1).pow(1.1); // Original effect formula
+                let base = player.sunny.points.add(1).pow(1.6); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.sunny.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.sunny.points.div(1e5).pow(0.55); // Slight division factor
+                    diminishingFactor = player.sunny.points.div(1e5).pow(0.8); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.sunny.points.gte(1e5); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2513,9 +2513,9 @@ addLayer("sunny", {
                 if (player.sunny.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.sunny.points.div(1e6).pow(1.6); // Slight division factor
                 }
-            return base.div(diminishingFactor); // Apply the diminishing factor
-        },
-            effectDisplay() { 
+                return base.div(diminishingFactor); // Apply the diminishing factor
+            },
+            effectDisplay() {
                 let isSoftcapped = player.enhance.points.gte(1e6); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
@@ -2651,7 +2651,7 @@ addLayer("val", {
     requires: new Decimal(100), // Points required to unlock this layer
     resource: "Valentine's Day points.", // Prestige currency name
     base: new Decimal(10),
-    canBuyMax: false,
+    canBuyMax() { return hasUpgrade("val", 15); },
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
@@ -2671,7 +2671,7 @@ addLayer("val", {
         return new Decimal(1); // Default is no additional exponential scaling
     },
 
-    row: 0, // Row in the tree (0 = first row)
+    row: "side", // Row in the tree (0 = first row)
     hotkeys: [
         { key: "6", description: "6: Limited Time Valentine's Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
@@ -2715,6 +2715,12 @@ addLayer("val", {
                 return player.val.points.div(25).add(1);
             },
             effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Double Date",
+            description: "Allow bulk-purchasing of Valentine's Day points!",
+            cost: new Decimal(15),
+            unlocked() { return hasUpgrade("val", 14); },
         },
     },
     milestones: {
