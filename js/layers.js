@@ -1941,7 +1941,7 @@ addLayer("infi", {
                 "resource-display",
                 ["display-text", function() {
                 if (player.infi.points.gte(new Decimal(1e15))) {
-                    return "Infinity point gains will slow down beyond 1e30 Infinity points.";
+                    return '<span style="color: red;">Infinity point gains will slow down beyond 1e30 Infinity points.</span>';
                 }
                 return "";
             }],
