@@ -298,6 +298,7 @@ addLayer("ninja", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
@@ -573,6 +574,7 @@ addLayer("massive", {
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         return mult;
     },
@@ -2084,8 +2086,8 @@ addLayer("vex", {
         },
         21: {
             title: "Should Have Left Bro In 2024",
-            description: "He has went too far... Boost Infinity point gain based on Vexbolts points. (initial 4x multi)",
-            cost: new Decimal(100),
+            description: "He has went too far... Boost Infinity point gain based on Vexbolts points (initial 4x multi). Also, unlock the Vexbolts Challenge!",
+            cost: new Decimal(50),
             unlocked() { return hasUpgrade("vex", 14); },
             effect() {
                 let base = player.vex.points.add(1).pow(0.6).times(4); // Original effect formula
@@ -2110,7 +2112,7 @@ addLayer("vex", {
         22: {
             title: "Another Haircut to Meme On?",
             description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points.",
-            cost: new Decimal(2500),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("vex", 21); },
             effect() {
                 let base = player.vex.points.add(1).pow(1.25); // Original effect formula
@@ -2131,6 +2133,27 @@ addLayer("vex", {
                 }
                 return display; // Return the final string
             },
+        },
+        23: {
+            title: "Prolonged Dragging Expert",
+            description: "Unlock 2 more Madelizer upgrades and boost their gain by 2x.",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("vex", 22); },
+            effect() {
+                return new Decimal(2); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Vexbolts just became MORE MASSIVE.",
+            description: "Boost Ninja and massive points over time based on Vexbolts points.",
+            cost: new Decimal(1e6),
+            unlocked() { return hasUpgrade("vex", 23); },
+            effect() {
+                let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
+                return vexTime.add(1).pow(player.vex.points.add(1).pow(0.6));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
@@ -2283,19 +2306,19 @@ addLayer("enhance", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
-            title: "Milestones now do stuff!",
-            description: "Each milestone now awards a 4x boost to point gain!",
-            cost: new Decimal(100),
+            title: "Milestones now do stuff! Also, unlock the Enhancer challenge!",
+            description: "Each milestone now awards a boost to point gain that increases based on enhancers (initial 4x multi)!",
+            cost: new Decimal(50),
             unlocked() { return hasUpgrade("enhance", 14); },
             effect() {
-                return new Decimal(4); // Simple multiplier
+                return player.enhance.points.add(10).log10().times(4); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()) + " per milestone."; },
         },
         22: {
             title: "Layer 3 Enhancer",
             description: "All layer 3 currencies gain a boost based on enhancers!",
-            cost: new Decimal(2500),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("enhance", 21); },
             effect() {
                 let base = player.enhance.points.add(1).pow(0.4); // Original effect formula
@@ -2316,6 +2339,26 @@ addLayer("enhance", {
                 }
                 return display; // Return the final string
             },
+        },
+        23: {
+            title: "Galaxy Enhancer!",
+            description: "The galaxy boosts become stronger based on enhancers!",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("enhance", 22); },
+            effect() {
+                return player.enhance.points.add(10).log10().pow(0.4); // Simple multiplier
+            },
+            effectDisplay() { return "^" + format(this.effect()); },
+        },
+        24: {
+            title: "Layer In Sync!",
+            description: "Every layer 5 currency (including enhancers themselves) gain a boost based on enhancers.",
+            cost: new Decimal(1e6),
+            unlocked() { return hasUpgrade("enhance", 23); },
+            effect() {
+                return player.enhance.points.div(1e5).add(10).log10().pow(3.5); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
@@ -2484,16 +2527,16 @@ addLayer("sunny", {
         },
         21: {
             title: "The Low Taper Fade Documentary...",
-            description: "SunnyV2 points boost LTF points!",
-            cost: new Decimal(100),
+            description: "SunnyV2 points boost LTF points! Also, unlock the SunnyV2 challenge!",
+            cost: new Decimal(50),
             unlocked() { return hasUpgrade("sunny", 14); },
             effect() {
-                let base = player.sunny.points.add(1).pow(1.6); // Original effect formula
+                let base = player.sunny.points.add(1).pow(2.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.sunny.points.gte(new Decimal(1e5))) {
-                    diminishingFactor = player.sunny.points.div(1e5).pow(0.8); // Slight division factor
+                    diminishingFactor = player.sunny.points.div(1e5).pow(1.1); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2510,7 +2553,7 @@ addLayer("sunny", {
         22: {
             title: "It Goes Super Viral",
             description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points!",
-            cost: new Decimal(2500),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("sunny", 21); },
             effect() {
                 let base = player.sunny.points.add(1).pow(3.2); // Original effect formula
@@ -2531,6 +2574,26 @@ addLayer("sunny", {
                 }
                 return display; // Return the final string
             },
+        },
+        23: {
+            title: "MassiveV2",
+            description: "SunnyV2's influence causes 2 new Aubrinator upgrades to be introduced and their gain to be doubled.",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("sunny", 22); },
+            effect() {
+                return new Decimal(2); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Extensive Documentary Series",
+            description: "Boost Infinity point gain based on SunnyV2 points.",
+            cost: new Decimal(1e6),
+            unlocked() { return hasUpgrade("sunny", 23); },
+            effect() {
+                return player.sunny.points.div(1e5).add(10).log10().pow(2.5); // Simple multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     milestones: {
@@ -2609,7 +2672,7 @@ addLayer("gal", {
         },
         12: {
             title: "Patience Boost!",
-            description: "Make Galaxies boost LTF points over time! The rate of increase is based on unspent Galaxies.",
+            description: "Make Galaxies boost LTF points over time (based on Infinity reset time)! The rate of increase is based on unspent Galaxies.",
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("gal", 11); },
             effect() {
@@ -2755,3 +2818,10 @@ addLayer("val", {
         },
     },
 });
+// To-do List
+// e23: find all galaxy boosts and power them. (gal 11, gal 12)
+// e24: vex, enhance, sunny
+// v23: mady+2
+// v24: ninja, massive
+// s23: aub+2
+// s24: infi
