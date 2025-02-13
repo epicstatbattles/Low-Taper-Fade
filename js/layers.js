@@ -1939,6 +1939,12 @@ addLayer("infi", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.infi.points.gte(new Decimal(1e15))) {
+                    return "IP gains will slow down beyond 1e30 infinity points.";
+                }
+                return "";
+            }],
                 "upgrades",
                 "buyables",
                 "milestones",
