@@ -1023,8 +1023,7 @@ addLayer("ct", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
-    softcap: new Decimal(1e30) // IP gain slows past 1e30
-
+    
     layerShown() {
         // Check if the player has at least 1e21 points
         return player.points.gte(new Decimal(1e21)) || player.ct.points.gte(1);
@@ -1459,6 +1458,7 @@ addLayer("infi", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.025, // Scaling factor for prestige points
+    softcap: new Decimal(1e30), // IP gain slows past 1e30
 
     layerShown() {
         // Check if the player has at least 1e200 points
