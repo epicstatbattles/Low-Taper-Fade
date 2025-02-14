@@ -323,7 +323,7 @@ function getPointGen() {
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("val", 11)) gain = gain.times(upgradeEffect("val", 11));
 	let eboupg = upgradeEffect("enhance", 23).sub(1)
-        if (hasUpgrade("enhance", 23)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
+        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	let enhanceTime = new Decimal(player.enhance.resetTime);
 	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(enhanceTime.add(1).pow(3));
