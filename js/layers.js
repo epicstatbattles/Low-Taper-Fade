@@ -304,6 +304,7 @@ addLayer("ninja", {
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -582,6 +583,7 @@ addLayer("massive", {
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
+        if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         return mult;
     },
 
@@ -821,9 +823,11 @@ addLayer("mady", {
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
+        if (hasUpgrade("vex", 23)) mult = mult.times(upgradeEffect("vex", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        mult = mult.times(buyableEffect("vex", 11));
         return mult;
     },
 
@@ -1349,9 +1353,11 @@ addLayer("aub", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
+        if (hasUpgrade("sunny", 23)) mult = mult.times(upgradeEffect("sunny", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        mult = mult.times(buyableEffect("sunny", 11));
         return mult;
     },
 
@@ -2162,10 +2168,10 @@ addLayer("vex", {
     upgrades: {
         11: {
             title: "LET HIM COOK!",
-            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain drastically based on LTF, Ninja, massive, and Vexbolts points (initial 1,000x multi).",
+            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain quadratically based on Vexbolts points (initial 1,000x multi).",
             cost: new Decimal(1),
             effect() {
-                return player.vex.points.add(1).pow(2).times(player.ltf.points.div(10).add(1).pow(0.02)).times(player.ninja.points.div(2.5).add(1).pow(0.025)).times(player.massive.points.add(1).pow(0.03)).times(1000); // Complex multiplier
+                return player.vex.points.add(1).pow(2).times(1000); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2221,7 +2227,7 @@ addLayer("vex", {
         },
         14: {
             title: "Mass Refollowing",
-            description: "...only for them to revive him. The second trend causes Vexbolts points to cubically boost point gain. (initial 10x multi)",
+            description: "...only for them to revive him. The second trend causes Vexbolts points to cubically boost point gain (initial 10x multi). Also unlock a Vexbolts buyable.",
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("vex", 13); },
             effect() {
@@ -2316,6 +2322,55 @@ addLayer("vex", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
+    buyables: {
+        11: {
+            title: "Madelizer Booster",
+            description: "Boosts Madelizer gain based on the level of this buyable.",
+            cost(x) { return new Decimal(10).times(new Decimal(9).add(x).div(5).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("vex", 14);  // Buyable unlocks when player has Vexbolts upg 14
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(5).pow(x); // Apply the diminishing factor
+            },
+            canAfford() { return player.vex.points.gte(this.cost()) },
+            buy() {
+                player.vex.points = player.vex.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("vex", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} Vexbolts Points`;
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Meme Drag Ban",
+            challengeDescription: "All people layers before Infinity (Ninja, Madelizers, and Aubrinators) do not work.",
+            goalDescription: "Reach 1e300 points.",
+            rewardDescription: "Vexbolts points boost Ninja and massive point gain.",
+            unlocked() { return hasUpgrade("vex", 21); },
+            canComplete: function() { return player.points.gte(1e300) },
+            rewardEffect() {
+                return player.vex.points.add(1).pow(1.2);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to layer 2 currency gain";
+            },
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "100 Vexbolts Points",
@@ -2323,13 +2378,14 @@ addLayer("vex", {
             done() { return player.vex.points.gte(100); },
         },
     },
-
     tabFormat: {
         "Main Tab": {
             content: [
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                "buyables",
+                "challenges",
                 "upgrades",
                 "milestones",
             ],
@@ -2458,7 +2514,7 @@ addLayer("enhance", {
         },
         14: {
             title: "Galaxies",
-            description: "Unlock Galaxies, and they boost Ninja and massive point gain.",
+            description: "Unlock Galaxies and an Enhancer buyable. Galaxies boost Ninja and massive point gain.",
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enhance", 13); },
             effect() {
@@ -2467,8 +2523,8 @@ addLayer("enhance", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
-            title: "Milestones now do stuff! Also, unlock the Enhancer challenge!",
-            description: "Each milestone now awards a boost to point gain that increases based on enhancers (initial 4x multi)!",
+            title: "Milestones now do stuff!",
+            description: "Unlock an Enhancer challenge and each milestone now awards a boost to point gain that increases based on enhancers (initial 4x multi)!",
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("enhance", 14); },
             effect() {
@@ -2503,7 +2559,7 @@ addLayer("enhance", {
         },
         23: {
             title: "Galaxy Enhancer!",
-            description: "The galaxy boosts become stronger based on enhancers!",
+            description: "The galaxy boosts become stronger based on enhancers! Unlock a second Enhancer buyable!",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("enhance", 22); },
             effect() {
@@ -2522,9 +2578,98 @@ addLayer("enhance", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
+    buyables: {
+        11: {
+            title: "Point Exponent",
+            description: "Raises point generation to an exponent based on the level of this buyable.",
+            cost(x) { return new Decimal(10).times(new Decimal(7).add(x).div(4).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("enhance", 14);  // Buyable unlocks when player has Enhancer upg 14
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(100).add(x).div(100);
+            },
+            canAfford() { return player.enhance.points.gte(this.cost()) },
+            buy() {
+                player.enhance.points = player.enhance.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("enhance", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} Enhancers`;
+            },
+        },
+        12: {
+            title: "Galaxy Cheapener",
+            description: "Reduces the cost scaling growth of galaxies based on the level of this upgrade (caps at level 50).",
+            purchaseLimit: new Decimal(50),
+            cost(x) { return new Decimal(10000).times(new Decimal(19).add(x).div(5).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("enhance", 14);  // Buyable unlocks when player has Vexbolts upg 14
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(10000).div(new Decimal(1.1).pow(x)); // Apply the diminishing factor
+            },
+            canAfford() { return player.vex.points.gte(this.cost()) },
+            buy() {
+                player.enhance.points = player.enhance.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("enhance", 12); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Growth Base: ${format(effect)}<br>
+                    Cost: ${format(cost)} Enhancers`;
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Point Deterioration",
+            challengeDescription: "Point gain starts divided by 1e12, and divides further based on the cube of Enhancer reset time.",
+            goalDescription: "Reach 1e750 points.",
+            rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
+            unlocked() { return hasUpgrade("vex", 21); },
+            canComplete: function() { return player.points.gte("1e750") },
+            rewardEffect() {
+                let enhanceTime = new Decimal(player.enhance.resetTime)
+                return enhanceTime.pow(0.5).pow(player.enhance.points.add(10).log10());
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to layer 2 currency gain";
+            },
+        },
+    },
     milestones: {
         0: {
-            requirementDescription: "100 Enhance Points",
+            requirementDescription: "100 Vexbolts Points",
+            effectDescription: "Brainrot Artist!",
+            done() { return player.vex.points.gte(100); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Enhancers",
             effectDescription: "Premium Enhancer!",
             done() { return player.enhance.points.gte(100); },
         },
@@ -2537,6 +2682,8 @@ addLayer("enhance", {
                 "prestige-button",
                 "resource-display",
                 "upgrades",
+                "buyables",
+                "challenges",
                 "milestones",
             ],
         },
@@ -2758,6 +2905,55 @@ addLayer("sunny", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
+    buyables: {
+        11: {
+            title: "Aubrinator Booster",
+            description: "Boosts Aubrinator gain based on the level of this buyable.",
+            cost(x) { return new Decimal(10).times(new Decimal(9).add(x).div(5).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("sunny", 14);  // Buyable unlocks when player has Vexbolts upg 14
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(4).pow(x); // Apply the diminishing factor
+            },
+            canAfford() { return player.sunny.points.gte(this.cost()) },
+            buy() {
+                player.sunny.points = player.sunny.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("sunny", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} SunnyV2 Points`;
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Meme Growth Prevention",
+            challengeDescription: "Massive points and Aubrinators cannot be obtained.",
+            goalDescription: "Reach 1e800 points.",
+            rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
+            unlocked() { return hasUpgrade("vex", 21); },
+            canComplete: function() { return player.points.gte("1e800") },
+            rewardEffect() {
+                return player.sunny.points.add(1).pow(3.2);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to LTF point gain";
+            },
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "100 SunnyV2 Points",
@@ -2772,6 +2968,8 @@ addLayer("sunny", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                "buyables",
+                "challenges",
                 "upgrades",
                 "milestones",
             ],
@@ -2796,7 +2994,7 @@ addLayer("gal", {
     color: "#3c0a4f", // purple
     requires: new Decimal(1e40), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
-    base: new Decimal(10000),
+    base: buyableEffect("enhance", 12),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
@@ -2980,10 +3178,3 @@ addLayer("val", {
         },
     },
 });
-// To-do List
-// e23: find all galaxy boosts and power them. (gal 11, gal 12)
-// e24: vex, enhance, sunny
-// v23: mady+2
-// v24: ninja, massive
-// s23: aub+2
-// s24: infi
