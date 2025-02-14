@@ -42,6 +42,7 @@ addLayer("ltf", {
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("gal", 12)).pow(upgradeEffect("enhance", 14).sub(1));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
         if (hasUpgrade("val", 12)) mult = mult.times(upgradeEffect("val", 12));
@@ -300,6 +301,8 @@ addLayer("ninja", {
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
+        if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
+        if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         return mult;
     },
@@ -576,6 +579,7 @@ addLayer("massive", {
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
+        if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         return mult;
     },
 
@@ -816,6 +820,7 @@ addLayer("mady", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
+        if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         return mult;
     },
 
@@ -981,6 +986,70 @@ addLayer("mady", {
                 return display; // Return the final string
             },
         },
+        32: {
+            title: "The Algorithm Drags It Too",
+            description: "The dragging compilations cause the algorithm to promote the meme. Boost Infinity point gain based on Madelizers.",
+            cost: new Decimal("1e600"),
+            unlocked() { return hasUpgrade("mady", 31) && hasUpgrade("vex", 23); },
+            effect() {
+                let base = player.mady.points.div("1e590").add(1).pow(0.02); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
+
+                if (player.mady.points.gte(new Decimal("1e1000"))) {
+                    firstDiminishingFactor = player.mady.points.div("1e1000").pow(0.008);
+                }
+
+                if (player.mady.points.gte(new Decimal("1e1600"))) {
+                    secondDiminishingFactor = player.mady.points.div("1e1600").pow(0.006);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
+            effectDisplay() {
+                let isSoftcapped = player.mady.points.gte("1e1000"); // Check if softcap applies
+                let isSuperSoftcapped = player.mady.points.gte("1e1600"); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        33: {
+            title: "Madelyn vs MrBeast?",
+            description: "The dragging causes Madelyn to near MrBeast's subcount at a rapid pace of 1M/day! Boost point gain even more based on Madelizers.",
+            cost: new Decimal("1e720"),
+            unlocked() { return hasUpgrade("mady", 32); },
+            effect() {
+                let base = player.mady.points.div("1e710").add(1).pow(0.5); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
+
+                if (player.mady.points.gte(new Decimal("1e1050"))) {
+                    firstDiminishingFactor = player.mady.points.div("1e1050").pow(0.2);
+                }
+
+                if (player.mady.points.gte(new Decimal("1e1800"))) {
+                    secondDiminishingFactor = player.mady.points.div("1e1800").pow(0.15);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
+            effectDisplay() {
+                let isSoftcapped = player.mady.points.gte("1e1050"); // Check if softcap applies
+                let isSuperSoftcapped = player.mady.points.gte("1e1800"); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
 
     milestones: {
@@ -1047,7 +1116,7 @@ addLayer("ct", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
-        if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14)).pow(0.5);
+        if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14).pow(0.5));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1265,6 +1334,7 @@ addLayer("aub", {
         if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
+        if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         return mult;
     },
 
@@ -1416,6 +1486,70 @@ addLayer("aub", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        32: {
+            title: "Interviews",
+            description: "Aubrie decides to interview Ninja and Madelyn, causing a boost to all their point types based on Aubrinator amount!",
+            cost: new Decimal("1e500"),
+            unlocked() { return hasUpgrade("aub", 31) && hasUpgrade("sunny", 23); },
+            effect() {
+                let base = player.aub.points.div("1e495").add(1).pow(0.025); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
+
+                if (player.aub.points.gte(new Decimal("1e840"))) {
+                    firstDiminishingFactor = player.aub.points.div("1e840").pow(0.01);
+                }
+
+                if (player.aub.points.gte(new Decimal("1e1400"))) {
+                    secondDiminishingFactor = player.aub.points.div("1e1400").pow(0.075);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
+            effectDisplay() {
+                let isSoftcapped = player.aub.points.gte("1e840"); // Check if softcap applies
+                let isSuperSoftcapped = player.aub.points.gte("1e1400); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
+        33: {
+            title: "Short-form Summaries",
+            description: "Aubrie takes inspiration from shorts creators to abbreviate her long-forms into shorts! Boost all layer 5 currency gains based on Aubrinators.",
+            cost: new Decimal("1e580"),
+            unlocked() { return hasUpgrade("aub", 32); },
+            effect() {
+                let base = player.aub.points.div("1e570").add(1).pow(0.008); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
+
+                if (player.aub.points.gte(new Decimal("1e900"))) {
+                    firstDiminishingFactor = player.aub.points.div("1e900").pow(0.0032);
+                }
+
+                if (player.aub.points.gte(new Decimal("1e1500"))) {
+                    secondDiminishingFactor = player.aub.points.div("1e1500").pow(0.0024);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
+            },
+            effectDisplay() {
+                let isSoftcapped = player.aub.points.gte("1e900"); // Check if softcap applies
+                let isSuperSoftcapped = player.aub.points.gte("1e1500"); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
+                }
+                return display; // Return the final string
+            },
+        },
     },
 
     milestones: {
@@ -1474,6 +1608,8 @@ addLayer("infi", {
         if (hasChallenge("infi", 31)) mult = mult.times(challengeEffect("infi", 31));
         if (hasUpgrade("enhance", 13)) mult = mult.times(upgradeEffect("enhance", 13));
         if (hasUpgrade("sunny", 22)) mult = mult.times(upgradeEffect("sunny", 22));
+        if (hasUpgrade("mady", 32)) mult = mult.times(upgradeEffect("mady", 32));
+        if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
         return mult;
     },
 
@@ -1985,6 +2121,7 @@ addLayer("vex", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         return mult;
     },
 
@@ -2206,6 +2343,7 @@ addLayer("enhance", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         return mult;
     },
 
@@ -2411,6 +2549,7 @@ addLayer("sunny", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         return mult;
     },
 
