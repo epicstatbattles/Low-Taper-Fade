@@ -2586,7 +2586,7 @@ addLayer("enhance", {
         11: {
             title: "Point Exponent",
             description: "Raises point generation to an exponent based on the level of this buyable.",
-            cost(x) { return new Decimal(10).times(new Decimal(7).add(x).div(4).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(10).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -2610,7 +2610,7 @@ addLayer("enhance", {
                 return `
                     ${this.description}<br>
                     Level: ${format(amt)}<br>
-                    Effect: x${format(effect)}<br>
+                    Effect: ^${format(effect)}<br>
                     Cost: ${format(cost)} Enhancers`;
             },
         },
