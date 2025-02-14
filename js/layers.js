@@ -2629,7 +2629,7 @@ addLayer("enhance", {
             effect(x) {
                 return new Decimal(10000).div(new Decimal(1.1).pow(x)); // Apply the diminishing factor
             },
-            canAfford() { return player.vex.points.gte(this.cost()) },
+            canAfford() { return player.enhance.points.gte(this.cost()) },
             buy() {
                 player.enhance.points = player.enhance.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
