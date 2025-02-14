@@ -43,7 +43,7 @@ addLayer("ltf", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
         let eboupg = upgradeEffect("enhance", 23).sub(1)
-        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
+        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
         if (hasUpgrade("val", 12)) mult = mult.times(upgradeEffect("val", 12));
