@@ -2586,7 +2586,7 @@ addLayer("enhance", {
         11: {
             title: "Point Exponent",
             description: "Raises point generation to an exponent based on the level of this buyable.",
-            cost(x) { return new Decimal(10).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(10).times(new Decimal(9).add(x).div(5).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -2618,11 +2618,11 @@ addLayer("enhance", {
             title: "Galaxy Cheapener",
             description: "Reduces the cost scaling growth of galaxies based on the level of this upgrade (caps at level 50).",
             purchaseLimit: new Decimal(50),
-            cost(x) { return new Decimal(10000).times(new Decimal(19).add(x).div(5).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(10000).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
-                return hasUpgrade("enhance", 14);  // Buyable unlocks when player has Vexbolts upg 14
+                return hasUpgrade("enhance", 23);  // Buyable unlocks when player has Vexbolts upg 14
             },
 
             // Effect of the buyable
@@ -2653,7 +2653,7 @@ addLayer("enhance", {
             challengeDescription: "Point gain starts divided by 1e12, and divides further based on the cube of Enhancer reset time.",
             goalDescription: "Reach 1e750 points.",
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
-            unlocked() { return hasUpgrade("vex", 21); },
+            unlocked() { return hasUpgrade("enhance", 21); },
             canComplete: function() { return player.points.gte("1e750") },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
@@ -2948,7 +2948,7 @@ addLayer("sunny", {
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
             goalDescription: "Reach 1e800 points.",
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
-            unlocked() { return hasUpgrade("vex", 21); },
+            unlocked() { return hasUpgrade("sunny", 21); },
             canComplete: function() { return player.points.gte("1e800") },
             rewardEffect() {
                 return player.sunny.points.add(1).pow(3.2);
