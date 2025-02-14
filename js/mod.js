@@ -325,18 +325,22 @@ function getPointGen() {
 	let eboupg = upgradeEffect("enhance", 23).sub(1)
         if (hasUpgrade("enhance", 23)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
-	if (hasUpgrade("enhance", 11) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("mady", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("ct", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("aub", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("infi", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("gal", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 11));
-	if (hasUpgrade("enhance", 11) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 11));
+	let enhanceTime = new Decimal(player.enhance.resetTime);
+	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(enhanceTime.add(1).pow(3));
+	if (hasChallenge("enhance", 11)) gain = gain.times(challengeEffect("enhance", 11));
+	if (hasUpgrade("enhance", 21) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("mady", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("ct", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("aub", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("infi", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("gal", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
+	gain = gain.pow(buyableEffect("enhance", 11));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	return gain
 }
