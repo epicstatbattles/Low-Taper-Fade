@@ -315,6 +315,8 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("val", 11)) gain = gain.times(upgradeEffect("val", 11));
+	if (hasUpgrade("enhance", 23)) gain = gain.times(upgradeEffect("gal", 11)).pow(upgradeEffect("enhance", 23).sub(1));
+	if (hasUpgrade("mady", 33)) mult = mult.times(upgradeEffect("mady", 33));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 11));
