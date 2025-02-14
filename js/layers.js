@@ -1508,7 +1508,7 @@ addLayer("aub", {
             },
             effectDisplay() {
                 let isSoftcapped = player.aub.points.gte("1e840"); // Check if softcap applies
-                let isSuperSoftcapped = player.aub.points.gte("1e1400); // Check if super softcap applies
+                let isSuperSoftcapped = player.aub.points.gte("1e1400"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
