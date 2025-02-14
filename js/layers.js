@@ -41,6 +41,7 @@ addLayer("ltf", {
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
         let eboupg = upgradeEffect("enhance", 23).sub(1)
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
@@ -306,6 +307,7 @@ addLayer("ninja", {
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         if (inChallenge("infi", 21)) mult = mult.times(0);
+        if (inChallenge("vex", 11)) mult = mult.times(0);
         return mult;
     },
 
@@ -584,6 +586,7 @@ addLayer("massive", {
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
+        if (inChallenge("sunny", 11)) mult = mult.times(0);
         return mult;
     },
 
@@ -1358,6 +1361,7 @@ addLayer("aub", {
         if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         mult = mult.times(buyableEffect("sunny", 11));
+        if (inChallenge("vex", 11)) mult = mult.times(0);
         return mult;
     },
 
@@ -2994,7 +2998,7 @@ addLayer("gal", {
     color: "#3c0a4f", // purple
     requires: new Decimal(1e40), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
-    base: buyableEffect("enhance", 12),
+    base: return buyableEffect("enhance", 12),
     canBuyMax: false,
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
