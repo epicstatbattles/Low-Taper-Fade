@@ -42,7 +42,7 @@ addLayer("ltf", {
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12));
-        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("gal", 12)).pow(upgradeEffect("enhance", 14).sub(1));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("gal", 12)).pow(upgradeEffect("enhance", 23).sub(1));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
         if (hasUpgrade("val", 12)) mult = mult.times(upgradeEffect("val", 12));
@@ -299,7 +299,7 @@ addLayer("ninja", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
-        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 23).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
@@ -577,7 +577,7 @@ addLayer("massive", {
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
-        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 14).sub(1));
+        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14)).pow(upgradeEffect("enhance", 23).sub(1));
         if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         return mult;
