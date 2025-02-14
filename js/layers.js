@@ -805,6 +805,7 @@ addLayer("mady", {
     baseAmount() { return player.ninja.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.27, // Scaling factor for prestige points
+    softcap: new Decimal("1e480"),
 
     layerShown() {
         // Check if the player has at least 1e9 Ninja points
@@ -1068,6 +1069,12 @@ addLayer("mady", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.mady.points.gte(new Decimal("1e400"))) {
+                    return '<span style="color: red;">Madelizer gains will slow down beyond 1e480 Madelizers.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
@@ -1096,6 +1103,7 @@ addLayer("ct", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
+    softcap: new Decimal("1e420"),
     
     layerShown() {
         // Check if the player has at least 1e21 points
@@ -1289,6 +1297,12 @@ addLayer("ct", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.ct.points.gte(new Decimal("1e350"))) {
+                    return '<span style="color: red;">CT subscriber gains will slow down beyond 1e420 CT subscribers.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
@@ -1317,6 +1331,7 @@ addLayer("aub", {
     baseAmount() { return player.massive.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.34, // Scaling factor for prestige points
+    softcap: new Decimal("1e372"),
 
     layerShown() {
         // Check if the player has at least 1e6 massive points
@@ -1568,6 +1583,12 @@ addLayer("aub", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.aub.points.gte(new Decimal("1e310"))) {
+                    return '<span style="color: red;">Aubrinator gains will slow down beyond 1e372 Aubrinators.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
