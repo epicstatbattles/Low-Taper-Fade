@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.5.Valentine",
-	name: "Low Taper Fade Hyper",
+	num: "3.0.Valentine",
+	name: "Low Taper Fade Transcendent",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -264,7 +264,14 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v2.5</h3><br>
                 - Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!<br>
 	<h3>v2.5.Valentine</h3><br>
-                - Added a limited-time Valentine's Day currency! It will award some small boosts to layers 1-3 and will extend to the 15th of February. On Valentine's Day, the bonuses will be squared.`
+                - Added a limited-time Valentine's Day currency! It will award some small boosts to layers 1-3 and will extend to the 15th of February. On Valentine's Day, the bonuses will be squared.<br>
+	<h3>v3.0.Valentine</h3><br>
+                - Added point slowdowns to Infinity points past 1e30.<br>
+		- Added 2 more upgrades to each 5 layer currency!<br>
+		- Added 2 more Madelizer and Aubrinator upgrades!<br>
+		- Made Enhancer upgrade 2:1's formula dynamic.<br>
+		- Added point slowdowns to all layer 3 currencies after getting a good amount of their layer 5 points.<br>
+		- Added 1 new Valentine's Day upgrade.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -315,8 +322,9 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("val", 11)) gain = gain.times(upgradeEffect("val", 11));
-	if (hasUpgrade("enhance", 23)) gain = gain.times(upgradeEffect("gal", 11)).pow(upgradeEffect("enhance", 23).sub(1));
-	if (hasUpgrade("mady", 33)) mult = mult.times(upgradeEffect("mady", 33));
+	let eboupg = upgradeEffect("enhance", 23).sub(1)
+        if (hasUpgrade("enhance", 23)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
+	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 11) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 11));
