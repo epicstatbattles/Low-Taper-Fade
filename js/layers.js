@@ -305,6 +305,7 @@ addLayer("ninja", {
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
+        if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         if (inChallenge("vex", 11)) mult = mult.times(0);
         return mult;
@@ -584,6 +585,7 @@ addLayer("massive", {
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
+        if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("sunny", 11)) mult = mult.times(0);
         return mult;
     },
@@ -827,6 +829,7 @@ addLayer("mady", {
         if (hasUpgrade("vex", 23)) mult = mult.times(upgradeEffect("vex", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         mult = mult.times(buyableEffect("vex", 11));
         return mult;
     },
@@ -1130,6 +1133,7 @@ addLayer("ct", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
+        if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1355,6 +1359,7 @@ addLayer("aub", {
         if (hasUpgrade("sunny", 23)) mult = mult.times(upgradeEffect("sunny", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         mult = mult.times(buyableEffect("sunny", 11));
         if (inChallenge("vex", 11)) mult = mult.times(0);
         return mult;
@@ -3107,7 +3112,7 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(4).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(5).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3117,8 +3122,36 @@ addLayer("liquid", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
-                let inflateTimeTwo = new Decimal(player.liquid.resetTime);
-                return inflateTimeTwo.add(1).pow(2.5).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(3).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Extra Galactic Effects",
+            description: "Unlock 3 more galaxy upgrades.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("liquid", 12); },
+        },
+        14: {
+            title: "Massive + Ninja Boost",
+            description: "LC inflators and time in this reset boost Ninja and massive point gain.",
+            cost: new Decimal(25),
+            unlocked() { return hasUpgrade("liquid", 13); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(2.25).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Massive + Ninja Boost",
+            description: "LC inflators and time in this reset boost layer 3 currency gain.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("liquid", 14); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(1.75).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
