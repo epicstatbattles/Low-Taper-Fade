@@ -3116,7 +3116,7 @@ addLayer("val", {
             description: "Valentine's Day points now give a small boost to point gain!",
             cost: new Decimal(1),
             effect() {
-                return player.val.points.div(8).add(1);
+                return player.val.points.div(8).add(1).pow(2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3126,7 +3126,7 @@ addLayer("val", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("val", 11); },
             effect() {
-                return player.val.points.div(10).add(1);
+                return player.val.points.div(10).add(1).pow(2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3136,7 +3136,7 @@ addLayer("val", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("val", 12); },
             effect() {
-                return player.val.points.div(15).add(1); // Complex multiplier
+                return player.val.points.div(15).add(1).pow(2); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3146,7 +3146,7 @@ addLayer("val", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("val", 13); },
             effect() {
-                return player.val.points.div(25).add(1);
+                return player.val.points.div(25).add(1).pow(2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
