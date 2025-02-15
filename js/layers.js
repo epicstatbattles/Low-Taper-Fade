@@ -46,6 +46,7 @@ addLayer("ltf", {
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
+        if (hasUpgrade("liquid", 12)) mult = mult.times(upgradeEffect("liquid", 12));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
