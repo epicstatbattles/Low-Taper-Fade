@@ -3081,7 +3081,7 @@ addLayer("liquid", {
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
-        return player.ltf.points("1e4000") || player.liquid.points.gte(1);
+        return player.ltf.points.gte("1e4000") || player.liquid.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
