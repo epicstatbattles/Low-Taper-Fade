@@ -337,6 +337,7 @@ function getPointGen() {
 	let decayFactor = new Decimal(10).pow(enhanceTime.div(10));
 	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(decayFactor);
 	if (hasChallenge("enhance", 11)) gain = gain.times(challengeEffect("enhance", 11));
+	if (hasUpgrade("liquid", 11)) gain = gain.times(upgradeEffect("liquid", 11));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 21));
