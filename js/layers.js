@@ -2650,7 +2650,7 @@ addLayer("enhance", {
     challenges: {
         11: {
             name: "Point Deterioration",
-            challengeDescription: "Point gain starts divided by 1e12, and divides further based on the cube of Enhancer reset time.",
+            challengeDescription: "Point gain starts divided by 1e12, and further divides by 10 every 10 seconds.",
             goalDescription: "Reach 1e750 points.",
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
             unlocked() { return hasUpgrade("enhance", 21); },
