@@ -3063,7 +3063,7 @@ addLayer("gal", {
 });
 addLayer("liquid", {
     name: "liquidcashews inflators", // Full name of the layer
-    image: "https://cdn.discordapp.com/avatars/1178607053342789666/1fda1c47fa39e8ef1934f5212924b334.webp?size=50", // Symbol displayed on the tree
+    image: "https://i.ibb.co/GvWTRS0k/mdm.webp", // Symbol displayed on the tree
     position: 2, // Position in the tree
     startData() {
         return {
