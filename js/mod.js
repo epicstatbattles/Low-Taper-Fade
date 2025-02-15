@@ -301,7 +301,7 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
         if (hasUpgrade("ltf", 11)) gain = gain.times(2);
-	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5)
+	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5);
    	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
    	if (hasUpgrade("ltf", 21)) gain = gain.times(upgradeEffect("ltf", 21));
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
@@ -326,12 +326,11 @@ function getPointGen() {
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
-	if (hasUpgrade("val", 11)) gain = gain.times(upgradeEffect("val", 11));
-	let eboupg = upgradeEffect("enhance", 23).sub(1)
+	let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	let enhanceTime = new Decimal(player.enhance.resetTime);
-	let decayFactor = new Decimal(10).pow(enhanceTime.div(10))
+	let decayFactor = new Decimal(10).pow(enhanceTime.div(10));
 	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(decayFactor);
 	if (hasChallenge("enhance", 11)) gain = gain.times(challengeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 21));
