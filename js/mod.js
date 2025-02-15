@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "3.1.Valentine",
+	num: "3.1.1",
 	name: "Low Taper Fade Transcendent",
 }
 
@@ -276,7 +276,11 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a challenge to each layer 5 currency!<br>
 		- Added a buyable to each 5 layer currency (Enhancers get 2)!<br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
-		- Reworked how the Enhancer challenge's decay works, and buffed its reward.`
+		- Reworked how the Enhancer challenge's decay works, and buffed its reward.<br>
+	<h3>v3.1.1</h3><br>
+                - Reworked the Vexbolts and SunnyV2 challenge requirements.<br>
+		- Removed the Valentine's Day event.<br>
+		- Slightly changed some layer 5 upgrade formulas to prepare for the last layer!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
