@@ -2653,18 +2653,11 @@ addLayer("enhance", {
             canComplete: function() { return player.points.gte("1e750") },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
-                return enhanceTime.pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.08));
+                return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.08));
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to point gain";
             },
-        },
-    },
-    milestones: {
-        0: {
-            requirementDescription: "100 Vexbolts Points",
-            effectDescription: "Brainrot Artist!",
-            done() { return player.vex.points.gte(100); },
         },
     },
     milestones: {
@@ -3064,6 +3057,91 @@ addLayer("gal", {
         "About": {
             content: [
                 ["raw-html", () => "The meme has entered galactic levels of fame!"],
+            ],
+        },
+    },
+});
+addLayer("liquid", {
+    name: "liquidcashews inflators", // Full name of the layer
+    image: "https://cdn.discordapp.com/avatars/1178607053342789666/1fda1c47fa39e8ef1934f5212924b334.webp?size=50", // Symbol displayed on the tree
+    position: 2, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#d7520f", // distinct orange
+    requires: new Decimal("1e5000"), // Points required to unlock this layer
+    resource: "liquidcashews inflators", // Prestige currency name
+    baseResource: "low taper fade points", // Resource used to gain prestige points
+    baseAmount() { return player.ltf.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.005, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has Enhancer Upgrade 1:4
+        return player.ltf.points("1e4000") || player.liquid.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 5, // Row in the tree (5 = sixth row)
+    hotkeys: [
+        { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Inflation Begins!",
+            description: "Gain a drastic point multiplier that increases over time, and gets faster based on LC inflators!",
+            cost: new Decimal(1),
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime.add(1));
+                return inflateTime.pow(4).pow(player.liquid.points.add(1));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Low Taper Inflation!",
+            description: "LC inflators and time in this reset boost LTF point gain.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("gal", 11); },
+            effect() {
+                let inflateTimeTwo = new Decimal(player.liquid.resetTime.add(1));
+                return inflateTimeTwo.add(1).pow(2.5).pow(player.liquid.points.add(1).pow(0.9));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "5 LC Inflators",
+            effectDescription: "Reached Current Endgame!",
+            done() { return player.liquid.points.gte(5); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
             ],
         },
     },
