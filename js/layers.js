@@ -1671,6 +1671,8 @@ addLayer("infi", {
         if (hasUpgrade("mady", 32)) mult = mult.times(upgradeEffect("mady", 32));
         if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
         if (hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13));
+        let eboupg = upgradeEffect("enhance", 23).sub(1);
+        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13).pow(eboupg));
         return mult;
     },
 
@@ -3073,9 +3075,9 @@ addLayer("gal", {
             title: "Infinitely Galactic!",
             description: "Make Galaxies boost Infinity points!",
             cost: new Decimal(20),
-            unlocked() { return hasUpgrade("gal", 12); },
+            unlocked() { return hasUpgrade("gal", 12) && hasUpgrade("liquid", 13); },
             effect() {
-                return new Decimal(1.5).pow(player.gal.points);
+                return new Decimal(1.2).pow(player.gal.points);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
