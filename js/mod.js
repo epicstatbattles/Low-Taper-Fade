@@ -348,8 +348,8 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 21));
-	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	gain = gain.pow(buyableEffect("enhance", 11));
+	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	return gain
 }
