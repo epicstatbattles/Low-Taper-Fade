@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "3.0.Valentine",
+	num: "3.1.Valentine",
 	name: "Low Taper Fade Transcendent",
 }
 
@@ -271,7 +271,12 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
 		- Made Enhancer upgrade 2:1's formula dynamic.<br>
 		- Added point slowdowns to all layer 3 currencies after getting a good amount of their layer 5 points.<br>
-		- Added 1 new Valentine's Day upgrade.`
+		- Added 1 new Valentine's Day upgrade.<br>
+	<h3>v3.0.Valentine</h3><br>
+                - Added a challenge to each layer 5 currency!<br>
+		- Added a buyable to each 5 layer currency (Enhancers get 2)!<br>
+		- Added 2 more Madelizer and Aubrinator upgrades!<br>
+		- Reworked how the Enhancer challenge's decay works.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -326,7 +331,8 @@ function getPointGen() {
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	let enhanceTime = new Decimal(player.enhance.resetTime);
-	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(enhanceTime.add(1).pow(3));
+	let decayFactor = new Decimal(10).pow(enhanceTime.div(10))
+	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(decayFactor);
 	if (hasChallenge("enhance", 11)) gain = gain.times(challengeEffect("enhance", 11));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 21));
