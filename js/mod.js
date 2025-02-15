@@ -276,7 +276,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a challenge to each layer 5 currency!<br>
 		- Added a buyable to each 5 layer currency (Enhancers get 2)!<br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
-		- Reworked how the Enhancer challenge's decay works.`
+		- Reworked how the Enhancer challenge's decay works, and buffed its reward.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
