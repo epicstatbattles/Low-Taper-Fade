@@ -42,11 +42,10 @@ addLayer("ltf", {
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
-        let eboupg = upgradeEffect("enhance", 23).sub(1)
+        let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
-        if (hasUpgrade("val", 12)) mult = mult.times(upgradeEffect("val", 12));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
     },
@@ -300,9 +299,8 @@ addLayer("ninja", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
-        let eboupg = upgradeEffect("enhance", 23).sub(1)
+        let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
-        if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
@@ -581,9 +579,8 @@ addLayer("massive", {
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
-        let eboupg = upgradeEffect("enhance", 23).sub(1)
+        let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
-        if (hasUpgrade("val", 13)) mult = mult.times(upgradeEffect("val", 13));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         if (inChallenge("sunny", 11)) mult = mult.times(0);
@@ -828,7 +825,6 @@ addLayer("mady", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("vex", 23)) mult = mult.times(upgradeEffect("vex", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
-        if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         mult = mult.times(buyableEffect("vex", 11));
         return mult;
@@ -1133,7 +1129,6 @@ addLayer("ct", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
-        if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14).pow(0.5));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
@@ -1358,7 +1353,6 @@ addLayer("aub", {
         if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
         if (hasUpgrade("sunny", 23)) mult = mult.times(upgradeEffect("sunny", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
-        if (hasUpgrade("val", 14)) mult = mult.times(upgradeEffect("val", 14));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         mult = mult.times(buyableEffect("sunny", 11));
         if (inChallenge("vex", 11)) mult = mult.times(0);
@@ -3067,117 +3061,6 @@ addLayer("gal", {
         "About": {
             content: [
                 ["raw-html", () => "The meme has entered galactic levels of fame!"],
-            ],
-        },
-    },
-});
-addLayer("val", {
-    name: "Valentine's Day", // Full name of the layer
-    symbol: "♥", // Symbol displayed on the tree
-    position: 2, // Position in the tree
-    startData() {
-        return {
-            unlocked: false, // Starts locked until requirements are met
-            points: new Decimal(0), // Prestige points for this layer
-        };
-    },
-    color: "#FFB6C1", // light pink
-    requires: new Decimal(100), // Points required to unlock this layer
-    resource: "Valentine's Day points.", // Prestige currency name
-    base: new Decimal(10),
-    canBuyMax() { return hasUpgrade("val", 15); },
-    baseResource: "points", // Resource used to gain prestige points
-    baseAmount() { return player.points; }, // Current amount of baseResource
-    type: "static", // Standard prestige layer type
-    exponent: new Decimal(1.5), // Scaling factor for prestige points
-
-    layerShown() {
-        // Check if the player has 100 regular points.
-        return player.points.gte(100) || player.val.points.gte(1);
-    },
-
-    gainMult() { // Multiplicative bonus to prestige point gain
-        let mult = new Decimal(1);
-        return mult;
-    },
-
-    gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1); // Default is no additional exponential scaling
-    },
-
-    row: "side", // Row in the tree (0 = first row)
-    hotkeys: [
-        { key: "6", description: "6: Limited Time Valentine's Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
-    ],
-
-    upgrades: {
-        11: {
-            title: "First Love",
-            description: "Valentine's Day points now give a small boost to point gain!",
-            cost: new Decimal(1),
-            effect() {
-                return player.val.points.div(8).add(1).pow(2);
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        12: {
-            title: "Low Taper Charisma!",
-            description: "Valentine's Day points slightly boost LTF points.",
-            cost: new Decimal(2),
-            unlocked() { return hasUpgrade("val", 11); },
-            effect() {
-                return player.val.points.div(10).add(1).pow(2);
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        13: {
-            title: "Going on Dates",
-            description: "Valentine's Day points slightly boost layer 2 currencies!",
-            cost: new Decimal(5),
-            unlocked() { return hasUpgrade("val", 12); },
-            effect() {
-                return player.val.points.div(15).add(1).pow(2); // Complex multiplier
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        14: {
-            title: "Love Stimulation!",
-            description: "Valentine's Day points boost Madelizers and Aubrinators! CT also gets buffed, but to a lesser degree (^0.5).",
-            cost: new Decimal(10),
-            unlocked() { return hasUpgrade("val", 13); },
-            effect() {
-                return player.val.points.div(25).add(1).pow(2);
-            },
-            effectDisplay() { return "x" + format(this.effect()); },
-        },
-        15: {
-            title: "Double Date",
-            description: "Allow bulk-purchasing of Valentine's Day points!",
-            cost: new Decimal(15),
-            unlocked() { return hasUpgrade("val", 14); },
-        },
-    },
-    milestones: {
-        0: {
-            requirementDescription: "20 Valentine's Day Points",
-            effectDescription: "The Rizzler!",
-            done() { return player.val.points.gte(20); },
-        },
-    },
-
-    tabFormat: {
-        "Main Tab": {
-            content: [
-                "main-display",
-                "prestige-button",
-                "resource-display",
-                "upgrades",
-                "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
             ],
         },
     },
