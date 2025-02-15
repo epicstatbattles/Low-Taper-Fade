@@ -16,7 +16,11 @@ addLayer("ltf", {
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
-
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    }
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
@@ -3040,6 +3044,32 @@ addLayer("gal", {
                 return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.8));
             },
             effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Infinitely Galactic!",
+            description: "Make Galaxies boost Infinity points!",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("gal", 11); },
+            effect() {
+                return new Decimal(1.5).pow(player.gal.points);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Time Hack",
+            description: "Gain a percentage of LTF, Ninja, and massive point gain on reset based on Galaxies.",
+            cost: new Decimal(30),
+            unlocked() { return hasUpgrade("gal", 11); },
+            effect() {
+                return player.gal.points.add(1).div(100);
+            },
+            effectDisplay() { return format(this.effect()) + "%"; },
+        },
+        15: {
+            title: "Reality Warp",
+            description: "Time Hack now works on layer 3 currencies!",
+            cost: new Decimal(30),
+            unlocked() { return hasUpgrade("gal", 11); },
         },
     },
     milestones: {
