@@ -3094,6 +3094,7 @@ addLayer("liquid", {
     },
 
     row: 5, // Row in the tree (5 = sixth row)
+    branches: ["vex", "enhance", "sunny"],
     hotkeys: [
         { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
