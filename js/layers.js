@@ -18,7 +18,7 @@ addLayer("ltf", {
     autoUpgrade() { return hasUpgrade("infi", 32); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);},
+        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
         return passive;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
