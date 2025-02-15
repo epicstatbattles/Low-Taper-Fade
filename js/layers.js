@@ -2657,7 +2657,7 @@ addLayer("enhance", {
             canComplete: function() { return player.points.gte("1e750") },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
-                return enhanceTime.pow(0.5).pow(player.enhance.points.add(10).log10());
+                return enhanceTime.pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.2));
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to layer 2 currency gain";
