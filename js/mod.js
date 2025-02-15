@@ -272,7 +272,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Made Enhancer upgrade 2:1's formula dynamic.<br>
 		- Added point slowdowns to all layer 3 currencies after getting a good amount of their layer 5 points.<br>
 		- Added 1 new Valentine's Day upgrade.<br>
-	<h3>v3.0.Valentine</h3><br>
+	<h3>v3.1.Valentine</h3><br>
                 - Added a challenge to each layer 5 currency!<br>
 		- Added a buyable to each 5 layer currency (Enhancers get 2)!<br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
