@@ -2595,7 +2595,7 @@ addLayer("enhance", {
         },
         23: {
             title: "Galaxy Enhancer!",
-            description: "The galaxy boosts become stronger based on enhancers! Unlock a second Enhancer buyable!",
+            description: "The galaxy boosts (except for Time Hack and Reality Warp) become stronger based on enhancers and unlock a second Enhancer buyable!",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("enhance", 22); },
             effect() {
