@@ -3107,7 +3107,7 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(4).pow(player.liquid.points.add(1));
+                return inflateTime.add(1).pow(4).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3115,10 +3115,10 @@ addLayer("liquid", {
             title: "Low Taper Inflation!",
             description: "LC inflators and time in this reset boost LTF point gain.",
             cost: new Decimal(2),
-            unlocked() { return hasUpgrade("gal", 11); },
+            unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTimeTwo = new Decimal(player.liquid.resetTime);
-                return inflateTimeTwo.add(1).pow(2.5).pow(player.liquid.points.add(1).pow(0.9));
+                return inflateTimeTwo.add(1).pow(2.5).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
