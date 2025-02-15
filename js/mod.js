@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "3.1.1",
-	name: "Low Taper Fade Transcendent",
+	num: "4.0",
+	name: "Low Taper Fade Final",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -280,7 +280,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v3.1.1</h3><br>
                 - Reworked the Vexbolts and SunnyV2 challenge requirements.<br>
 		- Removed the Valentine's Day event.<br>
-		- Slightly changed some layer 5 upgrade formulas to prepare for the last layer!`
+		- Slightly changed some layer 5 upgrade formulas to prepare for the last layer!<br>
+	<h3>v4.0</h3><br>
+                - Added a new (and the final) layer with 5 upgrades right now (now we have 6 layers).<br>
+		- Added 3 new galaxy upgrades. The last two introduce a new mechanic (Passive prestige point generation, which is why you see per sec values).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
