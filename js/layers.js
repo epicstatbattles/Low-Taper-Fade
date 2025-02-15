@@ -2149,6 +2149,7 @@ addLayer("vex", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         return mult;
     },
 
@@ -2421,6 +2422,7 @@ addLayer("enhance", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         return mult;
     },
 
@@ -2526,7 +2528,7 @@ addLayer("enhance", {
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("enhance", 14); },
             effect() {
-                return player.enhance.points.add(10).log10().times(4); // Simple multiplier
+                return player.enhance.points.add(10).log10().pow(1.05).times(4); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()) + " per milestone."; },
         },
@@ -2718,6 +2720,7 @@ addLayer("sunny", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         return mult;
     },
 
