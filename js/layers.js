@@ -2946,10 +2946,10 @@ addLayer("sunny", {
         11: {
             name: "Meme Growth Prevention",
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
-            goalDescription: "Reach 1e600 points.",
+            goalDescription: "Reach 1e200 points.",
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
             unlocked() { return hasUpgrade("sunny", 21); },
-            canComplete: function() { return player.points.gte("1e600") },
+            canComplete: function() { return player.points.gte(1e200) },
             rewardEffect() {
                 return player.sunny.points.add(1).pow(3.2);
             },
