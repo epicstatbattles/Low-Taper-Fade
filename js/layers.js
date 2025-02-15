@@ -2363,10 +2363,10 @@ addLayer("vex", {
         11: {
             name: "Meme Drag Ban",
             challengeDescription: "All people layers before Infinity (Ninja, Madelizers, and Aubrinators) do not work.",
-            goalDescription: "Reach 1e300 points.",
+            goalDescription: "Reach 1e100 points.",
             rewardDescription: "Vexbolts points boost Ninja and massive point gain.",
             unlocked() { return hasUpgrade("vex", 21); },
-            canComplete: function() { return player.points.gte(1e300) },
+            canComplete: function() { return player.points.gte(1e100) },
             rewardEffect() {
                 return player.vex.points.add(1).pow(1.2);
             },
@@ -2946,10 +2946,10 @@ addLayer("sunny", {
         11: {
             name: "Meme Growth Prevention",
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
-            goalDescription: "Reach 1e800 points.",
+            goalDescription: "Reach 1e600 points.",
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
             unlocked() { return hasUpgrade("sunny", 21); },
-            canComplete: function() { return player.points.gte("1e800") },
+            canComplete: function() { return player.points.gte("1e600") },
             rewardEffect() {
                 return player.sunny.points.add(1).pow(3.2);
             },
