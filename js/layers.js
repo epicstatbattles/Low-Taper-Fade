@@ -3074,7 +3074,7 @@ addLayer("gal", {
         13: {
             title: "Infinitely Galactic!",
             description: "Make Galaxies boost Infinity points!",
-            cost: new Decimal(20),
+            cost: new Decimal(15),
             unlocked() { return hasUpgrade("gal", 12) && hasUpgrade("liquid", 13); },
             effect() {
                 return new Decimal(1.2).pow(player.gal.points);
@@ -3084,7 +3084,7 @@ addLayer("gal", {
         14: {
             title: "Time Hack",
             description: "Gain a percentage of LTF, Ninja, and massive point gain on reset based on Galaxies.",
-            cost: new Decimal(30),
+            cost: new Decimal(20),
             unlocked() { return hasUpgrade("gal", 13); },
             effect() {
                 return player.gal.points.add(1);
@@ -3094,7 +3094,7 @@ addLayer("gal", {
         15: {
             title: "Reality Warp",
             description: "Time Hack now works on layer 3 currencies!",
-            cost: new Decimal(50),
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("gal", 14); },
         },
     },
