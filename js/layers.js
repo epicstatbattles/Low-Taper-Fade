@@ -15,7 +15,7 @@ addLayer("ltf", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
+    autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -286,8 +286,12 @@ addLayer("ninja", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
-
+    autoUpgrade() { return hasUpgrade("infi", 13); },
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
@@ -565,8 +569,12 @@ addLayer("massive", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
-
+    autoUpgrade() { return hasUpgrade("infi", 13); },
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 14)) mult = mult.times(upgradeEffect("massive", 14));
@@ -814,8 +822,13 @@ addLayer("mady", {
     baseAmount() { return player.ninja.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.27, // Scaling factor for prestige points
+    autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e480"),
-
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    },
     layerShown() {
         // Check if the player has at least 1e9 Ninja points
         return player.ninja.points.gte(new Decimal(1e9)) || player.mady.points.gte(1);
@@ -1114,8 +1127,13 @@ addLayer("ct", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
+    autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e420"),
-    
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    },
     layerShown() {
         // Check if the player has at least 1e21 points
         return player.points.gte(new Decimal(1e21)) || player.ct.points.gte(1);
@@ -1342,8 +1360,13 @@ addLayer("aub", {
     baseAmount() { return player.massive.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.34, // Scaling factor for prestige points
+    autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e372"),
-
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        return passive;
+    },
     layerShown() {
         // Check if the player has at least 1e6 massive points
         return player.massive.points.gte(new Decimal(1e6)) || player.aub.points.gte(1);
@@ -1647,6 +1670,7 @@ addLayer("infi", {
         if (hasUpgrade("sunny", 22)) mult = mult.times(upgradeEffect("sunny", 22));
         if (hasUpgrade("mady", 32)) mult = mult.times(upgradeEffect("mady", 32));
         if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
+        if (hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13));
         return mult;
     },
 
@@ -1681,8 +1705,8 @@ addLayer("infi", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
-            title: "Here's a scaling upgrade",
-            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi).",
+            title: "Quality of Life",
+            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi). Also unlock auto-upgrade for LTF, Ninja, and massive layers.",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("infi", 12); },
             effect() {
@@ -1894,8 +1918,8 @@ addLayer("infi", {
             },
         },
         32: {
-            title: "Quality of Life",
-            description: "Boost LTF, Ninja, and massive point gain based on Infinity points and unlock auto-purchase for all 3.",
+            title: "Quality of Life 2",
+            description: "Boost LTF, Ninja, and massive point gain based on Infinity points and unlock auto-purchase for CT subs, Madelizers, and Aubrinators.",
             cost: new Decimal(1e16),
             unlocked() { return hasUpgrade("infi", 31); },
             effect() {
@@ -3049,7 +3073,7 @@ addLayer("gal", {
             title: "Infinitely Galactic!",
             description: "Make Galaxies boost Infinity points!",
             cost: new Decimal(20),
-            unlocked() { return hasUpgrade("gal", 11); },
+            unlocked() { return hasUpgrade("gal", 12); },
             effect() {
                 return new Decimal(1.5).pow(player.gal.points);
             },
@@ -3059,17 +3083,17 @@ addLayer("gal", {
             title: "Time Hack",
             description: "Gain a percentage of LTF, Ninja, and massive point gain on reset based on Galaxies.",
             cost: new Decimal(30),
-            unlocked() { return hasUpgrade("gal", 11); },
+            unlocked() { return hasUpgrade("gal", 13); },
             effect() {
-                return player.gal.points.add(1).div(100);
+                return player.gal.points.add(1);
             },
             effectDisplay() { return format(this.effect()) + "%"; },
         },
         15: {
             title: "Reality Warp",
             description: "Time Hack now works on layer 3 currencies!",
-            cost: new Decimal(30),
-            unlocked() { return hasUpgrade("gal", 11); },
+            cost: new Decimal(50),
+            unlocked() { return hasUpgrade("gal", 14); },
         },
     },
     milestones: {
