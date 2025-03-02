@@ -285,7 +285,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added a new (and the final) layer with 5 upgrades right now (now we have 6 layers).<br>
 		- Added 3 new galaxy upgrades. The last two introduce a new mechanic (Passive prestige point generation, which is why you see per sec values).<br>
 	<h3>v4.1</h3><br>
-                - Added the next 5 upgrades, a buyable, and a challenge to top the new layer off.`
+                - Added the next 5 upgrades, a buyable, and a challenge to top the new layer off. (endgame set to e100k)`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -373,7 +373,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e3000"))
+	return player.points.gte(new Decimal("1e100000"))
 }
 
 
