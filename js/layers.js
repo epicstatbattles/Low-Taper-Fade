@@ -1671,6 +1671,7 @@ addLayer("infi", {
         if (hasUpgrade("mady", 32)) mult = mult.times(upgradeEffect("mady", 32));
         if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
         if (hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13));
+        if (hasUpgrade("liquid", 22)) mult = mult.times(upgradeEffect("liquid", 22));
         let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13).pow(eboupg));
         return mult;
@@ -2186,6 +2187,7 @@ addLayer("vex", {
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
+        if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
     },
 
@@ -2459,6 +2461,7 @@ addLayer("enhance", {
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
+        if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
     },
 
@@ -2750,6 +2753,7 @@ addLayer("sunny", {
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
+        if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
     },
 
@@ -3148,6 +3152,7 @@ addLayer("liquid", {
 
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
+        if (hasUpgrade("liquid", 24)) mult = mult.times(upgradeEffect("liquid", 24));
         return mult;
     },
 
@@ -3201,8 +3206,8 @@ addLayer("liquid", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         15: {
-            title: "Massive + Ninja Boost",
-            description: "LC inflators and time in this reset boost layer 3 currency gain.",
+            title: "Layer 3 Inflation",
+            description: "LC inflators and time in this reset boost layer 3 currency gain. Also unlock a buyable.",
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
@@ -3211,12 +3216,108 @@ addLayer("liquid", {
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
+        21: {
+            title: "Deflation?",
+            description: "Unlock the Deflation challenge.",
+            cost: new Decimal(500),
+            unlocked() { return hasUpgrade("liquid", 15); },
+        },
+        22: {
+            title: "Inf-inflation",
+            description: "Infinity points are boosted over time based on LC inflators.",
+            cost: new Decimal(10000),
+            unlocked() { return hasUpgrade("liquid", 21); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(0.45).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Layer 5 TO THE MOON!",
+            description: "Boost layer 5 currency over time based on LC inflators.",
+            cost: new Decimal(1e6),
+            unlocked() { return hasUpgrade("liquid", 22); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(0.3).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Self-Inflation!!",
+            description: "Boost LC Inflator gain over time based on their amount!!",
+            cost: new Decimal(1e8),
+            unlocked() { return hasUpgrade("liquid", 23); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(0.1).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        25: {
+            title: "Final Inflation.",
+            description: "Buyable formula is improved by ^2.",
+            cost: new Decimal(1e12),
+            unlocked() { return hasUpgrade("liquid", 24); },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Massive Point Boost",
+            description: "Boosts point gain drastically based on level of this buyable.",
+            cost(x) { return new Decimal(100).times(new Decimal(7).add(x).div(2).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("liquid", 15);  // Buyable unlocks when player has LC upgrade 15
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                let scaler=new Decimal(1);
+                if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
+                return new Decimal(10).pow(x.pow(2)).pow(scaler);
+            },
+            canAfford() { return player.liquid.points.gte(this.cost()) },
+            buy() {
+                player.liquid.points = player.liquid.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} LC Inflators`;
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Deflation",
+            challengeDescription: "Point gain is raised to the ^0.4 and then divided by /1e20.",
+            goalDescription: "Reach 1e1000 points.",
+            rewardDescription: "LC inflators now explosively boost point gain.",
+            unlocked() { return hasUpgrade("sunny", 21); },
+            canComplete: function() { return player.points.gte(1e200) },
+            rewardEffect() {
+                return player.liquid.points.add(1).pow(10);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to point gain";
+            },
+        },
     },
     milestones: {
         0: {
-            requirementDescription: "5 LC Inflators",
-            effectDescription: "Reached Current Endgame!",
-            done() { return player.liquid.points.gte(5); },
+            requirementDescription: "1e100 LC Inflators",
+            effectDescription: "You did it!!",
+            done() { return player.liquid.points.gte(1e100); },
         },
     },
 
