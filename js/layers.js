@@ -3328,6 +3328,8 @@ addLayer("liquid", {
                 "prestige-button",
                 "resource-display",
                 "upgrades",
+                "buyables",
+                "challenges",
                 "milestones",
             ],
         },
