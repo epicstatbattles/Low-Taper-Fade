@@ -3303,7 +3303,7 @@ addLayer("liquid", {
             challengeDescription: "Point gain is raised to the ^0.4 and then divided by /1e20.",
             goalDescription: "Reach 1e1000 points.",
             rewardDescription: "LC inflators now explosively boost point gain.",
-            unlocked() { return hasUpgrade("sunny", 21); },
+            unlocked() { return hasUpgrade("liquid", 21); },
             canComplete: function() { return player.points.gte(1e200) },
             rewardEffect() {
                 return player.liquid.points.add(1).pow(10);
