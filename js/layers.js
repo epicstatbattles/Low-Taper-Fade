@@ -3304,7 +3304,7 @@ addLayer("liquid", {
             goalDescription: "Reach 1e1000 points.",
             rewardDescription: "LC inflators now explosively boost point gain.",
             unlocked() { return hasUpgrade("liquid", 21); },
-            canComplete: function() { return player.points.gte(1e200) },
+            canComplete: function() { return player.points.gte("1e1000") },
             rewardEffect() {
                 return player.liquid.points.add(1).pow(10);
             },
