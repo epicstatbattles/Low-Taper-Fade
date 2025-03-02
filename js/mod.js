@@ -12,8 +12,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.0",
-	name: "Low Taper Fade Final",
+	num: "4.1",
+	name: "Low Taper Fade Published",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -283,7 +283,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Slightly changed some layer 5 upgrade formulas to prepare for the last layer!<br>
 	<h3>v4.0</h3><br>
                 - Added a new (and the final) layer with 5 upgrades right now (now we have 6 layers).<br>
-		- Added 3 new galaxy upgrades. The last two introduce a new mechanic (Passive prestige point generation, which is why you see per sec values).`
+		- Added 3 new galaxy upgrades. The last two introduce a new mechanic (Passive prestige point generation, which is why you see per sec values).<br>
+	<h3>v4.1</h3><br>
+                - Added the next 5 upgrades, a buyable, and a challenge to top the new layer off.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -326,6 +328,7 @@ function getPointGen() {
 	if (hasUpgrade("infi", 11)) gain = gain.times(upgradeEffect("infi", 11));
         if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
     	gain = gain.times(buyableEffect("infi", 11));
+	gain = gain.times(buyableEffect("liquid", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
 	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
@@ -352,9 +355,11 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
+	if (inChallenge("liquid", 11)) gain = gain.pow(0.4).div(1e20);
 	return gain
 }
 
