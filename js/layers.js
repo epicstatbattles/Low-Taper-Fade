@@ -3411,11 +3411,11 @@ addLayer("revo", {
         },
         12: {
             title: "Revolutionary Upgrade",
-            description: "Circles now boost point gain based on log(◎+100/100)^3, softcapping at 1e12 ◎ (+unlock buyables!)",
+            description: "Circles now boost point gain based on log(◎+2000/200)^3, softcapping at 1e12 ◎ (+unlock buyables!)",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("revo", 11); },
             effect() {
-                let base = player.revo.points.div(100).add(10).log10().pow(3); // Original effect formula
+                let base = player.revo.points.div(200).add(10).log10().pow(3); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -3653,7 +3653,7 @@ addLayer("revo", {
     milestones: {
         0: {
             requirementDescription: "1e10 ◎",
-            effectDescription: "Circle Master as of 4.1.3!",
+            effectDescription: "Circle Master as of 4.1.4!",
             done() { return player.revo.points.gte(1e10); },
         },
     },
