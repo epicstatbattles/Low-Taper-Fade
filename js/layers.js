@@ -3360,7 +3360,7 @@ addLayer("revo", {
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     canReset() {
-    return player.revo.points.lt(10100) || player.revo.points.gte(1);
+    return player.revo.points.lt(11000) || player.revo.points.lte(1);
     },
     passiveGeneration() {
         let passive = new Decimal(0);
