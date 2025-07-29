@@ -3342,3 +3342,157 @@ addLayer("liquid", {
         },
     },
 });
+addLayer("revo", {
+    name: "circles", // Full name of the layer
+    symbol: "◎", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#b33e73", // random
+    requires: new Decimal(10000), // Points required to unlock this layer
+    resource: "◎", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.25, // Scaling factor for prestige points
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (player.points.gte(10000)) {passive = new Decimal(0.002).div(player.points.pow(0.0125));}
+        return passive;
+    },
+    layerShown() {
+        // Check if the player has 10000 points
+        return player.points.gte(10000) || player.revo.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("revo", 11)) mult = mult.times(upgradeEffect("revo", 11));
+        if (hasUpgrade("revo", 13)) mult = mult.times(upgradeEffect("revo", 13));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: "side", // Row in the tree
+    hotkeys: [
+        { key: "0", description: "0: Circle Boost", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Circles go vroom!",
+            description: "Gain a boost to circle gain based on LTF points!",
+            cost: new Decimal(1),
+            effect() {
+                return player.ltf.points.add(1).pow(0.1);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Revolutionary Upgrade",
+            description: "Circles now boost point gain based on log(◎+1000/1000)^5",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("revo", 11); },
+            effect() {
+                return player.revo.points.div(1000).add(10).log10().pow(5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "CT Goes Round and Round",
+            description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
+            cost: new Decimal(15),
+            unlocked() { return hasUpgrade("revo", 12); },
+            effect() {
+                return player.ct.points.add(10).log10().pow(0.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Ninja's Revolutionary Size",
+            description: "Ninja and Massive point gain receive a small boost based on circles.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("revo", 13); },
+            effect() {
+                return player.revo.points.div(5).add(10).log10().pow(0.3);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Spin FASTER!",
+            description: "Revolution Upgrade 2's effect is raised to a power based on normal points.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("revo", 14); },
+            effect() {
+                return player.points.add(1e10).log10().log(10).pow(2);
+            },
+            effectDisplay() { return "^" + format(this.effect()); },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Circle Boost",
+            description: "Boosts circle gain based on level of this buyable.",
+            cost(x) { return new Decimal(2).pow(x).times(100); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return player.revo.points.gte(10);  // Buyable unlocks when player has 10 circles
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                let scaler=new Decimal(1);
+                if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
+                return new Decimal(10).pow(x.pow(2)).pow(scaler);
+            },
+            canAfford() { return player.liquid.points.gte(this.cost()) },
+            buy() {
+                player.liquid.points = player.liquid.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} circles`;
+            },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1000000 ◎",
+            effectDescription: "You did it!!",
+            done() { return player.revo.points.gte(100000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "resource-display",
+                "upgrades",
+                "buyables",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
+            ],
+        },
+    },
+});
