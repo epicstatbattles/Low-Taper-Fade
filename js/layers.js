@@ -3340,3 +3340,90 @@ addLayer("liquid", {
         },
     },
 });
+addLayer("spin", {
+    name: "Circles", // Full name of the layer
+    symbol: "◎", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#3d094e", // modified from galaxies
+    requires: new Decimal(10000), // Points required to unlock this layer
+    resource: "Galaxies", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.25, // Scaling factor for prestige points
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasUpgrade("ltf", 11)) {passive = new Decimal(0.002).div(player.points.add(1).pow(0.0125));}
+        return passive;
+    },
+    layerShown() {
+        // Check if the player has Enhancer Upgrade 1:4
+        return player.points.gte(1000) || player.spin.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("spin", 11)) mult = mult.times(upgradeEffect("spin", 11));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: "side", // Row in the tree (3 = fourth row)
+    hotkeys: [
+        { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Circle Boost",
+            description: "Make circle gain better based on LTF points!",
+            cost: new Decimal(1),
+            effect() {
+                return player.ltf.points.add(10).log10().pow(0.65); // Complex multiplier
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Point Boost!",
+            description: "Make circles actually boost points based on their amount.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("spin", 11); },
+            effect() {
+                return player.spin.points.add(100).log10().div(2).pow(0.25);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "10000 ◎",
+            effectDescription: "Revolution Master as of 4.1.1!",
+            done() { return player.spin.points.gte(10000); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "resource-display",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The meme has entered galactic levels of fame!"],
+            ],
+        },
+    },
+});
