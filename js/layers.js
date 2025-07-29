@@ -3482,9 +3482,10 @@ addLayer("revo", {
             content: [
                 "main-display",
                 "resource-display",
+                "prestige-button",
                 ["display-text", function() {
                 if (player.revo.points.lte(new Decimal(10))) {
-                    return '<span style="color: purple;">Make sure to prestige by pressing Q for circles at least 1 time so upgrades work.</span>';
+                    return '<span style="color: purple;">Make sure to press prestige for circles at least 1 time so upgrades work, ignore prestige if you already completed this step.</span>';
                 }
                 return "";
             }],
