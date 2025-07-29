@@ -300,7 +300,8 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Added a softcap to circle gain past 1000 gained circles.<br>
 		- Made the circle upgrades 3 and beyond more expensive again.<br>
 		- Nerfed circle upgrade 2's effect.<br>
-  		- Nerfed base circle production by 60%!`
+  		- Nerfed base circle production by 60%!<br>
+    		- Nerfed circle upgrade 1's effect to now be logarithmed instead of rooted.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
