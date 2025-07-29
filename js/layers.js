@@ -44,6 +44,7 @@ addLayer("ltf", {
         if (hasUpgrade("infi", 32)) mult = mult.times(upgradeEffect("infi", 32));
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
+        if (hasUpgrade("revo", 22)) mult = mult.times(upgradeEffect("revo", 22));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
         let eboupg = upgradeEffect("enhance", 23).sub(1);
@@ -3367,7 +3368,7 @@ addLayer("revo", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) {passive = new Decimal(0.002).div(player.points.pow(0.0125));}
+        if (player.points.gte(10000)) {passive = new Decimal(0.0025).div(player.points.pow(0.0375));}
         return passive;
     },
     layerShown() {
@@ -3404,7 +3405,7 @@ addLayer("revo", {
         },
         12: {
             title: "Revolutionary Upgrade",
-            description: "Circles now boost point gain based on log(◎+100/100)^3, softcapping at 1e12 ◎",
+            description: "Circles now boost point gain based on log(◎+100/100)^3, softcapping at 1e12 ◎ (+unlock buyables!)",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("revo", 11); },
             effect() {
@@ -3430,7 +3431,7 @@ addLayer("revo", {
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(250),
+            cost: new Decimal(400),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
                 return player.ct.points.div(5).add(10).log10().pow(0.4);
@@ -3493,18 +3494,66 @@ addLayer("revo", {
             effect() {
                 return player.revo.points.times(10000).add(1e10).log10().log10().pow(3.6);
             },
-            effectDisplay() { return "^" + format(this.effect()); },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Low Taper Circles",
+            description: "Circles grant a boost to LTF points.",
+            cost: new Decimal(1000000),
+            unlocked() { return hasUpgrade("revo", 15); },
+            style() {
+                if (player.revo.points.gte(1000000) || hasUpgrade("revo", 22))  {
+                    return {
+                        "background-color": "#562cc9", // indigo
+                        "color": "#000000",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", // default not bought color
+                        "color": "#000000",
+                    };
+                }
+            },
+            effect() {
+                return player.revo.points.times(500).add(1e10).log10().log10().pow(5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Better Scaling",
+            description: "Buyable Scaling drops from 3 to 2.5.",
+            cost: new Decimal(50000000),
+            unlocked() { return hasUpgrade("revo", 15); },
+            style() {
+                if (player.revo.points.gte(50000000) || hasUpgrade("revo", 23))  {
+                    return {
+                        "background-color": "#562cc9", // indigo
+                        "color": "#000000",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", // default not bought color
+                        "color": "#000000",
+                    };
+                }
+            },
+            effect() {
+                return new Decimal(0.5);
+            },
+            effectDisplay() { return "Scaling Reduction: " + format(this.effect()); },
         },
     },
     buyables: {
         11: {
             title: "Circle Boost",
             description: "Boosts circle gain by 1.5x.",
-            cost(x) { return new Decimal(3).pow(x).times(100); },  // The cost formula
+            cost(x) { let costbase = new Decimal(3);
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    return costbase.pow(x).times(100); },  // The cost formula
 
             // Unlock condition
             unlocked() {
-                return player.revo.points.gte(10);  // Buyable unlocks when player has 10 circles
+                return hasUpgrade("revo", 12);  // Buyable unlocks when player has upgrade 12
             },
 
             // Effect of the buyable
@@ -3528,12 +3577,78 @@ addLayer("revo", {
                     Cost: ${format(cost)} circles`;
             },
         },
+        12: {
+            title: "Score Boost",
+            description: "Boosts point gain by 1.25x.",
+            cost(x) { let costbase = new Decimal(3);
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    return costbase.pow(x).times(250); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return getBuyableAmount("revo", 11).gte(2);  // Buyable unlocks when player has circles buyable 1 twice
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1.25).pow(x);
+            },
+            canAfford() { return player.revo.points.gte(this.cost()) },
+            buy() {
+                player.revo.points = player.revo.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("revo", 12); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} circles`;
+            },
+        },
+        13: {
+            title: "Low Taper Fade Boost",
+            description: "Boosts LTF point gain by 1.1x.",
+            cost(x) { let costbase = new Decimal(3);
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    return costbase.pow(x).times(1000); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return getBuyableAmount("revo", 12).gte(2);  // Buyable unlocks when player has circles buyable 2 twice
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1.1).pow(x);
+            },
+            canAfford() { return player.revo.points.gte(this.cost()) },
+            buy() {
+                player.revo.points = player.revo.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("revo", 13); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} circles`;
+            },
+        },
     },
     milestones: {
         0: {
-            requirementDescription: "1000000 ◎",
-            effectDescription: "Circle Master as of 4.1.1!",
-            done() { return player.revo.points.gte(100000); },
+            requirementDescription: "1e10 ◎",
+            effectDescription: "Circle Master as of 4.1.3!",
+            done() { return player.revo.points.gte(1e10); },
         },
     },
 
