@@ -3472,7 +3472,7 @@ addLayer("revo", {
     milestones: {
         0: {
             requirementDescription: "1000000 ◎",
-            effectDescription: "You did it!!",
+            effectDescription: "Circle Master as of 4.1.1!",
             done() { return player.revo.points.gte(100000); },
         },
     },
@@ -3482,6 +3482,12 @@ addLayer("revo", {
             content: [
                 "main-display",
                 "resource-display",
+                ["display-text", function() {
+                if (player.revo.points.lte(new Decimal(10))) {
+                    return '<span style="color: purple;">Make sure to prestige by pressing 0 for circles at least 1 time so upgrades work.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "buyables",
                 "milestones",
@@ -3489,7 +3495,7 @@ addLayer("revo", {
         },
         "About": {
             content: [
-                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
+                ["raw-html", () => "Revolution Idle?"],
             ],
         },
     },
