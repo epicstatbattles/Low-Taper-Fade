@@ -3411,11 +3411,11 @@ addLayer("revo", {
         },
         12: {
             title: "Revolutionary Upgrade",
-            description: "Circles now boost point gain based on log(◎+2000/200)^3, softcapping at 1e12 ◎ (+unlock buyables!)",
+            description: "Circles now boost point gain based on log(◎+5000/500)^3, softcapping at 1e12 ◎ (+unlock buyables!)",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("revo", 11); },
             effect() {
-                let base = player.revo.points.div(200).add(10).log10().pow(3); // Original effect formula
+                let base = player.revo.points.div(500).add(10).log10().pow(3); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -3450,7 +3450,7 @@ addLayer("revo", {
             cost: new Decimal(1000000),
             unlocked() { return hasUpgrade("revo", 13); },
             effect() {
-                let base = player.revo.points.div(100).add(10).log10().pow(0.2); // Original effect formula
+                let base = player.revo.points.div(100000).add(10).log10().pow(0.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -3475,7 +3475,7 @@ addLayer("revo", {
             cost: new Decimal(2e7),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
-                return player.ltf.points.add(1e10).log10().log10().pow(2);
+                return player.ltf.points.div(10000).add(1e10).log10().log10().pow(2);
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
@@ -3498,7 +3498,7 @@ addLayer("revo", {
                 }
             },
             effect() {
-                return player.revo.points.times(10000).add(1e10).log10().log10().pow(3.6);
+                return player.revo.points.add(1e10).log10().log10().pow(3.6);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
