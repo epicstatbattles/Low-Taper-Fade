@@ -297,8 +297,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added brand new circle buyables.<br>
   		- Nerfed circle generation beyond around 100k normal points.<br>
 	<h3>v4.1.4</h3><br>
- 		- Added a softcap to circle gain past 1000 gained circles.
-		- Made the circle upgrades 3 and beyond more expensive again.`
+ 		- Added a softcap to circle gain past 1000 gained circles.<br>
+		- Made the circle upgrades 3 and beyond more expensive again.<br>
+		- Nerfed circle upgrade 2's effect.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
