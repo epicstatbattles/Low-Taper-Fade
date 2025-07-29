@@ -349,7 +349,7 @@ addLayer("ninja", {
             cost: new Decimal(1),
             unlocked() { return hasUpgrade("ninja", 11); },
             effect() {
-                let base = player.ninja.points.add(1).pow(0.175); // Original effect formula
+                let base = player.ninja.points.add(1).pow(0.175).times(1.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
