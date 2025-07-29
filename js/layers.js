@@ -3485,6 +3485,7 @@ addLayer("revo", {
             content: [
                 "main-display",
                 "resource-display",
+                "prestige-button",
                 "upgrades",
                 "buyables",
                 "milestones",
