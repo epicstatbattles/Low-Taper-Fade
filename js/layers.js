@@ -844,6 +844,7 @@ addLayer("mady", {
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("revo", 21)) mult = mult.times(upgradeEffect("revo", 21));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("vex", 23)) mult = mult.times(upgradeEffect("vex", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
@@ -1150,6 +1151,7 @@ addLayer("ct", {
         if (hasUpgrade("infi", 12)) mult = mult.times(upgradeEffect("infi", 12));
         if (hasUpgrade("infi", 22)) mult = mult.times(upgradeEffect("infi", 22));
         if (hasUpgrade("ninja", 32)) mult = mult.times(upgradeEffect("ninja", 32));
+        if (hasUpgrade("revo", 21)) mult = mult.times(upgradeEffect("revo", 21));
         if (hasUpgrade("massive", 22)) mult = mult.times(upgradeEffect("massive", 22));
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
@@ -1383,6 +1385,7 @@ addLayer("aub", {
         if (hasChallenge("infi", 21)) mult = mult.times(challengeEffect("infi", 21));
         if (hasUpgrade("vex", 13)) mult = mult.times(upgradeEffect("vex", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
+        if (hasUpgrade("revo", 21)) mult = mult.times(upgradeEffect("revo", 21));
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 12)) mult = mult.times(upgradeEffect("sunny", 12));
         if (hasUpgrade("sunny", 23)) mult = mult.times(upgradeEffect("sunny", 23));
@@ -3376,6 +3379,7 @@ addLayer("revo", {
         let mult = new Decimal(1);
         if (hasUpgrade("revo", 11)) mult = mult.times(upgradeEffect("revo", 11));
         if (hasUpgrade("revo", 13)) mult = mult.times(upgradeEffect("revo", 13));
+        mult = mult.times(buyableEffect("revo", 11));
         return mult;
     },
 
@@ -3400,41 +3404,86 @@ addLayer("revo", {
         },
         12: {
             title: "Revolutionary Upgrade",
-            description: "Circles now boost point gain based on log(◎+1000/1000)^5",
+            description: "Circles now boost point gain based on log(◎+100/100)^3, softcapping at 1e12 ◎",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("revo", 11); },
             effect() {
-                return player.revo.points.div(1000).add(10).log10().pow(5);
+                let base = player.revo.points.div(100).add(10).log10().pow(3); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.revo.points.gte(new Decimal(1e12))) {
+                    diminishingFactor = player.revo.points.div(1e11).log10().pow(0.26); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.revo.points.gte(1e12); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(15),
+            cost: new Decimal(250),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
-                return player.ct.points.add(10).log10().pow(0.5);
+                return player.ct.points.div(5).add(10).log10().pow(0.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
             title: "Ninja's Revolutionary Size",
-            description: "Ninja and Massive point gain receive a small boost based on circles.",
-            cost: new Decimal(200),
+            description: "Ninja and Massive point gain receive a small boost based on circles, its softcap is at 1e21 ◎.",
+            cost: new Decimal(2000),
             unlocked() { return hasUpgrade("revo", 13); },
             effect() {
-                return player.revo.points.div(5).add(10).log10().pow(0.3);
+                let base = player.revo.points.div(100).add(10).log10().pow(0.2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.revo.points.gte(new Decimal(1e21))) {
+                    diminishingFactor = player.revo.points.div(1e20).log10().pow(0.015); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.revo.points.gte(1e21); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         15: {
             title: "Spin FASTER!",
-            description: "Revolution Upgrade 2's effect is raised to a power based on normal points.",
-            cost: new Decimal(200),
+            description: "Revolution Upgrade 2's effect is raised to a power based on LTF points.",
+            cost: new Decimal(15000),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
-                return player.points.add(1e10).log10().log(10).pow(2);
+                return player.ltf.points.add(1e10).log10().log10().pow(2);
+            },
+            effectDisplay() { return "^" + format(this.effect()); },
+        },
+        21: {
+            title: "Strong Circles",
+            description: "Now circles boost Layer 3 currencies slightly.",
+            cost: new Decimal(100000),
+            unlocked() { return hasUpgrade("revo", 15); },
+            style: {
+            "background-color": "#562cc9", // bg color modified
+            "color": "#000000",               // black text
+            "border": "2px solid #562cc9", // Optional border
+            },
+            effect() {
+                return player.revo.points.times(10000).add(1e10).log10().log10().pow(3.6);
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
@@ -3442,8 +3491,8 @@ addLayer("revo", {
     buyables: {
         11: {
             title: "Circle Boost",
-            description: "Boosts circle gain based on level of this buyable.",
-            cost(x) { return new Decimal(2).pow(x).times(100); },  // The cost formula
+            description: "Boosts circle gain by 1.5x.",
+            cost(x) { return new Decimal(3).pow(x).times(100); },  // The cost formula
 
             // Unlock condition
             unlocked() {
