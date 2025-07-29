@@ -308,6 +308,7 @@ addLayer("ninja", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
+        if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
         let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
@@ -593,6 +594,7 @@ addLayer("massive", {
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
+        if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
         let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
