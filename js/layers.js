@@ -3437,7 +3437,7 @@ addLayer("revo", {
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(10000),
+            cost: new Decimal(50000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
                 return player.ct.points.div(5).add(10).log10().pow(0.4);
@@ -3447,7 +3447,7 @@ addLayer("revo", {
         14: {
             title: "Ninja's Revolutionary Size",
             description: "Ninja and Massive point gain receive a small boost based on circles, its softcap is at 1e21 ◎.",
-            cost: new Decimal(100000),
+            cost: new Decimal(1000000),
             unlocked() { return hasUpgrade("revo", 13); },
             effect() {
                 let base = player.revo.points.div(100).add(10).log10().pow(0.2); // Original effect formula
@@ -3472,7 +3472,7 @@ addLayer("revo", {
         15: {
             title: "Spin FASTER!",
             description: "Revolution Upgrade 2's effect is raised to a power based on LTF points.",
-            cost: new Decimal(2e6),
+            cost: new Decimal(2e7),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
                 return player.ltf.points.add(1e10).log10().log10().pow(2);
@@ -3505,10 +3505,10 @@ addLayer("revo", {
         22: {
             title: "Low Taper Circles",
             description: "Circles grant a boost to LTF points.",
-            cost: new Decimal(1e9),
+            cost: new Decimal(1e10),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(1e9) || hasUpgrade("revo", 22))  {
+                if (player.revo.points.gte(1e10) || hasUpgrade("revo", 22))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
@@ -3528,10 +3528,10 @@ addLayer("revo", {
         23: {
             title: "Better Scaling",
             description: "Buyable Scaling drops from 4 to 3.5.",
-            cost: new Decimal(1e11),
+            cost: new Decimal(5e11),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(1e11) || hasUpgrade("revo", 23))  {
+                if (player.revo.points.gte(5e11) || hasUpgrade("revo", 23))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
