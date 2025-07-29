@@ -3357,7 +3357,7 @@ addLayer("revo", {
     resource: "◎", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
-    type: "normal", // Standard prestige layer type
+    type: "none", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -3485,7 +3485,6 @@ addLayer("revo", {
             content: [
                 "main-display",
                 "resource-display",
-                "prestige-button",
                 "upgrades",
                 "buyables",
                 "milestones",
