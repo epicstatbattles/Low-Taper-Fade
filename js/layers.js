@@ -3477,10 +3477,18 @@ addLayer("revo", {
             description: "Now circles boost Layer 3 currencies slightly.",
             cost: new Decimal(100000),
             unlocked() { return hasUpgrade("revo", 15); },
-            style: {
-            "background-color": "#562cc9", // bg color modified
-            "color": "#000000",               // black text
-            "border": "2px solid #562cc9", // Optional border
+            style() {
+                if (hasUpgrade("revo", 21)) {
+                    return {
+                        "background-color": "#562cc9", // indigo
+                        "color": "#000000",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", // default not bought color
+                        "color": "#000000",
+                    };
+                }
             },
             effect() {
                 return player.revo.points.times(10000).add(1e10).log10().log10().pow(3.6);
