@@ -3478,7 +3478,7 @@ addLayer("revo", {
             cost: new Decimal(100000),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (hasUpgrade("revo", 21)) {
+                if (player.revo.points.gte(100000) || hasUpgrade("revo", 21))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
