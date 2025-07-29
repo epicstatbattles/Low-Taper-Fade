@@ -3391,7 +3391,7 @@ addLayer("revo", {
             description: "Gain a boost to circle gain based on LTF points!",
             cost: new Decimal(1),
             effect() {
-                return player.ltf.points.pow(0.1);
+                return player.ltf.points.add(1).pow(0.1);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3431,9 +3431,9 @@ addLayer("revo", {
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
-                return player.points.div(1e12).add(10).log10().pow(0.25);
+                return player.points.add(1e10).log10().log(10).pow(2);
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() { return "^" + format(this.effect()); },
         },
     },
     buyables: {
