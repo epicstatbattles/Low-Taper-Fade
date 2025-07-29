@@ -3340,3 +3340,173 @@ addLayer("liquid", {
         },
     },
 });
+addLayer("revo", {
+    name: "circles", // Full name of the layer
+    symbol: "○", // Symbol displayed on the tree
+    position: 1, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#b33e73", // random
+    requires: new Decimal(10000), // Points required to unlock this layer
+    resource: "circles", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent() {return new Decimal(1).div(player.points.log10());}, // Scaling factor for prestige points
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (player.points.gte(10000)) {passive = new Decimal(0.01).div(player.points.pow(0.625));}
+        return passive;
+    },
+    layerShown() {
+        // Check if the player has 10000 points
+        return player.points.gte(10000) || player.revo.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        if (hasUpgrade("revo", 11)) mult = mult.times(upgradeEffect("revo", 11));
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: "side", // Row in the tree
+    hotkeys: [
+        { key: "0", description: "0: Circle Boost", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+
+    upgrades: {
+        11: {
+            title: "Circles go vroom!",
+            description: "Gain a boost to circle gain based on LTF points!",
+            cost: new Decimal(1),
+            effect() {
+                return player.ltf.points.pow(0.1);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Low Taper Inflation!",
+            description: "LC inflators and time in this reset boost LTF point gain.",
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("liquid", 11); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(3).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Extra Galactic Effects",
+            description: "Unlock 3 more galaxy upgrades.",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("liquid", 12); },
+        },
+        14: {
+            title: "Massive + Ninja Boost",
+            description: "LC inflators and time in this reset boost Ninja and massive point gain.",
+            cost: new Decimal(25),
+            unlocked() { return hasUpgrade("liquid", 13); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(2.25).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Layer 3 Inflation",
+            description: "LC inflators and time in this reset boost layer 3 currency gain. Also unlock a buyable.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("liquid", 14); },
+            effect() {
+                let inflateTime = new Decimal(player.liquid.resetTime);
+                return inflateTime.add(1).pow(1.75).pow(player.liquid.points.add(10).log10().pow(1.5));
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Massive Point Boost",
+            description: "Boosts point gain drastically based on level of this buyable.",
+            cost(x) { return new Decimal(100).times(new Decimal(7).add(x).div(2).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("liquid", 15);  // Buyable unlocks when player has LC upgrade 15
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                let scaler=new Decimal(1);
+                if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
+                return new Decimal(10).pow(x.pow(2)).pow(scaler);
+            },
+            canAfford() { return player.liquid.points.gte(this.cost()) },
+            buy() {
+                player.liquid.points = player.liquid.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} LC Inflators`;
+            },
+        },
+    },
+    challenges: {
+        11: {
+            name: "Deflation",
+            challengeDescription: "Point gain is raised to the ^0.4 and then divided by /1e20.",
+            goalDescription: "Reach 1e1000 points.",
+            rewardDescription: "LC inflators now explosively boost point gain.",
+            unlocked() { return hasUpgrade("liquid", 21); },
+            canComplete: function() { return player.points.gte("1e1000") },
+            rewardEffect() {
+                return player.liquid.points.add(1).pow(10);
+            },
+            rewardDisplay() {
+                return format(this.rewardEffect()) + "x to point gain";
+            },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1e100 LC Inflators",
+            effectDescription: "You did it!!",
+            done() { return player.liquid.points.gte(1e100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "upgrades",
+                "buyables",
+                "challenges",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
+            ],
+        },
+    },
+});
