@@ -296,11 +296,11 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
 		- Added brand new circle buyables.<br>
   		- Nerfed circle generation beyond around 100k normal points.<br>
-	<h3>v4.1.4</h3><br>
+	<h3>v4.1.4 (EMERGENCY NERFING CIRCLES)</h3><br>
  		- Added a softcap to circle gain past 1000 gained circles.<br>
 		- Made the circle upgrades 3 and beyond more expensive again.<br>
 		- Nerfed circle upgrade 2's effect.<br>
-  		- Nerfed base circle production by 20%.`
+  		- Nerfed base circle production by 60%!`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
