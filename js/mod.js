@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.1",
+	num: "4.1.2",
 	name: "Low Taper Fade Published",
 }
 
@@ -288,7 +288,10 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added the next 5 upgrades, a buyable, and a challenge to top the new layer off. (endgame set to e100k)<br>
 	<h3>v4.1.1</h3><br>
                 - Added circles, as a small way to progress a bit faster.<br>
-		- Slightly nerfed effects of liquidcashews inflators.<br>`
+		- Slightly nerfed effects of liquidcashews inflators.<br>
+	<h3>v4.1.2</h3><br>
+                - Added more circle upgrades, now you can get different color upgrades.<br>
+		- Slightly reworked upgrade effects of the first 5 circle upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
