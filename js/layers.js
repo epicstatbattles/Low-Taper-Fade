@@ -3440,7 +3440,7 @@ addLayer("revo", {
             cost: new Decimal(50000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
-                return player.ct.points.div(5).add(10).log10().pow(0.4);
+                return player.ct.points.div(2).add(10).log10().pow(2.5);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
