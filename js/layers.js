@@ -45,6 +45,7 @@ addLayer("ltf", {
         if (hasUpgrade("vex", 12)) mult = mult.times(upgradeEffect("vex", 12));
         if (hasUpgrade("vex", 22)) mult = mult.times(upgradeEffect("vex", 22));
         if (hasUpgrade("revo", 22)) mult = mult.times(upgradeEffect("revo", 22));
+        mult = mult.times(buyableEffect("revo", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
         let eboupg = upgradeEffect("enhance", 23).sub(1);
