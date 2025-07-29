@@ -302,7 +302,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Nerfed circle upgrade 2's effect.<br>
   		- Nerfed base circle production by 60%!<br>
     		- Nerfed circle upgrade 1's mid-to-lategame effect to now be logarithmed.<br>
-      		- Circle upgrade 1's change is actually a noticeable buff during early game.`
+      		- Circle upgrade 1's change is actually a buff during early game.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
