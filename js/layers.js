@@ -3382,7 +3382,7 @@ addLayer("revo", {
 
     row: "side", // Row in the tree
     hotkeys: [
-        { key: "0", description: "0: Circle Boost", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "q", description: "Q: Circle Boost", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
@@ -3484,7 +3484,7 @@ addLayer("revo", {
                 "resource-display",
                 ["display-text", function() {
                 if (player.revo.points.lte(new Decimal(10))) {
-                    return '<span style="color: purple;">Make sure to prestige by pressing 0 for circles at least 1 time so upgrades work.</span>';
+                    return '<span style="color: purple;">Make sure to prestige by pressing Q for circles at least 1 time so upgrades work.</span>';
                 }
                 return "";
             }],
