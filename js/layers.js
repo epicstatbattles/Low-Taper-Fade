@@ -3415,6 +3415,7 @@ addLayer("spin", {
         "Main Tab": {
             content: [
                 "main-display",
+                "prestige-button",
                 "resource-display",
                 "upgrades",
                 "milestones",
