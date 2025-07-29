@@ -293,7 +293,7 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added 1 more circle upgrade, now you can get different color upgrades.<br>
 		- Slightly reworked upgrade effects of the first 5 circle upgrades.<br>
 	<h3>v4.1.3</h3><br>
-                - Rolled out 2 more of the tier 2 circle upgrades.<br>
+                - Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
 		- Added brand new circle buyables.<br>
   		- Nerfed circle generation beyond around 100k normal points.`
 
