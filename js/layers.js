@@ -3437,7 +3437,7 @@ addLayer("revo", {
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(1000),
+            cost: new Decimal(2500),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
                 return player.ct.points.div(5).add(10).log10().pow(0.4);
@@ -3447,7 +3447,7 @@ addLayer("revo", {
         14: {
             title: "Ninja's Revolutionary Size",
             description: "Ninja and Massive point gain receive a small boost based on circles, its softcap is at 1e21 ◎.",
-            cost: new Decimal(10000),
+            cost: new Decimal(20000),
             unlocked() { return hasUpgrade("revo", 13); },
             effect() {
                 let base = player.revo.points.div(100).add(10).log10().pow(0.2); // Original effect formula
@@ -3472,7 +3472,7 @@ addLayer("revo", {
         15: {
             title: "Spin FASTER!",
             description: "Revolution Upgrade 2's effect is raised to a power based on LTF points.",
-            cost: new Decimal(250000),
+            cost: new Decimal(200000),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
                 return player.ltf.points.add(1e10).log10().log10().pow(2);
