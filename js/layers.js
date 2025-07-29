@@ -3352,7 +3352,7 @@ addLayer("spin", {
     },
     color: "#3d094e", // modified from galaxies
     requires: new Decimal(10000), // Points required to unlock this layer
-    resource: "Galaxies", // Prestige currency name
+    resource: "◎", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
