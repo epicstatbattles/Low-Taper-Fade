@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.2",
+	num: "4.1.3",
 	name: "Low Taper Fade Published",
 }
 
@@ -290,8 +290,12 @@ let changelog = `<h1>Changelog:</h1><br>
                 - Added circles, as a small way to progress a bit faster.<br>
 		- Slightly nerfed effects of liquidcashews inflators.<br>
 	<h3>v4.1.2</h3><br>
-                - Added more circle upgrades, now you can get different color upgrades.<br>
-		- Slightly reworked upgrade effects of the first 5 circle upgrades.`
+                - Added 1 more circle upgrade, now you can get different color upgrades.<br>
+		- Slightly reworked upgrade effects of the first 5 circle upgrades.<br>
+	<h3>v4.1.3</h3><br>
+                - Rolled out 2 more of the tier 2 circle upgrades.<br>
+		- Added brand new circle buyables.<br>
+  		- Nerfed circle generation beyond around 100k normal points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
