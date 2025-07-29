@@ -314,6 +314,7 @@ addLayer("ninja", {
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
+        if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         if (inChallenge("vex", 11)) mult = mult.times(0);
         return mult;
@@ -598,6 +599,7 @@ addLayer("massive", {
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
+        if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
         if (inChallenge("sunny", 11)) mult = mult.times(0);
         return mult;
     },
@@ -3173,7 +3175,7 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(5).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(4.5).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3184,7 +3186,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(3).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(2.7).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3201,7 +3203,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2.25).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(2).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3212,7 +3214,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.75).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(1.6).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3229,7 +3231,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.45).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.35).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3240,7 +3242,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.3).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.2).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3251,7 +3253,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.1).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.0875).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3342,7 +3344,7 @@ addLayer("liquid", {
 });
 addLayer("revo", {
     name: "circles", // Full name of the layer
-    symbol: "○", // Symbol displayed on the tree
+    symbol: "◎", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -3352,14 +3354,14 @@ addLayer("revo", {
     },
     color: "#b33e73", // random
     requires: new Decimal(10000), // Points required to unlock this layer
-    resource: "circles", // Prestige currency name
+    resource: "◎", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent() {return new Decimal(1).div(player.points.log10());}, // Scaling factor for prestige points
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) {passive = new Decimal(0.01).div(player.points.pow(0.625));}
+        if (player.points.gte(10000)) {passive = new Decimal(0.1).div(player.points.pow(0.625));}
         return passive;
     },
     layerShown() {
@@ -3370,6 +3372,7 @@ addLayer("revo", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("revo", 11)) mult = mult.times(upgradeEffect("revo", 11));
+        if (hasUpgrade("revo", 13)) mult = mult.times(upgradeEffect("revo", 13));
         return mult;
     },
 
@@ -3393,54 +3396,55 @@ addLayer("revo", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
-            title: "Low Taper Inflation!",
-            description: "LC inflators and time in this reset boost LTF point gain.",
-            cost: new Decimal(2),
-            unlocked() { return hasUpgrade("liquid", 11); },
+            title: "Revolutionary Upgrade",
+            description: "Circles now boost point gain based on log(◎+1000/1000)^5",
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("revo", 11); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(3).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return player.revo.points.div(1000).add(10).log10().pow(5);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
-            title: "Extra Galactic Effects",
-            description: "Unlock 3 more galaxy upgrades.",
-            cost: new Decimal(5),
-            unlocked() { return hasUpgrade("liquid", 12); },
+            title: "CT Goes Round and Round",
+            description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
+            cost: new Decimal(15),
+            unlocked() { return hasUpgrade("revo", 12); },
+            effect() {
+                return player.ct.points.add(10).log10().pow(0.5);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
-            title: "Massive + Ninja Boost",
-            description: "LC inflators and time in this reset boost Ninja and massive point gain.",
-            cost: new Decimal(25),
-            unlocked() { return hasUpgrade("liquid", 13); },
+            title: "Ninja's Revolutionary Size",
+            description: "Ninja and Massive point gain receive a small boost based on circles.",
+            cost: new Decimal(200),
+            unlocked() { return hasUpgrade("revo", 13); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2.25).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return player.revo.points.div(5).add(10).log10().pow(0.3);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         15: {
-            title: "Layer 3 Inflation",
-            description: "LC inflators and time in this reset boost layer 3 currency gain. Also unlock a buyable.",
+            title: "Spin FASTER!",
+            description: "Revolution Upgrade 2's effect is raised to a power based on normal points.",
             cost: new Decimal(200),
-            unlocked() { return hasUpgrade("liquid", 14); },
+            unlocked() { return hasUpgrade("revo", 14); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.75).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return player.points.div(1e12).add(10).log10().pow(0.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     buyables: {
         11: {
-            title: "Massive Point Boost",
-            description: "Boosts point gain drastically based on level of this buyable.",
-            cost(x) { return new Decimal(100).times(new Decimal(7).add(x).div(2).pow(x)); },  // The cost formula
+            title: "Circle Boost",
+            description: "Boosts circle gain based on level of this buyable.",
+            cost(x) { return new Decimal(2).pow(x).times(100); },  // The cost formula
 
             // Unlock condition
             unlocked() {
-                return hasUpgrade("liquid", 15);  // Buyable unlocks when player has LC upgrade 15
+                return player.revo.points.gte(10);  // Buyable unlocks when player has 10 circles
             },
 
             // Effect of the buyable
@@ -3467,27 +3471,11 @@ addLayer("revo", {
             },
         },
     },
-    challenges: {
-        11: {
-            name: "Deflation",
-            challengeDescription: "Point gain is raised to the ^0.4 and then divided by /1e20.",
-            goalDescription: "Reach 1e1000 points.",
-            rewardDescription: "LC inflators now explosively boost point gain.",
-            unlocked() { return hasUpgrade("liquid", 21); },
-            canComplete: function() { return player.points.gte("1e1000") },
-            rewardEffect() {
-                return player.liquid.points.add(1).pow(10);
-            },
-            rewardDisplay() {
-                return format(this.rewardEffect()) + "x to point gain";
-            },
-        },
-    },
     milestones: {
         0: {
-            requirementDescription: "1e100 LC Inflators",
+            requirementDescription: "1000000 ◎",
             effectDescription: "You did it!!",
-            done() { return player.liquid.points.gte(1e100); },
+            done() { return player.revo.points.gte(100000); },
         },
     },
 
@@ -3495,11 +3483,9 @@ addLayer("revo", {
         "Main Tab": {
             content: [
                 "main-display",
-                "prestige-button",
                 "resource-display",
                 "upgrades",
                 "buyables",
-                "challenges",
                 "milestones",
             ],
         },
