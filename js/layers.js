@@ -3374,7 +3374,7 @@ addLayer("revo", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) {passive = new Decimal(0.0025).div(player.points.pow(0.0375));}
+        if (player.points.gte(10000)) {passive = new Decimal(0.002).div(player.points.pow(0.0375));}
         return passive;
     },
     layerShown() {
