@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.3",
+	num: "4.1.4",
 	name: "Low Taper Fade Published",
 }
 
@@ -295,7 +295,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.1.3</h3><br>
                 - Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
 		- Added brand new circle buyables.<br>
-  		- Nerfed circle generation beyond around 100k normal points.`
+  		- Nerfed circle generation beyond around 100k normal points.<br>
+	<h3>v4.1.4</h3><br>
+ 		- Added a softcap to circle gain past 1000 gained circles.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
