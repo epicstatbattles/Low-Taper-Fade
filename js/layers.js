@@ -3431,7 +3431,7 @@ addLayer("revo", {
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(400),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
                 return player.ct.points.div(5).add(10).log10().pow(0.4);
@@ -3441,7 +3441,7 @@ addLayer("revo", {
         14: {
             title: "Ninja's Revolutionary Size",
             description: "Ninja and Massive point gain receive a small boost based on circles, its softcap is at 1e21 ◎.",
-            cost: new Decimal(2000),
+            cost: new Decimal(10000),
             unlocked() { return hasUpgrade("revo", 13); },
             effect() {
                 let base = player.revo.points.div(100).add(10).log10().pow(0.2); // Original effect formula
@@ -3466,7 +3466,7 @@ addLayer("revo", {
         15: {
             title: "Spin FASTER!",
             description: "Revolution Upgrade 2's effect is raised to a power based on LTF points.",
-            cost: new Decimal(15000),
+            cost: new Decimal(250000),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
                 return player.ltf.points.add(1e10).log10().log10().pow(2);
@@ -3476,10 +3476,10 @@ addLayer("revo", {
         21: {
             title: "Strong Circles",
             description: "Now circles boost Layer 3 currencies slightly.",
-            cost: new Decimal(100000),
+            cost: new Decimal(10000000),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(100000) || hasUpgrade("revo", 21))  {
+                if (player.revo.points.gte(10000000) || hasUpgrade("revo", 21))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
@@ -3499,10 +3499,10 @@ addLayer("revo", {
         22: {
             title: "Low Taper Circles",
             description: "Circles grant a boost to LTF points.",
-            cost: new Decimal(1000000),
+            cost: new Decimal(1e8),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(1000000) || hasUpgrade("revo", 22))  {
+                if (player.revo.points.gte(1e8) || hasUpgrade("revo", 22))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
@@ -3522,10 +3522,10 @@ addLayer("revo", {
         23: {
             title: "Better Scaling",
             description: "Buyable Scaling drops from 3 to 2.5.",
-            cost: new Decimal(50000000),
+            cost: new Decimal(2.5e9),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(50000000) || hasUpgrade("revo", 23))  {
+                if (player.revo.points.gte(2.5e9) || hasUpgrade("revo", 23))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
