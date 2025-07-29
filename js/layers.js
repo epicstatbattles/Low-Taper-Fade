@@ -3364,6 +3364,11 @@ addLayer("revo", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
+    softcap: new Decimal(1000),
+    softcapPower() {
+        let softcappotency = new Decimal(1);
+        if (player.revo.points.gte(1000)) softcappotency = softcappotency.times(1.41421).div(player.revo.points.log10().pow(0.25));
+        return softcappotency;},
     canReset() {
     return getResetGain(this.layer).lt(2) && player.revo.points.lte(1);
     },
