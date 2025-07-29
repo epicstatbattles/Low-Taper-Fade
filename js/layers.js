@@ -3548,7 +3548,7 @@ addLayer("revo", {
             title: "Circle Boost",
             description: "Boosts circle gain by 1.5x.",
             cost(x) { let costbase = new Decimal(3);
-                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(100); },  // The cost formula
 
             // Unlock condition
@@ -3581,7 +3581,7 @@ addLayer("revo", {
             title: "Score Boost",
             description: "Boosts point gain by 1.25x.",
             cost(x) { let costbase = new Decimal(3);
-                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(250); },  // The cost formula
 
             // Unlock condition
@@ -3614,7 +3614,7 @@ addLayer("revo", {
             title: "Low Taper Fade Boost",
             description: "Boosts LTF point gain by 1.1x.",
             cost(x) { let costbase = new Decimal(3);
-                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5)
+                    if(hasUpgrade("revo", 23")) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(1000); },  // The cost formula
 
             // Unlock condition
