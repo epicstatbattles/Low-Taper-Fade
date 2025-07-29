@@ -3449,18 +3449,16 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                let scaler=new Decimal(1);
-                if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
-                return new Decimal(10).pow(x.pow(2)).pow(scaler);
+                return new Decimal(1.5).pow(x);
             },
-            canAfford() { return player.liquid.points.gte(this.cost()) },
+            canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
-                player.liquid.points = player.liquid.points.sub(this.cost())
+                player.revo.points = player.revo.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
             },
             // Display the effect
             display() {
-                let amt = getBuyableAmount("liquid", 11); // Current level of the buyable
+                let amt = getBuyableAmount("revo", 11); // Current level of the buyable
                 let cost = this.cost(amt); // Cost for the next level
                 let effect = this.effect(amt); // Current effect of the buyable
                 return `
