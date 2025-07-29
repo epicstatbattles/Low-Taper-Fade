@@ -3361,7 +3361,8 @@ addLayer("revo", {
     exponent: 0.25, // Scaling factor for prestige points
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) {passive = new Decimal(0.001).div(player.points.pow(0.0125));}
+        
+        if (player.points.gte(10000)) {passive = new Decimal(0.002).div(player.points.pow(0.0125));}
         return passive;
     },
     layerShown() {
