@@ -3655,7 +3655,7 @@ addLayer("revo", {
         0: {
             requirementDescription: "1.00e30 ◎",
             effectDescription: "Circle Master as of 4.1.5! LTF point gain is increased by 30%.",
-            done() { return player.revo.points.gte(1e20); },
+            done() { return player.revo.points.gte(1e30); },
         },
     },
 
