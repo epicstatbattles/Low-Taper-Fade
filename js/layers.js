@@ -3485,7 +3485,7 @@ addLayer("revo", {
             cost: new Decimal(1e8),
             unlocked() { return hasUpgrade("revo", 15); },
             style() {
-                if (player.revo.points.gte(1e8) || hasUpgrade("revo", 21))  {
+                if (hasUpgrade("revo", 21))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
@@ -3508,7 +3508,7 @@ addLayer("revo", {
             cost: new Decimal(1e10),
             unlocked() { return hasUpgrade("revo", 21); },
             style() {
-                if (player.revo.points.gte(1e10) || hasUpgrade("revo", 22))  {
+                if (hasUpgrade("revo", 22))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
@@ -3531,7 +3531,7 @@ addLayer("revo", {
             cost: new Decimal(5e11),
             unlocked() { return hasUpgrade("revo", 22); },
             style() {
-                if (player.revo.points.gte(5e11) || hasUpgrade("revo", 23))  {
+                if (hasUpgrade("revo", 23))  {
                     return {
                         "background-color": "#562cc9", // indigo
                         "color": "#000000",
