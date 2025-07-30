@@ -3368,7 +3368,7 @@ addLayer("revo", {
     softcap: new Decimal(1000),
     softcapPower() {
         let softcappotency = new Decimal(1);
-        if (player.revo.points.gte(1000)) softcappotency = softcappotency.times(1.316).div(player.revo.points.log10().pow(0.25));
+        if (player.revo.points.gte(1000)) softcappotency = softcappotency.times(1.3904).div(player.revo.points.log10().pow(0.3));
         return softcappotency;},
     canReset() {
     return getResetGain(this.layer).lt(2) && player.revo.points.lte(1);
@@ -3441,7 +3441,7 @@ addLayer("revo", {
             cost: new Decimal(50000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
-                return player.ct.points.div(2).add(10).log10().pow(2.5);
+                return player.ct.points.div(2).add(10).log10().pow(2.4);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
