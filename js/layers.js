@@ -3552,7 +3552,7 @@ addLayer("revo", {
     buyables: {
         11: {
             title: "Circle Boost",
-            description: "Boosts circle gain by 1.5x.",
+            description: "Boosts circle gain by 1.4x.",
             cost(x) { let costbase = new Decimal(4);
                     if (hasUpgrade("revo", 23)) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(100); },  // The cost formula
@@ -3564,7 +3564,7 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(1.5).pow(x);
+                return new Decimal(1.4).pow(x);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
@@ -3585,7 +3585,7 @@ addLayer("revo", {
         },
         12: {
             title: "Score Boost",
-            description: "Boosts point gain by 1.25x.",
+            description: "Boosts point gain by 1.2x.",
             cost(x) { let costbase = new Decimal(4);
                     if (hasUpgrade("revo", 23)) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(250); },  // The cost formula
@@ -3597,7 +3597,7 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(1.25).pow(x);
+                return new Decimal(1.2).pow(x);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
