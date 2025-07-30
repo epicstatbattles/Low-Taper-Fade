@@ -3506,7 +3506,7 @@ addLayer("revo", {
             title: "Low Taper Circles",
             description: "Circles grant a boost to LTF points.",
             cost: new Decimal(1e10),
-            unlocked() { return hasUpgrade("revo", 15); },
+            unlocked() { return hasUpgrade("revo", 21); },
             style() {
                 if (player.revo.points.gte(1e10) || hasUpgrade("revo", 22))  {
                     return {
@@ -3529,7 +3529,7 @@ addLayer("revo", {
             title: "Better Scaling",
             description: "Buyable Scaling drops from 4 to 3.5.",
             cost: new Decimal(5e11),
-            unlocked() { return hasUpgrade("revo", 15); },
+            unlocked() { return hasUpgrade("revo", 22); },
             style() {
                 if (player.revo.points.gte(5e11) || hasUpgrade("revo", 23))  {
                     return {
