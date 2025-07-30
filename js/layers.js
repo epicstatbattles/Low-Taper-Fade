@@ -48,6 +48,7 @@ addLayer("ltf", {
         mult = mult.times(buyableEffect("revo", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
+        if (hasMilestone("revo", 0)) mult = mult.times(1.2);
         let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
@@ -3652,9 +3653,9 @@ addLayer("revo", {
     },
     milestones: {
         0: {
-            requirementDescription: "1e10 ◎",
-            effectDescription: "Circle Master as of 4.1.4!",
-            done() { return player.revo.points.gte(1e10); },
+            requirementDescription: "1.00e20 ◎",
+            effectDescription: "Circle Master as of 4.1.4! LTF point gain is increased by 20%.",
+            done() { return player.revo.points.gte(1e20); },
         },
     },
 
