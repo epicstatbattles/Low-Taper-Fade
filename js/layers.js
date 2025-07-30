@@ -3475,7 +3475,7 @@ addLayer("revo", {
             cost: new Decimal(2e7),
             unlocked() { return hasUpgrade("revo", 14); },
             effect() {
-                return player.ltf.points.div(10000).add(1e10).log10().log10().pow(2);
+                return player.ltf.points.div(10000).add(1e10).log10().log10().pow(1.2);
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
