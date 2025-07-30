@@ -294,7 +294,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Slightly reworked upgrade effects of the first 5 circle upgrades.<br>
 	<h3>v4.1.3</h3><br>
                 - Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
-		- Added brand new circle buyables.<br>
+		- Added 3 brand new circle buyables.<br>
   		- Nerfed circle generation beyond around 100k normal points.<br>
 	<h3>v4.1.4 (EMERGENCY NERFING CIRCLES)</h3><br>
  		- Added a softcap to circle gain past 1000 gained circles.<br>
@@ -303,7 +303,8 @@ let changelog = `<h1>Changelog:</h1><br>
   		- Nerfed base circle production by 60%!<br>
     		- Nerfed circle upgrade 1's mid-to-lategame effect to now be logarithmed.<br>
       		- Circle upgrade 1's change is actually a buff during early game.<br>
-		- Nerfed circle upgrade 5's effect by a significant amount.`
+		- Nerfed circle upgrade 5's effect by a significant amount.<br>
+  		- Nerfed first 2 circle buyable effects.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
