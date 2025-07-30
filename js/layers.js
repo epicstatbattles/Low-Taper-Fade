@@ -48,7 +48,7 @@ addLayer("ltf", {
         mult = mult.times(buyableEffect("revo", 13));
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
-        if (hasMilestone("revo", 0)) mult = mult.times(1.2);
+        if (hasMilestone("revo", 0)) mult = mult.times(1.3);
         let eboupg = upgradeEffect("enhance", 23).sub(1);
         if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
@@ -3397,7 +3397,7 @@ addLayer("revo", {
 
     row: "side", // Row in the tree
     hotkeys: [
-        { key: "q", description: "Q: Circle Boost", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "q", description: "CIRCLE PRESTIGE WHILE BELOW 1 POINT", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
@@ -3653,8 +3653,8 @@ addLayer("revo", {
     },
     milestones: {
         0: {
-            requirementDescription: "1.00e20 ◎",
-            effectDescription: "Circle Master as of 4.1.4! LTF point gain is increased by 20%.",
+            requirementDescription: "1.00e30 ◎",
+            effectDescription: "Circle Master as of 4.1.5! LTF point gain is increased by 30%.",
             done() { return player.revo.points.gte(1e20); },
         },
     },
