@@ -3438,7 +3438,7 @@ addLayer("revo", {
         13: {
             title: "CT Goes Round and Round",
             description: "Your CT subs are so intrigued by your Revolution Idle gameplay that they boost your circle gain!",
-            cost: new Decimal(50000),
+            cost: new Decimal(100000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
                 return player.ct.points.div(2).add(10).log10().pow(2.4);
