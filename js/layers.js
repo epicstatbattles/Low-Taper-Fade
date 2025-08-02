@@ -3421,7 +3421,7 @@ addLayer("revo", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.revo.points.gte(new Decimal(1e12))) {
-                    diminishingFactor = player.revo.points.div(1e11).log10().pow(0.26); // Slight division factor
+                    diminishingFactor = player.revo.points.div(1e11).log10().pow(0.2); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -3441,7 +3441,7 @@ addLayer("revo", {
             cost: new Decimal(100000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
-                return player.ct.points.div(2).add(10).log10().pow(1.8);
+                return player.ct.points.div(2).add(10).log10().pow(2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
