@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.5",
+	num: "4.1.6",
 	name: "Low Taper Fade Published",
 }
 
@@ -309,7 +309,9 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Slightly strengthened softcap past 1000 gained circles.<br>
 		- Slightly nerfed circle upgrades 2 and 3.<br>
 		- Moved Circle Master Achievement from 1.00e20 to 1.00e30 and buffed its boost from 20% to 30%.<br>
-		- Changed cost of circle upgrade 3 for probably the last time (50000 --> 100k).`
+		- Changed cost of circle upgrade 3 for probably the last time (50000 --> 100k).<br>
+	<h3>v4.1.6</h3><br>
+ 		- Changed how the circle softcap works. Now it's stronger, but starts later, at 10k circles in fact.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
