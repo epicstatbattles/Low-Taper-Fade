@@ -3368,7 +3368,7 @@ addLayer("revo", {
     softcap: new Decimal(10000),
     softcapPower() {
         let softcappotency = new Decimal(1);
-        if (player.revo.points.gte(10000)) softcappotency = softcappotency.div(player.revo.points.div(10000).pow(new Decimal(0.8).div(player.revo.points.log10())));
+        if (player.revo.points.gte(10000)) softcappotency = softcappotency.div(player.revo.points.div(10000).pow(new Decimal(0.4).div(player.revo.points.log10())));
         return softcappotency;},
     canReset() {
     return getResetGain(this.layer).lt(2) && player.revo.points.lte(1);
