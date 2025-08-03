@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.7",
+	num: "4.1.8",
 	name: "Low Taper Fade Published",
 }
 
