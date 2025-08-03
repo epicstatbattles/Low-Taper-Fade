@@ -371,7 +371,7 @@ function getPointGen() {
 	let revoupgfive = upgradeEffect("revo", 15).sub(1);
 	if (hasUpgrade("revo", 15)) gain = gain.times(upgradeEffect("revo", 12).pow(revoupgfive));
 	let revoupgten = upgradeEffect("revo", 12).pow(upgradeEffect("revo", 15));
-	if (hasUpgrade("revo", 25)) gain = gain.times(revoupgten.pow(upgradeEffect("revo", 25).sub(1));
+	if (hasUpgrade("revo", 25)) gain = gain.times(revoupgten.pow(upgradeEffect("revo", 25).sub(1)));
 	let enhanceTime = new Decimal(player.enhance.resetTime);
 	let decayFactor = new Decimal(10).pow(enhanceTime.div(10));
 	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(decayFactor);
