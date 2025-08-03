@@ -3593,7 +3593,7 @@ addLayer("revo", {
             effect() {
                 return player.revo.points.add(1e10).log10().log10().pow(0.8);
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() { return "^" + format(this.effect()); },
         },
     },
     buyables: {
