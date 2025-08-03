@@ -2109,10 +2109,10 @@ addLayer("infi", {
         21: {
             name: "Anti-Dragging Measures Taken",
             challengeDescription: "You cannot gain Ninja points or Madelizers.",
-            goalDescription: "Reach 1e84 points.",
+            goalDescription: "Reach 1e85 points.",
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
-            canComplete: function() { return player.points.gte(1e84) },
+            canComplete: function() { return player.points.gte(1e85) },
             rewardEffect() {
                 return player.ltf.points.div(1e100).add(1).pow(0.002).pow(player.infi.points.add(10).log10().pow(0.5));
             },
@@ -3478,7 +3478,7 @@ addLayer("revo", {
             effect() {
                 return player.ltf.points.div(10000).add(1e10).log10().log10().pow(1.2);
             },
-            effectDisplay() { return "^" + format(this.effect()); },
+            effectDisplay() { return "^" + format(this.effect()) + "(" + format(upgradeEffect("revo", 12).pow(this.effect().sub(1))) + ")"; },
         },
         21: {
             title: "Strong Circles",
@@ -3534,7 +3534,7 @@ addLayer("revo", {
             style() {
                 if (hasUpgrade("revo", 23))  {
                     return {
-                        "background-color": "#562cc9", // indigo
+                        "background-color": "#562cc9", /    / indigo
                         "color": "#000000",
                     };
                 } else {
@@ -3548,6 +3548,52 @@ addLayer("revo", {
                 return new Decimal(0.5);
             },
             effectDisplay() { return "Scaling Reduction: " + format(this.effect()); },
+        },
+        24: {
+            title: "Another Point Boost?",
+            description: "Circles grant a slight boost to points.",
+            cost: new Decimal(1e15),
+            unlocked() { return hasUpgrade("revo", 23); },
+            style() {
+                if (hasUpgrade("revo", 24))  {
+                    return {
+                        "background-color": "#562cc9", // indigo
+                        "color": "#000000",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", // default not bought color
+                        "color": "#000000",
+                    };
+                }
+            },
+            effect() {
+                return player.revo.points.times(10).add(1e10).log10().log10().pow(8);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        25: {
+            title: "Definitely Not Foreshadowing",
+            description: "Circles upgrade 2 gets powered, again, now based on circle amount!",
+            cost: new Decimal(1e19),
+            unlocked() { return hasUpgrade("revo", 24); },
+            style() {
+                if (hasUpgrade("revo", 25))  {
+                    return {
+                        "background-color": "#562cc9", // indigo
+                        "color": "#000000",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", // default not bought color
+                        "color": "#000000",
+                    };
+                }
+            },
+            effect() {
+                return player.revo.points.add(1e10).log10().log10().pow(0.9);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
         },
     },
     buyables: {
