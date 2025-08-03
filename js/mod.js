@@ -312,7 +312,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Changed cost of circle upgrade 3 for probably the last time (50000 --> 100k).<br>
 	<h3>v4.1.6</h3><br>
  		- Changed how the circle softcap works. Now it's stronger, but starts later, at 10k circles in fact.<br>
-   		- Slightly nerfed circle upgrade 3.`
+   		- Slightly nerfed circle upgrade 3.<br>
+	<h3>v4.1.7</h3><br>
+ 		- Rolled out 2 more circle upgrades, now a total of 10 upgrades!<br>
+   		- Adjusted circle milestone goal.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
