@@ -315,7 +315,9 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Slightly nerfed circle upgrade 3.<br>
 	<h3>v4.1.7</h3><br>
  		- Rolled out 2 more circle upgrades, now a total of 10 upgrades!<br>
-   		- Adjusted circle milestone goal.`
+   		- Adjusted circle milestone goal.<br>
+     	<h3>v4.1.8</h3><br>
+		- Slightly nerfed circle production for having more points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
