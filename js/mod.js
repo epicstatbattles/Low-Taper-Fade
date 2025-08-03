@@ -317,7 +317,8 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Rolled out 2 more circle upgrades, now a total of 10 upgrades!<br>
    		- Adjusted circle milestone goal.<br>
 	<h3>v4.1.8</h3><br>
- 		- Heavily nerfed circle upgrade 9 since it wasn't just granting a slight boost, and slightly nerfed circle upgrade 10.`
+ 		- Heavily nerfed circle upgrade 9 since it wasn't just granting a slight boost, and slightly nerfed circle upgrade 10.<br>
+   		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
