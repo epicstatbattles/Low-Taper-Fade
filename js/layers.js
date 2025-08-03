@@ -3568,7 +3568,7 @@ addLayer("revo", {
                 }
             },
             effect() {
-                return player.revo.points.times(10).add(1e10).log10().log10().pow(8);
+                return player.revo.points.times(10).add(1e10).log10().log10().pow(3.6);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3591,7 +3591,7 @@ addLayer("revo", {
                 }
             },
             effect() {
-                return player.revo.points.add(1e10).log10().log10().pow(0.9);
+                return player.revo.points.add(1e10).log10().log10().pow(0.8);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
