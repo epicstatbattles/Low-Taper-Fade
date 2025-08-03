@@ -3534,7 +3534,7 @@ addLayer("revo", {
             style() {
                 if (hasUpgrade("revo", 23))  {
                     return {
-                        "background-color": "#562cc9", /    / indigo
+                        "background-color": "#562cc9", // indigo
                         "color": "#000000",
                     };
                 } else {
