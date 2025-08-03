@@ -3478,7 +3478,7 @@ addLayer("revo", {
             effect() {
                 return player.ltf.points.div(10000).add(1e10).log10().log10().pow(1.2);
             },
-            effectDisplay() { return "^" + format(this.effect()) + "(" + format(upgradeEffect("revo", 12).pow(this.effect().sub(1))) + ")"; },
+            effectDisplay() { return "^" + format(this.effect()) + " (x" + format(upgradeEffect("revo", 12).pow(this.effect().sub(1))) + ")"; },
         },
         21: {
             title: "Strong Circles",
