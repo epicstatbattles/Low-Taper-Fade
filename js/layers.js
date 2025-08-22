@@ -3829,10 +3829,10 @@ addLayer("enchant", {
     tabFormat: {
         "Main Tab": {
             content: [
+                "bars",
                 "main-display",
                 "prestige-button",
                 "resource-display",
-                "bars",
                 "upgrades",
                 "milestones",
             ],
