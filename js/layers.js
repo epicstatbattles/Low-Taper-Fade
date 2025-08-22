@@ -2629,7 +2629,7 @@ addLayer("enhance", {
         11: {
             title: "Point Exponent",
             description: "Raises point generation to an exponent based on the level of this buyable.",
-            cost(x) { return new Decimal(10).times(new Decimal(9).add(x).div(5).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(10).times(new Decimal(7).add(x).div(4).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -3138,7 +3138,7 @@ addLayer("gal", {
 addLayer("liquid", {
     name: "liquidcashews inflators", // Full name of the layer
     image: "https://i.ibb.co/GvWTRS0k/mdm.webp", // Symbol displayed on the tree
-    position: 2, // Position in the tree
+    position: 1, // Position in the tree
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
@@ -3171,7 +3171,7 @@ addLayer("liquid", {
     row: 5, // Row in the tree (5 = sixth row)
     branches: ["vex", "enhance", "sunny"],
     hotkeys: [
-        { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "7", description: "7: LC inflator Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
@@ -3181,7 +3181,7 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(4.5).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(4.2).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3192,7 +3192,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2.7).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(2.6).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3209,7 +3209,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(1.8).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3220,7 +3220,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.6).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(1.4).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3237,7 +3237,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.35).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.32).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3248,7 +3248,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.2).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.18).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3259,12 +3259,12 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.0875).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.08).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         25: {
-            title: "Final Inflation.",
+            title: "Ultimate Inflation.",
             description: "Buyable formula is improved by ^2.",
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("liquid", 24); },
@@ -3728,6 +3728,118 @@ addLayer("revo", {
         "About": {
             content: [
                 ["raw-html", () => "Revolution Idle?"],
+            ],
+        },
+    },
+});
+addLayer("enchant", {
+    name: "enchantment", // Full name of the layer
+    symbol: "NCH", // Symbol displayed on the tree
+    position: 2, // Position in the tree
+    startData() {
+        return {
+            unlocked: false, // Starts locked until requirements are met
+            points: new Decimal(0), // Prestige points for this layer
+        };
+    },
+    color: "#bd80e8", // light purple
+    requires: new Decimal("1e100000"), // Points required to unlock this layer
+    resource: "enchantment points", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: 0.0002, // Scaling factor for prestige points
+
+    layerShown() {
+        // Check if the player has e80k score or 1 Enchantment Point
+        return player.points.gte("1e80000") || player.enchant.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() { // Exponential bonus to prestige point gain
+        return new Decimal(1); // Default is no additional exponential scaling
+    },
+
+    row: 5, // Row in the tree (5 = sixth row)
+    branches: ["liquid"],
+    hotkeys: [
+        { key: "8", description: "8: Enchantment Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+    bars: {
+        enchanttwoBar: {
+            direction: RIGHT,
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e100000"); },
+            progress() { return player.points.log10().sub(100000).div(50000); },
+            display() { return format(player.points.log10().sub(100000).div(500)) + "%"; },
+        },
+        enchantthreeBar: {
+            direction: RIGHT,
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e150000"); },
+            progress() { return player.points.log10().sub(150000).div(50000); },
+            display() { return format(player.points.log10().sub(150000).div(500)) + "%"; },
+        },
+    },
+    upgrades: {
+        11: {
+            title: "Enchant Low Taper Fade!",
+            description: "Polish your low taper fade skills, boosting point gain based on LTF points!",
+            cost: new Decimal(1),
+            effect() {
+                return player.ltf.points.div(10).add(1).pow(0.65);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Enchant Ninja!",
+            description: "Ninja keeps dragging his meme, and this causes points to receive another boost!",
+            cost: new Decimal(3),
+            unlocked() { return hasUpgrade("enchant", 11) && player.points.gte("1e150000"); },
+            effect() {
+                return player.ninja.points.div(5).add(1).pow(0.95);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Enchant Massive!",
+            description: "Another point boost, this time by massive points since the massiveness grew out of control.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("enchant", 12) && player.points.gte("1e200000"); },
+            effect() {
+                return player.ninja.points.div(4).add(1).pow(1.05);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "100 Enchantment Points",
+            effectDescription: "You made it to endgame for this version, future development coming soon.",
+            done() { return player.liquid.points.gte(1e100); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                "main-display",
+                "prestige-button",
+                "resource-display",
+                "bars",
+                "upgrades",
+                "milestones",
+            ],
+        },
+        "About": {
+            content: [
+                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
             ],
         },
     },
