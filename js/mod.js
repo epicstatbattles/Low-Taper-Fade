@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.8",
+	num: "4.1.9",
 	name: "Low Taper Fade Published",
 }
 
@@ -318,7 +318,10 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Adjusted circle milestone goal.<br>
 	<h3>v4.1.8</h3><br>
  		- Heavily nerfed circle upgrade 9 since it wasn't just granting a slight boost, and slightly nerfed circle upgrade 10.<br>
-   		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.`
+   		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.<br>
+	<h3>v4.1.9</h3><br>
+ 		- Applied a small nerf to most of the LC inflator upgrades, and fixed some display and hotkey issues associated with that layer.<br>
+   		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -359,12 +362,15 @@ function getPointGen() {
 	if (hasUpgrade("ltf", 22)) gain = gain.times(upgradeEffect("ltf", 22).pointsBoost);
 	if (hasUpgrade("ct", 31)) gain = gain.times(upgradeEffect("ct", 31));
 	if (hasUpgrade("infi", 11)) gain = gain.times(upgradeEffect("infi", 11));
-        if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
-    	gain = gain.times(buyableEffect("infi", 11));
+    if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
+    gain = gain.times(buyableEffect("infi", 11));
 	gain = gain.times(buyableEffect("liquid", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
 	if (hasUpgrade("vex", 11)) gain = gain.times(upgradeEffect("vex", 11));
+	if (hasUpgrade("enchant", 11)) gain = gain.times(upgradeEffect("enchant", 11));
+	if (hasUpgrade("enchant", 12)) gain = gain.times(upgradeEffect("enchant", 12));
+	if (hasUpgrade("enchant", 13)) gain = gain.times(upgradeEffect("enchant", 13));
 	if (hasUpgrade("vex", 14)) gain = gain.times(upgradeEffect("vex", 14));
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
