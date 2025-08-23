@@ -3801,7 +3801,7 @@ addLayer("enchant", {
         },
     },
     bars: {
-        enchanttwoBar: {
+        enchantTwoBar: {
             direction: RIGHT,
             width: 280,
             height: 40,
@@ -3809,7 +3809,7 @@ addLayer("enchant", {
             progress() { return player.points.log10().sub(100000).div(50000); },
             display() { return format(player.points.log10().sub(100000).div(500)) + "%"; },
         },
-        enchantthreeBar: {
+        enchantThreeBar: {
             direction: RIGHT,
             width: 280,
             height: 40,
@@ -3832,7 +3832,8 @@ addLayer("enchant", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
-                "bars",
+                "enchantTwoBar",
+                "enchantThreeBar",
                 "upgrades",
                 "milestones",
             ],
