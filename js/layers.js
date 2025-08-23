@@ -295,6 +295,10 @@ addLayer("ninja", {
         if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
         return passive;
     },
+    layerShown() {
+        // Check if the player has at least 1e3 LTF points
+        return player.ltf.points.gte(new Decimal(1000)) || player.ninja.points.gte(1);
+    },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("ninja", 23)) mult = mult.times(upgradeEffect("ninja", 23));
@@ -328,7 +332,6 @@ addLayer("ninja", {
         if (hasUpgrade("mady", 22)) exp = exp.times(upgradeEffect("mady", 22)); // Example upgrade adding 0.2 to the exponent
         return exp;
     },
-
     row: 1, // Row in the tree (1 = second row)
     branches: ["ltf"], // Branch from the LTF layer visually
 
@@ -578,6 +581,10 @@ addLayer("massive", {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
         return passive;
+    },
+    layerShown() {
+        // Check if the player has at least 1e5 points
+        return player.points.gte(new Decimal(100000)) || player.massive.points.gte(1);
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
