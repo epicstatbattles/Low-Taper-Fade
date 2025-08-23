@@ -3803,17 +3803,19 @@ addLayer("enchant", {
     bars: {
         enchantTwoBar: {
             direction: RIGHT,
+            fillStyle: {'background-color' : "#bd80e8"},
             width: 280,
             height: 40,
-            progress() { return player.points.log10().sub(100000).div(50000); },
-            display() { return format(player.points.log10().sub(100000).div(500)) + "%"; },
+            progress() { return player.points.log10().div(150000); },
+            display() { return format(player.points.log10().div(1500)) + "% to Ninja Enchant"; },
         },
         enchantThreeBar: {
             direction: RIGHT,
+            fillStyle: {'background-color' : "#bd80e8"},
             width: 280,
             height: 40,
-            progress() { return player.points.log10().sub(150000).div(50000); },
-            display() { return format(player.points.log10().sub(150000).div(500)) + "%"; },
+            progress() { return player.points.log10().div(200000); },
+            display() { return format(player.points.log10().div(2000)) + "% to Massive Enchant"; },
         },
     },
     milestones: {
