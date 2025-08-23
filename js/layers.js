@@ -3599,8 +3599,8 @@ addLayer("revo", {
     buyables: {
         11: {
             title: "Circle Boost",
-            description: "Boosts circle gain by 1.4x.",
-            purchaseLimit: new Decimal(1000),
+            description: "Boosts circle gain by 1.4x (Softcaps strongly after 10 purchases).",
+            purchaseLimit: new Decimal(50),
             cost(x) { let costbase = new Decimal(4);
                     if (hasUpgrade("revo", 23)) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(100); },  // The cost formula
@@ -3635,8 +3635,8 @@ addLayer("revo", {
         },
         12: {
             title: "Score Boost",
-            description: "Boosts point gain by 1.2x.",
-            purchaseLimit: new Decimal(1000),
+            description: "Boosts point gain by 1.2x (Softcaps after 10 purchases).",
+            purchaseLimit: new Decimal(50),
             cost(x) { let costbase = new Decimal(4);
                     if (hasUpgrade("revo", 23)) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(250); },  // The cost formula
@@ -3671,8 +3671,8 @@ addLayer("revo", {
         },
         13: {
             title: "Low Taper Fade Boost",
-            description: "Boosts LTF point gain by 1.1x.",
-            purchaseLimit: new Decimal(1000),
+            description: "Boosts LTF point gain by 1.1x (Softcaps after 10 purchases).",
+            purchaseLimit: new Decimal(50),
             cost(x) { let costbase = new Decimal(4);
                     if (hasUpgrade("revo", 23)) costbase = costbase.sub(0.5);
                     return costbase.pow(x).times(1000); },  // The cost formula
@@ -3709,7 +3709,7 @@ addLayer("revo", {
     milestones: {
         0: {
             requirementDescription: "1.00e40 ◎",
-            effectDescription: "Circle Master as of 4.1.7! LTF point gain is increased by 40%.",
+            effectDescription: "Circle Master as of 4.2.1! LTF point gain is increased by 40%.",
             done() { return player.revo.points.gte(1e40); },
         },
     },
