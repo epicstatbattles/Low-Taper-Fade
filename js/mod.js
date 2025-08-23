@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.1.9",
+	num: "4.2",
 	name: "Low Taper Fade Published",
 }
 
@@ -321,7 +321,10 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.<br>
 	<h3>v4.1.9</h3><br>
  		- Applied a small nerf to most of the LC inflator upgrades, and fixed some display and hotkey issues associated with that layer.<br>
-   		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.`
+   		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.<br>
+	<h3>v4.2</h3><br>
+ 		- Fixed a few small bugs with the enchantment layer.<br>
+   		- Hugely nerfed LC inflators and enchantment point gains.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
