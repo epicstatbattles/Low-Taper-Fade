@@ -326,7 +326,8 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Fixed a few small bugs with the enchantment layer.<br>
    		- Hugely nerfed LC inflators and enchantment point gains.<br>
 	<h3>v4.2.1</h3><br>
- 		- Applied a softcap to circle buyables after you purchase them 10 times.`
+ 		- Applied a softcap to circle buyables after you purchase them 10 times.<br>
+		- Now Ninja and Massive are hidden until you get to 1000 LTF points and 100k points respectively.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
