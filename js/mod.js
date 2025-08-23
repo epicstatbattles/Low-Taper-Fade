@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2",
+	num: "4.2.1",
 	name: "Low Taper Fade Published",
 }
 
@@ -324,7 +324,9 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.<br>
 	<h3>v4.2</h3><br>
  		- Fixed a few small bugs with the enchantment layer.<br>
-   		- Hugely nerfed LC inflators and enchantment point gains.`
+   		- Hugely nerfed LC inflators and enchantment point gains.<br>
+	<h3>v4.2.1</h3><br>
+ 		- Applied a softcap to circle buyables after you purchase them 10 times.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
