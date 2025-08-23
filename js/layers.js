@@ -3612,7 +3612,9 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(1.4).pow(x);
+                let effectweaken = new Decimal(1);
+                if (getBuyableAmount("revo", 11).gte(10)) effectweaken=getBuyableAmount("revo", 11).sub(9).pow(new Decimal(1.1).pow(getBuyableAmount("revo", 11).log10().pow(0.8)));
+                return new Decimal(1.4).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
@@ -3646,7 +3648,9 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(1.2).pow(x);
+                let effectweaken = new Decimal(1);
+                if (getBuyableAmount("revo", 12).gte(10)) effectweaken=getBuyableAmount("revo", 12).sub(9).pow(new Decimal(1.05).pow(getBuyableAmount("revo", 12).log10().pow(0.6)));
+                return new Decimal(1.2).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
@@ -3680,7 +3684,9 @@ addLayer("revo", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(1.1).pow(x);
+                let effectweaken = new Decimal(1);
+                if (getBuyableAmount("revo", 13).gte(10)) effectweaken=getBuyableAmount("revo", 13).sub(9).pow(new Decimal(1.025).pow(getBuyableAmount("revo", 13).log10().pow(0.6)));
+                return new Decimal(1.1).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
             buy() {
