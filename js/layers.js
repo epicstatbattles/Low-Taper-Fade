@@ -3151,7 +3151,7 @@ addLayer("liquid", {
     baseResource: "low taper fade points", // Resource used to gain prestige points
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.005, // Scaling factor for prestige points
+    exponent: 0.001, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
