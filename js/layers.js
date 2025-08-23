@@ -3748,7 +3748,7 @@ addLayer("enchant", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.0002, // Scaling factor for prestige points
+    exponent: 0.00002, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has e80k score or 1 Enchantment Point
@@ -3769,24 +3769,6 @@ addLayer("enchant", {
     hotkeys: [
         { key: "8", description: "8: Enchantment Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-    bars: {
-        enchanttwoBar: {
-            direction: RIGHT,
-            width: 280,
-            height: 40,
-            unlocked() { return player.points.gte("1e100000"); },
-            progress() { return player.points.log10().sub(100000).div(50000); },
-            display() { return format(player.points.log10().sub(100000).div(500)) + "%"; },
-        },
-        enchantthreeBar: {
-            direction: RIGHT,
-            width: 280,
-            height: 40,
-            unlocked() { return player.points.gte("1e150000"); },
-            progress() { return player.points.log10().sub(150000).div(50000); },
-            display() { return format(player.points.log10().sub(150000).div(500)) + "%"; },
-        },
-    },
     upgrades: {
         11: {
             title: "Enchant Low Taper Fade!",
@@ -3818,21 +3800,39 @@ addLayer("enchant", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
+    bars: {
+        enchanttwoBar: {
+            direction: RIGHT,
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e100000"); },
+            progress() { return player.points.log10().sub(100000).div(50000); },
+            display() { return format(player.points.log10().sub(100000).div(500)) + "%"; },
+        },
+        enchantthreeBar: {
+            direction: RIGHT,
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e150000"); },
+            progress() { return player.points.log10().sub(150000).div(50000); },
+            display() { return format(player.points.log10().sub(150000).div(500)) + "%"; },
+        },
+    },
     milestones: {
         0: {
             requirementDescription: "100 Enchantment Points",
             effectDescription: "You made it to endgame for this version, future development coming soon.",
-            done() { return player.liquid.points.gte(1e100); },
+            done() { return player.enchant.points.gte(100); },
         },
     },
 
     tabFormat: {
         "Main Tab": {
             content: [
-                "bars",
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                "bars",
                 "upgrades",
                 "milestones",
             ],
