@@ -2486,7 +2486,7 @@ addLayer("enhance", {
     baseResource: "Codename Trademark subscribers", // Resource used to gain prestige points
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.014, // Scaling factor for prestige points
+    exponent: 0.0112, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
