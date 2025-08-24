@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.1",
+	num: "4.2.2",
 	name: "Low Taper Fade Published",
 }
 
@@ -327,7 +327,10 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Hugely nerfed LC inflators and enchantment point gains.<br>
 	<h3>v4.2.1</h3><br>
  		- Applied a softcap to circle buyables after you purchase them 10 times.<br>
-		- Now Ninja and Massive are hidden until you get to 1000 LTF points and 100k points respectively.`
+		- Now Ninja and Massive are hidden until you get to 1000 LTF points and 100k points respectively.<br>
+	<h3>v4.2.2</h3><br>
+ 		- Added slowdowns to LTF, Ninja, and massive points at e1800, e1400, and e750 of their point types respectively.<br>
+		- Nerfed several starting values for layer 5 currency upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -351,14 +354,14 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-        if (hasUpgrade("ltf", 11)) gain = gain.times(2);
+    if (hasUpgrade("ltf", 11)) gain = gain.times(2);
 	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5);
    	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
    	if (hasUpgrade("ltf", 21)) gain = gain.times(upgradeEffect("ltf", 21));
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
-    	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
-    	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
-    	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
+	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
+ 	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
+ 	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
 	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
@@ -382,7 +385,7 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	let eboupg = upgradeEffect("enhance", 23).sub(1);
-        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
+    if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	if (hasUpgrade("revo", 12)) gain = gain.times(upgradeEffect("revo", 12));
 	if (hasUpgrade("revo", 24)) gain = gain.times(upgradeEffect("revo", 24));
