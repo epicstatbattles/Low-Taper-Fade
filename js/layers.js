@@ -16,6 +16,7 @@ addLayer("ltf", {
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
     softcap: new Decimal("1e1800"),
+    softcapPower: new Decimal("0.625"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -297,6 +298,7 @@ addLayer("ninja", {
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
     softcap: new Decimal("1e1400"),
+    softcapPower: new Decimal("0.6"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -591,6 +593,7 @@ addLayer("massive", {
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     softcap: new Decimal("1e750"),
+    softcapPower: new Decimal("0.6"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
