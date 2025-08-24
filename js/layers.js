@@ -15,6 +15,7 @@ addLayer("ltf", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
+    softcap: new Decimal("1e1800"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -261,6 +262,12 @@ addLayer("ltf", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.ltf.points.gte(new Decimal("1e1620"))) {
+                    return '<span style="color: red;">LTF point gains will slow down beyond 1e1800 LTF points.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
