@@ -289,6 +289,7 @@ addLayer("ninja", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
+    softcap: new Decimal("1e1400"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -548,6 +549,12 @@ addLayer("ninja", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.ninja.points.gte(new Decimal("1e1260"))) {
+                    return '<span style="color: red;">Ninja point gains will slow down beyond 1e1400 Ninja points.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
@@ -576,6 +583,7 @@ addLayer("massive", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
+    softcap: new Decimal("1e750"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -806,6 +814,12 @@ addLayer("massive", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                if (player.massive.points.gte(new Decimal("1e675"))) {
+                    return '<span style="color: red;">Massive point gains will slow down beyond 1e750 massive points.</span>';
+                }
+                return "";
+            }],
                 "upgrades",
                 "milestones",
             ],
