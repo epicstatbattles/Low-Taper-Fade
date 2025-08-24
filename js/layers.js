@@ -2212,7 +2212,7 @@ addLayer("vex", {
     baseResource: "Madelizers", // Resource used to gain prestige points
     baseAmount() { return player.mady.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.0084, // Scaling factor for prestige points
+    exponent: 0.009, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
