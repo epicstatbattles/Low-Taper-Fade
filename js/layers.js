@@ -15,7 +15,7 @@ addLayer("ltf", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
-    softcap: new Decimal("1e1800"),
+    softcap: new Decimal("1e2000"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -296,7 +296,7 @@ addLayer("ninja", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
-    softcap: new Decimal("1e1400"),
+    softcap: new Decimal("1e1500"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -590,7 +590,7 @@ addLayer("massive", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
-    softcap: new Decimal("1e750"),
+    softcap: new Decimal("1e800"),
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
