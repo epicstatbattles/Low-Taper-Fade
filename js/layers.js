@@ -2244,20 +2244,20 @@ addLayer("vex", {
     upgrades: {
         11: {
             title: "LET HIM COOK!",
-            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain quadratically based on Vexbolts points (initial 1,000x multi).",
+            description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain quadratically based on Vexbolts points (initial 250x multi).",
             cost: new Decimal(1),
             effect() {
-                return player.vex.points.add(1).pow(2).times(1000); // Complex multiplier
+                return player.vex.points.add(1).pow(2).times(250); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Unemployed Brainrot Banger",
-            description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 40x multi)",
+            description: "Vexbolts releases a popular brain rot meme song. Vexbolts points linearly boost LTF, Ninja, and massive point gain. (initial 20x multi)",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("vex", 11); },
             effect() {
-                let base = player.vex.points.times(40).add(40); // Original effect formula
+                let base = player.vex.points.times(20).add(20); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2278,11 +2278,11 @@ addLayer("vex", {
         },
         13: {
             title: "Mass Unfollowing",
-            description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 10x multi).",
+            description: "People are mass unfollowing Vexbolts... The trend causes Vexbolts points to linearly boost CT sub, Madelizer, and Aubrinator gain (initial 5x multi).",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("vex", 12); },
             effect() {
-                let base = player.vex.points.times(10).add(10); // Original effect formula
+                let base = player.vex.points.times(5).add(5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2328,11 +2328,11 @@ addLayer("vex", {
         },
         21: {
             title: "Should Have Left Bro In 2024",
-            description: "He has went too far... Boost Infinity point gain based on Vexbolts points (initial 4x multi). Also, unlock the Vexbolts Challenge!",
+            description: "He has went too far... Boost Infinity point gain based on Vexbolts points (initial 3x multi). Also, unlock the Vexbolts Challenge!",
             cost: new Decimal(50),
             unlocked() { return hasUpgrade("vex", 14); },
             effect() {
-                let base = player.vex.points.add(1).pow(0.6).times(4); // Original effect formula
+                let base = player.vex.points.add(1).pow(0.6).times(3); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2357,12 +2357,12 @@ addLayer("vex", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("vex", 21); },
             effect() {
-                let base = player.vex.points.add(1).pow(1.25); // Original effect formula
+                let base = player.vex.points.add(1).pow(1.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.vex.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.vex.points.div(1e6).pow(0.625); // Slight division factor
+                    diminishingFactor = player.vex.points.div(1e6).pow(0.6); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2518,10 +2518,10 @@ addLayer("enhance", {
     upgrades: {
         11: {
             title: "Resource Multiplier",
-            description: "Boost all pre-infinity resource gain based on enhancers, except for regular points. (initial 10x multi)",
+            description: "Boost all pre-infinity resource gain based on enhancers, except for regular points. (initial 5x multi)",
             cost: new Decimal(1),
             effect() {
-                let base = player.enhance.points.times(5).add(10); // Original effect formula
+                let base = player.enhance.points.times(2.5).add(5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2542,11 +2542,11 @@ addLayer("enhance", {
         },
         12: {
             title: "Point Enhancer",
-            description: "Boost point gain drastically based on enhancers and Infinity points (initial 50x multi).",
+            description: "Boost point gain drastically based on enhancers and Infinity points (initial 40x multi).",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("enhance", 11); },
             effect() {
-                let base = player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(50); // Original effect formula
+                let base = player.enhance.points.add(1).pow(1.75).times(player.infi.points.div(1e6).add(1).pow(0.5)).times(40); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2567,11 +2567,11 @@ addLayer("enhance", {
         },
         13: {
             title: "Infinity Enhancer",
-            description: "Boost Infinity point gain based on enhancers (initial 5x multi).",
+            description: "Boost Infinity point gain based on enhancers (initial 4x multi).",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("enhance", 12); },
             effect() {
-                let base = player.enhance.points.add(1).pow(0.6).times(5); // Original effect formula
+                let base = player.enhance.points.add(1).pow(0.6).times(4); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2810,10 +2810,10 @@ addLayer("sunny", {
     upgrades: {
         11: {
             title: "Rise and Shine",
-            description: "SunnyV2's documentaries gain some popularity. Boost point and layer 3 currency gain linearly based on SunnyV2 points (initial 100x multi).",
+            description: "SunnyV2's documentaries gain some popularity. Boost point and layer 3 currency gain linearly based on SunnyV2 points (initial 20x multi).",
             cost: new Decimal(1),
             effect() {
-                let base = player.sunny.points.times(100).add(100); // Original effect formula
+                let base = player.sunny.points.times(20).add(20); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2834,11 +2834,11 @@ addLayer("sunny", {
         },
         12: {
             title: "Collab Documentary",
-            description: "SunnyV2 decides to collab with Aubrie for a massive documentary! Boost Aubrinator gain drastically based on SunnyV2 points (initial 40x multi).",
+            description: "SunnyV2 decides to collab with Aubrie for a massive documentary! Boost Aubrinator gain drastically based on SunnyV2 points (initial 30x multi).",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("sunny", 11); },
             effect() {
-                let base = player.sunny.points.add(1).pow(1.25).times(40); // Original effect formula
+                let base = player.sunny.points.add(1).pow(1.25).times(30); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2859,11 +2859,11 @@ addLayer("sunny", {
         },
         13: {
             title: "Behind The Scenes",
-            description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 25x multi).",
+            description: "SunnyV2 makes a few BTS videos to show how he does his documentaries. Boost LTF, Ninja, and massive point gain drastically based on SunnyV2 points (initial 20x multi).",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("sunny", 12); },
             effect() {
-                let base = player.sunny.points.add(1).pow(1.3).times(25); // Original effect formula
+                let base = player.sunny.points.add(1).pow(1.3).times(20); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
