@@ -263,8 +263,8 @@ addLayer("ltf", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.ltf.points.gte(new Decimal("1e1620"))) {
-                    return '<span style="color: red;">LTF point gains will slow down beyond 1e1800 LTF points.</span>';
+                if (player.ltf.points.gte(new Decimal("1e1800"))) {
+                    return '<span style="color: red;">LTF point gains will slow down beyond 1e2000 LTF points.</span>';
                 }
                 return "";
             }],
@@ -557,8 +557,8 @@ addLayer("ninja", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.ninja.points.gte(new Decimal("1e1260"))) {
-                    return '<span style="color: red;">Ninja point gains will slow down beyond 1e1400 Ninja points.</span>';
+                if (player.ninja.points.gte(new Decimal("1e1350"))) {
+                    return '<span style="color: red;">Ninja point gains will slow down beyond 1e1500 Ninja points.</span>';
                 }
                 return "";
             }],
@@ -822,8 +822,8 @@ addLayer("massive", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.massive.points.gte(new Decimal("1e675"))) {
-                    return '<span style="color: red;">Massive point gains will slow down beyond 1e750 massive points.</span>';
+                if (player.massive.points.gte(new Decimal("1e720"))) {
+                    return '<span style="color: red;">Massive point gains will slow down beyond 1e800 massive points.</span>';
                 }
                 return "";
             }],
