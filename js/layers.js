@@ -3062,7 +3062,7 @@ addLayer("gal", {
         };
     },
     color: "#3c0a4f", // purple
-    requires: new Decimal(1e40), // Points required to unlock this layer
+    requires: new Decimal(1e36), // Points required to unlock this layer
     resource: "Galaxies", // Prestige currency name
     base(){ return buyableEffect("enhance", 12); },
     canBuyMax: false,
