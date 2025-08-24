@@ -1992,7 +1992,7 @@ addLayer("infi", {
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e28))) {
-                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.009); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e27).log10().pow(0.00675); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
