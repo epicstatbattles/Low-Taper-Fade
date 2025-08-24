@@ -13,7 +13,7 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "4.2.2",
-	name: "Low Taper Fade Published",
+	name: "The Enchantment Grind",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
