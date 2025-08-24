@@ -331,7 +331,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.2.2</h3><br>
  		- Added slowdowns to LTF, Ninja, and massive points at e1800, e1400, and e750 of their point types respectively.<br>
 		- Nerfed several starting values for layer 5 currency upgrades.<br>
-  		- Nerfed layer 5 currency gains, as after playtesting, I found out it was extremely OP.`
+  		- Nerfed layer 5 currency gains, as after playtesting, I found out it was extremely OP.<br>
+		- Reduced the cost of galaxies to start at 1e36 IP instead of 1e40 IP.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
