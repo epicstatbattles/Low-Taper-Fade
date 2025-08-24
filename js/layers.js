@@ -2781,7 +2781,7 @@ addLayer("sunny", {
     baseResource: "Aubrinators", // Resource used to gain prestige points
     baseAmount() { return player.aub.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.013, // Scaling factor for prestige points
+    exponent: 0.012, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
