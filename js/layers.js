@@ -2593,7 +2593,7 @@ addLayer("enhance", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enhance", 13); },
             effect() {
-                return new Decimal(4).pow(player.gal.points); // Complex multiplier
+                return new Decimal(16).pow(player.gal.points); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3096,7 +3096,7 @@ addLayer("gal", {
             description: "Make Galaxies boost points!",
             cost: new Decimal(5),
             effect() {
-                return new Decimal(16).pow(player.gal.points); // Complex multiplier
+                return new Decimal(256).pow(player.gal.points); // Complex multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3107,7 +3107,7 @@ addLayer("gal", {
             unlocked() { return hasUpgrade("gal", 11); },
             effect() {
                 let galaxyTime = new Decimal(player.infi.resetTime); // Complex multiplier
-                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.8));
+                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(1.2));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3117,7 +3117,7 @@ addLayer("gal", {
             cost: new Decimal(15),
             unlocked() { return hasUpgrade("gal", 12) && hasUpgrade("liquid", 13); },
             effect() {
-                return new Decimal(1.2).pow(player.gal.points);
+                return new Decimal(1.8).pow(player.gal.points);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
