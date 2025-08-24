@@ -856,7 +856,7 @@ addLayer("mady", {
     type: "normal", // Standard prestige layer type
     exponent: 0.27, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
-    softcap: new Decimal("1e480"),
+    softcap: new Decimal("1e450"),
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1128,8 +1128,8 @@ addLayer("mady", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.mady.points.gte(new Decimal("1e400"))) {
-                    return '<span style="color: red;">Madelizer gains will slow down beyond 1e480 Madelizers.</span>';
+                if (player.mady.points.gte(new Decimal("1e405"))) {
+                    return '<span style="color: red;">Madelizer gains will slow down beyond 1e450 Madelizers.</span>';
                 }
                 return "";
             }],
@@ -1162,7 +1162,7 @@ addLayer("ct", {
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
-    softcap: new Decimal("1e420"),
+    softcap: new Decimal("1e400"),
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1362,8 +1362,8 @@ addLayer("ct", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.ct.points.gte(new Decimal("1e350"))) {
-                    return '<span style="color: red;">CT subscriber gains will slow down beyond 1e420 CT subscribers.</span>';
+                if (player.ct.points.gte(new Decimal("1e360"))) {
+                    return '<span style="color: red;">CT subscriber gains will slow down beyond 1e400 CT subscribers.</span>';
                 }
                 return "";
             }],
@@ -1396,7 +1396,7 @@ addLayer("aub", {
     type: "normal", // Standard prestige layer type
     exponent: 0.34, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
-    softcap: new Decimal("1e372"),
+    softcap: new Decimal("1e360"),
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1657,8 +1657,8 @@ addLayer("aub", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.aub.points.gte(new Decimal("1e310"))) {
-                    return '<span style="color: red;">Aubrinator gains will slow down beyond 1e372 Aubrinators.</span>';
+                if (player.aub.points.gte(new Decimal("1e324"))) {
+                    return '<span style="color: red;">Aubrinator gains will slow down beyond 1e360 Aubrinators.</span>';
                 }
                 return "";
             }],
