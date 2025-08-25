@@ -2508,7 +2508,7 @@ addLayer("enhance", {
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
     },
-    function shardTally() {
+    function() {
         let shardCount = new Decimal(0);
         if (hasUpgrade("enhance", 21)) shardCount = shardCount.add(1);
         if (hasUpgrade("enhance", 22)) shardCount = shardCount.add(3);
@@ -2522,10 +2522,7 @@ addLayer("enhance", {
         if (hasUpgrade("sunny", 22)) shardCount = shardCount.add(3);
         if (hasUpgrade("sunny", 23)) shardCount = shardCount.add(6);
         if (hasUpgrade("sunny", 24)) shardCount = shardCount.add(10);
-        return shardCount;
-    },
-    update(diff) {
-        player.enhance.shards = shardTally();
+        return player.enhance.shards = shardCount;
     },
     gainExp() { // Exponential bonus to prestige point gain
         return new Decimal(1); // Default is no additional exponential scaling
