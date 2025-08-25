@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.4",
+	num: "4.2.5",
 	name: "The Enchantment Grind",
 }
 
@@ -340,7 +340,10 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Buffed base Galaxy effects.<br>
 		- Slightly re-buffed the layer currency 5 gains.<br>
   		- Changed costs of each layer 5 currency upgrade past the fourth.<br>
-		- Enhancer Buyable 2 has its base cost reduced from 10000 to 100.`
+		- Enhancer Buyable 2 has its base cost reduced from 10000 to 100.<br>
+  		- Slightly changed the aggression of some buyables.<br>
+  	<h3>v4.2.5</h3><br>
+ 		- Introduced shards, a new Enhancer currency (not spendable as of now) that's used to reduce the effects of resource gain softcaps.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
