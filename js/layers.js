@@ -2478,6 +2478,7 @@ addLayer("enhance", {
         return {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
+            shards: new Decimal(0),
         };
     },
     color: "#ff8c00", // orange
@@ -2689,7 +2690,7 @@ addLayer("enhance", {
             title: "Galaxy Cheapener",
             description: "Reduces the cost scaling growth of galaxies based on the level of this upgrade (caps at level 50).",
             purchaseLimit: new Decimal(50),
-            cost(x) { return new Decimal(10000).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(100).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
