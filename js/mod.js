@@ -339,7 +339,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.2.4</h3><br>
  		- Buffed base Galaxy effects.<br>
 		- Slightly re-buffed the layer currency 5 gains.<br>
-  		- Changed costs of each layer 5 currency upgrade past the fourth.`
+  		- Changed costs of each layer 5 currency upgrade past the fourth.<br>
+		- Enhancer Buyable 2 has its base cost reduced from 10000 to 100.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
