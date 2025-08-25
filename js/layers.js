@@ -2764,6 +2764,12 @@ addLayer("enhance", {
             content: [
                 "main-display",
                 "prestige-button",
+                ["display-text", function() {
+                if (hasUpgrade("enhance", 14)) {
+                    return "You will begin to obtain shards after purchasing layer 5 currency upgrades on the second row (1st: +1, 2nd: +3, 3rd: +6, and 4th: +10)";
+                }
+                return "";
+            }],
                 "resource-display",
                 ["display-text", function() {
                 if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
