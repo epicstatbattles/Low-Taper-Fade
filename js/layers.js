@@ -2759,8 +2759,8 @@ addLayer("enhance", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (hasUpgrade("enhance", 14)) {
-                    return "You have " + player.enhance.shards + "shards, making the resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(10)) + "% instead of 50%";
+                if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
+                    return "You have " + player.enhance.shards + " shards, making the resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(10)) + "% instead of 50%";
                 }
                 return "";
             }],
