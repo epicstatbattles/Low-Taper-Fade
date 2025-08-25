@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.3",
+	num: "4.2.4",
 	name: "The Enchantment Grind",
 }
 
@@ -335,7 +335,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Reduced the cost of galaxies to start at 1e36 IP instead of 1e40 IP.<br>
 	<h3>v4.2.3</h3><br>
  		- Changed slowdown threshold of LTF, Ninja, and massive points to e2000, e1500, and e800 respectively.<br>
-		- Slowdown thresholds of Madelizer, CT subscriber, and Aubrinator points have been shifted to e450, e400, and e360 respectively.`
+		- Slowdown thresholds of Madelizer, CT subscriber, and Aubrinator points have been shifted to e450, e400, and e360 respectively.<br>
+	<h3>v4.2.4</h3><br>
+ 		- Buffed base Galaxy effects.<br>
+		- Slightly re-buffed the layer currency 5 gains.<br>
+  		- Changed costs of each layer 5 currency upgrade past the fourth.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
