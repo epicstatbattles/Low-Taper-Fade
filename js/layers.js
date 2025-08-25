@@ -2328,7 +2328,7 @@ addLayer("vex", {
             description: "He has went too far... Boost Infinity point gain based on Vexbolts points (initial 3x multi). Also, unlock the Vexbolts Challenge!",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("vex", 14); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(1);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(1);},
             effect() {
                 let base = player.vex.points.add(1).pow(0.6).times(3); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -2354,7 +2354,7 @@ addLayer("vex", {
             description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points.",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("vex", 21); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(3);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(3);},
             effect() {
                 let base = player.vex.points.add(1).pow(1.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -2380,7 +2380,7 @@ addLayer("vex", {
             description: "Unlock 2 more Madelizer upgrades and boost their gain by 2x.",
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("vex", 22); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(6);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(6);},
             effect() {
                 return new Decimal(2); // Simple multiplier
             },
@@ -2391,7 +2391,7 @@ addLayer("vex", {
             description: "Boost Ninja and massive points over time based on Vexbolts points.",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("vex", 23); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(10);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(10);},
             effect() {
                 let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
                 return vexTime.add(1).pow(player.vex.points.add(1).pow(0.6));
@@ -2607,7 +2607,7 @@ addLayer("enhance", {
             description: "Unlock an Enhancer challenge and each milestone now awards a boost to point gain that increases based on enhancers (initial 4x multi)!",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("enhance", 14); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(1);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(1);},
             effect() {
                 return player.enhance.points.add(10).log10().pow(1.05).times(4); // Simple multiplier
             },
@@ -2618,7 +2618,7 @@ addLayer("enhance", {
             description: "All layer 3 currencies gain a boost based on enhancers!",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("enhance", 21); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(3);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(3);},
             effect() {
                 let base = player.enhance.points.add(1).pow(0.4); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -2644,7 +2644,7 @@ addLayer("enhance", {
             description: "The galaxy boosts (except for Time Hack and Reality Warp) become stronger based on enhancers and unlock a second Enhancer buyable!",
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("enhance", 22); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(6);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(6);},
             effect() {
                 return player.enhance.points.add(10).log10().pow(0.4); // Simple multiplier
             },
@@ -2655,7 +2655,7 @@ addLayer("enhance", {
             description: "Every layer 5 currency (including enhancers themselves) gain a boost based on enhancers.",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("enhance", 23); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(10);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(10);},
             effect() {
                 return player.enhance.points.div(1e5).add(10).log10().pow(3.5); // Simple multiplier
             },
@@ -2924,7 +2924,7 @@ addLayer("sunny", {
             description: "SunnyV2 points boost LTF points! Also, unlock the SunnyV2 challenge!",
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("sunny", 14); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(1);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(1);},
             effect() {
                 let base = player.sunny.points.add(1).pow(2.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -2950,7 +2950,7 @@ addLayer("sunny", {
             description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points!",
             cost: new Decimal(100),
             unlocked() { return hasUpgrade("sunny", 21); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(3);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(3);},
             effect() {
                 let base = player.sunny.points.add(1).pow(3.2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
@@ -2976,7 +2976,7 @@ addLayer("sunny", {
             description: "SunnyV2's influence causes 2 new Aubrinator upgrades to be introduced and their gain to be doubled.",
             cost: new Decimal(1000),
             unlocked() { return hasUpgrade("sunny", 22); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(6);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(6);},
             effect() {
                 return new Decimal(2); // Simple multiplier
             },
@@ -2987,7 +2987,7 @@ addLayer("sunny", {
             description: "Boost Infinity point gain based on SunnyV2 points.",
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("sunny", 23); },
-            onPurchase() {player.enhancer.shards = player.enhancer.shards.add(10);},
+            onPurchase() {player.enhance.shards = player.enhance.shards.add(10);},
             effect() {
                 return player.sunny.points.div(1e5).add(10).log10().pow(2.5); // Simple multiplier
             },
