@@ -2212,7 +2212,7 @@ addLayer("vex", {
     baseResource: "Madelizers", // Resource used to gain prestige points
     baseAmount() { return player.mady.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.012, // Scaling factor for prestige points
+    exponent: 0.0116, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2486,7 +2486,7 @@ addLayer("enhance", {
     baseResource: "Codename Trademark subscribers", // Resource used to gain prestige points
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.0128, // Scaling factor for prestige points
+    exponent: 0.0125, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2778,7 +2778,7 @@ addLayer("sunny", {
     baseResource: "Aubrinators", // Resource used to gain prestige points
     baseAmount() { return player.aub.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.014, // Scaling factor for prestige points
+    exponent: 0.0132, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
