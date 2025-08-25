@@ -16,6 +16,7 @@ addLayer("ltf", {
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
     softcap: new Decimal("1e2000"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -297,6 +298,7 @@ addLayer("ninja", {
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
     softcap: new Decimal("1e1500"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -591,6 +593,7 @@ addLayer("massive", {
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     softcap: new Decimal("1e800"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -857,6 +860,7 @@ addLayer("mady", {
     exponent: 0.27, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e450"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1163,6 +1167,7 @@ addLayer("ct", {
     exponent: 0.1625, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e400"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1397,6 +1402,7 @@ addLayer("aub", {
     exponent: 0.34, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e360"),
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1691,6 +1697,7 @@ addLayer("infi", {
     type: "normal", // Standard prestige layer type
     exponent: 0.025, // Scaling factor for prestige points
     softcap: new Decimal(1e30), // IP gain slows past 1e30
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
 
     layerShown() {
         // Check if the player has at least 1e200 points
