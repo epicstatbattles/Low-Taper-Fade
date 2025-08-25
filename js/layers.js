@@ -2212,7 +2212,7 @@ addLayer("vex", {
     baseResource: "Madelizers", // Resource used to gain prestige points
     baseAmount() { return player.mady.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.01, // Scaling factor for prestige points
+    exponent: 0.012, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2326,7 +2326,7 @@ addLayer("vex", {
         21: {
             title: "Should Have Left Bro In 2024",
             description: "He has went too far... Boost Infinity point gain based on Vexbolts points (initial 3x multi). Also, unlock the Vexbolts Challenge!",
-            cost: new Decimal(50),
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("vex", 14); },
             effect() {
                 let base = player.vex.points.add(1).pow(0.6).times(3); // Original effect formula
@@ -2351,7 +2351,7 @@ addLayer("vex", {
         22: {
             title: "Another Haircut to Meme On?",
             description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points.",
-            cost: new Decimal(500),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("vex", 21); },
             effect() {
                 let base = player.vex.points.add(1).pow(1.2); // Original effect formula
@@ -2376,7 +2376,7 @@ addLayer("vex", {
         23: {
             title: "Prolonged Dragging Expert",
             description: "Unlock 2 more Madelizer upgrades and boost their gain by 2x.",
-            cost: new Decimal(10000),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("vex", 22); },
             effect() {
                 return new Decimal(2); // Simple multiplier
@@ -2386,7 +2386,7 @@ addLayer("vex", {
         24: {
             title: "Vexbolts just became MORE MASSIVE.",
             description: "Boost Ninja and massive points over time based on Vexbolts points.",
-            cost: new Decimal(1e6),
+            cost: new Decimal(10000),
             unlocked() { return hasUpgrade("vex", 23); },
             effect() {
                 let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
@@ -2486,7 +2486,7 @@ addLayer("enhance", {
     baseResource: "Codename Trademark subscribers", // Resource used to gain prestige points
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.012, // Scaling factor for prestige points
+    exponent: 0.0128, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2600,7 +2600,7 @@ addLayer("enhance", {
         21: {
             title: "Milestones now do stuff!",
             description: "Unlock an Enhancer challenge and each milestone now awards a boost to point gain that increases based on enhancers (initial 4x multi)!",
-            cost: new Decimal(50),
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("enhance", 14); },
             effect() {
                 return player.enhance.points.add(10).log10().pow(1.05).times(4); // Simple multiplier
@@ -2610,7 +2610,7 @@ addLayer("enhance", {
         22: {
             title: "Layer 3 Enhancer",
             description: "All layer 3 currencies gain a boost based on enhancers!",
-            cost: new Decimal(500),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("enhance", 21); },
             effect() {
                 let base = player.enhance.points.add(1).pow(0.4); // Original effect formula
@@ -2635,7 +2635,7 @@ addLayer("enhance", {
         23: {
             title: "Galaxy Enhancer!",
             description: "The galaxy boosts (except for Time Hack and Reality Warp) become stronger based on enhancers and unlock a second Enhancer buyable!",
-            cost: new Decimal(10000),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("enhance", 22); },
             effect() {
                 return player.enhance.points.add(10).log10().pow(0.4); // Simple multiplier
@@ -2645,7 +2645,7 @@ addLayer("enhance", {
         24: {
             title: "Layer In Sync!",
             description: "Every layer 5 currency (including enhancers themselves) gain a boost based on enhancers.",
-            cost: new Decimal(1e6),
+            cost: new Decimal(10000),
             unlocked() { return hasUpgrade("enhance", 23); },
             effect() {
                 return player.enhance.points.div(1e5).add(10).log10().pow(3.5); // Simple multiplier
@@ -2778,7 +2778,7 @@ addLayer("sunny", {
     baseResource: "Aubrinators", // Resource used to gain prestige points
     baseAmount() { return player.aub.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.013, // Scaling factor for prestige points
+    exponent: 0.014, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2907,7 +2907,7 @@ addLayer("sunny", {
         21: {
             title: "The Low Taper Fade Documentary...",
             description: "SunnyV2 points boost LTF points! Also, unlock the SunnyV2 challenge!",
-            cost: new Decimal(50),
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("sunny", 14); },
             effect() {
                 let base = player.sunny.points.add(1).pow(2.2); // Original effect formula
@@ -2932,7 +2932,7 @@ addLayer("sunny", {
         22: {
             title: "It Goes Super Viral",
             description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points!",
-            cost: new Decimal(500),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("sunny", 21); },
             effect() {
                 let base = player.sunny.points.add(1).pow(3.2); // Original effect formula
@@ -2957,7 +2957,7 @@ addLayer("sunny", {
         23: {
             title: "MassiveV2",
             description: "SunnyV2's influence causes 2 new Aubrinator upgrades to be introduced and their gain to be doubled.",
-            cost: new Decimal(10000),
+            cost: new Decimal(1000),
             unlocked() { return hasUpgrade("sunny", 22); },
             effect() {
                 return new Decimal(2); // Simple multiplier
@@ -2967,7 +2967,7 @@ addLayer("sunny", {
         24: {
             title: "Extensive Documentary Series",
             description: "Boost Infinity point gain based on SunnyV2 points.",
-            cost: new Decimal(1e6),
+            cost: new Decimal(10000),
             unlocked() { return hasUpgrade("sunny", 23); },
             effect() {
                 return player.sunny.points.div(1e5).add(10).log10().pow(2.5); // Simple multiplier
