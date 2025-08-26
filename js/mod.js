@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.5",
+	num: "4.2.6",
 	name: "The Enchantment Grind",
 }
 
@@ -343,7 +343,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Enhancer Buyable 2 has its base cost reduced from 10000 to 100.<br>
   		- Slightly changed the aggression of some buyables.<br>
   	<h3>v4.2.5</h3><br>
- 		- Introduced shards, a new Enhancer currency (not spendable as of now) that's used to reduce the effects of resource gain softcaps.`
+ 		- Introduced shards, a new Enhancer currency (not spendable as of now) that's used to reduce the effects of resource gain softcaps.<br>
+	<h3>v4.2.6</h3><br>
+ 		- Fixed shards not being awarded if you bought Enhancer upgrades before v4.2.5.<br>
+   		- Galaxy base cost multi has been changed to x1,000 instead of x10,000 and Galaxy Cheapener effect reduced to /1.08 reduction from /1.1 per upgrade.<br>
+	 	- Endgame is now e250k points with all 3 enchantment upgrades bought.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -441,7 +445,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e100000"))
+	return player.points.gte(new Decimal("1e250000"))
 }
 
 
