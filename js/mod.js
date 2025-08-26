@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.6",
+	num: "4.2.6.1",
 	name: "The Enchantment Grind",
 }
 
@@ -348,7 +348,9 @@ let changelog = `<h1>Changelog:</h1><br>
  		- Fixed shards not being awarded if you bought Enhancer upgrades before v4.2.5.<br>
    		- Galaxy base cost multi has been changed to x1,000 instead of x10,000 and Galaxy Cheapener effect reduced to /1.08 reduction from /1.1 per upgrade.<br>
 	 	- Endgame is now e250k points with all 3 enchantment upgrades bought.<br>
-   		- Enhancer challenge requirement dropped from 1e750 to 1e700 points.`
+   		- Enhancer challenge requirement dropped from 1e750 to 1e700 points.<br>
+	<h3>v4.2.6.1</h3><br>
+	 	- Shards have been improved, but their gain has been reduced to compensate.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
