@@ -16,7 +16,7 @@ addLayer("ltf", {
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
     softcap: new Decimal("1e2000"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -298,7 +298,7 @@ addLayer("ninja", {
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
     softcap: new Decimal("1e1500"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -593,7 +593,7 @@ addLayer("massive", {
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     softcap: new Decimal("1e800"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     autoUpgrade() { return hasUpgrade("infi", 13); },
     passiveGeneration() {
         let passive = new Decimal(0);
@@ -860,7 +860,7 @@ addLayer("mady", {
     exponent: 0.27, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e450"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1167,7 +1167,7 @@ addLayer("ct", {
     exponent: 0.1625, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e400"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1402,7 +1402,7 @@ addLayer("aub", {
     exponent: 0.34, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e360"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
@@ -1697,7 +1697,7 @@ addLayer("infi", {
     type: "normal", // Standard prestige layer type
     exponent: 0.025, // Scaling factor for prestige points
     softcap: new Decimal(1e30), // IP gain slows past 1e30
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(1000)); },
+    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
 
     layerShown() {
         // Check if the player has at least 1e200 points
@@ -2773,14 +2773,14 @@ addLayer("enhance", {
                 "prestige-button",
                 ["display-text", function() {
                 if (hasUpgrade("enhance", 14)) {
-                    return "You will begin to obtain shards after purchasing layer 5 currency upgrades on the second row (1st: +1, 2nd: +3, 3rd: +6, and 4th: +10)";
+                    return "You will begin to obtain shards after purchasing layer 5 currency upgrades on the second row (1st: +1, 2nd: +2, 3rd: +3, and 4th: +4)";
                 }
                 return "";
             }],
                 "resource-display",
                 ["display-text", function() {
                 if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
-                    return "You have " + player.enhance.shards + " shards, making the resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(10)) + "% instead of 50%";
+                    return "You have " + player.enhance.shards + " shards, making the resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
                 }
                 return "";
             }],
