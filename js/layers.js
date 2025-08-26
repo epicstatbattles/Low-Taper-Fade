@@ -2745,10 +2745,10 @@ addLayer("enhance", {
         11: {
             name: "Point Deterioration",
             challengeDescription: "Point gain starts divided by 1e12, and further divides by 10 every 10 seconds.",
-            goalDescription: "Reach 1e750 points.",
+            goalDescription: "Reach 1e700 points.",
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
             unlocked() { return hasUpgrade("enhance", 21); },
-            canComplete: function() { return player.points.gte("1e750") },
+            canComplete: function() { return player.points.gte("1e700") },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
                 return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.08));
