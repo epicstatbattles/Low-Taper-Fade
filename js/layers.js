@@ -2721,7 +2721,7 @@ addLayer("enhance", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(10000).div(new Decimal(1.1).pow(x)); // Apply the diminishing factor
+                return new Decimal(1000).div(new Decimal(1.08).pow(x)); // Apply the diminishing factor
             },
             canAfford() { return player.enhance.points.gte(this.cost()) },
             buy() {
