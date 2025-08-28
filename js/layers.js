@@ -2357,16 +2357,16 @@ addLayer("vex", {
         },
         22: {
             title: "Another Haircut to Meme On?",
-            description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points.",
-            cost: new Decimal(100),
+            description: "Not just Low Taper Fades, it's also High Taper Fades! Boost LTF point gain based on Vexbolts points (initial 2x multi).",
+            cost: new Decimal(80),
             unlocked() { return hasUpgrade("vex", 21); },
             effect() {
-                let base = player.vex.points.add(1).pow(1.2); // Original effect formula
+                let base = player.vex.points.add(1).pow(1.65).times(2); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.vex.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.vex.points.div(1e6).pow(0.6); // Slight division factor
+                    diminishingFactor = player.vex.points.div(1e6).pow(0.825); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2383,7 +2383,7 @@ addLayer("vex", {
         23: {
             title: "Prolonged Dragging Expert",
             description: "Unlock 2 more Madelizer upgrades and boost their gain by 2x.",
-            cost: new Decimal(1000),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("vex", 22); },
             effect() {
                 return new Decimal(2); // Simple multiplier
@@ -2393,11 +2393,11 @@ addLayer("vex", {
         24: {
             title: "Vexbolts just became MORE MASSIVE.",
             description: "Boost Ninja and massive points over time based on Vexbolts points.",
-            cost: new Decimal(10000),
+            cost: new Decimal(5000),
             unlocked() { return hasUpgrade("vex", 23); },
             effect() {
                 let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
-                return vexTime.add(1).pow(player.vex.points.add(1).pow(0.6));
+                return vexTime.add(1).pow(player.vex.points.add(1).log10().pow(2.6));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2444,7 +2444,7 @@ addLayer("vex", {
             unlocked() { return hasUpgrade("vex", 21); },
             canComplete: function() { return player.points.gte(1e100) },
             rewardEffect() {
-                return player.vex.points.add(1).pow(1.2);
+                return player.vex.points.add(1).pow(1.4);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to layer 2 currency gain";
@@ -2511,17 +2511,17 @@ addLayer("enhance", {
     function() {
         let shardCount = new Decimal(0);
         if (hasUpgrade("enhance", 21)) shardCount = shardCount.add(1);
-        if (hasUpgrade("enhance", 22)) shardCount = shardCount.add(3);
-        if (hasUpgrade("enhance", 23)) shardCount = shardCount.add(6);
-        if (hasUpgrade("enhance", 24)) shardCount = shardCount.add(10);
+        if (hasUpgrade("enhance", 22)) shardCount = shardCount.add(2);
+        if (hasUpgrade("enhance", 23)) shardCount = shardCount.add(3);
+        if (hasUpgrade("enhance", 24)) shardCount = shardCount.add(4);
         if (hasUpgrade("vex", 21)) shardCount = shardCount.add(1);
-        if (hasUpgrade("vex", 22)) shardCount = shardCount.add(3);
-        if (hasUpgrade("vex", 23)) shardCount = shardCount.add(6);
-        if (hasUpgrade("vex", 24)) shardCount = shardCount.add(10);
+        if (hasUpgrade("vex", 22)) shardCount = shardCount.add(2);
+        if (hasUpgrade("vex", 23)) shardCount = shardCount.add(3);
+        if (hasUpgrade("vex", 24)) shardCount = shardCount.add(4);
         if (hasUpgrade("sunny", 21)) shardCount = shardCount.add(1);
-        if (hasUpgrade("sunny", 22)) shardCount = shardCount.add(3);
-        if (hasUpgrade("sunny", 23)) shardCount = shardCount.add(6);
-        if (hasUpgrade("sunny", 24)) shardCount = shardCount.add(10);
+        if (hasUpgrade("sunny", 22)) shardCount = shardCount.add(2);
+        if (hasUpgrade("sunny", 23)) shardCount = shardCount.add(3);
+        if (hasUpgrade("sunny", 24)) shardCount = shardCount.add(4);
         return player.enhance.shards = shardCount;
     },
     gainExp() { // Exponential bonus to prestige point gain
@@ -2632,16 +2632,16 @@ addLayer("enhance", {
         },
         22: {
             title: "Layer 3 Enhancer",
-            description: "All layer 3 currencies gain a boost based on enhancers!",
-            cost: new Decimal(100),
+            description: "All layer 3 currencies gain a boost based on enhancers! (initial 1.5x multi)",
+            cost: new Decimal(80),
             unlocked() { return hasUpgrade("enhance", 21); },
             effect() {
-                let base = player.enhance.points.add(1).pow(0.4); // Original effect formula
+                let base = player.enhance.points.add(1).pow(0.45).times(1.5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.enhance.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.enhance.points.div(1e6).pow(0.2); // Slight division factor
+                    diminishingFactor = player.enhance.points.div(1e6).pow(0.225); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2658,7 +2658,7 @@ addLayer("enhance", {
         23: {
             title: "Galaxy Enhancer!",
             description: "The galaxy boosts (except for Time Hack and Reality Warp) become stronger based on enhancers and unlock a second Enhancer buyable!",
-            cost: new Decimal(1000),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("enhance", 22); },
             effect() {
                 return player.enhance.points.add(10).log10().pow(0.4); // Simple multiplier
@@ -2668,10 +2668,10 @@ addLayer("enhance", {
         24: {
             title: "Layer In Sync!",
             description: "Every layer 5 currency (including enhancers themselves) gain a boost based on enhancers.",
-            cost: new Decimal(10000),
+            cost: new Decimal(5000),
             unlocked() { return hasUpgrade("enhance", 23); },
             effect() {
-                return player.enhance.points.div(1e5).add(10).log10().pow(3.5); // Simple multiplier
+                return player.enhance.points.div(1000).add(10).log10().pow(3.5); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2745,13 +2745,13 @@ addLayer("enhance", {
         11: {
             name: "Point Deterioration",
             challengeDescription: "Point gain starts divided by 1e12, and further divides by 10 every 10 seconds.",
-            goalDescription: "Reach 1e700 points.",
+            goalDescription: "Reach 1e720 points.",
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
             unlocked() { return hasUpgrade("enhance", 21); },
-            canComplete: function() { return player.points.gte("1e700") },
+            canComplete: function() { return player.points.gte("1e720") },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
-                return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.08));
+                return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.2));
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to point gain";
@@ -2966,11 +2966,11 @@ addLayer("sunny", {
         },
         22: {
             title: "It Goes Super Viral",
-            description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points!",
-            cost: new Decimal(100),
+            description: "The documentary goes viral, boosting point gain drastically based on SunnyV2 points! (initial 2.5x multi)",
+            cost: new Decimal(80),
             unlocked() { return hasUpgrade("sunny", 21); },
             effect() {
-                let base = player.sunny.points.add(1).pow(3.2); // Original effect formula
+                let base = player.sunny.points.add(1).pow(3.2).times(2.5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -2992,7 +2992,7 @@ addLayer("sunny", {
         23: {
             title: "MassiveV2",
             description: "SunnyV2's influence causes 2 new Aubrinator upgrades to be introduced and their gain to be doubled.",
-            cost: new Decimal(1000),
+            cost: new Decimal(500),
             unlocked() { return hasUpgrade("sunny", 22); },
             effect() {
                 return new Decimal(2); // Simple multiplier
@@ -3002,10 +3002,10 @@ addLayer("sunny", {
         24: {
             title: "Extensive Documentary Series",
             description: "Boost Infinity point gain based on SunnyV2 points.",
-            cost: new Decimal(10000),
+            cost: new Decimal(5000),
             unlocked() { return hasUpgrade("sunny", 23); },
             effect() {
-                return player.sunny.points.div(1e5).add(10).log10().pow(2.5); // Simple multiplier
+                return player.sunny.points.div(1000).add(10).log10().pow(2.5); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3052,7 +3052,7 @@ addLayer("sunny", {
             unlocked() { return hasUpgrade("sunny", 21); },
             canComplete: function() { return player.points.gte(1e200) },
             rewardEffect() {
-                return player.sunny.points.add(1).pow(3.2);
+                return player.sunny.points.add(1).pow(3.6);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to LTF point gain";
