@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.7",
+	num: "4.2.8",
 	name: "The Enchantment Grind",
 }
 
@@ -350,12 +350,14 @@ let changelog = `<h1>Changelog:</h1><br>
 	 	- Endgame is now e250k points with all 3 enchantment upgrades bought.<br>
    		- Enhancer challenge requirement dropped from 1e750 to 1e700 points.<br>
 	<h3>v4.2.6.1</h3><br>
-	 	- Shards have been improved, but their gain has been reduced to compensate.
+	 	- Shards have been improved, but their gain has been reduced to compensate.<br>
 	<h3>v4.2.7</h3><br>
 		- Several second row layer 5 currency upgrades have had their formulas slightly changed.<br>
 		- Slightly nerfed cost of layer 5 currency upgrades past the fourth.<br>
 		- Changed Enhancer challenge goal to 1e720.<br>
-		- Slightly buffed layer 5 challenge rewards.`
+		- Slightly buffed layer 5 challenge rewards.<br>
+	<h3>v4.2.8</h3><br>
+	 	- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
