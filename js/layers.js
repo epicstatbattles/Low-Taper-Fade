@@ -2444,7 +2444,7 @@ addLayer("vex", {
             unlocked() { return hasUpgrade("vex", 21); },
             canComplete: function() { return player.points.gte(1e100) },
             rewardEffect() {
-                return player.vex.points.add(1).pow(1.4);
+                return player.vex.points.add(1).pow(1.8);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to layer 2 currency gain";
@@ -3052,7 +3052,7 @@ addLayer("sunny", {
             unlocked() { return hasUpgrade("sunny", 21); },
             canComplete: function() { return player.points.gte(1e200) },
             rewardEffect() {
-                return player.sunny.points.add(1).pow(3.6);
+                return player.sunny.points.add(1).pow(3.5);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to LTF point gain";
