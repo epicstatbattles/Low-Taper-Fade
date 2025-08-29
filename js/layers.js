@@ -2415,7 +2415,7 @@ addLayer("vex", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(5).pow(x); // Apply the diminishing factor
+                return new Decimal(25).pow(x); // Apply the diminishing factor
             },
             canAfford() { return player.vex.points.gte(this.cost()) },
             buy() {
@@ -3023,7 +3023,7 @@ addLayer("sunny", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(4).pow(x); // Apply the diminishing factor
+                return new Decimal(20).pow(x); // Apply the diminishing factor
             },
             canAfford() { return player.sunny.points.gte(this.cost()) },
             buy() {
