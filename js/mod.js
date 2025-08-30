@@ -411,6 +411,7 @@ function getPointGen() {
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
+	if (hasUpgrade("sunny", 22)) gain = gain.times(upgradeEffect("sunny", 22));
 	let eboupg = upgradeEffect("enhance", 23).sub(1);
     if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
