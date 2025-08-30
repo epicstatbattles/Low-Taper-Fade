@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.9",
+	num: "4.2.10",
 	name: "The Enchantment Grind",
 }
 
@@ -359,7 +359,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.2.8</h3><br>
 	 	- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.<br>
 	<h3>v4.2.9</h3><br>
-	 	- Fixed SunnyV2 upgrade 2:2 accidentally boosting IP instead of regular points.`
+	 	- Fixed SunnyV2 upgrade 2:2 accidentally boosting IP instead of regular points.<br>
+	<h3>v4.2.10</h3><br>
+	 	- Slightly nerfed SunnyV2 challenge reward effect.<br>
+   		- Added a new Enhancer milestone that multiplies layer 5 currencies by 1.5 if all L5 challenges are completed.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -439,6 +442,7 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("gal", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("vex", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 1)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
