@@ -364,7 +364,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	 	- Slightly nerfed SunnyV2 challenge reward effect.<br>
    		- Added a new Enhancer milestone that multiplies layer 5 currencies by 1.5 if all L5 challenges are completed.<br>
 	<h3>v4.2.11</h3><br>
-	 	- Now Vexbolts and SunnyV2 points get doubled instead of 1.5x from the L5 challenge completion milestone.`
+	 	- Now Vexbolts and SunnyV2 points get doubled instead of 1.5x from the L5 challenge completion milestone.<br>
+   		- Slightly buffed Infinity upgrade 3:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
