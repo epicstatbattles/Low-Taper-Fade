@@ -1617,10 +1617,10 @@ addLayer("aub", {
         33: {
             title: "Short-form Summaries",
             description: "Aubrie takes inspiration from shorts creators to abbreviate her long-forms into shorts! Boost all layer 5 currency gains based on Aubrinators.",
-            cost: new Decimal("1e430"),
+            cost: new Decimal("1e435"),
             unlocked() { return hasUpgrade("aub", 32); },
             effect() {
-                let base = player.aub.points.div("1e420").add(1).pow(0.008); // Original effect formula
+                let base = player.aub.points.div("1e425").add(1).pow(0.008); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
