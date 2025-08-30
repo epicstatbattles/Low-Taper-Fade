@@ -1710,7 +1710,6 @@ addLayer("infi", {
         if (hasUpgrade("vex", 21)) mult = mult.times(upgradeEffect("vex", 21));
         if (hasChallenge("infi", 31)) mult = mult.times(challengeEffect("infi", 31));
         if (hasUpgrade("enhance", 13)) mult = mult.times(upgradeEffect("enhance", 13));
-        if (hasUpgrade("sunny", 22)) mult = mult.times(upgradeEffect("sunny", 22));
         if (hasUpgrade("mady", 32)) mult = mult.times(upgradeEffect("mady", 32));
         if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
         if (hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13));
