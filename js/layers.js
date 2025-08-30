@@ -2228,6 +2228,7 @@ addLayer("vex", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasMilestone("enhance", 1)) mult = mult.times(1.5);
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
@@ -2503,6 +2504,7 @@ addLayer("enhance", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasMilestone("enhance", 1)) mult = mult.times(1.5);
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
@@ -2763,6 +2765,12 @@ addLayer("enhance", {
             effectDescription: "Premium Enhancer!",
             done() { return player.enhance.points.gte(100); },
         },
+        1: {
+            requirementDescription: "All L5 Challenges Completed",
+            effectDescription: "Increase layer 5 currency gain by 1.5x.",
+            unlocked() { return hasChallenge("vex", 11) || hasChallenge("enhance", 11) || hasChallenge("sunny", 11); },
+            done() { return hasChallenge("vex", 11) && hasChallenge("enhance", 11) && hasChallenge("sunny", 11); },
+        },
     },
 
     tabFormat: {
@@ -2822,6 +2830,7 @@ addLayer("sunny", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
+        if (hasMilestone("enhance", 1)) mult = mult.times(1.5);
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
@@ -3051,7 +3060,7 @@ addLayer("sunny", {
             unlocked() { return hasUpgrade("sunny", 21); },
             canComplete: function() { return player.points.gte(1e200) },
             rewardEffect() {
-                return player.sunny.points.add(1).pow(3.5);
+                return player.sunny.points.add(1).pow(3.25);
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to LTF point gain";
