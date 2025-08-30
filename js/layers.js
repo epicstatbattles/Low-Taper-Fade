@@ -1968,12 +1968,12 @@ addLayer("infi", {
             cost: new Decimal(1e16),
             unlocked() { return hasUpgrade("infi", 31); },
             effect() {
-                let base = player.infi.points.div(1e14).add(1).pow(0.108); // Original effect formula
+                let base = player.infi.points.div(1e14).add(1).pow(0.096); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.infi.points.gte(new Decimal(1e32))) {
-                    diminishingFactor = player.infi.points.div(1e32).pow(0.054); // Slight division factor
+                    diminishingFactor = player.infi.points.div(1e32).pow(0.048); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
