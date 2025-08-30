@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.8",
+	num: "4.2.9",
 	name: "The Enchantment Grind",
 }
 
@@ -357,7 +357,9 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Changed Enhancer challenge goal to 1e720.<br>
 		- Slightly buffed layer 5 challenge rewards.<br>
 	<h3>v4.2.8</h3><br>
-	 	- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.`
+	 	- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.<br>
+	<h3>v4.2.9</h3><br>
+	 	- Fixed SunnyV2 upgrade 2:2 accidentally boosting IP instead of regular points.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
