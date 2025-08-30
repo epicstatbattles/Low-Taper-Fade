@@ -2228,7 +2228,7 @@ addLayer("vex", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
-        if (hasMilestone("enhance", 1)) mult = mult.times(1.5);
+        if (hasMilestone("enhance", 1)) mult = mult.times(2);
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
@@ -2767,7 +2767,7 @@ addLayer("enhance", {
         },
         1: {
             requirementDescription: "All L5 Challenges Completed",
-            effectDescription: "Increase layer 5 currency gain by 1.5x.",
+            effectDescription: "Enhancer gain is boosted by 1.5x, other L5 currencies 2x.",
             unlocked() { return hasChallenge("vex", 11) || hasChallenge("enhance", 11) || hasChallenge("sunny", 11); },
             done() { return hasChallenge("vex", 11) && hasChallenge("enhance", 11) && hasChallenge("sunny", 11); },
         },
@@ -2830,7 +2830,7 @@ addLayer("sunny", {
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("aub", 33)) mult = mult.times(upgradeEffect("aub", 33));
-        if (hasMilestone("enhance", 1)) mult = mult.times(1.5);
+        if (hasMilestone("enhance", 1)) mult = mult.times(2);
         if (hasUpgrade("enhance", 24)) mult = mult.times(upgradeEffect("enhance", 24));
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
