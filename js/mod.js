@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.2.11",
+	num: "4.3",
 	name: "The Enchantment Grind",
 }
 
@@ -365,7 +365,9 @@ let changelog = `<h1>Changelog:</h1><br>
    		- Added a new Enhancer milestone that multiplies layer 5 currencies by 1.5 if all L5 challenges are completed.<br>
 	<h3>v4.2.11</h3><br>
 	 	- Now Vexbolts and SunnyV2 points get doubled instead of 1.5x from the L5 challenge completion milestone.<br>
-   		- Slightly buffed Infinity upgrade 3:2.`
+   		- Slightly buffed Infinity upgrade 3:2.<br>
+ 	<h3>v4.3</h3><br>
+	 	- Rebalanced all the unlocked upgrades gained from the 2:3 Vexbolts and SunnyV2 upgrades.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
