@@ -2713,7 +2713,7 @@ addLayer("enhance", {
             title: "Galaxy Cheapener",
             description: "Reduces the cost scaling growth of galaxies based on the level of this upgrade (caps at level 50).",
             purchaseLimit: new Decimal(50),
-            cost(x) { return new Decimal(100).times(new Decimal(14).add(x).div(5).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(100).times(new Decimal(14).add(x).div(6).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
