@@ -372,7 +372,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	 	- Slightly reduced Enhancer buyable 2's cost scaling speed.<br>
    		- Drastically nerfed Vexbolts upgrade 2:4.<br>
 	<h3>v4.3.2</h3><br>
-	 	- Nerfed Madelizer upgrade 3:3 by around 25%.`
+	 	- Nerfed Madelizer upgrade 3:3 by around 20%.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
