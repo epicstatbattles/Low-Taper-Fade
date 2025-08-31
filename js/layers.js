@@ -1588,16 +1588,16 @@ addLayer("aub", {
             cost: new Decimal("1e400"),
             unlocked() { return hasUpgrade("aub", 31) && hasUpgrade("sunny", 23); },
             effect() {
-                let base = player.aub.points.div("1e390").add(1).pow(0.036); // Original effect formula
+                let base = player.aub.points.div("1e390").add(1).pow(0.042); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
                 if (player.aub.points.gte(new Decimal("1e720"))) {
-                    firstDiminishingFactor = player.aub.points.div("1e720").pow(0.018);
+                    firstDiminishingFactor = player.aub.points.div("1e720").pow(0.021);
                 }
 
                 if (player.aub.points.gte(new Decimal("1e1400"))) {
-                    secondDiminishingFactor = player.aub.points.div("1e1400").pow(0.009);
+                    secondDiminishingFactor = player.aub.points.div("1e1400").pow(0.00105);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
