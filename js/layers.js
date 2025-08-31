@@ -2397,7 +2397,7 @@ addLayer("vex", {
             unlocked() { return hasUpgrade("vex", 23); },
             effect() {
                 let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
-                return vexTime.add(1).pow(player.vex.points.add(1).log10().pow(2.6));
+                return vexTime.add(1).pow(player.vex.points.add(1).log10().pow(1.4));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
