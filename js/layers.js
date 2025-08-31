@@ -1089,16 +1089,16 @@ addLayer("mady", {
             cost: new Decimal("1e540"),
             unlocked() { return hasUpgrade("mady", 32); },
             effect() {
-                let base = player.mady.points.div("1e530").add(1).pow(0.5); // Original effect formula
+                let base = player.mady.points.div("1e530").add(1).pow(0.4); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
                 if (player.mady.points.gte(new Decimal("1e950"))) {
-                    firstDiminishingFactor = player.mady.points.div("1e950").pow(0.25);
+                    firstDiminishingFactor = player.mady.points.div("1e950").pow(0.2);
                 }
 
                 if (player.mady.points.gte(new Decimal("1e1800"))) {
-                    secondDiminishingFactor = player.mady.points.div("1e1800").pow(0.125);
+                    secondDiminishingFactor = player.mady.points.div("1e1800").pow(0.1);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
