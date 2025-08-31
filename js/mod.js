@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.3.1",
+	num: "4.3.2",
 	name: "The Enchantment Grind",
 }
 
@@ -370,7 +370,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	 	- Rebalanced all the unlocked upgrades gained from the 2:3 Vexbolts and SunnyV2 upgrades.<br>
 	<h3>v4.3.1</h3><br>
 	 	- Slightly reduced Enhancer buyable 2's cost scaling speed.<br>
-   		- Drastically nerfed Vexbolts upgrade 2:4.`
+   		- Drastically nerfed Vexbolts upgrade 2:4.<br>
+	<h3>v4.3.2</h3><br>
+	 	- Nerfed Madelizer upgrade 3:3 by around 25%.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
