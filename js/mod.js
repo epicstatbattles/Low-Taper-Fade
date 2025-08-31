@@ -374,7 +374,8 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.3.2</h3><br>
 	 	- Nerfed Madelizer upgrade 3:3 by around 20%.<br>
 	<h3>v4.3.3</h3><br>
-	 	- Changed how Enhancer buyable 2 works (now it raises base galaxy cost scaling by ^0.984 each purchase).`
+	 	- Changed how Enhancer buyable 2 works (now it raises base galaxy cost scaling by ^0.984 each purchase).<br>
+   		- Slightly buffed Aubrinator upgrade 3:2.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
