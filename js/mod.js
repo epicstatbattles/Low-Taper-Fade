@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.3.2",
+	num: "4.3.3",
 	name: "The Enchantment Grind",
 }
 
@@ -372,7 +372,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	 	- Slightly reduced Enhancer buyable 2's cost scaling speed.<br>
    		- Drastically nerfed Vexbolts upgrade 2:4.<br>
 	<h3>v4.3.2</h3><br>
-	 	- Nerfed Madelizer upgrade 3:3 by around 20%.`
+	 	- Nerfed Madelizer upgrade 3:3 by around 20%.<br>
+	<h3>v4.3.3</h3><br>
+	 	- Changed how Enhancer buyable 2 works (now it raises base galaxy cost scaling by ^0.984 each purchase).`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
