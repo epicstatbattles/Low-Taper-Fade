@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.3.3",
+	num: "4.3.6",
 	name: "The Enchantment Grind",
 }
 
@@ -30,7 +30,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added new layer upgrades!<br>
 		- Low Taper Fade Buyable completely removed.<br>
 		- Made the game have a higher ceiling (approx. 1.0e15).<br>
-  	<h3>v0.1.1</h3><br>
+		<h3>v0.1.1</h3><br>
 		- Fixed Upgrades doing unnecessary things.<br>
 		- Nerfed Ninja Upgrade 1:3<br>
 		- Fixed incorrect ceiling display on v0.1.<br>
@@ -38,7 +38,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added new massive layer!<br>
 		- slightly reworked a few upgrades.<br>
 		- Ceiling should now be ~1.0e30!<br>
-  	<h3>v0.2.1</h3><br>
+		<h3>v0.2.1</h3><br>
 		- Heavily nerfed massive upgrade 1 since it had an incredibly powerful effect.<br>
 	<h3>v0.2.2</h3><br>
 		- Swapped Upgrade 1 and 2 in the massive layer<br>
@@ -79,303 +79,316 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Slightly buffed LTF upgrade 6.<br>
 	<h3>v0.3.12</h3><br>
 		- Active Softcaps now have an indicator next to their effect.<br>
-        <h3>v0.3.13</h3><br>
-                - Fixed Ninja upgrade 3 boosting normal point gain.<br>
+				<h3>v0.3.13</h3><br>
+		- Fixed Ninja upgrade 3 boosting normal point gain.<br>
 	<h3>v0.3.14</h3><br>
-                - Slightly buffed LTF upgrade 6 and massive upgrade 2 to compensate for the "nerf" to progression from the v0.3.13 change.<br>
+		- Slightly buffed LTF upgrade 6 and massive upgrade 2 to compensate for the "nerf" to progression from the v0.3.13 change.<br>
 	<h3>v0.3.14.1</h3><br>
-                - Fixed previous changelog showing wrong massive upgrade.<br>
+		- Fixed previous changelog showing wrong massive upgrade.<br>
 	<h3>v0.3.15</h3><br>
-                - Slightly buffed Ninja upgrade 2:3.<br>
+		- Slightly buffed Ninja upgrade 2:3.<br>
 	<h3>v0.3.16</h3><br>
-                - Delayed the softcap on LTF upgrade 6 to 1e20 LTF points.<br>
+		- Delayed the softcap on LTF upgrade 6 to 1e20 LTF points.<br>
 	<h3>v0.3.17</h3><br>
-                - Reduced CT prestige requirement to 1e30 points.<br>
+		- Reduced CT prestige requirement to 1e30 points.<br>
 	<h3>v0.3.18</h3><br>
-                - Slightly weakened LTF upgrade 6's softcap strength.<br>
+		- Slightly weakened LTF upgrade 6's softcap strength.<br>
 		- Added small initial multipliers to massive upgrades 1 and 3.<br>
 	<h3>v0.3.18.1</h3><br>
-                - Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.<br>
+		- Fixed massive upgrade 2 getting the 1.2x initial boost instead of massive upgrade 3.<br>
 	<h3>v0.3.19</h3><br>
-                - Added a new massive upgrade!<br>
+		- Added a new massive upgrade!<br>
 	<h3>v0.3.20</h3><br>
-                - Nerfed massive upgrade 5's effect.<br>
+		- Nerfed massive upgrade 5's effect.<br>
 	<h3>v0.4</h3><br>
-                - FINALLY ADDED A NEW LAYER.<br>
+		- FINALLY ADDED A NEW LAYER.<br>
 		- Rebalanced several upgrades.<br>
 		- Ceiling should be ~1e120 now.<br>
 	<h3>v0.4.1</h3><br>
-                - Fixed a bunch of upgrade effects malfunctioning.<br>
+		- Fixed a bunch of upgrade effects malfunctioning.<br>
 	<h3>v0.4.2</h3><br>
-                - Fixed LTF upgrade 2:2 point boost effect malfunctioning.<br>
+		- Fixed LTF upgrade 2:2 point boost effect malfunctioning.<br>
 		- Slightly buffed Madelizer 2:2 upgrade formula.<br>
 	<h3>v0.4.3</h3><br>
-                - Added a softcap to massive upgrade 5 at 1e10 massive points.<br>
+		- Added a softcap to massive upgrade 5 at 1e10 massive points.<br>
 	<h3>v0.4.4</h3><br>
-                - Added a softcap to Madelizer upgrade 2:2 at 100,000 Madelizers.<br>
+		- Added a softcap to Madelizer upgrade 2:2 at 100,000 Madelizers.<br>
 	<h3>v0.5.-1</h3><br>
-                - Added, but then removed a layer due to malfunction.<br>
+		- Added, but then removed a layer due to malfunction.<br>
 	<h3>v0.5</h3><br>
-                - Added the layer again. It is very simple at the moment due to fear of another malfunction.<br>
+		- Added the layer again. It is very simple at the moment due to fear of another malfunction.<br>
 	<h3>v0.6</h3><br>
-                - Added LOTS of features to the new layer and 3 new CT upgrades!<br>
+		- Added LOTS of features to the new layer and 3 new CT upgrades!<br>
 	<h3>v0.6.1</h3><br>
-                - Rebalanced the new CT upgrade costs.<br>
+		- Rebalanced the new CT upgrade costs.<br>
 	<h3>v0.6.2</h3><br>
-                - Swapped Aubrinator upgrade effects of 2:2 and 3:1.<br>
+		- Swapped Aubrinator upgrade effects of 2:2 and 3:1.<br>
 	<h3>v0.6.3</h3><br>
-                - Rebalanced massive upgrade costs.<br>
+		- Rebalanced massive upgrade costs.<br>
 	<h3>v0.6.4</h3><br>
-                - Slightly buffed massive upgrade 4.<br>
+		- Slightly buffed massive upgrade 4.<br>
 	<h3>v0.6.5</h3><br>
-                - Added initial multipliers to some of the CT subscriber, Madelizer, and Aubrinator upgrades.<br>
+		- Added initial multipliers to some of the CT subscriber, Madelizer, and Aubrinator upgrades.<br>
 	<h3>v0.6.6</h3><br>
-                - Reworked Aubrinator and Madelizer upgrade costs.<br>
+		- Reworked Aubrinator and Madelizer upgrade costs.<br>
 	<h3>v0.6.7</h3><br>
-                - Fixed Madelizer upgrade 1:1 not working as intended.<br>
+		- Fixed Madelizer upgrade 1:1 not working as intended.<br>
 	<h3>v0.6.8</h3><br>
-                - Buffed Aubrinator and Madelizer conversion rates.<br>
+		- Buffed Aubrinator and Madelizer conversion rates.<br>
 	<h3>v0.6.9</h3><br>
-                - Fixed a few unlock conditions being buggy.<br>
+		- Fixed a few unlock conditions being buggy.<br>
 		- Fixed accidental mega-buffing of Madelizer upgrade 2:2.<br>
 	<h3>v0.6.10</h3><br>
-                - Buffed Madelizer upgrade 3:1.<br>
+		- Buffed Madelizer upgrade 3:1.<br>
 		- Reduced softcap effectiveness of massive upgrade 5 to prevent its effect from decaying at ~2e10 massive points.<br>
 	<h3>v0.6.11</h3><br>
-                - Slightly rebalanced Aubrinator costs.<br>
+		- Slightly rebalanced Aubrinator costs.<br>
 		- Nerfed LTF upgrade 2:2.<br>
 	<h3>v0.6.12</h3><br>
-                - Slightly nerfed all dynamic boosts for CT subs, Madelizers, and Aubrinators.<br>
+		- Slightly nerfed all dynamic boosts for CT subs, Madelizers, and Aubrinators.<br>
 	<h3>v0.6.13</h3><br>
-                - Added a super softcap for LTF upgrade 2:1 at 1e80 LTF points.<br>
+		- Added a super softcap for LTF upgrade 2:1 at 1e80 LTF points.<br>
 		- Added super softcaps for Ninja upgrades 1:3 and 2:2 at 1e40 Ninja points.<br>
 		- Added a softcap for Ninja upgrade 1:2 at 1e20 Ninja points.<br>
 	<h3>v0.6.14</h3><br>
-                - Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.<br>
+		- Added softcaps for every massive upgrade except massive upgrade 2. For massive upgrade 1 and 3, 1e15, and for massive upgrade 4, 1e20.<br>
 	<h3>v1.0</h3><br>
-                - Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points with 6 upgrades.<br>
+		- Ultra released!!!! Added Infinity prestige layer at 1.7976e308 points with 6 upgrades.<br>
 	<h3>v1.1</h3><br>
-                - Rebalanced/fixed several upgrades and made the game not crash when buying Infinity upgrade 1:1.<br>
+		- Rebalanced/fixed several upgrades and made the game not crash when buying Infinity upgrade 1:1.<br>
 		- Fixed infinity layer not showing up at the correct amount of points.<br>
 	<h3>v1.1.1</h3><br>
-                - Slightly nerfed Madelizer upgrade 2:2.<br>
+		- Slightly nerfed Madelizer upgrade 2:2.<br>
 	<h3>v1.1.2</h3><br>
-                - Slightly buffed Infinity upgrade 1:2.<br>
+		- Slightly buffed Infinity upgrade 1:2.<br>
 		- Reduced massive upgrade 5's cost to 100,000 and slightly buffed its effect.<br>
 	<h3>v1.2</h3><br>
-                - Rebalanced several mid to late-game upgrades.<br>
+		- Rebalanced several mid to late-game upgrades.<br>
 	<h3>v1.2.1</h3><br>
-                - Added a softcap to LTF upgrade 2:5 at 1e300 points.<br>
+		- Added a softcap to LTF upgrade 2:5 at 1e300 points.<br>
 		- Nerfed Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.2</h3><br>
-                - Added softcaps to both LTF upgrade 2:2 effects (at 1e200 points and 1e180 LTF points)<br>
+		- Added softcaps to both LTF upgrade 2:2 effects (at 1e200 points and 1e180 LTF points)<br>
 	<h3>v1.2.3</h3><br>
-                - Slightly buffed Aubrinator upgrade 2:1.<br>
+		- Slightly buffed Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.4</h3><br>
-                - Buffed Madelizer upgrade 2:2.<br>
+		- Buffed Madelizer upgrade 2:2.<br>
 	<h3>v1.2.5</h3><br>
-                - Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.<br>
+		- Nerfed the Ninja self-boost part of Aubrinator upgrade 2:1.<br>
 	<h3>v1.2.6</h3><br>
-                - Added a buyable to Infinity layer, costing 40 IP.<br>
+		- Added a buyable to Infinity layer, costing 40 IP.<br>
 	<h3>v1.2.6.1</h3><br>
-                - Set an endgame at 1e800 points.<br>
+		- Set an endgame at 1e800 points.<br>
 	<h3>v1.3</h3><br>
-                - Added softcaps to Madelizer upgrades 1:3, 2:3, and 3:1, all at 1e40 Madelizers.<br>
+		- Added softcaps to Madelizer upgrades 1:3, 2:3, and 3:1, all at 1e40 Madelizers.<br>
 		- Added softcaps to Aubrinator upgrades 1:3 (at 1e32), 2:1 (at 1e28), and 2:3 (at 1e32).<br>
 		- Slightly buffed Infinity buyable effect.<br>
 		- Changed Infinity milestone requirement to 1,000 IP.<br>
 	<h3>v1.4</h3><br>
-                - Added 2 new Infinity upgrades.<br>
-                - Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).<br>
+		- Added 2 new Infinity upgrades.<br>
+		- Added 2 new Ninja and massive upgrades (try to find out the softcaps yourself before v1.5).<br>
 	<h3>v1.4.1</h3><br>
-                - Added an Infinity challenge!<br>
+		- Added an Infinity challenge!<br>
 	<h3>v1.4.2</h3><br>
-                - Delayed 1:3, 2:3, and 3:3 Madelizer softcaps to 1e50.<br>
+		- Delayed 1:3, 2:3, and 3:3 Madelizer softcaps to 1e50.<br>
 		- Delayed 1:3 and 2:3 Aubrinator softcaps to 1e40 and 2:1 to 1e36.<br>
 	<h3>v1.4.3</h3><br>
-                - Significantly buffed CT upgrades 1:3 and 2:1, and slightly buffed CT upgrades 2:3 and 3:1.<br>
+		- Significantly buffed CT upgrades 1:3 and 2:1, and slightly buffed CT upgrades 2:3 and 3:1.<br>
 		- Added softcaps to all mentioned CT upgrades at 1e45 CT subscribers.<br>
 	<h3>v1.4.4</h3><br>
-                - Returned 1:3 and 2:1 formulas to before v1.4.3 (and removed the softcaps), but slightly buffed.<br>
+		- Returned 1:3 and 2:1 formulas to before v1.4.3 (and removed the softcaps), but slightly buffed.<br>
 		- Slightly weakened softcap effectiveness of CT upgrades 2:3 and 3:1 and adjusted the softcap start to 1e40.<br>
 	<h3>v1.4.5</h3><br>
-                - Delayed CT upgrades 2:3 and 3:1 to 1e45.<br>
+		- Delayed CT upgrades 2:3 and 3:1 to 1e45.<br>
 		- Delayed Aubrinator upgrades 1:3 and 2:3 to 1e45 and Aubrinator upgrade 2:1 to 1e40.<br>
 		- Delayed Madelizer upgrades 1:3, 2:3, and 3:1 to 1e55.<br>
 		- Slightly reduced the effectiveness of most of the above mentioned's softcaps.<br>
 	<h3>v1.4.6</h3><br>
-                - Rebalanced the recently added massive and Ninja upgrade costs.<br>
+		- Rebalanced the recently added massive and Ninja upgrade costs.<br>
 	<h3>v1.4.7</h3><br>
-                - Reduced the exponent-based nerf (now 0.85) in the first Infinity challenge.<br>
+		- Reduced the exponent-based nerf (now 0.85) in the first Infinity challenge.<br>
 		- Added a new Infinity challenge and buyable!<br>
 	<h3>v1.4.8</h3><br>
-                - Exponent nerf in IC1 is now 0.9.<br>
+		- Exponent nerf in IC1 is now 0.9.<br>
 	<h3>v1.4.9</h3><br>
-                - Added softcaps for Infinity upgrades 1:3, 1:4, 2:1, and 2:2 at 1,000,000 Infinity points.<br>
+		- Added softcaps for Infinity upgrades 1:3, 1:4, 2:1, and 2:2 at 1,000,000 Infinity points.<br>
 	<h3>v1.4.10</h3><br>
-                - Slightly buffed massive upgrade 2:2.<br>
+		- Slightly buffed massive upgrade 2:2.<br>
 	<h3>v1.4.11</h3><br>
-                - Added softcaps to the buyables at 1,000,000 Infinity points.<br>
+		- Added softcaps to the buyables at 1,000,000 Infinity points.<br>
 		- Adjusted goal of IC2 to be 1e84 points.<br>
 	<h3>v1.4.12</h3><br>
-                - Added a third Infinity challenge.<br>
+		- Added a third Infinity challenge.<br>
 		- Adjusted endgame to be 1e1000 points.<br>
 		- Added 2 new Infinity upgrades.<br>
 	<h3>v1.4.13</h3><br>
-                - Adjusted IC3 goal to 1e450 points.<br>
+		- Adjusted IC3 goal to 1e450 points.<br>
 		- Adjusted endgame to be 1e1200 points.<br>
 	<h3>v1.4.14</h3><br>
-                - Slightly reworked Infinity upgrade 3:1 and 3:2 upgrade costs and formulas.<br>
+		- Slightly reworked Infinity upgrade 3:1 and 3:2 upgrade costs and formulas.<br>
 	<h3>v1.4.15</h3><br>
-                - Strengthened the softcaps of CT upgrades 2:3 and 3:1 to be similar to those of Aubrinator and Madelizer upgrade softcaps.<br>
+		- Strengthened the softcaps of CT upgrades 2:3 and 3:1 to be similar to those of Aubrinator and Madelizer upgrade softcaps.<br>
 	<h3>v1.4.16</h3><br>
-                - Slightly nerfed Infinity upgrade 3:1 and made its softcap start sooner (1e18).<br>
+		- Slightly nerfed Infinity upgrade 3:1 and made its softcap start sooner (1e18).<br>
 	<h3>v1.4.17</h3><br>
-                - Added a new infinity upgrade and reworked Infinity upgrade 3:1 entirely.<br>
+		- Added a new infinity upgrade and reworked Infinity upgrade 3:1 entirely.<br>
 		- Adjusted endgame to be at 1e1500 points.<br>
 	<h3>v1.4.18</h3><br>
-                - Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2.<br>
+		- Added super softcaps for every CT, Madelizer, and Aubrinator upgrade that has softcaps. (except for Madelizer upgrade 2:2.<br>
 	<h3>v2.0</h3><br>
-                - Added a new post-infinity layer! (2 more are on the way).<br>
+		- Added a new post-infinity layer! (2 more are on the way).<br>
 		- Adjusted endgame to now be at 1e3000 points.<br>
 	<h3>v2.1</h3><br>
-                - Added another post-infinity layer! (1 more is on the way).<br>
+		- Added another post-infinity layer! (1 more is on the way).<br>
 	<h3>v2.2</h3><br>
-                - Added the final post-infinity layer in the set (all basic right now with 3 upgrades).<br>
+		- Added the final post-infinity layer in the set (all basic right now with 3 upgrades).<br>
 	<h3>v2.2.1</h3><br>
-                - Changed Vexbolts requirement amount to 1e400.<br>
+		- Changed Vexbolts requirement amount to 1e400.<br>
 		- Buffed enhancer upgrade 1 to be based on enhancers instead of just being static.<br>
 		- Fixed SunnyV2 description showing enhancer description.<br>
 	<h3>v2.2.2</h3><br>
-                - Buffed Aubrinator upgrade 3:1.<br>
+		- Buffed Aubrinator upgrade 3:1.<br>
 		- Changed SunnyV2 requirement amount to 1e310.<br>
 	<h3>v2.2.3</h3><br>
-                - Buffed a few Vexbolts, enhancers, and SunnyV2 upgrades.<br>
+		- Buffed a few Vexbolts, enhancers, and SunnyV2 upgrades.<br>
 		- Changed Infinity upgrade 3:4 softcap to 1e33.<br>
 		- Reworked cost scaling for the Infinity buyables.<br>
 	<h3>v2.3</h3><br>
-                - Added softcaps to many layer 5 currency upgrades at 10,000 of their respective currencies.<br>
+		- Added softcaps to many layer 5 currency upgrades at 10,000 of their respective currencies.<br>
 		- Added 1 new upgrade for each layer 5 currency.<br>
 		- Made the Infinity buyable cost scaling for both buyables a bit more aggressive.<br>
 	<h3>v2.3.1</h3><br>
-                - Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.<br>
+		- Added super softcaps to several Infinity upgrades, those being 1:3, 1:4, 2:1, 2:2, 3:1, and 3:4.<br>
 	<h3>v2.4</h3><br>
-                - Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.<br>
+		- Added galaxies!! They boost Ninja and massive point gain and cost Infinity points. It's also a static layer, so you cannot obtain them in bulk.<br>
 	<h3>v2.5</h3><br>
-                - Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!<br>
+		- Added 2 new upgrades to each layer 5 currency. One of the upgrades now makes milestones actually do something!<br>
 	<h3>v2.5.Valentine</h3><br>
-                - Added a limited-time Valentine's Day currency! It will award some small boosts to layers 1-3 and will extend to the 15th of February. On Valentine's Day, the bonuses will be squared.<br>
+		- Added a limited-time Valentine's Day currency! It will award some small boosts to layers 1-3 and will extend to the 15th of February. On Valentine's Day, the bonuses will be squared.<br>
 	<h3>v3.0.Valentine</h3><br>
-                - Added point slowdowns to Infinity points past 1e30.<br>
+		- Added point slowdowns to Infinity points past 1e30.<br>
 		- Added 2 more upgrades to each 5 layer currency!<br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
 		- Made Enhancer upgrade 2:1's formula dynamic.<br>
 		- Added point slowdowns to all layer 3 currencies after getting a good amount of their layer 5 points.<br>
 		- Added 1 new Valentine's Day upgrade.<br>
 	<h3>v3.1.Valentine</h3><br>
-                - Added a challenge to each layer 5 currency!<br>
+		- Added a challenge to each layer 5 currency!<br>
 		- Added a buyable to each 5 layer currency (Enhancers get 2)!<br>
 		- Added 2 more Madelizer and Aubrinator upgrades!<br>
 		- Reworked how the Enhancer challenge's decay works, and buffed its reward.<br>
 	<h3>v3.1.1</h3><br>
-                - Reworked the Vexbolts and SunnyV2 challenge requirements.<br>
+		- Reworked the Vexbolts and SunnyV2 challenge requirements.<br>
 		- Removed the Valentine's Day event.<br>
 		- Slightly changed some layer 5 upgrade formulas to prepare for the last layer!<br>
 	<h3>v4.0</h3><br>
-                - Added a new (and the final) layer with 5 upgrades right now (now we have 6 layers).<br>
+		- Added a new (and the final) layer with 5 upgrades right now (now we have 6 layers).<br>
 		- Added 3 new galaxy upgrades. The last two introduce a new mechanic (Passive prestige point generation, which is why you see per sec values).<br>
 	<h3>v4.1</h3><br>
-                - Added the next 5 upgrades, a buyable, and a challenge to top the new layer off. (endgame set to e100k)<br>
+		- Added the next 5 upgrades, a buyable, and a challenge to top the new layer off. (endgame set to e100k)<br>
 	<h3>v4.1.1</h3><br>
-                - Added circles, as a small way to progress a bit faster.<br>
+		- Added circles, as a small way to progress a bit faster.<br>
 		- Slightly nerfed effects of liquidcashews inflators.<br>
 	<h3>v4.1.2</h3><br>
-                - Added 1 more circle upgrade, now you can get different color upgrades.<br>
+		- Added 1 more circle upgrade, now you can get different color upgrades.<br>
 		- Slightly reworked upgrade effects of the first 5 circle upgrades.<br>
 	<h3>v4.1.3</h3><br>
-                - Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
+		- Rolled out 2 more of the tier 2 circle upgrades and made circle upgrades 3 and beyond way more expensive.<br>
 		- Added 3 brand new circle buyables.<br>
-  		- Nerfed circle generation beyond around 100k normal points.<br>
+		- Nerfed circle generation beyond around 100k normal points.<br>
 	<h3>v4.1.4 (EMERGENCY NERFING CIRCLES)</h3><br>
- 		- Added a softcap to circle gain past 1000 gained circles.<br>
+		- Added a softcap to circle gain past 1000 gained circles.<br>
 		- Made the circle upgrades 3 and beyond more expensive again.<br>
 		- Nerfed circle upgrade 2's effect.<br>
-  		- Nerfed base circle production by 60%!<br>
-    		- Nerfed circle upgrade 1's mid-to-lategame effect to now be logarithmed.<br>
-      		- Circle upgrade 1's change is actually a buff during early game.<br>
+		- Nerfed base circle production by 60%!<br>
+		- Nerfed circle upgrade 1's mid-to-lategame effect to now be logarithmed.<br>
+		- Circle upgrade 1's change is actually a buff during early game.<br>
 		- Nerfed circle upgrade 5's effect by a significant amount.<br>
-  		- Nerfed first 2 circle buyable effects.<br>
+		- Nerfed first 2 circle buyable effects.<br>
 	<h3>v4.1.5</h3><br>
- 		- Slightly strengthened softcap past 1000 gained circles.<br>
+		- Slightly strengthened softcap past 1000 gained circles.<br>
 		- Slightly nerfed circle upgrades 2 and 3.<br>
 		- Moved Circle Master Achievement from 1.00e20 to 1.00e30 and buffed its boost from 20% to 30%.<br>
 		- Changed cost of circle upgrade 3 for probably the last time (50000 --> 100k).<br>
 	<h3>v4.1.6</h3><br>
- 		- Changed how the circle softcap works. Now it's stronger, but starts later, at 10k circles in fact.<br>
-   		- Slightly nerfed circle upgrade 3.<br>
+		- Changed how the circle softcap works. Now it's stronger, but starts later, at 10k circles in fact.<br>
+		- Slightly nerfed circle upgrade 3.<br>
 	<h3>v4.1.7</h3><br>
- 		- Rolled out 2 more circle upgrades, now a total of 10 upgrades!<br>
-   		- Adjusted circle milestone goal.<br>
+		- Rolled out 2 more circle upgrades, now a total of 10 upgrades!<br>
+		- Adjusted circle milestone goal.<br>
 	<h3>v4.1.8</h3><br>
- 		- Heavily nerfed circle upgrade 9 since it wasn't just granting a slight boost, and slightly nerfed circle upgrade 10.<br>
-   		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.<br>
+		- Heavily nerfed circle upgrade 9 since it wasn't just granting a slight boost, and slightly nerfed circle upgrade 10.<br>
+		- Fixed a display error which caused circle upgrade 10's effect to show a multiplier instead of an exponent.<br>
 	<h3>v4.1.9</h3><br>
- 		- Applied a small nerf to most of the LC inflator upgrades, and fixed some display and hotkey issues associated with that layer.<br>
-   		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.<br>
+		- Applied a small nerf to most of the LC inflator upgrades, and fixed some display and hotkey issues associated with that layer.<br>
+		- Added a new layer on the same level as the LC inflators, Enchantment, allowing to polish point gains even further.<br>
 	<h3>v4.2</h3><br>
- 		- Fixed a few small bugs with the enchantment layer.<br>
-   		- Hugely nerfed LC inflators and enchantment point gains.<br>
+		- Fixed a few small bugs with the enchantment layer.<br>
+		- Hugely nerfed LC inflators and enchantment point gains.<br>
 	<h3>v4.2.1</h3><br>
- 		- Applied a softcap to circle buyables after you purchase them 10 times.<br>
+		- Applied a softcap to circle buyables after you purchase them 10 times.<br>
 		- Now Ninja and Massive are hidden until you get to 1000 LTF points and 100k points respectively.<br>
 	<h3>v4.2.2</h3><br>
- 		- Added slowdowns to LTF, Ninja, and massive points at e1800, e1400, and e750 of their point types respectively.<br>
+		- Added slowdowns to LTF, Ninja, and massive points at e1800, e1400, and e750 of their point types respectively.<br>
 		- Nerfed several starting values for layer 5 currency upgrades.<br>
-  		- Nerfed layer 5 currency gains, as after playtesting, I found out it was extremely OP.<br>
+		- Nerfed layer 5 currency gains, as after playtesting, I found out it was extremely OP.<br>
 		- Reduced the cost of galaxies to start at 1e36 IP instead of 1e40 IP.<br>
 	<h3>v4.2.3</h3><br>
- 		- Changed slowdown threshold of LTF, Ninja, and massive points to e2000, e1500, and e800 respectively.<br>
+		- Changed slowdown threshold of LTF, Ninja, and massive points to e2000, e1500, and e800 respectively.<br>
 		- Slowdown thresholds of Madelizer, CT subscriber, and Aubrinator points have been shifted to e450, e400, and e360 respectively.<br>
 	<h3>v4.2.4</h3><br>
- 		- Buffed base Galaxy effects.<br>
+		- Buffed base Galaxy effects.<br>
 		- Slightly re-buffed the layer currency 5 gains.<br>
-  		- Changed costs of each layer 5 currency upgrade past the fourth.<br>
+		- Changed costs of each layer 5 currency upgrade past the fourth.<br>
 		- Enhancer Buyable 2 has its base cost reduced from 10000 to 100.<br>
-  		- Slightly changed the aggression of some buyables.<br>
-  	<h3>v4.2.5</h3><br>
- 		- Introduced shards, a new Enhancer currency (not spendable as of now) that's used to reduce the effects of resource gain softcaps.<br>
+		- Slightly changed the aggression of some buyables.<br>
+		<h3>v4.2.5</h3><br>
+		- Introduced shards, a new Enhancer currency (not spendable as of now) that's used to reduce the effects of resource gain softcaps.<br>
 	<h3>v4.2.6</h3><br>
- 		- Fixed shards not being awarded if you bought Enhancer upgrades before v4.2.5.<br>
-   		- Galaxy base cost multi has been changed to x1,000 instead of x10,000 and Galaxy Cheapener effect reduced to /1.08 reduction from /1.1 per upgrade.<br>
-	 	- Endgame is now e250k points with all 3 enchantment upgrades bought.<br>
-   		- Enhancer challenge requirement dropped from 1e750 to 1e700 points.<br>
+		- Fixed shards not being awarded if you bought Enhancer upgrades before v4.2.5.<br>
+		- Galaxy base cost multi has been changed to x1,000 instead of x10,000 and Galaxy Cheapener effect reduced to /1.08 reduction from /1.1 per upgrade.<br>
+		- Endgame is now e250k points with all 3 enchantment upgrades bought.<br>
+		- Enhancer challenge requirement dropped from 1e750 to 1e700 points.<br>
 	<h3>v4.2.6.1</h3><br>
-	 	- Shards have been improved, but their gain has been reduced to compensate.<br>
+		- Shards have been improved, but their gain has been reduced to compensate.<br>
 	<h3>v4.2.7</h3><br>
 		- Several second row layer 5 currency upgrades have had their formulas slightly changed.<br>
 		- Slightly nerfed cost of layer 5 currency upgrades past the fourth.<br>
 		- Changed Enhancer challenge goal to 1e720.<br>
 		- Slightly buffed layer 5 challenge rewards.<br>
 	<h3>v4.2.8</h3><br>
-	 	- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.<br>
+		- Buffed the effects of Vexbolts (5x to 25x) and SunnyV2 (4x to 20x) buyables.<br>
 	<h3>v4.2.9</h3><br>
-	 	- Fixed SunnyV2 upgrade 2:2 accidentally boosting IP instead of regular points.<br>
+		- Fixed SunnyV2 upgrade 2:2 accidentally boosting IP instead of regular points.<br>
 	<h3>v4.2.10</h3><br>
-	 	- Slightly nerfed SunnyV2 challenge reward effect.<br>
-   		- Added a new Enhancer milestone that multiplies layer 5 currencies by 1.5 if all L5 challenges are completed.<br>
+		- Slightly nerfed SunnyV2 challenge reward effect.<br>
+		- Added a new Enhancer milestone that multiplies layer 5 currencies by 1.5 if all L5 challenges are completed.<br>
 	<h3>v4.2.11</h3><br>
-	 	- Now Vexbolts and SunnyV2 points get doubled instead of 1.5x from the L5 challenge completion milestone.<br>
-   		- Slightly buffed Infinity upgrade 3:2.<br>
- 	<h3>v4.3</h3><br>
-	 	- Rebalanced all the unlocked upgrades gained from the 2:3 Vexbolts and SunnyV2 upgrades.<br>
+		- Now Vexbolts and SunnyV2 points get doubled instead of 1.5x from the L5 challenge completion milestone.<br>
+		- Slightly buffed Infinity upgrade 3:2.<br>
+	<h3>v4.3</h3><br>
+		- Rebalanced all the unlocked upgrades gained from the 2:3 Vexbolts and SunnyV2 upgrades.<br>
 	<h3>v4.3.1</h3><br>
-	 	- Slightly reduced Enhancer buyable 2's cost scaling speed.<br>
-   		- Drastically nerfed Vexbolts upgrade 2:4.<br>
+		- Slightly reduced Enhancer buyable 2's cost scaling speed.<br>
+		- Drastically nerfed Vexbolts upgrade 2:4.<br>
 	<h3>v4.3.2</h3><br>
-	 	- Nerfed Madelizer upgrade 3:3 by around 20%.<br>
+		- Nerfed Madelizer upgrade 3:3 by around 20%.<br>
 	<h3>v4.3.3</h3><br>
-	 	- Changed how Enhancer buyable 2 works (now it raises base galaxy cost scaling by ^0.984 each purchase).<br>
-   		- Slightly buffed Aubrinator upgrade 3:2.`
+		- Changed how Enhancer buyable 2 works (now it raises base galaxy cost scaling by ^0.984 each purchase).<br>
+		- Slightly buffed Aubrinator upgrade 3:2.<br>
+	<h3>v4.3.4</h3><br>
+		- Buffed some of the LC inflator upgrades.<br>
+		- Lowered the requirement for Vexbolts and SunnyV2 challenges.<br>
+		- Slightly lowered the second Galaxy upgrade's effect.<br>
+		- Slightly nerfed Enhancer upgrade 2:4.<br>
+	<h3>v4.3.5</h3><br>
+		- Buffed SunnyV2 upgrade 2:4, reworked its formula to base off /100 rather than /1000 SunnyV2 points before logging and powering.<br>
+		- Nerfed Vexbolts upgrade 2:4 again, now its formula grows slower.<br>
+		- Nerfed Galaxy upgrade Patience Boost since it was easily able to reach Illuminant Galaxies's Effect in about a minute.<br>
+		- Added point slowdowns to all layer 5 currencies at 100M of their point types, unaffected by shards.<br>
+		- Added a softcap to Vexbolts upgrade 1:1 at 10000 Vexbolts points.<br>
+	<h3>v4.3.6</h3><br>
+		- Added a softcap to Enhancer upgrade 2:4 at 1M Enhancers.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -385,7 +398,7 @@ let winText = `Congratulations! You have reached the end and beaten this game, b
 var doNotCallTheseFunctionsEveryTick = ["blowUpEverything"]
 
 function getStartPoints(){
-    return new Decimal(modInfo.initialStartPoints)
+		return new Decimal(modInfo.initialStartPoints)
 }
 
 // Determines if it should show points/sec
@@ -399,14 +412,14 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-    if (hasUpgrade("ltf", 11)) gain = gain.times(2);
+	if (hasUpgrade("ltf", 11)) gain = gain.times(2);
 	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5);
-   	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
-   	if (hasUpgrade("ltf", 21)) gain = gain.times(upgradeEffect("ltf", 21));
+	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
+	if (hasUpgrade("ltf", 21)) gain = gain.times(upgradeEffect("ltf", 21));
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
 	if (hasUpgrade("ninja", 12)) gain = gain.times(upgradeEffect("ninja", 12));
- 	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
- 	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
+	if (hasUpgrade("ninja", 21)) gain = gain.times(upgradeEffect("ninja", 21));
+	if (hasUpgrade("ninja", 22)) gain = gain.times(upgradeEffect("ninja", 22));
 	if (hasUpgrade("massive", 12)) gain = gain.times(upgradeEffect("massive", 12));
 	if (hasUpgrade("ct", 11)) gain = gain.times(upgradeEffect("ct", 11));
 	if (hasUpgrade("ct", 13)) gain = gain.times(upgradeEffect("ct", 13));
@@ -416,8 +429,8 @@ function getPointGen() {
 	if (hasUpgrade("ltf", 22)) gain = gain.times(upgradeEffect("ltf", 22).pointsBoost);
 	if (hasUpgrade("ct", 31)) gain = gain.times(upgradeEffect("ct", 31));
 	if (hasUpgrade("infi", 11)) gain = gain.times(upgradeEffect("infi", 11));
-    if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
-    gain = gain.times(buyableEffect("infi", 11));
+	if (hasUpgrade("infi", 13)) gain = gain.times(upgradeEffect("infi", 13));
+	gain = gain.times(buyableEffect("infi", 11));
 	gain = gain.times(buyableEffect("liquid", 11));
 	if (hasChallenge("infi", 11)) gain = gain.times(challengeEffect("infi", 11));
 	if (hasUpgrade("infi", 34)) gain = gain.times(upgradeEffect("infi", 34));
@@ -431,7 +444,7 @@ function getPointGen() {
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("sunny", 22)) gain = gain.times(upgradeEffect("sunny", 22));
 	let eboupg = upgradeEffect("enhance", 23).sub(1);
-    if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
+	if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	if (hasUpgrade("revo", 12)) gain = gain.times(upgradeEffect("revo", 12));
 	if (hasUpgrade("revo", 24)) gain = gain.times(upgradeEffect("revo", 24));
