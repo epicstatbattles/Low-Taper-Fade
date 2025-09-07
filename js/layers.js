@@ -642,7 +642,7 @@ addLayer("massive", {
     branches: ["ltf"], // Branch from the LTF layer visually
 
     hotkeys: [
-        { key: "f", description: "F: Reset for Massive points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+        { key: "m", description: "M: Reset for Massive points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
 
     upgrades: {
@@ -2219,6 +2219,7 @@ addLayer("vex", {
     baseAmount() { return player.mady.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.0116, // Scaling factor for prestige points
+    softcap: new Decimal("100000000"),
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2251,9 +2252,24 @@ addLayer("vex", {
             description: "Vexbolts' meme Let Him Cook becomes viral! Boost point gain quadratically based on Vexbolts points (initial 250x multi).",
             cost: new Decimal(1),
             effect() {
-                return player.vex.points.add(1).pow(2).times(250); // Complex multiplier
+                let base = player.vex.points.add(1).pow(2).times(250); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.vex.points.gte(new Decimal(10000))) {
+                    diminishingFactor = player.vex.points.div(10000); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.vex.points.gte(10000); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         12: {
             title: "Unemployed Brainrot Banger",
@@ -2397,7 +2413,7 @@ addLayer("vex", {
             unlocked() { return hasUpgrade("vex", 23); },
             effect() {
                 let vexTime = new Decimal(player.vex.resetTime); // Complex multiplier
-                return vexTime.add(1).pow(player.vex.points.add(1).log10().pow(1.4));
+                return vexTime.add(1).pow(player.vex.points.div(10).add(1).log10().pow(1.4));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2439,10 +2455,10 @@ addLayer("vex", {
         11: {
             name: "Meme Drag Ban",
             challengeDescription: "All people layers before Infinity (Ninja, Madelizers, and Aubrinators) do not work.",
-            goalDescription: "Reach 1e100 points.",
+            goalDescription: "Reach 1e90 points.",
             rewardDescription: "Vexbolts points boost Ninja and massive point gain.",
             unlocked() { return hasUpgrade("vex", 21); },
-            canComplete: function() { return player.points.gte(1e100) },
+            canComplete: function() { return player.points.gte(1e90) },
             rewardEffect() {
                 return player.vex.points.add(1).pow(1.8);
             },
@@ -2464,6 +2480,12 @@ addLayer("vex", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                    if (player.vex.points.gte(new Decimal(1e7))) {
+                        return '<span style="color: red;">Vexbolts point gains will slow down beyond 100,000,000 Vexbolts points.</span>';
+                    }
+                    return "";
+                }],
                 "upgrades",
                 "buyables",
                 "challenges",
@@ -2495,6 +2517,7 @@ addLayer("enhance", {
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.0124, // Scaling factor for prestige points
+    softcap: new Decimal("100000000"),
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2672,9 +2695,24 @@ addLayer("enhance", {
             cost: new Decimal(5000),
             unlocked() { return hasUpgrade("enhance", 23); },
             effect() {
-                return player.enhance.points.div(1000).add(10).log10().pow(3.5); // Simple multiplier
+                let base = player.enhance.points.div(1000).add(10).log10().pow(3.2); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.enhance.points.gte(new Decimal(1e6))) {
+                    diminishingFactor = player.enhance.points.div(100000).log10().pow(0.64); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.enhance.points.gte(1e6); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
     },
     buyables: {
@@ -2787,10 +2825,16 @@ addLayer("enhance", {
                 "resource-display",
                 ["display-text", function() {
                 if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
-                    return "You have " + player.enhance.shards + " shards, making the resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
+                    return "You have " + player.enhance.shards + " shards, making the pre-layer-5 resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
                 }
                 return "";
             }],
+                ["display-text", function() {
+                    if (player.enhance.points.gte(new Decimal(1e7))) {
+                        return '<span style="color: red;">Enhancer gains will slow down beyond 100,000,000 Enhancers.</span>';
+                    }
+                    return "";
+                }],
                 "upgrades",
                 "buyables",
                 "challenges",
@@ -2821,6 +2865,7 @@ addLayer("sunny", {
     baseAmount() { return player.aub.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.0132, // Scaling factor for prestige points
+    softcap: new Decimal("100000000"),
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -3013,7 +3058,7 @@ addLayer("sunny", {
             cost: new Decimal(5000),
             unlocked() { return hasUpgrade("sunny", 23); },
             effect() {
-                return player.sunny.points.div(1000).add(10).log10().pow(2.5); // Simple multiplier
+                return player.sunny.points.div(100).add(10).log10().pow(3.6); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3055,10 +3100,10 @@ addLayer("sunny", {
         11: {
             name: "Meme Growth Prevention",
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
-            goalDescription: "Reach 1e200 points.",
+            goalDescription: "Reach 1e180 points.",
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
             unlocked() { return hasUpgrade("sunny", 21); },
-            canComplete: function() { return player.points.gte(1e200) },
+            canComplete: function() { return player.points.gte(1e180) },
             rewardEffect() {
                 return player.sunny.points.add(1).pow(3.25);
             },
@@ -3081,6 +3126,12 @@ addLayer("sunny", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                    if (player.sunny.points.gte(new Decimal(1e7))) {
+                        return '<span style="color: red;">SunnyV2 point gains will slow down beyond 100,000,000 SunnyV2 points.</span>';
+                    }
+                    return "";
+                }],
                 "upgrades",
                 "buyables",
                 "challenges",
@@ -3150,7 +3201,7 @@ addLayer("gal", {
             unlocked() { return hasUpgrade("gal", 11); },
             effect() {
                 let galaxyTime = new Decimal(player.infi.resetTime); // Complex multiplier
-                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(1.2));
+                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.96));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3252,7 +3303,7 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(4.2).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(4.8).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3263,7 +3314,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2.6).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(3.2).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3280,7 +3331,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.8).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(2.1).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3291,7 +3342,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.4).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(1.5).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3308,7 +3359,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.32).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.36).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3319,7 +3370,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.18).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.15).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3330,7 +3381,7 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.08).pow(player.liquid.points.add(10).log10().pow(1.5));
+                return inflateTime.add(1).pow(0.06).pow(player.liquid.points.add(10).log10().pow(1.5));
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3919,7 +3970,7 @@ addLayer("enchant", {
         },
         "About": {
             content: [
-                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
+                ["raw-html", () => "The lategame progression mechanic meant to be a grind quest, how far can you venture?"],
             ],
         },
     },
