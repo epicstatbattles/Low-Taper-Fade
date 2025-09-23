@@ -16,11 +16,16 @@ addLayer("ltf", {
     type: "normal", // Standard prestige layer type
     exponent: 0.5, // Scaling factor for prestige points
     softcap: new Decimal("1e2000"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
-    autoUpgrade() { return hasUpgrade("infi", 13); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (getResetGain("ltf", "normal").gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").log10().div(5000).pow(0.25));
+        return scpwr;
+    },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 0); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
+        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -51,10 +56,10 @@ addLayer("ltf", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasChallenge("sunny", 11)) mult = mult.times(challengeEffect("sunny", 11));
         if (hasMilestone("revo", 0)) mult = mult.times(1.4);
-        let eboupg = upgradeEffect("enhance", 23).sub(1);
-        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12).pow(eboupg));
+        if (hasUpgrade("gal", 12)) mult = mult.times(upgradeEffect("gal", 12));
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("sunny", 21)) mult = mult.times(upgradeEffect("sunny", 21));
+        if (hasMilestone("liquid", 0)) mult = mult.times(1000);
         if (hasUpgrade("liquid", 12)) mult = mult.times(upgradeEffect("liquid", 12));
         mult = mult.times(buyableEffect("infi", 12));
         return mult; // Ensure the function closes correctly
@@ -62,6 +67,9 @@ addLayer("ltf", {
 
     gainExp() {
         let exp = new Decimal(1); // Default exponent
+        if (hasMilestone("vex", 1)) exp = exp.times(1.015);
+        if (hasMilestone("enhance", 2)) exp = exp.times(1.015);
+        if (hasMilestone("sunny", 1)) exp = exp.times(1.015);
         return exp;
     },
 
@@ -76,7 +84,7 @@ addLayer("ltf", {
             description: "Multiply point gain by 2, simple little upgrade.",
             cost: new Decimal(2),
             effect() {
-                return new Decimal(2); // Multiplier for point gain
+                return new Decimal(2);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -298,11 +306,16 @@ addLayer("ninja", {
     type: "normal", // Standard prestige layer type
     exponent: 0.4, // Scaling factor for prestige points
     softcap: new Decimal("1e1500"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
-    autoUpgrade() { return hasUpgrade("infi", 13); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("ninja", "normal").gte("1e3750")) scpwr = scpwr.div(getResetGain("ninja", "normal").log10().div(3750).pow(0.25));
+        return scpwr;
+    },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasMilestone("liquid", 1)) passive = passive.add("1e-12");
+        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -326,11 +339,10 @@ addLayer("ninja", {
         if (hasUpgrade("sunny", 13)) mult = mult.times(upgradeEffect("sunny", 13));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
-        let eboupg = upgradeEffect("enhance", 23).sub(1);
-        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
+        if (hasMilestone("liquid", 1)) mult = mult.times(100);
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         if (inChallenge("vex", 11)) mult = mult.times(0);
@@ -593,11 +605,16 @@ addLayer("massive", {
     type: "normal", // Standard prestige layer type
     exponent: 0.25, // Scaling factor for prestige points
     softcap: new Decimal("1e800"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
-    autoUpgrade() { return hasUpgrade("infi", 13); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("massive", "normal").gte("1e2000")) scpwr = scpwr.div(getResetGain("massive", "normal").log10().div(2000).pow(0.25));
+        return scpwr;
+    },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 14)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasMilestone("liquid", 1)) passive = passive.add("1e-12");
+        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -623,10 +640,9 @@ addLayer("massive", {
         if (hasUpgrade("enhance", 11)) mult = mult.times(upgradeEffect("enhance", 11));
         if (hasUpgrade("enhance", 14)) mult = mult.times(upgradeEffect("enhance", 14));
         if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
-        let eboupg = upgradeEffect("enhance", 23).sub(1);
-        if (hasUpgrade("enhance", 23)) mult = mult.times(upgradeEffect("enhance", 14).pow(eboupg));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
+        if (hasMilestone("liquid", 1)) mult = mult.times(100);
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("sunny", 11)) mult = mult.times(0);
         return mult;
@@ -860,10 +876,14 @@ addLayer("mady", {
     exponent: 0.27, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e450"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("mady", "normal").gte("1e1125")) scpwr = scpwr.div(getResetGain("mady", "normal").log10().div(1125).pow(0.25));
+        return scpwr;
+    },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1061,19 +1081,19 @@ addLayer("mady", {
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                if (player.mady.points.gte(new Decimal("1e900"))) {
-                    firstDiminishingFactor = player.mady.points.div("1e900").pow(0.01);
+                if (player.mady.points.gte(new Decimal("1e620"))) {
+                    firstDiminishingFactor = player.mady.points.div("1e620").pow(0.01);
                 }
 
-                if (player.mady.points.gte(new Decimal("1e1600"))) {
-                    secondDiminishingFactor = player.mady.points.div("1e1600").pow(0.005);
+                if (player.mady.points.gte(new Decimal("1e900"))) {
+                    secondDiminishingFactor = player.mady.points.div("1e900").pow(0.005);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() {
-                let isSoftcapped = player.mady.points.gte("1e900"); // Check if softcap applies
-                let isSuperSoftcapped = player.mady.points.gte("1e1600"); // Check if super softcap applies
+                let isSoftcapped = player.mady.points.gte("1e620"); // Check if softcap applies
+                let isSuperSoftcapped = player.mady.points.gte("1e900"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
@@ -1093,19 +1113,19 @@ addLayer("mady", {
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                if (player.mady.points.gte(new Decimal("1e950"))) {
-                    firstDiminishingFactor = player.mady.points.div("1e950").pow(0.2);
+                if (player.mady.points.gte(new Decimal("1e660"))) {
+                    firstDiminishingFactor = player.mady.points.div("1e660").pow(0.2);
                 }
 
-                if (player.mady.points.gte(new Decimal("1e1800"))) {
-                    secondDiminishingFactor = player.mady.points.div("1e1800").pow(0.1);
+                if (player.mady.points.gte(new Decimal("1e940"))) {
+                    secondDiminishingFactor = player.mady.points.div("1e940").pow(0.1);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() {
-                let isSoftcapped = player.mady.points.gte("1e950"); // Check if softcap applies
-                let isSuperSoftcapped = player.mady.points.gte("1e1800"); // Check if super softcap applies
+                let isSoftcapped = player.mady.points.gte("1e660"); // Check if softcap applies
+                let isSuperSoftcapped = player.mady.points.gte("1e940"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
@@ -1167,10 +1187,14 @@ addLayer("ct", {
     exponent: 0.1625, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e400"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("ct", "normal").gte("1e1000")) scpwr = scpwr.div(getResetGain("ct", "normal").log10().div(1000).pow(0.25));
+        return scpwr;
+    },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1402,10 +1426,14 @@ addLayer("aub", {
     exponent: 0.34, // Scaling factor for prestige points
     autoUpgrade() { return hasUpgrade("infi", 32); },
     softcap: new Decimal("1e360"),
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("aub", "normal").gte("1e900")) scpwr = scpwr.div(getResetGain("aub", "normal").log10().div(900).pow(0.25));
+        return scpwr;
+    },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasUpgrade("gal", 15)) {passive = upgradeEffect("gal", 14).div(100);}
+        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1578,9 +1606,31 @@ addLayer("aub", {
             cost: new Decimal(20000),
             unlocked() { return hasUpgrade("aub", 23); },
             effect() {
-                return player.points.div(1e10).add(1).pow(0.0125);
+                let base = player.points.div(1e10).add(1).pow(0.0125); // Original effect formula
+                let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
+                let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
+
+                if (player.points.gte(new Decimal("1e2500"))) {
+                    firstDiminishingFactor = player.points.div("1e2500").pow(0.00625);
+                }
+
+                if (player.points.gte(new Decimal("1e10000"))) {
+                    secondDiminishingFactor = player.points.div("1e10000").pow(0.003125);
+                }
+
+                return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.points.gte("1e2500"); // Check if softcap applies
+                let isSuperSoftcapped = player.points.gte("1e10000"); // Check if super softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+                if (isSuperSoftcapped) {
+                    display += " (Super SC)"; // Append super softcap indicator
+                } else if (isSoftcapped) {
+                    display += " (SC)"; // Append regular softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         32: {
             title: "Interviews",
@@ -1592,19 +1642,19 @@ addLayer("aub", {
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                if (player.aub.points.gte(new Decimal("1e720"))) {
-                    firstDiminishingFactor = player.aub.points.div("1e720").pow(0.021);
+                if (player.aub.points.gte(new Decimal("1e520"))) {
+                    firstDiminishingFactor = player.aub.points.div("1e520").pow(0.021);
                 }
 
-                if (player.aub.points.gte(new Decimal("1e1400"))) {
-                    secondDiminishingFactor = player.aub.points.div("1e1400").pow(0.00105);
+                if (player.aub.points.gte(new Decimal("1e800"))) {
+                    secondDiminishingFactor = player.aub.points.div("1e800").pow(0.00105);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() {
-                let isSoftcapped = player.aub.points.gte("1e720"); // Check if softcap applies
-                let isSuperSoftcapped = player.aub.points.gte("1e1400"); // Check if super softcap applies
+                let isSoftcapped = player.aub.points.gte("1e520"); // Check if softcap applies
+                let isSuperSoftcapped = player.aub.points.gte("1e800"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
@@ -1624,19 +1674,19 @@ addLayer("aub", {
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
-                if (player.aub.points.gte(new Decimal("1e800"))) {
-                    firstDiminishingFactor = player.aub.points.div("1e800").pow(0.004);
+                if (player.aub.points.gte(new Decimal("1e555"))) {
+                    firstDiminishingFactor = player.aub.points.div("1e555").pow(0.004);
                 }
 
-                if (player.aub.points.gte(new Decimal("1e1500"))) {
-                    secondDiminishingFactor = player.aub.points.div("1e1500").pow(0.002);
+                if (player.aub.points.gte(new Decimal("1e835"))) {
+                    secondDiminishingFactor = player.aub.points.div("1e835").pow(0.002);
                 }
 
                 return base.div(firstDiminishingFactor).div(secondDiminishingFactor); // Apply both factors separately
             },
             effectDisplay() {
-                let isSoftcapped = player.aub.points.gte("1e800"); // Check if softcap applies
-                let isSuperSoftcapped = player.aub.points.gte("1e1500"); // Check if super softcap applies
+                let isSoftcapped = player.aub.points.gte("1e555"); // Check if softcap applies
+                let isSuperSoftcapped = player.aub.points.gte("1e835"); // Check if super softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
                 if (isSuperSoftcapped) {
                     display += " (Super SC)"; // Append super softcap indicator
@@ -1697,7 +1747,11 @@ addLayer("infi", {
     type: "normal", // Standard prestige layer type
     exponent: 0.025, // Scaling factor for prestige points
     softcap: new Decimal(1e30), // IP gain slows past 1e30
-    softcapPower() { return new Decimal(0.5).add(player.enhance.shards.div(500)); },
+    softcapPower() { 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        if (getResetGain("infi", "normal").gte("1e75")) scpwr = scpwr.div(getResetGain("infi", "normal").log10().div(75).pow(0.25));
+        return scpwr;
+    },
 
     layerShown() {
         // Check if the player has at least 1e200 points
@@ -1714,8 +1768,6 @@ addLayer("infi", {
         if (hasUpgrade("sunny", 24)) mult = mult.times(upgradeEffect("sunny", 24));
         if (hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13));
         if (hasUpgrade("liquid", 22)) mult = mult.times(upgradeEffect("liquid", 22));
-        let eboupg = upgradeEffect("enhance", 23).sub(1);
-        if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 13)) mult = mult.times(upgradeEffect("gal", 13).pow(eboupg));
         return mult;
     },
 
@@ -2051,7 +2103,11 @@ addLayer("infi", {
         11: {
             title: "Point Boost",
             description: "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)",
-            cost(x) { return new Decimal(10).times(new Decimal(11).add(x).div(6).pow(x)); },  // The cost formula
+            cost(x) { 
+                let totalcost = new Decimal(10).times(new Decimal(11).add(x).div(6).pow(x));
+                if (x.gte(70)) totalcost = totalcost.pow(new Decimal(1.05).pow(x.sub(70)));
+                return totalcost;
+            },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -2089,7 +2145,11 @@ addLayer("infi", {
         12: {
             title: "LTF Boost",
             description: "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)",
-            cost(x) { return new Decimal(100).times(new Decimal(11).add(x).div(6).pow(x)); },  // The cost formula
+            cost(x) { 
+                let totalcost = new Decimal(100).times(new Decimal(11).add(x).div(6).pow(x));
+                if (x.gte(70)) totalcost = totalcost.pow(new Decimal(1.05).pow(x.sub(70)));
+                return totalcost;
+            },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -2191,6 +2251,12 @@ addLayer("infi", {
             }],
                 "upgrades",
                 "buyables",
+                ["display-text", function() {
+                if (getBuyableAmount("infi", 11).gte(70) || getBuyableAmount("infi", 12).gte(70)) {
+                    return '<span style="color: white;">Infinity buyable cost will rapidly increase past the 70th.</span>';
+                }
+                return "";
+            }],
                 "milestones",
                 "challenges",
             ],
@@ -2431,7 +2497,7 @@ addLayer("vex", {
 
             // Effect of the buyable
             effect(x) {
-                return new Decimal(25).pow(x); // Apply the diminishing factor
+                return new Decimal(40).pow(x); // Apply the diminishing factor
             },
             canAfford() { return player.vex.points.gte(this.cost()) },
             buy() {
@@ -2472,6 +2538,12 @@ addLayer("vex", {
             requirementDescription: "100 Vexbolts Points",
             effectDescription: "Brainrot Artist!",
             done() { return player.vex.points.gte(100); },
+        },
+        1: {
+            requirementDescription: "50000000 Vexbolts Points",
+            effectDescription: "Raise LTF point gain to the 1.015",
+            unlocked() {return hasMilestone("vex", 0); },
+            done() { return player.vex.points.gte(5e7); },
         },
     },
     tabFormat: {
@@ -2517,7 +2589,7 @@ addLayer("enhance", {
     baseAmount() { return player.ct.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.0124, // Scaling factor for prestige points
-    softcap: new Decimal("100000000"),
+    softcap: new Decimal("20000000"),
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
@@ -2615,12 +2687,12 @@ addLayer("enhance", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("enhance", 12); },
             effect() {
-                let base = player.enhance.points.add(1).pow(0.6).times(4); // Original effect formula
+                let base = player.enhance.points.add(1).pow(0.45).times(4); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.enhance.points.gte(new Decimal(10000))) {
-                    diminishingFactor = player.enhance.points.div(10000).pow(0.3); // Slight division factor
+                    diminishingFactor = player.enhance.points.div(10000).pow(0.225); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2640,7 +2712,9 @@ addLayer("enhance", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enhance", 13); },
             effect() {
-                return new Decimal(16).pow(player.gal.points); // Complex multiplier
+                let galeffect = new Decimal(16).pow(player.gal.points);
+                if (hasUpgrade("enhance", 23)) galeffect = galeffect.pow(upgradeEffect("enhance", 23));
+                return galeffect;
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -2660,12 +2734,12 @@ addLayer("enhance", {
             cost: new Decimal(80),
             unlocked() { return hasUpgrade("enhance", 21); },
             effect() {
-                let base = player.enhance.points.add(1).pow(0.45).times(1.5); // Original effect formula
+                let base = player.enhance.points.add(1).pow(0.65).times(1.5); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
                 if (player.enhance.points.gte(new Decimal(1e6))) {
-                    diminishingFactor = player.enhance.points.div(1e6).pow(0.225); // Slight division factor
+                    diminishingFactor = player.enhance.points.div(1e6).pow(0.325); // Slight division factor
                 }
                 return base.div(diminishingFactor); // Apply the diminishing factor
             },
@@ -2685,7 +2759,7 @@ addLayer("enhance", {
             cost: new Decimal(500),
             unlocked() { return hasUpgrade("enhance", 22); },
             effect() {
-                return player.enhance.points.add(10).log10().pow(0.4); // Simple multiplier
+                return player.enhance.points.times(2).add(10).log10().pow(0.4); // Galaxy booster
             },
             effectDisplay() { return "^" + format(this.effect()); },
         },
@@ -2719,7 +2793,11 @@ addLayer("enhance", {
         11: {
             title: "Point Exponent",
             description: "Raises point generation to an exponent based on the level of this buyable.",
-            cost(x) { return new Decimal(10).times(new Decimal(7).add(x).div(4).pow(x)); },  // The cost formula
+            cost(x) { 
+                let totalcost = new Decimal(10).times(new Decimal(7).add(x).div(4).pow(x));
+                if (getBuyableAmount("enhance", 11).gte(15)) totalcost = totalcost.pow(new Decimal(1.02).pow(x.sub(15)));
+                return totalcost;
+            },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -2809,6 +2887,12 @@ addLayer("enhance", {
             unlocked() { return hasChallenge("vex", 11) || hasChallenge("enhance", 11) || hasChallenge("sunny", 11); },
             done() { return hasChallenge("vex", 11) && hasChallenge("enhance", 11) && hasChallenge("sunny", 11); },
         },
+        2: {
+            requirementDescription: "500000000 Enhancers",
+            effectDescription: "Raise LTF point gain to the 1.015",
+            unlocked() {return hasMilestone("enhance", 1); },
+            done() { return player.enhance.points.gte(5e8); },
+        },
     },
 
     tabFormat: {
@@ -2824,19 +2908,25 @@ addLayer("enhance", {
             }],
                 "resource-display",
                 ["display-text", function() {
-                if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
-                    return "You have " + player.enhance.shards + " shards, making the pre-layer-5 resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
-                }
-                return "";
-            }],
+                    if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
+                        return "You have " + player.enhance.shards + " shards, making the pre-layer-5 resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
+                    }
+                    return "";
+                }],
                 ["display-text", function() {
-                    if (player.enhance.points.gte(new Decimal(1e7))) {
-                        return '<span style="color: red;">Enhancer gains will slow down beyond 100,000,000 Enhancers.</span>';
+                    if (player.enhance.points.gte(new Decimal(2e6))) {
+                        return '<span style="color: red;">Enhancer gains will slow down beyond 20,000,000 Enhancers.</span>';
                     }
                     return "";
                 }],
                 "upgrades",
                 "buyables",
+                ["display-text", function() {
+                    if (getBuyableAmount("enhance", 11).gte(15)) {
+                        return '<span style="color: white;">The Point Enhancement buyable cost will increase faster past the 15th.</span>';
+                    }
+                    return "";
+                }],
                 "challenges",
                 "milestones",
             ],
@@ -3118,6 +3208,12 @@ addLayer("sunny", {
             effectDescription: "Documentary Hotspot!",
             done() { return player.sunny.points.gte(100); },
         },
+        1: {
+            requirementDescription: "100000000 SunnyV2 Points",
+            effectDescription: "Raise LTF point gain to the 1.015",
+            unlocked() {return hasMilestone("sunny", 0); },
+            done() { return player.sunny.points.gte(1e8); },
+        },
     },
 
     tabFormat: {
@@ -3163,7 +3259,7 @@ addLayer("gal", {
     baseResource: "Infinity points", // Resource used to gain prestige points
     baseAmount() { return player.infi.points; }, // Current amount of baseResource
     type: "static", // Standard prestige layer type
-    exponent: new Decimal(1.25), // Scaling factor for prestige points
+    exponent: new Decimal(1.2), // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
@@ -3190,7 +3286,9 @@ addLayer("gal", {
             description: "Make Galaxies boost points!",
             cost: new Decimal(5),
             effect() {
-                return new Decimal(256).pow(player.gal.points); // Complex multiplier
+                let galeffect = new Decimal(256).pow(player.gal.points);
+                if (hasUpgrade("enhance", 23)) galeffect = galeffect.pow(upgradeEffect("enhance", 23));
+                return galeffect;
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3200,8 +3298,10 @@ addLayer("gal", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("gal", 11); },
             effect() {
-                let galaxyTime = new Decimal(player.infi.resetTime); // Complex multiplier
-                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.96));
+                let galaxyTime = new Decimal(player.infi.resetTime);
+                let enhanceEffect = new Decimal("1");
+                if (hasUpgrade("enhance", 23)) enhanceEffect = enhanceEffect.times(upgradeEffect("enhance", 23));
+                return galaxyTime.add(1).pow(player.gal.points.add(1).pow(0.96)).pow(enhanceEffect);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3211,7 +3311,9 @@ addLayer("gal", {
             cost: new Decimal(15),
             unlocked() { return hasUpgrade("gal", 12) && hasUpgrade("liquid", 13); },
             effect() {
-                return new Decimal(1.8).pow(player.gal.points);
+                let galeffect = new Decimal(1.8).pow(player.gal.points);
+                if (hasUpgrade("enhance", 23)) galeffect = galeffect.pow(upgradeEffect("enhance", 23));
+                return galeffect;
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -3268,16 +3370,16 @@ addLayer("liquid", {
         };
     },
     color: "#d7520f", // distinct orange
-    requires: new Decimal("1e5000"), // Points required to unlock this layer
+    requires: new Decimal("1e3800"), // Points required to unlock this layer
     resource: "liquidcashews inflators", // Prestige currency name
     baseResource: "low taper fade points", // Resource used to gain prestige points
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.001, // Scaling factor for prestige points
+    exponent: new Decimal("0.003010299957"), // Scaling factor for prestige points
 
     layerShown() {
-        // Check if the player has Enhancer Upgrade 1:4
-        return player.ltf.points.gte("1e4000") || player.liquid.points.gte(1);
+        // Check if the player has 1e3400 LTF points or more
+        return player.ltf.points.gte("1e3400") || player.liquid.points.gte(1);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3303,9 +3405,19 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(4.8).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.times(4).add(10).log10();
+                if (liquidExp.gte(4e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(1).pow(5.4).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         12: {
             title: "Low Taper Inflation!",
@@ -3314,9 +3426,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(3.2).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.times(2).add(10).log10();
+                if (liquidExp.gte(2e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(1).pow(3.6).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         13: {
             title: "Extra Galactic Effects",
@@ -3331,9 +3453,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(2.1).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.add(10).log10();
+                if (liquidExp.gte(1e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(1).pow(2.4).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         15: {
             title: "Layer 3 Inflation",
@@ -3342,9 +3474,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(1.5).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.div(2).add(10).log10();
+                if (liquidExp.gte(5e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(9).pow(0.5));
+                return inflateTime.add(1).pow(1.6).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e9); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         21: {
             title: "Deflation?",
@@ -3359,9 +3501,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.36).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.div(100).add(10).log10();
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(11).pow(0.5));
+                return inflateTime.add(1).pow(0.4).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e11); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         23: {
             title: "Layer 5 TO THE MOON!",
@@ -3370,9 +3522,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.15).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.div(1e4).add(10).log10();
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(13).pow(0.5));
+                return inflateTime.add(1).pow(0.14).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e13); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         24: {
             title: "Self-Inflation!!",
@@ -3381,9 +3543,19 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
-                return inflateTime.add(1).pow(0.06).pow(player.liquid.points.add(10).log10().pow(1.5));
+                let liquidExp = player.liquid.points.div(1e6).add(10).log10();
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(15).pow(0.5));
+                return inflateTime.add(1).pow(0.05).pow(liquidExp.pow(1.25));
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.points.gte(1e15); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         25: {
             title: "Ultimate Inflation.",
@@ -3445,9 +3617,21 @@ addLayer("liquid", {
     },
     milestones: {
         0: {
-            requirementDescription: "1e100 LC Inflators",
+            requirementDescription: "1 LC Inflator",
+            effectDescription: "Generate 0.0001% of LTF points on reset/second! You also retain LTF upgrade autobuy and gain a 1000x boost to LTF point gain.",
+            done() { return player.liquid.points.gte(1); },
+        },
+        1: {
+            requirementDescription: "100 LC Inflators",
+            effectDescription: "Generate 1e-10% of all Layer 2 currencies per second, and you also retain their upgrade autobuy features and gain a 100x boost to each.",
+            unlocked() {return hasMilestone("liquid", 0); },
+            done() { return player.liquid.points.gte(100); },
+        },
+        2: {
+            requirementDescription: "1e30 LC Inflators",
             effectDescription: "You did it!!",
-            done() { return player.liquid.points.gte(1e100); },
+            unlocked() {return hasMilestone("liquid", 1); },
+            done() { return player.liquid.points.gte(1e30); },
         },
     },
 
