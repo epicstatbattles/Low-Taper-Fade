@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.3.6",
+	num: "4.5.3",
 	name: "The Enchantment Grind",
 }
 
@@ -388,10 +388,44 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added point slowdowns to all layer 5 currencies at 100M of their point types, unaffected by shards.<br>
 		- Added a softcap to Vexbolts upgrade 1:1 at 10000 Vexbolts points.<br>
 	<h3>v4.3.6</h3><br>
-		- Added a softcap to Enhancer upgrade 2:4 at 1M Enhancers.`
+		- Added a softcap to Enhancer upgrade 2:4 at 1M Enhancers.<br>
+	<h3>v4.3.7</h3><br>
+		- Moved layer 5 currency softcaps to 10M.<br>
+		- 3:2 and 3:3 Madelizer and Aubrinator softcaps and super SC have been shifted to start earlier.<br>
+		- Now pre-layer 5 resource softcaps will get more extreme the further you go, starting at ^2.5 of their initial slowdown.<br>
+	<h3>v4.3.8</h3><br>
+		- Added cost scalings at 70 of both Infinity buyables and 15 of the first Enhancer buyable.<br>
+		- Fixed pre-layer 5 resource softcap behaviors past ^2.5 of their initial slowdown.<br>
+		- Changed mantissa handling so that now the number formatting change happens at 1e100k instead of 1e10k.<br>
+		- Added a softcap and super softcap to Aubrinator upgrade 3:1 at 1e2500 and 1e10000 points respectively.<br>
+	<h3>v4.3.9</h3><br>
+		- Adjusted liquidcashews inflator requirement to 1e4000 LTF points.<br>
+	<h3>v4.3.10</h3><br>
+		- SunnyV2 and Vexbolts softcaps will now return to 100M as it was before, and Enhancer softcap will be set to 20M.<br>
+		- Increased Vexbolts buyable effect from 25x to 40x.<br>
+	<h3>v4.3.11</h3><br>
+		- Added new milestones for each layer 5 currency, which each power LTF gain by 1.015 each.<br>
+	<h3>v4.4</h3><br>
+		- Adjusted LC inflator requirement to 1e3800 LTF points and changed its gain rate exponent.<br>
+		- Added new QoL milestones to LC inflators to fully automate earlier layers.<br>
+	<h3>v4.4.1</h3><br>
+		- Slightly buffed first 2 LC inflator upgrades for early LC inflator progression.<br>
+		- Nerfed all LC inflator upgrades in terms of late LC inflator progression.<br>
+	<h3>v4.4.2</h3><br>
+		- Optimized Enhancer Upgrade 2:3's effect so that it now actually shows the powered effects in the respective upgrades.<br>
+		- Patched a few random incorrect upgrade effects.<br>
+	<h3>v4.5</h3><br>
+		- I did what I didn't want to do, I added softcaps to the LC inflator upgrades after around 8 to 9 exponents of each upgrade.<br>
+		- Slightly buffed earlier LC inflator upgrades and slightly nerfed the later ones.<br>
+	<h3>v4.5.1</h3><br>
+		- Slightly buffed Enhancer upgrade 2:3's effect by making its base growth based on 2 Enhancers instead of 1. It now has a meaningful effect once it's purchased rather than having to do another reset to get a decent effect.<br>
+	<h3>v4.5.2</h3><br>
+		- Buffed Enhancer upgrade 2:2's effect since I realized it was significantly weaker than 1:3 which shouldn't have been the case.<br>
+	<h3>v4.5.3</h3><br>
+		- Galaxy scaling is slightly less harsh, based on an exponent of 1.2 rather than 1.25.`
 
 
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -443,8 +477,6 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
 	if (hasUpgrade("sunny", 11)) gain = gain.times(upgradeEffect("sunny", 11));
 	if (hasUpgrade("sunny", 22)) gain = gain.times(upgradeEffect("sunny", 22));
-	let eboupg = upgradeEffect("enhance", 23).sub(1);
-	if (hasUpgrade("enhance", 23) && hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11).pow(eboupg));
 	if (hasUpgrade("mady", 33)) gain = gain.times(upgradeEffect("mady", 33));
 	if (hasUpgrade("revo", 12)) gain = gain.times(upgradeEffect("revo", 12));
 	if (hasUpgrade("revo", 24)) gain = gain.times(upgradeEffect("revo", 24));
@@ -470,7 +502,12 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 1)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("vex", 1)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("enhance", 2)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("sunny", 1)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 1)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 2)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
