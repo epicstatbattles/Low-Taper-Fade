@@ -3670,18 +3670,15 @@ addLayer("revo", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.25, // Scaling factor for prestige points
+    exponent: new Decimal(0.25), // Scaling factor for prestige points
     softcap: new Decimal(10000),
-    softcapPower() {
-        let softcappotency = new Decimal(1);
-        if (player.revo.points.gte(10000)) softcappotency = softcappotency.div(player.revo.points.div(10000).pow(new Decimal(0.6).div(player.revo.points.log10())));
-        return softcappotency;},
+    softcapPower: new Decimal(0.5),
     canReset() {
     return getResetGain(this.layer).lt(2) && player.revo.points.lte(1);
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) {passive = new Decimal(0.001).div(player.points.pow(0.0375));}
+        if (player.points.gte(10000)) passive = passive.add(new Decimal(0.001).div(player.points.log10().div(4).pow(2)));
         return passive;
     },
     layerShown() {
@@ -3697,8 +3694,10 @@ addLayer("revo", {
         return mult;
     },
 
-    gainExp() { // Exponential bonus to prestige point gain
-        return new Decimal(1); // Default is no additional exponential scaling
+    gainExp() {
+        let exp = new Decimal(1);// Exponential bonus to prestige point gain
+        if (getResetGain("revo", "normal").gte(10000)) exp = exp.div(getResetGain("revo", "normal").log10().pow(0.25));
+        return exp;
     },
 
     row: "side", // Row in the tree
