@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.5.3",
+	num: "4.5.4",
 	name: "The Enchantment Grind",
 }
 
@@ -422,7 +422,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.5.2</h3><br>
 		- Buffed Enhancer upgrade 2:2's effect since I realized it was significantly weaker than 1:3 which shouldn't have been the case.<br>
 	<h3>v4.5.3</h3><br>
-		- Galaxy scaling is slightly less harsh, based on an exponent of 1.2 rather than 1.25.`
+		- Galaxy scaling is slightly less harsh, based on an exponent of 1.2 rather than 1.25.<br>
+	<h3>v4.5.4</h3><br>
+		- Changed how the softcap of the circles worked. Since the way they were implemented would cap the game at e2.4e17 points, I had to change the formula to be based on circle gain rather than current circles owned, and I also changed the divider so that the new break point is ee4.5e15.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
