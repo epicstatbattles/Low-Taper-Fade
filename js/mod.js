@@ -426,7 +426,7 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.5.4</h3><br>
 		- Changed how the softcap of the circles worked. Since the way they were implemented would cap the game at e2.4e17 points, I had to change the formula to be based on circle gain rather than current circles owned, and I also changed the divider so that the new break point is ee4.5e15.<br>
 	<h3>v4.5.5</h3><br>
-		- Buffed Infinity upgrade 3:2's effect due to it being comparatively weak.`
+		- Mildly buffed Infinity upgrade 3:2's effect due to it being comparatively weak.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
