@@ -21,7 +21,7 @@ addLayer("ltf", {
         if (getResetGain("ltf", "normal").gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").log10().div(5000).pow(0.25));
         return scpwr;
     },
-    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 0); },
+    autoUpgrade() { return hasUpgrade("infi", 11) || hasMilestone("liquid", 0); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
@@ -314,13 +314,13 @@ addLayer("ninja", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 1)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 1)) passive = passive.add("1e-6");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
         // Check if the player has at least 1e3 LTF points
-        return player.ltf.points.gte(new Decimal(1000)) || player.ninja.points.gte(1);
+        return player.ltf.points.gte(new Decimal(1000)) || hasUpgrade("ninja", 11);
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -613,13 +613,13 @@ addLayer("massive", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 1)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 1)) passive = passive.add("1e-6");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
         // Check if the player has at least 1e5 points
-        return player.points.gte(new Decimal(100000)) || player.massive.points.gte(1);
+        return player.points.gte(new Decimal(100000)) || hasUpgrade("massive", 11);
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -888,7 +888,7 @@ addLayer("mady", {
     },
     layerShown() {
         // Check if the player has at least 1e9 Ninja points
-        return player.ninja.points.gte(new Decimal(1e9)) || player.mady.points.gte(1);
+        return player.ninja.points.gte(new Decimal(1e9)) || hasUpgrade("mady", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1199,7 +1199,7 @@ addLayer("ct", {
     },
     layerShown() {
         // Check if the player has at least 1e21 points
-        return player.points.gte(new Decimal(1e21)) || player.ct.points.gte(1);
+        return player.points.gte(new Decimal(1e21)) || hasUpgrade("ct", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1438,7 +1438,7 @@ addLayer("aub", {
     },
     layerShown() {
         // Check if the player has at least 1e6 massive points
-        return player.massive.points.gte(new Decimal(1e6)) || player.aub.points.gte(1);
+        return player.massive.points.gte(new Decimal(1e6)) || hasUpgrade("aub", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1755,7 +1755,7 @@ addLayer("infi", {
 
     layerShown() {
         // Check if the player has at least 1e200 points
-        return player.points.gte(new Decimal(1e200)) || player.infi.points.gte(1);
+        return player.points.gte(new Decimal(1e200)) || hasUpgrade("infi", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1785,7 +1785,7 @@ addLayer("infi", {
     upgrades: {
         11: {
             title: "New Beginning",
-            description: "This is a really big reset. Here are some buffs to help you out. 16x boost to point gain, and 4x boost to LTF, Ninja, and massive point gain.",
+            description: "You now get LTF upgrades automatically and receive a 16x boost to point gain, and 4x boost to LTF, Ninja, and massive point gain.",
             cost: new Decimal(1),
             effect() {
                 return new Decimal(16); // Simple multiplier
@@ -1803,7 +1803,7 @@ addLayer("infi", {
         },
         13: {
             title: "Quality of Life",
-            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi). Also unlock auto-upgrade for LTF, Ninja, and massive layers.",
+            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi). Also unlock auto-upgrade for Ninja and massive layers.",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("infi", 12); },
             effect() {
@@ -2289,7 +2289,7 @@ addLayer("vex", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || player.vex.points.gte(1);
+        return hasUpgrade("infi", 34) || hasUpgrade("vex", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -2593,7 +2593,7 @@ addLayer("enhance", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || player.enhance.points.gte(1);
+        return hasUpgrade("infi", 34) || hasUpgrade("enhance", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -2712,7 +2712,10 @@ addLayer("enhance", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enhance", 13); },
             effect() {
-                let galeffect = new Decimal(16).pow(player.gal.points);
+                let basegaleffect = new Decimal(16);
+                if (hasMilestone("liquid", 1)) basegaleffect = new Decimal(18);
+                if (hasMilestone("liquid", 3)) basegaleffect = new Decimal(20);
+                let galeffect = new Decimal(basegaleffect).pow(player.gal.points);
                 if (hasUpgrade("enhance", 23)) galeffect = galeffect.pow(upgradeEffect("enhance", 23));
                 return galeffect;
             },
@@ -2959,7 +2962,7 @@ addLayer("sunny", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || player.sunny.points.gte(1);
+        return hasUpgrade("infi", 34) || hasUpgrade("sunny", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3286,7 +3289,10 @@ addLayer("gal", {
             description: "Make Galaxies boost points!",
             cost: new Decimal(5),
             effect() {
-                let galeffect = new Decimal(256).pow(player.gal.points);
+                let basegaleffect = new Decimal(256);
+                if (hasMilestone("liquid", 1)) basegaleffect = new Decimal(324);
+                if (hasMilestone("liquid", 3)) basegaleffect = new Decimal(400);
+                let galeffect = new Decimal(basegaleffect).pow(player.gal.points);
                 if (hasUpgrade("enhance", 23)) galeffect = galeffect.pow(upgradeEffect("enhance", 23));
                 return galeffect;
             },
@@ -3379,7 +3385,7 @@ addLayer("liquid", {
 
     layerShown() {
         // Check if the player has 1e3400 LTF points or more
-        return player.ltf.points.gte("1e3400") || player.liquid.points.gte(1);
+        return player.ltf.points.gte("1e3400") || hasUpgrade("liquid", 11);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3406,6 +3412,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.times(4).add(10).log10();
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
                 if (liquidExp.gte(4e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(5.4).pow(liquidExp.pow(1.25));
             },
@@ -3427,6 +3434,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.times(2).add(10).log10();
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
                 if (liquidExp.gte(2e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(3.6).pow(liquidExp.pow(1.25));
             },
@@ -3454,6 +3462,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.add(10).log10();
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
                 if (liquidExp.gte(1e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(2.4).pow(liquidExp.pow(1.25));
             },
@@ -3475,7 +3484,8 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(2).add(10).log10();
-                if (liquidExp.gte(5e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(9).pow(0.5));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (liquidExp.gte(5e8)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(1).div(8).pow(0.5));
                 return inflateTime.add(1).pow(1.6).pow(liquidExp.pow(1.25));
             },
             effectDisplay() {
@@ -3502,7 +3512,8 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(100).add(10).log10();
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(11).pow(0.5));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.4).pow(liquidExp.pow(1.25));
             },
             effectDisplay() {
@@ -3523,7 +3534,8 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(1e4).add(10).log10();
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(13).pow(0.5));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.14).pow(liquidExp.pow(1.25));
             },
             effectDisplay() {
@@ -3544,7 +3556,8 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(1e6).add(10).log10();
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().div(15).pow(0.5));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.05).pow(liquidExp.pow(1.25));
             },
             effectDisplay() {
@@ -3622,15 +3635,42 @@ addLayer("liquid", {
             done() { return player.liquid.points.gte(1); },
         },
         1: {
-            requirementDescription: "100 LC Inflators",
-            effectDescription: "Generate 1e-10% of all Layer 2 currencies per second, and you also retain their upgrade autobuy features and gain a 100x boost to each.",
+            requirementDescription: "5 LC Inflators",
+            effectDescription: "Slightly improve first 2 Galaxy effect base boosts. (16 --> 18 layer 2 and 256 --> 324 point multi)",
             unlocked() {return hasMilestone("liquid", 0); },
-            done() { return player.liquid.points.gte(100); },
+            done() { return player.liquid.points.gte(5); },
         },
         2: {
+            requirementDescription: "10 LC Inflators",
+            effectDescription() {
+                let formatItem = formatTime(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (player.liquid.points.add(1).log10().pow(4).times(30).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
+                return "You now receive banked time towards LC inflator upgrade effects based on LC inflators. Currently: " + formatItem + " banked time"; },
+            unlocked() {return hasMilestone("liquid", 1); },
+            done() { return player.liquid.points.gte(10); },
+        },
+        3: {
+            requirementDescription: "50 LC Inflators",
+            effectDescription: "Slightly improve first 2 Galaxy effect base boosts again. (18 --> 20 layer 2 and 324 --> 400 point multi)",
+            unlocked() {return hasMilestone("liquid", 2); },
+            done() { return player.liquid.points.gte(50); },
+        },
+        4: {
+            requirementDescription: "100 LC Inflators",
+            effectDescription: "Generate 0.0001% of all Layer 2 currencies per second, and you also retain their upgrade autobuy features and gain a 100x boost to each.",
+            unlocked() {return hasMilestone("liquid", 3); },
+            done() { return player.liquid.points.gte(100); },
+        },
+        5: {
+            requirementDescription: "1000000 LC Inflators",
+            effectDescription: "Artifacts are 1% stronger.",
+            unlocked() {return hasMilestone("liquid", 4); },
+            done() { return player.liquid.points.gte(1000000); },
+        },
+        6: {
             requirementDescription: "1e30 LC Inflators",
             effectDescription: "You did it!!",
-            unlocked() {return hasMilestone("liquid", 1); },
+            unlocked() {return hasMilestone("liquid", 5); },
             done() { return player.liquid.points.gte(1e30); },
         },
     },
