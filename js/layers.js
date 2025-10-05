@@ -77,7 +77,14 @@ addLayer("ltf", {
     hotkeys: [
         { key: "l", description: "L: Reset for low taper fade points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The Low Taper Fade Haircut is all about precision and style. Prestige in this layer to show off your hair-styling skills, with a bit of meme culture along the way!",
+            unlocked() { return player.ltf.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Fresh Comb",
@@ -268,6 +275,7 @@ addLayer("ltf", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -279,11 +287,6 @@ addLayer("ltf", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "The Low Taper Fade Haircut is all about precision and style. Prestige in this layer to show off your grooming skills!"],
             ],
         },
     },
@@ -360,7 +363,14 @@ addLayer("ninja", {
     hotkeys: [
         { key: "e", description: "E: Reset for Ninja points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "Ninja has dragged the meme too far and now the Low Taper Fade is a MASSIVE haircut!",
+            unlocked() { return player.ninja.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Ninja, Certified Meme Dragger",
@@ -567,6 +577,7 @@ addLayer("ninja", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -578,11 +589,6 @@ addLayer("ninja", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "Ninja has dragged the meme too far and now the Low Taper Fade is a MASSIVE haircut!"],
             ],
         },
     },
@@ -660,7 +666,14 @@ addLayer("massive", {
     hotkeys: [
         { key: "m", description: "M: Reset for Massive points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The massiveness of the meme has become so unstable that it managed to branch off from the meme it originated from!",
+            unlocked() { return player.massive.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Massive Low Taper Fade Boost",
@@ -837,6 +850,7 @@ addLayer("massive", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -848,11 +862,6 @@ addLayer("massive", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "The massiveness of the meme has become so unstable that it managed to branch off from the meme it originated from!"],
             ],
         },
     },
@@ -919,7 +928,14 @@ addLayer("mady", {
     hotkeys: [
         { key: "1", description: "1: Reset for Madelizers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "Ninja needs to drag the meme longer so it doesn't fade! The problem is, he just can't do it on his own. So he hired Madelyn to essentially increase the dragging effect so the meme lasts longer.",
+            unlocked() { return player.mady.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "New Meme Dragger",
@@ -1148,6 +1164,7 @@ addLayer("mady", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -1159,11 +1176,6 @@ addLayer("mady", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "Ninja needs to drag the meme longer so it doesn't fade! The problem is, he just can't do it on his own. So he hired Madelyn to essentially increase the dragging effect so the meme lasts longer."],
             ],
         },
     },
@@ -1234,7 +1246,14 @@ addLayer("ct", {
     hotkeys: [
         { key: "c", description: "c: Reset for CT subs", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The meme is so massive, it somehow managed to translate into CT subscriber gain!",
+            unlocked() { return player.ct.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Develop CT",
@@ -1387,6 +1406,7 @@ addLayer("ct", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -1398,11 +1418,6 @@ addLayer("ct", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "The meme is so massive, it somehow managed to translate into CT subscriber gain!"],
             ],
         },
     },
@@ -1472,7 +1487,14 @@ addLayer("aub", {
     hotkeys: [
         { key: "r", description: "r: Reset for Aubrinators", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up being a household name!",
+            unlocked() { return player.aub.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Low Taper Fade Video",
@@ -1709,6 +1731,7 @@ addLayer("aub", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -1720,11 +1743,6 @@ addLayer("aub", {
             }],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "It turns out that Aubrie made a lot of content around the MASSIVE low taper fade haircut. This has caused her to end up being a household name."],
             ],
         },
     },
@@ -1781,7 +1799,14 @@ addLayer("infi", {
     hotkeys: [
         { key: "n", description: "n: Reset for Infinity Points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "You have earned so many points that you can now infinity. Reset everything prior to infinity in exchange for monumental boosts.",
+            unlocked() { return player.infi.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "New Beginning",
@@ -2240,6 +2265,7 @@ addLayer("infi", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -2258,12 +2284,11 @@ addLayer("infi", {
                 return "";
             }],
                 "milestones",
-                "challenges",
             ],
         },
-        "About": {
+        "Challenges": {
             content: [
-                ["raw-html", () => "You have earned so many points that you can now infinity. Reset everything prior to infinity in exchange for monumental boosts."],
+                "challenges",
             ],
         },
     },
@@ -2311,7 +2336,14 @@ addLayer("vex", {
     hotkeys: [
         { key: "2", description: "2: Reset for Vexbolts points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages.",
+            unlocked() { return player.vex.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "LET HIM COOK!",
@@ -2549,6 +2581,7 @@ addLayer("vex", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -2560,13 +2593,12 @@ addLayer("vex", {
                 }],
                 "upgrades",
                 "buyables",
-                "challenges",
                 "milestones",
             ],
         },
-        "About": {
+        "Challenges": {
             content: [
-                ["raw-html", () => "Little did we know, Vexbolts has been thinking of ways to drag the meme at its early stages."],
+                "challenges",
             ],
         },
     },
@@ -2630,7 +2662,14 @@ addLayer("enhance", {
     hotkeys: [
         { key: "3", description: "3: Reset for Enhancers", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "Now you can get enhancers to drastically boost many aspects of progression!",
+            unlocked() { return player.enhance.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Resource Multiplier",
@@ -2901,6 +2940,7 @@ addLayer("enhance", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 ["display-text", function() {
@@ -2930,13 +2970,12 @@ addLayer("enhance", {
                     }
                     return "";
                 }],
-                "challenges",
                 "milestones",
             ],
         },
-        "About": {
+        "Challenges": {
             content: [
-                ["raw-html", () => "Now you can get enhancers to drastically boost many aspects of progression!"],
+                "challenges",
             ],
         },
     },
@@ -2984,7 +3023,14 @@ addLayer("sunny", {
     hotkeys: [
         { key: "4", description: "4: Reset for SunnyV2 points", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "SunnyV2 has been making documentaries of this meme and other things for a while now.",
+            unlocked() { return player.sunny.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Rise and Shine",
@@ -3222,6 +3268,7 @@ addLayer("sunny", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -3233,13 +3280,12 @@ addLayer("sunny", {
                 }],
                 "upgrades",
                 "buyables",
-                "challenges",
                 "milestones",
             ],
         },
-        "About": {
+        "Challenges": {
             content: [
-                ["raw-html", () => "SunnyV2 has been making documentaries of this meme and other things for a while now."],
+                "challenges",
             ],
         },
     },
@@ -3282,7 +3328,14 @@ addLayer("gal", {
     hotkeys: [
         { key: "5", description: "5: Galaxy Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The meme has entered galactic levels of fame!",
+            unlocked() { return player.gal.points.lte(9); }
+        },
+    },
     upgrades: {
         11: {
             title: "Illuminant Galaxies!",
@@ -3351,6 +3404,7 @@ addLayer("gal", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -3403,7 +3457,14 @@ addLayer("liquid", {
     hotkeys: [
         { key: "7", description: "7: LC inflator Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The game is beginning to inflate! How far can you go?",
+            unlocked() { return player.liquid.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Inflation Begins!",
@@ -3678,18 +3739,18 @@ addLayer("liquid", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
                 "upgrades",
                 "buyables",
-                "challenges",
                 "milestones",
             ],
         },
-        "About": {
+        "Challenges": {
             content: [
-                ["raw-html", () => "The game is beginning to inflate! How far can you go?"],
+                "challenges",
             ],
         },
     },
@@ -3744,7 +3805,14 @@ addLayer("revo", {
     hotkeys: [
         { key: "q", description: "CIRCLE PRESTIGE WHILE BELOW 1 POINT", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
-
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "Revolution Idle? Just kidding, this is a side layer meant to speed up the early progression of the game.",
+            unlocked() { return player.revo.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Circles go vroom!",
@@ -4062,6 +4130,7 @@ addLayer("revo", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "resource-display",
                 "prestige-button",
@@ -4074,11 +4143,6 @@ addLayer("revo", {
                 "upgrades",
                 "buyables",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "Revolution Idle?"],
             ],
         },
     },
@@ -4120,6 +4184,14 @@ addLayer("enchant", {
     hotkeys: [
         { key: "8", description: "8: Enchantment Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The lategame progression mechanic meant to be a grind quest, how far can you venture?",
+            unlocked() { return player.enchant.points.lte(99); }
+        },
+    },
     upgrades: {
         11: {
             title: "Enchant Low Taper Fade!",
@@ -4182,6 +4254,7 @@ addLayer("enchant", {
     tabFormat: {
         "Main Tab": {
             content: [
+                ["infobox", "1"],
                 "main-display",
                 "prestige-button",
                 "resource-display",
@@ -4189,11 +4262,6 @@ addLayer("enchant", {
                 ["bar", "enchantThreeBar"],
                 "upgrades",
                 "milestones",
-            ],
-        },
-        "About": {
-            content: [
-                ["raw-html", () => "The lategame progression mechanic meant to be a grind quest, how far can you venture?"],
             ],
         },
     },
