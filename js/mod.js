@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.5.5",
+	num: "4.6",
 	name: "The Enchantment Grind",
 }
 
@@ -426,7 +426,10 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.5.4</h3><br>
 		- Changed how the softcap of the circles worked. Since the way they were implemented would cap the game at e2.4e17 points, I had to change the formula to be based on circle gain rather than current circles owned, and I also changed the divider so that the new break point is ee4.5e15.<br>
 	<h3>v4.5.5</h3><br>
-		- Mildly buffed Infinity upgrade 3:2's effect due to it being comparatively weak.`
+		- Buffed Infinity upgrade 3:2's effect due to it being comparatively weak.<br>
+	<h3>v4.6</h3><br>
+		- Added several new LC inflator milestones to add more content to layer 6.<br>
+		- Made automation slightly easier by pushing the LTF automation to Infinity upgrade 1:1.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
@@ -512,6 +515,10 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 1)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 2)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 3)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 4)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 5)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 6)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
