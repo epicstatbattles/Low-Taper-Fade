@@ -317,7 +317,7 @@ addLayer("ninja", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 1)) passive = passive.add("1e-6");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -619,7 +619,7 @@ addLayer("massive", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 1)) passive = passive.add("1e-6");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
