@@ -3638,7 +3638,7 @@ addLayer("liquid", {
             requirementDescription: "5 LC Inflators",
             effectDescription: "Slightly improve first 2 Galaxy effect base boosts. (16 --> 18 layer 2 and 256 --> 324 point multi)",
             unlocked() {return hasMilestone("liquid", 0); },
-            done() { return player.liquid.points.gte(5); },
+            done() { return player.liquid.total.gte(5); },
         },
         2: {
             requirementDescription: "10 LC Inflators",
@@ -3647,31 +3647,31 @@ addLayer("liquid", {
                 if (player.liquid.points.add(1).log10().pow(4).times(30).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
                 return "You now receive banked time towards LC inflator upgrade effects based on LC inflators. Currently: " + formatItem + " banked time"; },
             unlocked() {return hasMilestone("liquid", 1); },
-            done() { return player.liquid.points.gte(10); },
+            done() { return player.liquid.total.gte(10); },
         },
         3: {
             requirementDescription: "50 LC Inflators",
             effectDescription: "Slightly improve first 2 Galaxy effect base boosts again. (18 --> 20 layer 2 and 324 --> 400 point multi)",
             unlocked() {return hasMilestone("liquid", 2); },
-            done() { return player.liquid.points.gte(50); },
+            done() { return player.liquid.total.gte(50); },
         },
         4: {
             requirementDescription: "100 LC Inflators",
             effectDescription: "Generate 0.0001% of all Layer 2 currencies per second, and you also retain their upgrade autobuy features and gain a 100x boost to each.",
             unlocked() {return hasMilestone("liquid", 3); },
-            done() { return player.liquid.points.gte(100); },
+            done() { return player.liquid.total.gte(100); },
         },
         5: {
             requirementDescription: "1000000 LC Inflators",
             effectDescription: "Artifacts are 1% stronger.",
             unlocked() {return hasMilestone("liquid", 4); },
-            done() { return player.liquid.points.gte(1000000); },
+            done() { return player.liquid.total.gte(1000000); },
         },
         6: {
             requirementDescription: "1e30 LC Inflators",
             effectDescription: "You did it!!",
             unlocked() {return hasMilestone("liquid", 5); },
-            done() { return player.liquid.points.gte(1e30); },
+            done() { return player.liquid.total.gte(1e30); },
         },
     },
 
