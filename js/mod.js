@@ -431,7 +431,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added several new LC inflator milestones to add more content to layer 6.<br>
 		- Made automation slightly easier by pushing the LTF automation to Infinity upgrade 1:1.<br>
 	<h3>v4.6.1</h3><br>
-		- Added infoboxes to the top of each layer to replace the separate about tab since no one would really click those. These will disappear when you reach 100 of that layer's currency, or 10 for galaxies.`
+		- Added infoboxes to the top of each layer to replace the separate About tab since no one would really click those. These will disappear when you reach 100 of that layer's currency, or 10 for galaxies.<br>
+		- For challenges, I have dedicated their own tab, called Challenges next to the Main Tab.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
