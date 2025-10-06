@@ -3741,7 +3741,7 @@ addLayer("liquid", {
                 "upgrades",
                 "buyables",
                 ["display-text", function() {
-                        return "You have made a total of " + format(player.liquid.total) + " LC inflators.";
+                        return "You have made a total of " + player.liquid.total + " LC inflators.";
                 }],
                 "milestones",
             ],
