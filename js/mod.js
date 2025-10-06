@@ -433,7 +433,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Slightly modified LC inflator upgrade softcap behavior.<br>
 	<h3>v4.6.1</h3><br>
 		- Added infoboxes to the top of each layer to replace the separate About tab since no one would really click those. These will disappear when you reach 100 of that layer's currency, or 10 for galaxies.<br>
-		- For challenges, I have dedicated their own tab, called Challenges next to the Main Tab.`
+		- For challenges, I have dedicated their own tab, called Challenges next to the Main Tab.<br>
+		- Changed LC inflator milestones to be based off of total instead of best.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
