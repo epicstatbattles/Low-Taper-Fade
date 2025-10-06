@@ -3740,6 +3740,9 @@ addLayer("liquid", {
                 "resource-display",
                 "upgrades",
                 "buyables",
+                ["display-text", function() {
+                        return "You have made a total of " + format(player.liquid.total) + " LC inflators.";
+                }],
                 "milestones",
             ],
         },
