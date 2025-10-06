@@ -3412,11 +3412,6 @@ addLayer("gal", {
                 "milestones",
             ],
         },
-        "About": {
-            content: [
-                ["raw-html", () => "The meme has entered galactic levels of fame!"],
-            ],
-        },
     },
 });
 addLayer("liquid", {
