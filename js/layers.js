@@ -323,7 +323,7 @@ addLayer("ninja", {
     },
     layerShown() {
         // Check if the player has at least 1e3 LTF points
-        return player.ltf.points.gte(new Decimal(1000)) || hasUpgrade("ninja", 11);
+        return player.ltf.points.gte(new Decimal(1000)) || player.ninja.unlocked==true;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -625,7 +625,7 @@ addLayer("massive", {
     },
     layerShown() {
         // Check if the player has at least 1e5 points
-        return player.points.gte(new Decimal(100000)) || hasUpgrade("massive", 11);
+        return player.points.gte(new Decimal(100000)) || player.massive.unlocked==true;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
@@ -897,7 +897,7 @@ addLayer("mady", {
     },
     layerShown() {
         // Check if the player has at least 1e9 Ninja points
-        return player.ninja.points.gte(new Decimal(1e9)) || hasUpgrade("mady", 11);
+        return player.ninja.points.gte(new Decimal(1e9)) || player.mady.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1211,7 +1211,7 @@ addLayer("ct", {
     },
     layerShown() {
         // Check if the player has at least 1e21 points
-        return player.points.gte(new Decimal(1e21)) || hasUpgrade("ct", 11);
+        return player.points.gte(new Decimal(1e21)) || player.ct.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1453,7 +1453,7 @@ addLayer("aub", {
     },
     layerShown() {
         // Check if the player has at least 1e6 massive points
-        return player.massive.points.gte(new Decimal(1e6)) || hasUpgrade("aub", 11);
+        return player.massive.points.gte(new Decimal(1e6)) || player.aub.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1773,7 +1773,7 @@ addLayer("infi", {
 
     layerShown() {
         // Check if the player has at least 1e200 points
-        return player.points.gte(new Decimal(1e200)) || hasUpgrade("infi", 11);
+        return player.points.gte(new Decimal(1e200)) || player.infi.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -2314,7 +2314,7 @@ addLayer("vex", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || hasUpgrade("vex", 11);
+        return hasUpgrade("infi", 34) || player.vex.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -2625,7 +2625,7 @@ addLayer("enhance", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || hasUpgrade("enhance", 11);
+        return hasUpgrade("infi", 34) || player.enhance.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3001,7 +3001,7 @@ addLayer("sunny", {
 
     layerShown() {
         // Check if the player has Infinity Upgrade 3:4
-        return hasUpgrade("infi", 34) || hasUpgrade("sunny", 11);
+        return hasUpgrade("infi", 34) || player.sunny.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3312,7 +3312,7 @@ addLayer("gal", {
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
-        return hasUpgrade("enhance", 14) || player.gal.points.gte(1);
+        return hasUpgrade("enhance", 14) || player.gal.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -3439,7 +3439,7 @@ addLayer("liquid", {
 
     layerShown() {
         // Check if the player has 1e3400 LTF points or more
-        return player.ltf.points.gte("1e3400") || hasUpgrade("liquid", 11);
+        return player.ltf.points.gte("1e3400") || player.liquid.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -4167,7 +4167,7 @@ addLayer("enchant", {
 
     layerShown() {
         // Check if the player has e80k score or 1 Enchantment Point
-        return player.points.gte("1e80000") || player.enchant.points.gte(1);
+        return player.points.gte("1e80000") || player.enchant.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
