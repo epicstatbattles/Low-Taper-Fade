@@ -314,7 +314,7 @@ addLayer("ninja", {
         if (getResetGain("ninja", "normal").gte("1e3750")) scpwr = scpwr.div(getResetGain("ninja", "normal").log10().div(3750).pow(0.25));
         return scpwr;
     },
-    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
@@ -616,7 +616,7 @@ addLayer("massive", {
         if (getResetGain("massive", "normal").gte("1e2000")) scpwr = scpwr.div(getResetGain("massive", "normal").log10().div(2000).pow(0.25));
         return scpwr;
     },
-    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 1); },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
@@ -2290,6 +2290,7 @@ addLayer("infi", {
             content: [
                 "challenges",
             ],
+            unlocked() { return hasUpgrade("infi", 24); },
         },
     },
 });
@@ -2600,6 +2601,7 @@ addLayer("vex", {
             content: [
                 "challenges",
             ],
+            unlocked() { return hasUpgrade("vex", 21); },
         },
     },
 });
@@ -2977,6 +2979,7 @@ addLayer("enhance", {
             content: [
                 "challenges",
             ],
+            unlocked() { return hasUpgrade("enhance", 21); },
         },
     },
 });
@@ -3287,6 +3290,7 @@ addLayer("sunny", {
             content: [
                 "challenges",
             ],
+            unlocked() { return hasUpgrade("sunny", 21); },
         },
     },
 });
@@ -3750,6 +3754,7 @@ addLayer("liquid", {
             content: [
                 "challenges",
             ],
+            unlocked() { return hasUpgrade("liquid", 21); },
         },
     },
 });
