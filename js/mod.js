@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.6.2",
+	num: "4.7",
 	name: "The Enchantment Grind",
 }
 
@@ -437,7 +437,13 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Changed LC inflator milestones to be based off of total instead of best.<br>
 	<h3>v4.6.2</h3><br>
 		- Patched auto-upgrade happening prematurely.<br>
-		- Challenge Tabs will now show when a challenge is actually unlocked.`
+		- Challenge Tabs will now show when a challenge is actually unlocked.<br>
+	<h3><span style="color: aquamarine; font-family: 'Lucida Console';">v4.7</span></h3><br>
+		- Completely overhauled layer 3's progression mechanics by adding Engagement to CT.<br>
+		- Engagement is obtained by performing a CT reset, and will passively generate LTF points.<br>
+		- Engagement's value will decay over time by 1% per second, but can be improved later in the game.<br>
+		- Engagement's gain is based on a logarithm of the amount of CT subscribers you gain on reset.<br>
+		- Engagement will also gain extra functionality in later updates.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
