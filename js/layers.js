@@ -26,6 +26,7 @@ addLayer("ltf", {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
+        passive = passive.add(player.ct.engagement.pow(0.75).div(1000));
         return passive;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1188,6 +1189,8 @@ addLayer("ct", {
         return {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
+            engagement: new Decimal(0), // Generates LTF points based on CT sub gain
+            bestResetGain: new Decimal(0), // Best reset gain in the reset
         };
     },
     color: "#000078", // Navy color
@@ -1235,6 +1238,10 @@ addLayer("ct", {
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
+    update() {if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
+             player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(0.05)))},
+    doReset() {player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
+              player.ct.bestResetGain = new Decimal(0)},
 
     gainExp() { // Exponential bonus to prestige point gain
         return new Decimal(1); // Default is no additional exponential scaling
@@ -1250,7 +1257,7 @@ addLayer("ct", {
         1: {
             title: "About This Layer",
             titleStyle: {'color': '#000000'},
-            body: "The meme is so massive, it somehow managed to translate into CT subscriber gain!",
+            body: "The meme is so massive, it somehow managed to translate into CT subscriber gain! You gain engagement which produces LTF points passively (weak at first) based on CT subs gained so you don't have to click the LTF reset button.",
             unlocked() { return player.ct.points.lte(99); }
         },
     },
@@ -1411,11 +1418,17 @@ addLayer("ct", {
                 "prestige-button",
                 "resource-display",
                 ["display-text", function() {
-                if (player.ct.points.gte(new Decimal("1e360"))) {
-                    return '<span style="color: red;">CT subscriber gains will slow down beyond 1e400 CT subscribers.</span>';
-                }
-                return "";
-            }],
+                    if (player.ct.engagement.gte(new Decimal("0.001"))) {
+                        return "You have " + format(player.ct.engagement) + " engagement, which generates " + format(player.ct.engagement.pow(0.75).div(10)) + "% of LTF points per second.";
+                    }
+                    return "";
+                }],
+                ["display-text", function() {
+                    if (player.ct.points.gte(new Decimal("1e360"))) {
+                        return '<span style="color: red;">CT subscriber gains will slow down beyond 1e400 CT subscribers.</span>';
+                    }
+                    return "";
+                }],
                 "upgrades",
                 "milestones",
             ],
