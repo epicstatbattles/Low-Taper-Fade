@@ -1238,8 +1238,11 @@ addLayer("ct", {
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
-    update() {if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
-             player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(0.05)))},
+    update() {
+        let decayValue = new Decimal(0.05);
+        if (player.ct.engagement.gt(1000)) decayValue = decayValue.times(player.ct.engagement.log10().div(3).pow(2));
+        if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
+             player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(decayValue)))},
     doReset() {player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
               player.ct.bestResetGain = new Decimal(0)},
 
