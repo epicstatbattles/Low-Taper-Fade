@@ -26,7 +26,7 @@ addLayer("ltf", {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
-        passive = passive.add(player.ct.engagement.pow(0.75).div(1000));
+        passive = passive.add(player.ct.engagement.pow(0.5).div(1000));
         return passive;
     },
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -1422,7 +1422,7 @@ addLayer("ct", {
                 "resource-display",
                 ["display-text", function() {
                     if (player.ct.engagement.gte(new Decimal("0.001"))) {
-                        return "You have " + format(player.ct.engagement) + " engagement, which generates " + format(player.ct.engagement.pow(0.75).div(10)) + "% of LTF points per second.";
+                        return "You have " + format(player.ct.engagement) + " engagement, which generates " + format(player.ct.engagement.pow(0.5).div(10)) + "% of LTF points per second.";
                     }
                     return "";
                 }],
