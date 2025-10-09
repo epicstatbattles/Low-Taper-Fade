@@ -21,7 +21,7 @@ addLayer("ltf", {
         if (getResetGain("ltf", "normal").gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").log10().div(5000).pow(0.25));
         return scpwr;
     },
-    autoUpgrade() { return hasUpgrade("infi", 11) || hasMilestone("liquid", 0) || hasMilestone("ct", 1) && player.ct.engagement.gte(1000); },
+    autoUpgrade() { return hasUpgrade("infi", 11) || hasMilestone("liquid", 0) || (hasMilestone("ct", 1) && player.ct.engagement.gte(1000)); },
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
