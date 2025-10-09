@@ -1,6 +1,6 @@
 addLayer("ltf", {
     name: "Low Taper Fade", // Full name of the layer
-    symbol: "LTF", // Symbol displayed on the tree
+    symbol: "L", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -294,7 +294,7 @@ addLayer("ltf", {
 });
 addLayer("ninja", {
     name: "Ninja", // Full name of the layer
-    symbol: "NJA", // Symbol displayed on the tree
+    symbol: "N", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -596,7 +596,7 @@ addLayer("ninja", {
 });
 addLayer("massive", {
     name: "Massive", // Full name of the layer
-    symbol: "MSV", // Symbol displayed on the tree
+    symbol: "MS", // Symbol displayed on the tree
     position: 2, // Position in the tree
     startData() {
         return {
@@ -869,7 +869,7 @@ addLayer("massive", {
 });
 addLayer("mady", {
     name: "Madelizers", // Full name of the layer
-    symbol: "MDL", // Symbol displayed on the tree
+    symbol: "MD", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -1440,7 +1440,7 @@ addLayer("ct", {
 });
 addLayer("aub", {
     name: "Aubrinators", // Full name of the layer
-    symbol: "AUB", // Symbol displayed on the tree
+    symbol: "AU", // Symbol displayed on the tree
     position: 3, // Position in the tree
     startData() {
         return {
@@ -1765,7 +1765,7 @@ addLayer("aub", {
 });
 addLayer("infi", {
     name: "Infinity", // Full name of the layer
-    symbol: "INF", // Symbol displayed on the tree
+    symbol: "I", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -2312,7 +2312,7 @@ addLayer("infi", {
 });
 addLayer("vex", {
     name: "Vexbolts", // Full name of the layer
-    symbol: "VEX", // Symbol displayed on the tree
+    symbol: "V", // Symbol displayed on the tree
     position: 1, // Position in the tree
     startData() {
         return {
@@ -2623,7 +2623,7 @@ addLayer("vex", {
 });
 addLayer("enhance", {
     name: "Enhancers", // Full name of the layer
-    symbol: "ENH", // Symbol displayed on the tree
+    symbol: "EN", // Symbol displayed on the tree
     position: 2, // Position in the tree
     startData() {
         return {
@@ -3001,7 +3001,7 @@ addLayer("enhance", {
 });
 addLayer("sunny", {
     name: "SunnyV2", // Full name of the layer
-    symbol: "SV2", // Symbol displayed on the tree
+    symbol: "S", // Symbol displayed on the tree
     position: 3, // Position in the tree
     startData() {
         return {
@@ -4168,7 +4168,7 @@ addLayer("revo", {
 });
 addLayer("enchant", {
     name: "enchantment", // Full name of the layer
-    symbol: "NCH", // Symbol displayed on the tree
+    symbol: "EH", // Symbol displayed on the tree
     position: 2, // Position in the tree
     startData() {
         return {
