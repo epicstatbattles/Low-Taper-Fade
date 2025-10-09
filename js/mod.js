@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.7",
+	num: "4.7.1",
 	name: "The Enchantment Grind",
 }
 
@@ -443,7 +443,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Engagement is obtained by performing a CT reset, and will passively generate LTF points.<br>
 		- Engagement's value will decay over time by 1% per second, but can be improved later in the game.<br>
 		- Engagement's gain is based on a logarithm of the amount of CT subscribers you gain on reset.<br>
-		- Engagement will also gain extra functionality in later updates.`
+		- Engagement will also gain extra functionality in later updates.<br>
+	<h3>v4.7.1</h3><br>
+		- Added 1 new CT milestone for 2000 engagement.<br>
+		- Shortened node lengths to 1 or 2 letters.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
@@ -516,6 +519,7 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("massive", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("mady", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ct", 0)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("ct", 1)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("aub", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("infi", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("gal", 0)) gain = gain.times(upgradeEffect("enhance", 21));
