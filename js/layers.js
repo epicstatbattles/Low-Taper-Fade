@@ -1243,7 +1243,7 @@ addLayer("ct", {
         if (player.ct.engagement.gt(1000)) decayValue = decayValue.times(player.ct.engagement.log10().div(3).pow(2));
         if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
              player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(decayValue)))},
-    doReset() {player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
+    onPrestige() {player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
               player.ct.bestResetGain = new Decimal(0)},
 
     gainExp() { // Exponential bonus to prestige point gain
