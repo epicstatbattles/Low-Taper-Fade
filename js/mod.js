@@ -449,7 +449,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Shortened node lengths to 1 or 2 letters.<br>
 	<h3>v4.8</h3><br>
 		- Reverted v4.6's change and pushed it back to Infinity upgrade 1:3.<br>
-		- In exchange, I made LC inflator milestone effects (specifically the first and fifth) much stronger and more effective, offering more automation.`
+		- In exchange, I made LC inflator milestone effects (specifically the first and fifth) much stronger and more effective, offering more automation.<br>
+		- Added main resource display to the top of Challenge tabs.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
