@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.7.1",
+	num: "4.8",
 	name: "The Enchantment Grind",
 }
 
@@ -446,7 +446,10 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Engagement will also gain extra functionality in later updates.<br>
 	<h3>v4.7.1</h3><br>
 		- Added 1 new CT milestone for 2000 engagement.<br>
-		- Shortened node lengths to 1 or 2 letters.`
+		- Shortened node lengths to 1 or 2 letters.<br>
+	<h3>v4.8</h3><br>
+		- Reverted v4.6's change and pushed it back to Infinity upgrade 1:3.<br>
+		- In exchange, I made LC inflator milestone effects (specifically the first and fifth) much stronger and more effective, offering more automation.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
