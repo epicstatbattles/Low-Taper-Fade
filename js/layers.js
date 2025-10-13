@@ -21,10 +21,10 @@ addLayer("ltf", {
         if (getResetGain("ltf", "normal").gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").log10().div(5000).pow(0.25));
         return scpwr;
     },
-    autoUpgrade() { return hasUpgrade("infi", 11) || hasMilestone("liquid", 0) || (hasMilestone("ct", 1) && player.ct.engagement.gte(1000)); },
+    autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 0) || (hasMilestone("ct", 1) && player.ct.engagement.gte(1000)); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 0)) passive = passive.add(0.000001);
+        if (hasMilestone("liquid", 0)) passive = passive.add(1);
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         if (player.ct.engagement.gte(0.001)) passive = passive.add(player.ct.engagement.pow(0.5).div(100));
         return passive;
@@ -318,7 +318,7 @@ addLayer("ninja", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
+        if (hasMilestone("liquid", 0)) passive = passive.add("0.1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -620,7 +620,7 @@ addLayer("massive", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 4)) passive = passive.add("1e-6");
+        if (hasMilestone("liquid", 0)) passive = passive.add("0.1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -893,6 +893,7 @@ addLayer("mady", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
+        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -1209,6 +1210,7 @@ addLayer("ct", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
+        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -1470,6 +1472,7 @@ addLayer("aub", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
+        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -1832,7 +1835,7 @@ addLayer("infi", {
     upgrades: {
         11: {
             title: "New Beginning",
-            description: "You now get LTF upgrades automatically and receive a 16x boost to point gain, and 4x boost to LTF, Ninja, and massive point gain.",
+            description: "This is the first of many Infinity upgrades. Receive a 16x boost to point gain, and 4x boost to LTF, Ninja, and massive point gain.",
             cost: new Decimal(1),
             effect() {
                 return new Decimal(16); // Simple multiplier
@@ -1850,7 +1853,7 @@ addLayer("infi", {
         },
         13: {
             title: "Quality of Life",
-            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi). Also unlock auto-upgrade for Ninja and massive layers.",
+            description: "Point gain is MASSIVELY boosted based on infinity points (initial 2x multi). Also unlock auto-upgrade for LTF, Ninja and massive layers.",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("infi", 12); },
             effect() {
@@ -3713,7 +3716,7 @@ addLayer("liquid", {
     milestones: {
         0: {
             requirementDescription: "1 LC Inflator",
-            effectDescription: "Generate 0.0001% of LTF points on reset/second! You also retain LTF upgrade autobuy and gain a 1000x boost to LTF point gain.",
+            effectDescription: "Generate 100% of LTF points and 10% layer 2 currencies on reset/second! You also retain LTF upgrade autobuy and gain a 1000x boost to LTF point gain.",
             done() { return player.liquid.points.gte(1); },
         },
         1: {
@@ -3739,7 +3742,7 @@ addLayer("liquid", {
         },
         4: {
             requirementDescription: "100 LC Inflators",
-            effectDescription: "Generate 0.0001% of all Layer 2 currencies per second, and you also retain their upgrade autobuy features and gain a 100x boost to each.",
+            effectDescription: "Generate additional 100% of all Layer 2 currencies and 10% layer 3 currencies/second, and you also retain layer 2 upgrade autobuy features and gain a 100x boost to L2 currencies.",
             unlocked() {return hasMilestone("liquid", 3); },
             done() { return player.liquid.total.gte(100); },
         },
