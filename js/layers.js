@@ -2315,6 +2315,7 @@ addLayer("infi", {
         },
         "Challenges": {
             content: [
+                "main-display",
                 "challenges",
             ],
             unlocked() { return hasUpgrade("infi", 24); },
@@ -2626,6 +2627,7 @@ addLayer("vex", {
         },
         "Challenges": {
             content: [
+                "main-display",
                 "challenges",
             ],
             unlocked() { return hasUpgrade("vex", 21); },
@@ -3004,6 +3006,7 @@ addLayer("enhance", {
         },
         "Challenges": {
             content: [
+                "main-display",
                 "challenges",
             ],
             unlocked() { return hasUpgrade("enhance", 21); },
@@ -3315,6 +3318,7 @@ addLayer("sunny", {
         },
         "Challenges": {
             content: [
+                "main-display",
                 "challenges",
             ],
             unlocked() { return hasUpgrade("sunny", 21); },
@@ -3779,6 +3783,7 @@ addLayer("liquid", {
         },
         "Challenges": {
             content: [
+                "main-display",
                 "challenges",
             ],
             unlocked() { return hasUpgrade("liquid", 21); },
