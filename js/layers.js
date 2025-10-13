@@ -318,7 +318,8 @@ addLayer("ninja", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 0)) passive = passive.add("0.1");
+        if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -620,7 +621,8 @@ addLayer("massive", {
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 0)) passive = passive.add("0.1");
+        if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -893,7 +895,7 @@ addLayer("mady", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -1210,7 +1212,7 @@ addLayer("ct", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -1472,7 +1474,7 @@ addLayer("aub", {
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (hasMilestone("liquid", 4)) passive = passive.add("0.1");
+        if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
         if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
@@ -3716,7 +3718,7 @@ addLayer("liquid", {
     milestones: {
         0: {
             requirementDescription: "1 LC Inflator",
-            effectDescription: "Generate 100% of LTF points and 10% layer 2 currencies on reset/second! You also retain LTF upgrade autobuy and gain a 1000x boost to LTF point gain.",
+            effectDescription: "Generate 100% of LTF points and 1e-10% layer 2 currencies on reset/second! You also retain LTF upgrade autobuy and gain a 1000x boost to LTF point gain.",
             done() { return player.liquid.points.gte(1); },
         },
         1: {
@@ -3742,7 +3744,7 @@ addLayer("liquid", {
         },
         4: {
             requirementDescription: "100 LC Inflators",
-            effectDescription: "Generate additional 100% of all Layer 2 currencies and 10% layer 3 currencies/second, and you also retain layer 2 upgrade autobuy features and gain a 100x boost to L2 currencies.",
+            effectDescription: "Generate additional 100% of all Layer 2 currencies and 1e-10% layer 3 currencies/second, and you also retain layer 2 upgrade autobuy features and gain a 100x boost to L2 currencies.",
             unlocked() {return hasMilestone("liquid", 3); },
             done() { return player.liquid.total.gte(100); },
         },
