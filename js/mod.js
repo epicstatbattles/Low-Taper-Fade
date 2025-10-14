@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.8.1",
+	num: "4.8.2",
 	name: "The Enchantment Grind",
 }
 
@@ -452,7 +452,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- In exchange, I made LC inflator milestone effects (specifically the first and fifth) much stronger and more effective, offering more automation.<br>
 		- Added main resource display to the top of Challenge tabs.<br>
 	<h3>v4.8.1</h3><br>
-		- Buffed banked time gain from the third LC inflator milestone.`
+		- Buffed banked time gain from the third LC inflator milestone.<br>
+	<h3>v4.8.2</h3><br>
+		- Fixed galaxy layer showing even after not owning the Enhancer upgrade if it's unlocked at least once.<br>
+		- Now you require Enhancer upgrade 1:4 to have Galaxies unlocked, regardless if you unlocked it before.<br>
+		- Also slightly buffed the 2nd Enhancer milestone to add a tiny amount of Layer 2 automation.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
