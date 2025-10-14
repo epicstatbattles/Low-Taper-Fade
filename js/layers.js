@@ -3503,7 +3503,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.times(4).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(4e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(5.4).pow(liquidExp.pow(1.25));
             },
@@ -3525,7 +3525,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.times(2).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(2e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(3.6).pow(liquidExp.pow(1.25));
             },
@@ -3553,7 +3553,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(1e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
                 return inflateTime.add(1).pow(2.4).pow(liquidExp.pow(1.25));
             },
@@ -3575,7 +3575,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(2).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(5e8)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(1).div(8).pow(0.5));
                 return inflateTime.add(1).pow(1.6).pow(liquidExp.pow(1.25));
             },
@@ -3603,7 +3603,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(100).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.4).pow(liquidExp.pow(1.25));
             },
@@ -3625,7 +3625,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(1e4).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.14).pow(liquidExp.pow(1.25));
             },
@@ -3647,7 +3647,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let liquidExp = player.liquid.points.div(1e6).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(30));
+                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
                 return inflateTime.add(1).pow(0.05).pow(liquidExp.pow(1.25));
             },
@@ -3734,9 +3734,9 @@ addLayer("liquid", {
         2: {
             requirementDescription: "10 LC Inflators",
             effectDescription() {
-                let formatItem = formatTime(player.liquid.points.add(1).log10().pow(4).times(30));
-                if (player.liquid.points.add(1).log10().pow(4).times(30).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
-                return "You now receive banked time towards LC inflator upgrade effects based on LC inflators. Currently: " + formatItem + " banked time"; },
+                let formatItem = formatTime(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.add(1).log10().pow(4).times(150).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
+                return "You now receive banked time towards LC inflator upgrade effects based on total LC inflators. Currently: " + formatItem + " banked time"; },
             unlocked() {return hasMilestone("liquid", 1); },
             done() { return player.liquid.total.gte(10); },
         },
