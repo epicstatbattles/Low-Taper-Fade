@@ -319,6 +319,7 @@ addLayer("ninja", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
+        if (hasMilestone("enhance", 1)) passive = passive.add("1e-16");
         if (hasMilestone("liquid", 4)) passive = passive.add("1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
@@ -622,6 +623,7 @@ addLayer("massive", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
+        if (hasMilestone("enhance", 1)) passive = passive.add("1e-16");
         if (hasMilestone("liquid", 4)) passive = passive.add("1");
         if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
@@ -2956,7 +2958,7 @@ addLayer("enhance", {
         },
         1: {
             requirementDescription: "All L5 Challenges Completed",
-            effectDescription: "Enhancer gain is boosted by 1.5x, other L5 currencies 2x.",
+            effectDescription: "Enhancer gain is boosted by 1.5x, other L5 currencies 2x, and also gain automation for Layer 2 currencies (1e-16%).",
             unlocked() { return hasChallenge("vex", 11) || hasChallenge("enhance", 11) || hasChallenge("sunny", 11); },
             done() { return hasChallenge("vex", 11) && hasChallenge("enhance", 11) && hasChallenge("sunny", 11); },
         },
