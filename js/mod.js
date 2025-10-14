@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.8",
+	num: "4.8.1",
 	name: "The Enchantment Grind",
 }
 
@@ -450,7 +450,9 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.8</h3><br>
 		- Reverted v4.6's change and pushed it back to Infinity upgrade 1:3.<br>
 		- In exchange, I made LC inflator milestone effects (specifically the first and fifth) much stronger and more effective, offering more automation.<br>
-		- Added main resource display to the top of Challenge tabs.`
+		- Added main resource display to the top of Challenge tabs.<br>
+	<h3>v4.8.1</h3><br>
+		- Buffed banked time gain from the third LC inflator milestone.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
