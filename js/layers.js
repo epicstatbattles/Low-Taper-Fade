@@ -3347,7 +3347,7 @@ addLayer("gal", {
 
     layerShown() {
         // Check if the player has Enhancer Upgrade 1:4
-        return hasUpgrade("enhance", 14) || player.gal.unlocked==true;
+        return hasUpgrade("enhance", 14);
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
