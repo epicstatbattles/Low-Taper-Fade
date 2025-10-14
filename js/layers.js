@@ -3736,7 +3736,7 @@ addLayer("liquid", {
             effectDescription() {
                 let formatItem = formatTime(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.add(1).log10().pow(4).times(150).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
-                return "You now receive banked time towards LC inflator upgrade effects based on total LC inflators. Currently: " + formatItem + " banked time"; },
+                return "You now receive banked time towards LC inflator upgrade effects based on LC inflators. Currently: " + formatItem + " banked time"; },
             unlocked() {return hasMilestone("liquid", 1); },
             done() { return player.liquid.total.gte(10); },
         },
