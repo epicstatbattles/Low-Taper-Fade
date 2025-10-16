@@ -79,7 +79,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Slightly buffed LTF upgrade 6.<br>
 	<h3>v0.3.12</h3><br>
 		- Active Softcaps now have an indicator next to their effect.<br>
-				<h3>v0.3.13</h3><br>
+	<h3>v0.3.13</h3><br>
 		- Fixed Ninja upgrade 3 boosting normal point gain.<br>
 	<h3>v0.3.14</h3><br>
 		- Slightly buffed LTF upgrade 6 and massive upgrade 2 to compensate for the "nerf" to progression from the v0.3.13 change.<br>
@@ -457,8 +457,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed galaxy layer showing even after not owning the Enhancer upgrade if it's unlocked at least once.<br>
 		- Now you require Enhancer upgrade 1:4 to have Galaxies unlocked, regardless if you unlocked it before.<br>
 		- Also slightly buffed the 2nd Enhancer milestone to add a tiny amount of Layer 2 automation.<br>
-		<h3><span style="color: #dd7aeb; font-family: 'Lucida Console';">v5.0</span></h3><br>
-		- Heavily reworked the fourth and fifth Galaxy upgrades!<br>
+	<h3><span style="color: #dd7aeb; font-family: 'Lucida Console';">v5.0</span></h3><br>
+		- Introduced a revolutionary rework to the fourth and fifth Galaxy upgrades!<br>
 		- Now they add extra challenge completions to Infinity and Layer 5 challenges. Extra challenge completions increase their reward effects based on extra completion amount.<br>
 		- The extra completions upgrades will persist through all resets.<br>
 		- These changes will help prepare for the enchantment implementation, which will add many upgrades to that layer.`
