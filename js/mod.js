@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "4.8.2",
+	num: "5.0",
 	name: "The Enchantment Grind",
 }
 
@@ -456,7 +456,12 @@ let changelog = `<h1>Changelog:</h1><br>
 	<h3>v4.8.2</h3><br>
 		- Fixed galaxy layer showing even after not owning the Enhancer upgrade if it's unlocked at least once.<br>
 		- Now you require Enhancer upgrade 1:4 to have Galaxies unlocked, regardless if you unlocked it before.<br>
-		- Also slightly buffed the 2nd Enhancer milestone to add a tiny amount of Layer 2 automation.`
+		- Also slightly buffed the 2nd Enhancer milestone to add a tiny amount of Layer 2 automation.<br>
+		<h3><span style="color: #dd7aeb; font-family: 'Lucida Console';">v5.0</span></h3><br>
+		- Heavily reworked the fourth and fifth Galaxy upgrades!<br>
+		- Now they add extra challenge completions to Infinity and Layer 5 challenges. Extra challenge completions increase their reward effects based on extra completion amount.<br>
+		- The extra completions upgrades will persist through all resets.<br>
+		- These changes will help prepare for the enchantment implementation, which will add many upgrades to that layer.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
