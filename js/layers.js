@@ -3691,7 +3691,7 @@ addLayer("gal", {
         },
     },
     doReset(resettingLayer) {
-        let keep = [];
+        let keep = ["upgrades"];
         if(hasUpgrade("gal", 14)) player.liquid.galUpgrades = new Decimal(1);
         if(hasUpgrade("gal", 15)) player.liquid.galUpgrades = new Decimal(2);
         if(resettingLayer=="vex" || resettingLayer=="enhance" || resettingLayer=="sunny" || resettingLayer=="liquid" || resettingLayer=="enchant") layerDataReset("gal", keep);
