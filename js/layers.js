@@ -3691,13 +3691,22 @@ addLayer("gal", {
         },
     },
     doReset(resettingLayer) {
-        let keep = ["upgrades"];
-        if(hasUpgrade("gal", 14)) player.liquid.galUpgrades = new Decimal(1);
-        if(hasUpgrade("gal", 15)) player.liquid.galUpgrades = new Decimal(2);
+        let keep = [];
+        if(hasUpgrade("gal", 11)) player.liquid.galUpgrades = new Decimal(1);
+        if(hasUpgrade("gal", 12)) player.liquid.galUpgrades = new Decimal(2);
+        if(hasUpgrade("gal", 13)) player.liquid.galUpgrades = new Decimal(3);
+        if(hasUpgrade("gal", 14)) player.liquid.galUpgrades = new Decimal(4);
+        if(hasUpgrade("gal", 15)) player.liquid.galUpgrades = new Decimal(5);
         if(resettingLayer=="vex" || resettingLayer=="enhance" || resettingLayer=="sunny" || resettingLayer=="liquid" || resettingLayer=="enchant") layerDataReset("gal", keep);
-        if(player.liquid.galUpgrades.eq(2)) player.gal.upgrades = ["14", "15"];
-        else if(player.liquid.galUpgrades.eq(1)) player.gal.upgrades = ["14"];
+        if(resettingLayer=="gal" && player.liquid.galUpgrades.eq(5)) player.gal.upgrades = ["11", "12", "13", "14", "15"];
+        else if(resettingLayer=="gal" && player.liquid.galUpgrades.eq(4)) player.gal.upgrades = ["11", "12", "13", "14"];
+        else if(resettingLayer=="gal" && player.liquid.galUpgrades.eq(3)) player.gal.upgrades = ["11", "12", "13"];
+        else if(resettingLayer=="gal" && player.liquid.galUpgrades.eq(2)) player.gal.upgrades = ["11", "12"];
+        else if(resettingLayer=="gal" && player.liquid.galUpgrades.eq(1)) player.gal.upgrades = ["11"];
+        else if(player.liquid.galUpgrades.eq(5)) player.gal.upgrades = ["14", "15"];
+        else if(player.liquid.galUpgrades.eq(4)) player.gal.upgrades = ["14"];
         else player.gal.upgrades = [];
+        player.liquid.galUpgrades = new Decimal(0);
     },
 
     tabFormat: {
