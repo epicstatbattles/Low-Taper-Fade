@@ -25,7 +25,6 @@ addLayer("ltf", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 0)) passive = passive.add(1);
-        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         if (player.ct.engagement.gte(0.001)) passive = passive.add(player.ct.engagement.pow(0.5).div(100));
         return passive;
     },
@@ -321,7 +320,6 @@ addLayer("ninja", {
         if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
         if (hasMilestone("enhance", 1)) passive = passive.add("1e-16");
         if (hasMilestone("liquid", 4)) passive = passive.add("1");
-        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -625,7 +623,6 @@ addLayer("massive", {
         if (hasMilestone("liquid", 0)) passive = passive.add("1e-12");
         if (hasMilestone("enhance", 1)) passive = passive.add("1e-16");
         if (hasMilestone("liquid", 4)) passive = passive.add("1");
-        if (hasUpgrade("gal", 14)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -898,7 +895,6 @@ addLayer("mady", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
-        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1215,7 +1211,6 @@ addLayer("ct", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
-        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1477,7 +1472,6 @@ addLayer("aub", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
-        if (hasUpgrade("gal", 15)) passive = passive.add(upgradeEffect("gal", 14).div(100));
         return passive;
     },
     layerShown() {
@@ -1783,8 +1777,16 @@ addLayer("infi", {
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
-            points: new Decimal(0), // Prestige points for this layer
+            points: new Decimal(0),
+            IC1Completions: new Decimal(0),
+            IC2Completions: new Decimal(0),
+            IC3Completions: new Decimal(0),
         };
+    },
+    update() {
+        player.infi.IC1Completions = new Decimal(challengeCompletions("infi", 11));
+        player.infi.IC2Completions = new Decimal(challengeCompletions("infi", 21));
+        player.infi.IC3Completions = new Decimal(challengeCompletions("infi", 31));
     },
     color: "#27d986", // turquoise
     requires: new Decimal(1.7976e308), // Points required to unlock this layer
@@ -2243,43 +2245,172 @@ addLayer("infi", {
         11: {
             name: "Restricted Growth",
             challengeDescription: "All point gain is raised to the power of 0.9 and then divided by 100.",
-            goalDescription: "Reach 1.7976e308 points.",
+            goalDescription()  {
+                let pointGoal = new Decimal(1.7976e308);
+                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5200").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Point gain is boosted based on Infinity points.",
             unlocked() { return hasUpgrade("infi", 24); },
-            canComplete: function() { return player.points.gte(1.7976e308) },
+            style() {
+                if (inChallenge("infi", 11) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.infi.IC1Completions.gte(10))  {
+                        return {
+                            "background-color": "#7053cf", // epic
+                        };
+                } else if (player.infi.IC1Completions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.infi.IC1Completions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.infi.IC1Completions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else  {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 14)) lim = 5;
+                if (hasUpgrade("gal", 15)) lim = 10;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal(1.7976e308);
+                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5200").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
-                return player.infi.points.add(1).pow(0.75);
+                return player.infi.points.add(1).pow(0.75).pow(player.infi.IC1Completions.div(5).add(0.8));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to point gain";
+                let formatObject = format(this.rewardEffect()) + "x to point gain";
+                if (player.infi.IC1Completions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 14)) formatObject = format(this.rewardEffect()) + "x to point gain (" +  player.infi.IC1Completions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
         21: {
             name: "Anti-Dragging Measures Taken",
             challengeDescription: "You cannot gain Ninja points or Madelizers.",
-            goalDescription: "Reach 1e85 points.",
+            goalDescription()  {
+            let pointGoal = new Decimal(1e85);
+            if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2600").pow(player.infi.IC2Completions.times(0.0625).add(0.9375).pow(1.25));
+            return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
-            canComplete: function() { return player.points.gte(1e85) },
+            style() {
+                if (inChallenge("infi", 21) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.infi.IC2Completions.gte(10))  {
+                    return {
+                        "background-color": "#7053cf", // epic
+                    };
+                } else if (player.infi.IC2Completions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.infi.IC2Completions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.infi.IC2Completions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else  {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 14)) lim = 5;
+                if (hasUpgrade("gal", 15)) lim = 10;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal(1e85);
+                if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2600").pow(player.infi.IC2Completions.times(0.0625).add(0.9375).pow(1.25));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
-                return player.ltf.points.div(1e100).add(1).pow(0.002).pow(player.infi.points.add(10).log10().pow(0.5));
+                return player.ltf.points.div(1e100).add(1).pow(0.002).pow(player.infi.points.add(10).log10().pow(0.5)).pow(player.infi.IC2Completions.div(10).add(0.9));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to all layer 3 currency gain";
+                let formatObject = format(this.rewardEffect()) + "x to layer 3 currency gain";
+                if (player.infi.IC2Completions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 14)) formatObject = format(this.rewardEffect()) + "x to layer 3 currency gain (" +  player.infi.IC2Completions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
         31: {
             name: "FYSC's Worst Nightmare",
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
-            goalDescription: "Reach 1e450 points.",
+            goalDescription()  {
+            let pointGoal = new Decimal("1e450");
+            if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6250").pow(player.infi.IC3Completions.times(0.0625).add(0.9375).pow(1.25));
+            return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
-            canComplete: function() { return player.points.gte("1e450") },
+            style() {
+                if (inChallenge("infi", 31) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.infi.IC3Completions.gte(10))  {
+                    return {
+                        "background-color": "#7053cf", // epic
+                    };
+                } else if (player.infi.IC3Completions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.infi.IC3Completions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.infi.IC3Completions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 14)) lim = 5;
+                if (hasUpgrade("gal", 15)) lim = 10;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal("1e450");
+                if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6250").pow(player.infi.IC3Completions.times(0.0625).add(0.9375).pow(1.25));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
-                return player.infi.points.div(1e11).add(10).log10().pow(1.5);
+                return player.infi.points.div(1e11).add(10).log10().pow(1.5).pow(player.infi.IC3Completions.div(2).add(0.5));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to Infinity point gain";
+                let formatObject = format(this.rewardEffect()) + "x to Infinity point gain";
+                if (player.infi.IC3Completions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 14)) formatObject = format(this.rewardEffect()) + "x to Infinity point gain (" +  player.infi.IC3Completions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
     },
@@ -2331,8 +2462,12 @@ addLayer("vex", {
     startData() {
         return {
             unlocked: false, // Starts locked until requirements are met
-            points: new Decimal(0), // Prestige points for this layer
+            points: new Decimal(0),
+            vexCompletions: new Decimal(0),
         };
+    },
+    update() {
+        player.vex.vexCompletions = new Decimal(challengeCompletions("vex", 11));
     },
     color: "#f2f2f2", // light gray
     requires: new Decimal("1e400"), // Points required to unlock this layer
@@ -2584,15 +2719,53 @@ addLayer("vex", {
         11: {
             name: "Meme Drag Ban",
             challengeDescription: "All people layers before Infinity (Ninja, Madelizers, and Aubrinators) do not work.",
-            goalDescription: "Reach 1e90 points.",
+            goalDescription()  {
+            let pointGoal = new Decimal("1e90");
+            if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e480").pow(player.vex.vexCompletions.times(0.0625).add(0.9375).pow(1.3));
+            return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Vexbolts points boost Ninja and massive point gain.",
             unlocked() { return hasUpgrade("vex", 21); },
-            canComplete: function() { return player.points.gte(1e90) },
+            style() {
+                if (inChallenge("vex", 11) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.vex.vexCompletions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.vex.vexCompletions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.vex.vexCompletions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 15)) lim = 5;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal("1e90");
+                if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e480").pow(player.vex.vexCompletions.times(0.0625).add(0.9375).pow(1.3));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
-                return player.vex.points.add(1).pow(1.8);
+                return player.vex.points.add(1).pow(1.8).pow(player.vex.vexCompletions.div(4).add(0.75));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to layer 2 currency gain";
+                let formatObject = format(this.rewardEffect()) + "x to layer 2 currency gain";
+                if (player.vex.vexCompletions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 15)) formatObject = format(this.rewardEffect()) + "x to layer 2 currency gain (" +  player.vex.vexCompletions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
     },
@@ -2645,7 +2818,11 @@ addLayer("enhance", {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
             shards: new Decimal(0),
+            enhanceCompletions: new Decimal(0),
         };
+    },
+    update() {
+        player.enhance.enhanceCompletions = new Decimal(challengeCompletions("enhance", 11));
     },
     color: "#ff8c00", // orange
     requires: new Decimal("1e350"), // Points required to unlock this layer
@@ -2669,7 +2846,7 @@ addLayer("enhance", {
         if (hasUpgrade("liquid", 23)) mult = mult.times(upgradeEffect("liquid", 23));
         return mult;
     },
-    function() {
+    shardCalculator: function() {
         let shardCount = new Decimal(0);
         if (hasUpgrade("enhance", 21)) shardCount = shardCount.add(1);
         if (hasUpgrade("enhance", 22)) shardCount = shardCount.add(2);
@@ -2937,16 +3114,54 @@ addLayer("enhance", {
         11: {
             name: "Point Deterioration",
             challengeDescription: "Point gain starts divided by 1e12, and further divides by 10 every 10 seconds.",
-            goalDescription: "Reach 1e720 points.",
+            goalDescription()  {
+            let pointGoal = new Decimal("1e720");
+            if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6000").pow(player.enhance.enhanceCompletions.times(0.0625).add(0.9375).pow(1.3));
+            return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
             unlocked() { return hasUpgrade("enhance", 21); },
-            canComplete: function() { return player.points.gte("1e720") },
+            style() {
+                if (inChallenge("enhance", 11) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.enhance.enhanceCompletions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.enhance.enhanceCompletions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.enhance.enhanceCompletions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 15)) lim = 5;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal("1e720");
+                if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6000").pow(player.enhance.enhanceCompletions.times(0.0625).add(0.9375).pow(1.3));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
                 let enhanceTime = new Decimal(player.enhance.resetTime)
-                return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.2));
+                return enhanceTime.add(1).pow(0.6).pow(player.enhance.points.add(10).log10().pow(1.2)).pow(player.enhance.enhanceCompletions.div(4).add(0.75));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to point gain";
+                let formatObject = format(this.rewardEffect()) + "x to point gain";
+                if (player.enhance.enhanceCompletions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 15)) formatObject = format(this.rewardEffect()) + "x to point gain (" +  player.enhance.enhanceCompletions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
     },
@@ -3023,7 +3238,11 @@ addLayer("sunny", {
         return {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
+            sunnyCompletions: new Decimal(0),
         };
+    },
+    update() {
+        player.sunny.sunnyCompletions = new Decimal(challengeCompletions("sunny", 11));
     },
     color: "#9db1e0", // ultralight blue
     requires: new Decimal("1e310"), // Points required to unlock this layer
@@ -3274,15 +3493,53 @@ addLayer("sunny", {
         11: {
             name: "Meme Growth Prevention",
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
-            goalDescription: "Reach 1e180 points.",
+            goalDescription()  {
+            let pointGoal = new Decimal("1e180");
+            if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e625").pow(player.sunny.sunnyCompletions.times(0.0625).add(0.9375).pow(1.3));
+            return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
             unlocked() { return hasUpgrade("sunny", 21); },
-            canComplete: function() { return player.points.gte(1e180) },
+            style() {
+                if (inChallenge("sunny", 11) && this.canComplete())  {
+                    return {
+                        "background-color": "#ffbf00", // can complete
+                    };
+                } else if (player.sunny.sunnyCompletions.gte(5)) {
+                    return {
+                        "background-color": "#58a3cc",
+                    };
+                } else if (player.sunny.sunnyCompletions.gte(2)) {
+                    return {
+                        "background-color": "#5bc77a", 
+                    };
+                } else if (player.sunny.sunnyCompletions.gte(1)) {
+                    return {
+                        "background-color": "#77bf5f",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            completionLimit() {
+                let lim = 1;
+                if (hasUpgrade("gal", 15)) lim = 5;
+                return lim;
+            },
+            canComplete: function() { 
+                let pointGoal = new Decimal("1e180");
+                if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e625").pow(player.sunny.sunnyCompletions.times(0.0625).add(0.9375).pow(1.3));
+                return player.points.gte(pointGoal); 
+            },
             rewardEffect() {
-                return player.sunny.points.add(1).pow(3.25);
+                return player.sunny.points.add(1).pow(3.25).pow(player.sunny.sunnyCompletions.div(5).add(0.8));
             },
             rewardDisplay() {
-                return format(this.rewardEffect()) + "x to LTF point gain";
+                let formatObject = format(this.rewardEffect()) + "x to LTF point gain";
+                if (player.sunny.sunnyCompletions.eq(0)) formatObject = "Not Completed";
+                else if (hasUpgrade("gal", 15)) formatObject = format(this.rewardEffect()) + "x to LTF point gain (" +  player.sunny.sunnyCompletions + "/" + this.completionLimit() + " Completions)";
+                return formatObject;
             },
         },
     },
@@ -3414,19 +3671,15 @@ addLayer("gal", {
             effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
-            title: "Time Hack",
-            description: "Gain a percentage of LTF, Ninja, and massive point gain on reset based on Galaxies.",
+            title: "Extra Completions I",
+            description: "You can now complete IC Challenges up to 5 times. This upgrade persists through higher layer resets.",
             cost: new Decimal(20),
-            unlocked() { return hasUpgrade("gal", 13); },
-            effect() {
-                return player.gal.points.add(1);
-            },
-            effectDisplay() { return format(this.effect()) + "%"; },
+            unlocked() { return hasUpgrade("gal", 13) || player.liquid.galUpgrades.gte(1); },
         },
         15: {
-            title: "Reality Warp",
-            description: "Time Hack now works on layer 3 currencies!",
-            cost: new Decimal(25),
+            title: "Extra Completions II",
+            description: "You can now complete Layer 5 challenges up to 5 times and IC challenges up to 10 times. This upgrade persists through higher layer resets.",
+            cost: new Decimal(30),
             unlocked() { return hasUpgrade("gal", 14); },
         },
     },
@@ -3436,6 +3689,15 @@ addLayer("gal", {
             effectDescription: "Intergalactic!",
             done() { return player.gal.points.gte(20); },
         },
+    },
+    doReset(resettingLayer) {
+        let keep = [];
+        if(hasUpgrade("gal", 14)) player.liquid.galUpgrades = new Decimal(1);
+        if(hasUpgrade("gal", 15)) player.liquid.galUpgrades = new Decimal(2);
+        if(resettingLayer=="vex" || resettingLayer=="enhance" || resettingLayer=="sunny" || resettingLayer=="liquid" || resettingLayer=="enchant") layerDataReset("gal", keep);
+        if(player.liquid.galUpgrades.eq(2)) player.gal.upgrades = ["14", "15"];
+        else if(player.liquid.galUpgrades.eq(1)) player.gal.upgrades = ["14"];
+        else player.gal.upgrades = [];
     },
 
     tabFormat: {
@@ -3459,6 +3721,7 @@ addLayer("liquid", {
         return {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
+            galUpgrades: new Decimal(0),
         };
     },
     color: "#d7520f", // distinct orange
