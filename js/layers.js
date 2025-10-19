@@ -4718,7 +4718,7 @@ addLayer("gag", { // Temp GAG layer for the event
         if(player.gag.yy.gte("1e105")) player.gag.yy = player.gag.yy.div(player.gag.yy.log10().div(new Decimal("1e105").log10()).pow(0.00036));
         if(hasUpgrade("gag", 63)) player.gag.zz = player.gag.zz.times(new Decimal(1.016).pow(player.gag.growthMulti));
         if(player.gag.zz.gte("1e150")) player.gag.zz = player.gag.zz.div(player.gag.zz.log10().div(new Decimal("1e150").log10()).pow(0.000324));
-        if(player.gag.prestigeCd.gte(0.0525)) player.gag.prestigeCd = player.gag.prestigeCd.sub(0.0525);
+        if(player.gag.prestigeCd.gte(0.054545)) player.gag.prestigeCd = player.gag.prestigeCd.sub(0.054545);
     },
     upgrades: {
         11: {
