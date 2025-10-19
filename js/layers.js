@@ -4575,3 +4575,615 @@ addLayer("enchant", {
         },
     },
 });
+addLayer("gag", { // Temp GAG layer for the event
+    name: "Grow a Garden", // Full name of the layer
+    symbol: "GAG", // Symbol displayed on the tree
+    position: 2, // Position in the tree
+    startData() {
+        return {
+            unlocked: true, // Starts unlocked!
+            points: new Decimal(0), // Prestige points for this layer
+            carrotBoost: new Decimal(1),
+            strawberryBoost: new Decimal(1),
+            aa: new Decimal(1),
+            bb: new Decimal(1),
+            cc: new Decimal(1),
+            dd: new Decimal(1),
+            ee: new Decimal(1),
+            ff: new Decimal(1),
+            gg: new Decimal(1),
+            hh: new Decimal(1),
+            ii: new Decimal(1),
+            jj: new Decimal(1),
+            kk: new Decimal(1),
+            ll: new Decimal(1),
+            mm: new Decimal(1),
+            nn: new Decimal(1),
+            oo: new Decimal(1),
+            p: new Decimal(1),
+            qq: new Decimal(1),
+            rr: new Decimal(1),
+            ss: new Decimal(1),
+            tt: new Decimal(1),
+            uu: new Decimal(1),
+            vv: new Decimal(1),
+            ww: new Decimal(1),
+            xx: new Decimal(1),
+            yy: new Decimal(1),
+            zz: new Decimal(1),
+            growthMulti: new Decimal(0.05),
+            upgBought: new Decimal(0),
+        };
+    },
+    color: "#20ed15", // GAG color
+    requires: new Decimal(100), // Points required to unlock this layer
+    resource: "sheckles", // Prestige currency name
+    baseResource: "points", // Resource used to gain prestige points
+    baseAmount() { return player.points; }, // Current amount of baseResource
+    type: "normal", // Standard prestige layer type
+    exponent: new Decimal(0.00000001), // Scaling factor for prestige points, extremely low on purpose
+    canReset() {
+    return getResetGain(this.layer).lt(2) && player.gag.points.lte(1);
+    },
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (player.points.gte(10)) passive = passive.add(player.points.log10().add(1).log10().pow(2).div(5));
+        passive = passive.times(buyableEffect("gag", 11));
+        passive = passive.times(buyableEffect("gag", 12));
+        if(hasMilestone("gag", 0)) passive = passive.times(2);
+        return passive;
+    },
+    layerShown() {
+        // Check if the player has 50 points
+        return player.points.gte(50) || player.gag.points.gte(1);
+    },
+
+    gainMult() { // Multiplicative bonus to prestige point gain
+        let mult = new Decimal(1);
+        return mult;
+    },
+
+    gainExp() {
+        let exp = new Decimal(1);// Exponential bonus to prestige point gain
+        return exp;
+    },
+
+    row: "side", // Row in the tree
+    hotkeys: [
+        { key: "-", description: "LIMITED TIME EVENT!", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
+    ],
+    infoboxes:{
+        1: {
+            title: "About This Layer",
+            titleStyle: {'color': '#000000'},
+            body: "The new Grow a Garden Event that will last until around 10/22/2025, you can purchase plants as upgrades and there are 3 buyables to unlock. The last buyable will reset every plant but significantly increase growth rate and allow for a bit more progress past the SC threshold.",
+            unlocked() { return player.gag.points.lte(99); }
+        },
+    },
+    update() {
+        if(hasUpgrade("gag", 11)) player.gag.carrotBoost = player.gag.carrotBoost.times(new Decimal(1.001).pow(player.gag.growthMulti));
+        if(player.gag.carrotBoost.gte(1.1)) player.gag.carrotBoost = player.gag.carrotBoost.div(player.gag.carrotBoost.div(1.1).pow(0.005));
+        if(hasUpgrade("gag", 12)) player.gag.strawberryBoost = player.gag.strawberryBoost.times(new Decimal(1.00035).pow(player.gag.growthMulti));
+        if(player.gag.strawberryBoost.gte(1.4)) player.gag.strawberryBoost = player.gag.strawberryBoost.div(player.gag.strawberryBoost.log10().div(new Decimal(1.4).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 13)) player.gag.aa = player.gag.aa.times(new Decimal(1.0005).pow(player.gag.growthMulti));
+        if(player.gag.aa.gte(2)) player.gag.aa = player.gag.aa.div(player.gag.aa.log10().div(new Decimal(2).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 14)) player.gag.bb = player.gag.bb.times(new Decimal(1.003).pow(player.gag.growthMulti));
+        if(player.gag.bb.gte(1.25)) player.gag.bb = player.gag.bb.div(player.gag.bb.log10().div(new Decimal(1.25).log10()).pow(0.005));
+        if(hasUpgrade("gag", 15)) player.gag.cc = player.gag.cc.times(new Decimal(1.0008).pow(player.gag.growthMulti));
+        if(player.gag.cc.gte(3)) player.gag.cc = player.gag.cc.div(player.gag.cc.log10().div(new Decimal(3).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 21)) player.gag.dd = player.gag.dd.times(new Decimal(1.001).pow(player.gag.growthMulti));
+        if(player.gag.dd.gte(5)) player.gag.dd = player.gag.dd.div(player.gag.dd.log10().div(new Decimal(5).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 22)) player.gag.ee = player.gag.ee.times(new Decimal(1.006).pow(player.gag.growthMulti));
+        if(player.gag.ee.gte(1.5)) player.gag.ee = player.gag.ee.div(player.gag.ee.log10().div(new Decimal(1.5).log10()).pow(0.005));
+        if(hasUpgrade("gag", 23)) player.gag.ff = player.gag.ff.times(new Decimal(1.0075).pow(player.gag.growthMulti));
+        if(player.gag.ff.gte(1.6)) player.gag.ff = player.gag.ff.div(player.gag.ff.log10().div(new Decimal(1.6).log10()).pow(0.005));
+        if(hasUpgrade("gag", 24)) player.gag.gg = player.gag.gg.times(new Decimal(1.01).pow(player.gag.growthMulti));
+        if(player.gag.gg.gte(1.7)) player.gag.gg = player.gag.gg.div(player.gag.gg.log10().div(new Decimal(1.7).log10()).pow(0.005));
+        if(hasUpgrade("gag", 25)) player.gag.hh = player.gag.hh.times(new Decimal(1.002).pow(player.gag.growthMulti));
+        if(player.gag.hh.gte(10)) player.gag.hh = player.gag.hh.div(player.gag.hh.log10().div(new Decimal(10).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 31)) player.gag.ii = player.gag.ii.times(new Decimal(1.0125).pow(player.gag.growthMulti));
+        if(player.gag.ii.gte(2)) player.gag.ii = player.gag.ii.div(player.gag.ii.log10().div(new Decimal(2).log10()).pow(0.005));
+        if(hasUpgrade("gag", 32)) player.gag.jj = player.gag.jj.times(new Decimal(1.0025).pow(player.gag.growthMulti));
+        if(player.gag.jj.gte(25)) player.gag.jj = player.gag.jj.div(player.gag.jj.log10().div(new Decimal(25).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 33)) player.gag.kk = player.gag.kk.times(new Decimal(1.0028).pow(player.gag.growthMulti));
+        if(player.gag.kk.gte(50)) player.gag.kk = player.gag.kk.div(player.gag.kk.log10().div(new Decimal(50).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 34)) player.gag.ll = player.gag.ll.times(new Decimal(1.0032).pow(player.gag.growthMulti));
+        if(player.gag.ll.gte(200)) player.gag.ll = player.gag.ll.div(player.gag.ll.log10().div(new Decimal(200).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 35)) player.gag.mm = player.gag.mm.times(new Decimal(1.0036).pow(player.gag.growthMulti));
+        if(player.gag.mm.gte(1000)) player.gag.mm = player.gag.mm.div(player.gag.mm.log10().div(new Decimal(1000).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 41)) player.gag.nn = player.gag.nn.times(new Decimal(1.0042).pow(player.gag.growthMulti));
+        if(player.gag.nn.gte(25000)) player.gag.nn = player.gag.nn.div(player.gag.nn.log10().div(new Decimal(25000).log10()).pow(0.0008));
+        if(hasUpgrade("gag", 42)) player.gag.oo = player.gag.oo.times(new Decimal(1.025).pow(player.gag.growthMulti));
+        if(player.gag.oo.gte(40)) player.gag.oo = player.gag.oo.div(player.gag.oo.log10().div(new Decimal(40).log10()).pow(0.005));
+        if(hasUpgrade("gag", 43)) player.gag.p = player.gag.p.times(new Decimal(1.005).pow(player.gag.growthMulti));
+        if(player.gag.p.gte("1e8")) player.gag.p = player.gag.p.div(player.gag.p.log10().div(new Decimal("1e8").log10()).pow(0.0008));
+        if(hasUpgrade("gag", 44)) player.gag.qq = player.gag.qq.times(new Decimal(1.0055).pow(player.gag.growthMulti));
+        if(player.gag.qq.gte("1e10")) player.gag.qq = player.gag.qq.div(player.gag.qq.log10().div(new Decimal("1e10").log10()).pow(0.00075));
+        if(hasUpgrade("gag", 45)) player.gag.rr = player.gag.rr.times(new Decimal(1.0062).pow(player.gag.growthMulti));
+        if(player.gag.rr.gte("1e13")) player.gag.rr = player.gag.rr.div(player.gag.rr.log10().div(new Decimal("1e13").log10()).pow(0.0007));
+        if(hasUpgrade("gag", 51)) player.gag.ss = player.gag.ss.times(new Decimal(1.0069).pow(player.gag.growthMulti));
+        if(player.gag.ss.gte("1e17")) player.gag.ss = player.gag.ss.div(player.gag.ss.log10().div(new Decimal("1e17").log10()).pow(0.00065));
+        if(hasUpgrade("gag", 52)) player.gag.tt = player.gag.tt.times(new Decimal(1.0078).pow(player.gag.growthMulti));
+        if(player.gag.tt.gte("1e24")) player.gag.tt = player.gag.tt.div(player.gag.tt.log10().div(new Decimal("1e24").log10()).pow(0.0006));
+        if(hasUpgrade("gag", 53)) player.gag.uu = player.gag.uu.times(new Decimal(1.00885).pow(player.gag.growthMulti));
+        if(player.gag.uu.gte("1e32")) player.gag.uu = player.gag.uu.div(player.gag.uu.log10().div(new Decimal("1e32").log10()).pow(0.00055));
+        if(hasUpgrade("gag", 54)) player.gag.vv = player.gag.vv.times(new Decimal(1.01).pow(player.gag.growthMulti));
+        if(player.gag.vv.gte("1e42")) player.gag.vv = player.gag.vv.div(player.gag.vv.log10().div(new Decimal("1e42").log10()).pow(0.0005));
+        if(hasUpgrade("gag", 55)) player.gag.ww = player.gag.ww.times(new Decimal(1.01125).pow(player.gag.growthMulti));
+        if(player.gag.ww.gte("1e55")) player.gag.ww = player.gag.ww.div(player.gag.ww.log10().div(new Decimal("1e55").log10()).pow(0.00046));
+        if(hasUpgrade("gag", 61)) player.gag.xx = player.gag.xx.times(new Decimal(1.0125).pow(player.gag.growthMulti));
+        if(player.gag.xx.gte("1e70")) player.gag.xx = player.gag.xx.div(player.gag.xx.log10().div(new Decimal("1e70").log10()).pow(0.00042));
+        if(hasUpgrade("gag", 62)) player.gag.yy = player.gag.yy.times(new Decimal(1.014).pow(player.gag.growthMulti));
+        if(player.gag.yy.gte("1e105")) player.gag.yy = player.gag.yy.div(player.gag.yy.log10().div(new Decimal("1e105").log10()).pow(0.00036));
+        if(hasUpgrade("gag", 63)) player.gag.zz = player.gag.zz.times(new Decimal(1.016).pow(player.gag.growthMulti));
+        if(player.gag.zz.gte("1e150")) player.gag.zz = player.gag.zz.div(player.gag.zz.log10().div(new Decimal("1e150").log10()).pow(0.000324));
+
+    },
+    upgrades: {
+        11: {
+            title: "Carrot",
+            description: "Plant a carrot and gain a boost to point gain based on time since this upgrade's purchase! Unlocks Buyable 1.",
+            cost: new Decimal(10),
+            effect() {
+                return player.gag.carrotBoost;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        12: {
+            title: "Strawberry",
+            description: "Plant a strawberry and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(50),
+            unlocked() { return hasUpgrade("gag", 11); },
+            effect() {
+                return player.gag.strawberryBoost;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        13: {
+            title: "Blueberry",
+            description: "Plant a blueberry and gain a boost to point gain based on time since this upgrade's purchase! Unlocks Buyable 2.",
+            cost: new Decimal(250),
+            unlocked() { return hasUpgrade("gag", 12); },
+            effect() {
+                return player.gag.aa;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Orange Tulip",
+            description: "Plant an orange tulip and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(600),
+            unlocked() { return hasUpgrade("gag", 13); },
+            effect() {
+                return player.gag.bb;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Tomato",
+            description: "Plant a tomato and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(2250),
+            unlocked() { return hasUpgrade("gag", 14); },
+            effect() {
+                return player.gag.cc;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Corn",
+            description: "Plant some corn and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(5000),
+            unlocked() { return hasUpgrade("gag", 15); },
+            effect() {
+                return player.gag.dd;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        22: {
+            title: "Daffodil",
+            description: "Plant a daffodil and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(9000),
+            unlocked() { return hasUpgrade("gag", 21); },
+            effect() {
+                return player.gag.ee;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        23: {
+            title: "Watermelon",
+            description: "Plant a watermelon and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(40000),
+            unlocked() { return hasUpgrade("gag", 22); },
+            effect() {
+                return player.gag.ff;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        24: {
+            title: "Pumpkin",
+            description: "Plant a pumpkin and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(125000),
+            unlocked() { return hasUpgrade("gag", 23); },
+            effect() {
+                return player.gag.gg;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        25: {
+            title: "Apple",
+            description: "Plant an apple and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(270000),
+            unlocked() { return hasUpgrade("gag", 24); },
+            effect() {
+                return player.gag.hh;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        31: {
+            title: "Bamboo",
+            description: "Plant some bamboo and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal(550000),
+            unlocked() { return hasUpgrade("gag", 25); },
+            effect() {
+                return player.gag.ii;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        32: {
+            title: "Coconut",
+            description: "Plant a coconut and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("3200000"),
+            unlocked() { return hasUpgrade("gag", 31); },
+            effect() {
+                return player.gag.jj;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        33: {
+            title: "Cactus",
+            description: "Plant a cactus and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("8100000"),
+            unlocked() { return hasUpgrade("gag", 32); },
+            effect() {
+                return player.gag.kk;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        34: {
+            title: "Dragon Fruit",
+            description: "Plant a dragon fruit and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("22500000"),
+            unlocked() { return hasUpgrade("gag", 33); },
+            effect() {
+                return player.gag.ll;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        35: {
+            title: "Mango",
+            description: "Plant a mango and gain a boost to point gain based on time since this upgrade's purchase! Unlocks Buyable 3.",
+            cost: new Decimal("60000000"),
+            unlocked() { return hasUpgrade("gag", 34); },
+            effect() {
+                return player.gag.mm;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        41: {
+            title: "Grape",
+            description: "Plant a grape and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("350000000"),
+            unlocked() { return hasUpgrade("gag", 35); },
+            effect() {
+                return player.gag.nn;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        42: {
+            title: "Mushroom",
+            description: "Plant a mushroom and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("1.2e9"),
+            unlocked() { return hasUpgrade("gag", 41); },
+            effect() {
+                return player.gag.oo;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        43: {
+            title: "Pepper",
+            description: "Plant a pepper and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("3.25e9"),
+            unlocked() { return hasUpgrade("gag", 42); },
+            effect() {
+                return player.gag.p;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        44: {
+            title: "Cacao",
+            description: "Plant a cacao plant and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("7.5e9"),
+            unlocked() { return hasUpgrade("gag", 43); },
+            effect() {
+                return player.gag.qq;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        45: {
+            title: "Beanstalk",
+            description: "Plant a beanstalk and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("4.5e10"),
+            unlocked() { return hasUpgrade("gag", 44); },
+            effect() {
+                return player.gag.rr;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        51: {
+            title: "Ember Lily",
+            description: "Plant an ember lily and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("2.1e11"),
+            unlocked() { return hasUpgrade("gag", 45); },
+            effect() {
+                return player.gag.ss;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        52: {
+            title: "Sugar Apple",
+            description: "Plant a sugar apple and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("6.2e11"),
+            unlocked() { return hasUpgrade("gag", 51); },
+            effect() {
+                return player.gag.tt;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        53: {
+            title: "Burning Bud",
+            description: "Plant a burning bud and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("1.75e12"),
+            unlocked() { return hasUpgrade("gag", 52); },
+            effect() {
+                return player.gag.uu;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        54: {
+            title: "Giant Pinecone",
+            description: "Plant a giant pinecone and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("5e12"),
+            unlocked() { return hasUpgrade("gag", 53); },
+            effect() {
+                return player.gag.vv;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        55: {
+            title: "Elder Strawberry",
+            description: "Plant an elder strawberry and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("1.1e13"),
+            unlocked() { return hasUpgrade("gag", 54); },
+            effect() {
+                return player.gag.ww;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        61: {
+            title: "Romanesco",
+            description: "Plant a romanesco and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("2.25e13"),
+            unlocked() { return hasUpgrade("gag", 55); },
+            effect() {
+                return player.gag.xx;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        62: {
+            title: "Crimson Thorn",
+            description: "Plant a crimson thorn and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("2e14"),
+            unlocked() { return hasUpgrade("gag", 61); },
+            effect() {
+                return player.gag.yy;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        63: {
+            title: "Great Pumpkin",
+            description: "Plant a great pumpkin and gain a boost to point gain based on time since this upgrade's purchase!",
+            cost: new Decimal("1e15"),
+            unlocked() { return hasUpgrade("gag", 62); },
+            effect() {
+                return player.gag.zz;
+            },
+            onPurchase() {player.gag.upgBought=player.gag.upgBought.add(1);},
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+    },
+    buyables: {
+        11: {
+            title: "Simple Sheckle Boost",
+            description: "Boosts sheckles based on buyable level (+10% additive per level). Max Level is 990.",
+            purchaseLimit: new Decimal(990),
+            style() {return {"border-radius": "25px", "height": "175px", "width": "175px"};},
+            cost(x) {return new Decimal(10).times(x.div(10).add(1).pow(2)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("gag", 11);  // Buyable unlocks when player has upgrade 12
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1).add(x.div(10));
+            },
+            canAfford() { return player.gag.points.gte(this.cost()) },
+            buy() {
+                player.gag.points = player.gag.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("gag", 11); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} sheckles`;
+            },
+        },
+        12: {
+            title: "Crops Boost Sheckles",
+            description: "Boosts sheckles based on plants planted and buyable level (capped at 50 levels).",
+            purchaseLimit: new Decimal(50),
+            style() {return {"border-radius": "25px", "height": "175px", "width": "175px"};},
+            cost(x) {return new Decimal(2.5).pow(x.pow(1.05)).times(100); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("gag", 13);  // Buyable unlocks when player has upgrade 12
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                let buyableEff = new Decimal(1);
+                if (getBuyableAmount("gag", 12).gte(1)) buyableEff=new Decimal(1.25).add(x.div(40));
+                return buyableEff.pow(player.gag.upgBought);
+            },
+            canAfford() { return player.gag.points.gte(this.cost()) },
+            buy() {
+                player.gag.points = player.gag.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("gag", 12); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} sheckles`;
+            },
+        },
+        13: {
+            title: "Crop Prestige",
+            description: "Reset your crop boosts in exchange for a 12.5% (compounding) faster growth rate, can be done up to 25 times",
+            purchaseLimit: new Decimal(25),
+            style() {return {"border-radius": "25px", "height": "175px", "width": "175px"};},
+            cost(x) {return new Decimal(100).pow(x.pow(1.1)).times("1e8"); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasUpgrade("gag", 35);  // Buyable unlocks when player has upgrade 12
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1.125).pow(x);
+            },
+            canAfford() { return player.gag.points.gte(this.cost()) },
+            buy() {
+                player.gag.points = player.gag.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+                player.gag.carrotBoost = new Decimal(1);
+                player.gag.strawberryBoost = new Decimal(1);
+                player.gag.aa = new Decimal(1);
+                player.gag.bb = new Decimal(1);
+                player.gag.cc = new Decimal(1);
+                player.gag.dd = new Decimal(1);
+                player.gag.ee = new Decimal(1);
+                player.gag.ff = new Decimal(1);
+                player.gag.gg = new Decimal(1);
+                player.gag.hh = new Decimal(1);
+                player.gag.ii = new Decimal(1);
+                player.gag.jj = new Decimal(1);
+                player.gag.kk = new Decimal(1);
+                player.gag.ll = new Decimal(1);
+                player.gag.mm = new Decimal(1);
+                player.gag.nn = new Decimal(1);
+                player.gag.oo = new Decimal(1);
+                player.gag.p = new Decimal(1);
+                player.gag.qq = new Decimal(1);
+                player.gag.rr = new Decimal(1);
+                player.gag.ss = new Decimal(1);
+                player.gag.tt = new Decimal(1);
+                player.gag.uu = new Decimal(1);
+                player.gag.vv = new Decimal(1);
+                player.gag.ww = new Decimal(1);
+                player.gag.xx = new Decimal(1);
+                player.gag.yy = new Decimal(1);
+                player.gag.zz = new Decimal(1);
+                player.gag.growthMulti = player.gag.growthMulti.times(1.125);
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("gag", 13); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Prestige Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} sheckles`;
+            },
+        },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1.00e20 Sheckles",
+            effectDescription: "Bountiful Harvest! This will double sheckle gain!",
+            done() { return player.gag.points.gte(1e20); },
+        },
+    },
+
+    tabFormat: {
+        "Main Tab": {
+            content: [
+                ["infobox", "1"],
+                "main-display",
+                "resource-display",
+                ["display-text", function() {
+                if (player.revo.points.lte(new Decimal(10))) {
+                    return '<span style="color: green;">Here are your plant upgrades. They will start to slow down after a certain point.</span>';
+                }
+                return "";
+            }],
+                "upgrades",
+                "buyables",
+                "milestones",
+            ],
+        },
+    },
+});
