@@ -4613,6 +4613,7 @@ addLayer("gag", { // Temp GAG layer for the event
             zz: new Decimal(1),
             growthMulti: new Decimal(0.05),
             upgBought: new Decimal(0),
+            prestigeCd: new Decimal(0),
         };
     },
     color: "#20ed15", // GAG color
@@ -4717,7 +4718,7 @@ addLayer("gag", { // Temp GAG layer for the event
         if(player.gag.yy.gte("1e105")) player.gag.yy = player.gag.yy.div(player.gag.yy.log10().div(new Decimal("1e105").log10()).pow(0.00036));
         if(hasUpgrade("gag", 63)) player.gag.zz = player.gag.zz.times(new Decimal(1.016).pow(player.gag.growthMulti));
         if(player.gag.zz.gte("1e150")) player.gag.zz = player.gag.zz.div(player.gag.zz.log10().div(new Decimal("1e150").log10()).pow(0.000324));
-
+        if(player.gag.prestigeCd.gte(0.01)) player.gag.prestigeCd = player.gag.prestigeCd.sub(0.05);
     },
     upgrades: {
         11: {
@@ -5099,7 +5100,7 @@ addLayer("gag", { // Temp GAG layer for the event
         },
         13: {
             title: "Crop Prestige",
-            description: "Reset your crop boosts in exchange for a 12.5% (compounding) faster growth rate, can be done up to 25 times",
+            description: "Reset your crop boosts in exchange for a 12.5% (compounding) faster growth rate, can be done up to 25 times and is on a 10-minute cooldown once bought.",
             purchaseLimit: new Decimal(25),
             style() {return {"border-radius": "25px", "height": "175px", "width": "175px"};},
             cost(x) {return new Decimal(100).pow(x.pow(1.1)).times("1e8"); },  // The cost formula
@@ -5113,7 +5114,7 @@ addLayer("gag", { // Temp GAG layer for the event
             effect(x) {
                 return new Decimal(1.125).pow(x);
             },
-            canAfford() { return player.gag.points.gte(this.cost()) },
+            canAfford() { return player.gag.points.gte(this.cost()) && player.gag.prestigeCd.lte(0.1) },
             buy() {
                 player.gag.points = player.gag.points.sub(this.cost())
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
@@ -5146,6 +5147,7 @@ addLayer("gag", { // Temp GAG layer for the event
                 player.gag.yy = new Decimal(1);
                 player.gag.zz = new Decimal(1);
                 player.gag.growthMulti = player.gag.growthMulti.times(1.125);
+                player.gag.prestigeCd = new Decimal(600);
             },
             // Display the effect
             display() {
@@ -5156,7 +5158,8 @@ addLayer("gag", { // Temp GAG layer for the event
                     ${this.description}<br>
                     Prestige Level: ${format(amt)}<br>
                     Effect: x${format(effect)}<br>
-                    Cost: ${format(cost)} sheckles`;
+                    Cost: ${format(cost)} sheckles<br>
+                    Cooldown: ${formatTime(player.gag.prestigeCd)}`;
             },
         },
     },
