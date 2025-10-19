@@ -5158,7 +5158,7 @@ addLayer("gag", { // Temp GAG layer for the event
                     ${this.description}<br>
                     Prestige Level: ${format(amt)}<br>
                     Effect: x${format(effect)}<br>
-                    Cost: ${format(cost)} sheckles<br>
+                    Cost: ${format(cost)} sheckles
                     Cooldown: ${formatTime(player.gag.prestigeCd)}`;
             },
         },
