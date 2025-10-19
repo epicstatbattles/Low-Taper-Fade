@@ -5067,7 +5067,7 @@ addLayer("gag", { // Temp GAG layer for the event
             description: "Boosts sheckles based on plants planted and buyable level (capped at 50 levels).",
             purchaseLimit: new Decimal(50),
             style() {return {"border-radius": "25px", "height": "175px", "width": "175px"};},
-            cost(x) {return new Decimal(2.5).pow(x.pow(1.05)).times(100); },  // The cost formula
+            cost(x) {return new Decimal(2).pow(x.pow(1.08)).times(100); },  // The cost formula
 
             // Unlock condition
             unlocked() {
