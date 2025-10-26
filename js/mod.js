@@ -485,34 +485,6 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1);
-	if (hasUpgrade("gag", 11)) gain = gain.times(upgradeEffect("gag", 11)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 12)) gain = gain.times(upgradeEffect("gag", 12)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 13)) gain = gain.times(upgradeEffect("gag", 13)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 14)) gain = gain.times(upgradeEffect("gag", 14)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 15)) gain = gain.times(upgradeEffect("gag", 15)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 21)) gain = gain.times(upgradeEffect("gag", 21)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 22)) gain = gain.times(upgradeEffect("gag", 22)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 23)) gain = gain.times(upgradeEffect("gag", 23)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 24)) gain = gain.times(upgradeEffect("gag", 24)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 25)) gain = gain.times(upgradeEffect("gag", 25)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 31)) gain = gain.times(upgradeEffect("gag", 31)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 32)) gain = gain.times(upgradeEffect("gag", 32)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 33)) gain = gain.times(upgradeEffect("gag", 33)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 34)) gain = gain.times(upgradeEffect("gag", 34)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 35)) gain = gain.times(upgradeEffect("gag", 35)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 41)) gain = gain.times(upgradeEffect("gag", 41)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 42)) gain = gain.times(upgradeEffect("gag", 42)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 43)) gain = gain.times(upgradeEffect("gag", 43)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 44)) gain = gain.times(upgradeEffect("gag", 44)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 45)) gain = gain.times(upgradeEffect("gag", 45)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 51)) gain = gain.times(upgradeEffect("gag", 51)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 52)) gain = gain.times(upgradeEffect("gag", 52)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 53)) gain = gain.times(upgradeEffect("gag", 53)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 54)) gain = gain.times(upgradeEffect("gag", 54)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 55)) gain = gain.times(upgradeEffect("gag", 55)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 61)) gain = gain.times(upgradeEffect("gag", 61)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 62)) gain = gain.times(upgradeEffect("gag", 62)); //TEMP EVENT UPGRADE (REMOVED BY 10/22)
-	if (hasUpgrade("gag", 63)) gain = gain.times(upgradeEffect("gag", 63)); //TEMP EVENT UPGRADE (REMOVED BY 10/22), LAST TEMP EVENT UPGRADE
 	if (hasUpgrade("ltf", 11)) gain = gain.times(2);
 	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5);
 	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
