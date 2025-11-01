@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.0 (GAG Event)",
+	num: "5.0",
 	name: "The Enchantment Grind",
 }
 
