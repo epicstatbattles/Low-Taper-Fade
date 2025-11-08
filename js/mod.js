@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.0",
+	num: "5.1",
 	name: "The Enchantment Grind",
 }
 
@@ -461,7 +461,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Introduced a revolutionary rework to the fourth and fifth Galaxy upgrades!<br>
 		- Now they add extra challenge completions to Infinity and Layer 5 challenges. Extra challenge completions increase their reward effects based on extra completion amount.<br>
 		- The extra completions upgrades will persist through all resets.<br>
-		- These changes will help prepare for the enchantment implementation, which will add many upgrades to that layer.`
+		- These changes will help prepare for the enchantment implementation, which will add many upgrades to that layer.<br>
+		<h3>v5.1</h3><br>
+		- Added Artifacts to Enchantment layer, with 3 new buyables.<br>
+		- Added 3 new upgrades to Enchantment layer.<br>
+		- Changed second mantissa transition to e10M instead of e1M.`
 
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
@@ -485,8 +489,8 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1);
-	if (hasUpgrade("ltf", 11)) gain = gain.times(2);
-	if (hasUpgrade("ltf", 14)) gain = gain.times(2.5);
+	if (hasUpgrade("ltf", 11)) gain = gain.times(upgradeEffect("ltf", 11));
+	if (hasUpgrade("ltf", 14)) gain = gain.times(upgradeEffect("ltf", 14));
 	if (hasUpgrade("ltf", 15)) gain = gain.times(upgradeEffect("ltf", 15));
 	if (hasUpgrade("ltf", 21)) gain = gain.times(upgradeEffect("ltf", 21));
 	if (hasUpgrade("ninja", 11)) gain = gain.times(3);
@@ -511,6 +515,9 @@ function getPointGen() {
 	if (hasUpgrade("enchant", 11)) gain = gain.times(upgradeEffect("enchant", 11));
 	if (hasUpgrade("enchant", 12)) gain = gain.times(upgradeEffect("enchant", 12));
 	if (hasUpgrade("enchant", 13)) gain = gain.times(upgradeEffect("enchant", 13));
+	if (hasUpgrade("enchant", 14)) gain = gain.times(upgradeEffect("enchant", 14));
+	if (hasUpgrade("enchant", 15)) gain = gain.times(upgradeEffect("enchant", 15));
+	if (hasUpgrade("enchant", 21)) gain = gain.times(upgradeEffect("enchant", 21));
 	if (hasUpgrade("vex", 14)) gain = gain.times(upgradeEffect("vex", 14));
 	if (hasUpgrade("gal", 11)) gain = gain.times(upgradeEffect("gal", 11));
 	if (hasUpgrade("enhance", 12)) gain = gain.times(upgradeEffect("enhance", 12));
