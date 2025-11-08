@@ -30,7 +30,7 @@ addLayer("ltf", {
     },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
-        if (hasUpgrade("ltf", 12)) mult = mult.times(2); // Double gains with Upgrade 12
+        if (hasUpgrade("ltf", 12)) mult = mult.times(upgradeEffect("ltf", 12)); // Double gains with Upgrade 12
         if (hasUpgrade("ltf", 13)) mult = mult.times(upgradeEffect("ltf", 13)); // Scale gains further
         if (hasUpgrade("ninja", 13)) mult = mult.times(upgradeEffect("ninja", 13)); // Scale gains further
         if (hasUpgrade("ninja", 14)) mult = mult.times(upgradeEffect("ninja", 14)); // Scale gains further
@@ -91,7 +91,8 @@ addLayer("ltf", {
             description: "Multiply point gain by 2, simple little upgrade.",
             cost: new Decimal(2),
             effect() {
-                return new Decimal(2);
+                let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                return new Decimal(2).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -101,7 +102,8 @@ addLayer("ltf", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ltf", 11); },
             effect() {
-                return new Decimal(2);
+                let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                return new Decimal(2).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -121,7 +123,8 @@ addLayer("ltf", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("ltf", 13); },
             effect() {
-                return new Decimal(2.5); // 2.5x multiplier for point gain
+                let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                return new Decimal(2.5).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -378,7 +381,8 @@ addLayer("ninja", {
             description: "Multiply point gain by 3. This should get you back on your feet.",
             cost: new Decimal(1),
             effect() {
-                return new Decimal(3); // Simple multiplier
+                let expBoost = new Decimal(1).add(buyableEffect("enchant",12));
+                return new Decimal(3).pow(expBoost); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -388,7 +392,8 @@ addLayer("ninja", {
             cost: new Decimal(1),
             unlocked() { return hasUpgrade("ninja", 11); },
             effect() {
-                let base = player.ninja.points.add(1).pow(0.175).times(1.2); // Original effect formula
+                let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                let base = player.ninja.points.add(1).pow(0.175).times(initMulti);
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -413,7 +418,8 @@ addLayer("ninja", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
-                let base = player.ninja.points.div(3).add(1).pow(0.35).times(1.2); // Original effect formula
+                let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                let base = player.ninja.points.div(3).add(1).pow(0.35).times(initMulti); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
@@ -467,7 +473,8 @@ addLayer("ninja", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("ninja", 21); },
             effect() {
-                let base = player.ninja.points.div(4).add(1).pow(0.55).times(1.44); // Original effect formula
+                let initMulti = new Decimal(1.44).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                let base = player.ninja.points.div(4).add(1).pow(0.55).times(initMulti);
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
@@ -682,7 +689,8 @@ addLayer("massive", {
             description: "Low taper fade points are boosted based on massive points (initial multiplier of 1.1x).",
             cost: new Decimal(1),
             effect() {
-                let base = player.massive.points.div(2).add(1).pow(0.26).times(1.1); // Original effect formula
+                let initMulti = new Decimal(1.1).pow(new Decimal(1).add(buyableEffect("enchant",13)));
+                let base = player.massive.points.div(2).add(1).pow(0.26).times(initMulti); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -707,7 +715,8 @@ addLayer("massive", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("massive", 11); },
             effect() {
-                let massiveEffect = player.massive.points.add(10).log10().pow(1.2); // Effect based on massive points
+                let expBoost = new Decimal(1).add(buyableEffect("enchant",13).div(4));
+                let massiveEffect = player.massive.points.add(10).log10().pow(1.2).pow(expBoost); // Effect based on massive points
                 let normalEffect = player.points.div(10).add(1).pow(0.112); // Effect based on normal points
 
                 return normalEffect.times(massiveEffect);
@@ -720,7 +729,8 @@ addLayer("massive", {
             cost: new Decimal(40),
             unlocked() { return hasUpgrade("massive", 12); },
             effect() {
-                let base = player.massive.points.div(3).add(1).pow(0.22).times(1.2); // Original effect formula
+                let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",13)));
+                let base = player.massive.points.div(3).add(1).pow(0.22).times(initMulti); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
                 // Apply diminishing factor only if points exceed the threshold
@@ -4464,6 +4474,7 @@ addLayer("enchant", {
         return {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
+            peak: new Decimal(0),
         };
     },
     color: "#bd80e8", // light purple
@@ -4472,7 +4483,7 @@ addLayer("enchant", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.00002, // Scaling factor for prestige points
+    exponent: 0.000005, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has e80k score or 1 Enchantment Point
@@ -4487,7 +4498,9 @@ addLayer("enchant", {
     gainExp() { // Exponential bonus to prestige point gain
         return new Decimal(1); // Default is no additional exponential scaling
     },
-
+    update() {
+        if (player.points.gt(player.enchant.peak)) player.enchant.peak = player.points;
+    },
     row: 5, // Row in the tree (5 = sixth row)
     branches: ["liquid"],
     hotkeys: [
@@ -4507,49 +4520,218 @@ addLayer("enchant", {
             description: "Polish your low taper fade skills, boosting point gain based on LTF points!",
             cost: new Decimal(1),
             effect() {
-                return player.ltf.points.div(10).add(1).pow(0.65);
+                return player.ltf.points.div(10).add(10).log10().pow(3.65);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Enchant Ninja!",
             description: "Ninja keeps dragging his meme, and this causes points to receive another boost!",
-            cost: new Decimal(3),
-            unlocked() { return hasUpgrade("enchant", 11) && player.points.gte("1e150000"); },
+            cost: new Decimal(2),
+            unlocked() { return hasUpgrade("enchant", 11); },
             effect() {
-                return player.ninja.points.div(5).add(1).pow(0.95);
+                return player.ninja.points.div(5).add(10).log10().pow(4.5);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Enchant Massive!",
             description: "Another point boost, this time by massive points since the massiveness grew out of control.",
-            cost: new Decimal(10),
-            unlocked() { return hasUpgrade("enchant", 12) && player.points.gte("1e200000"); },
+            cost: new Decimal(5),
+            unlocked() { return hasUpgrade("enchant", 12); },
             effect() {
-                return player.ninja.points.div(4).add(1).pow(1.05);
+                return player.massive.points.div(3).add(10).log10().pow(5.25);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        14: {
+            title: "Enchant CT!",
+            description: "CT subscribers are infused with legendary Stat Wars essence, making them boost LTF points.",
+            cost: new Decimal(10),
+            unlocked() { return hasUpgrade("enchant", 13); },
+            effect() {
+                return player.ct.points.div(2).add(10).log10().pow(4.75);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        15: {
+            title: "Madelyn's Adorable!",
+            description: "Madelyn transforms to become more beautiful and gleaming, making her points boost LTF points.",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("enchant", 14); },
+            effect() {
+                return player.mady.points.add(10).log10().pow(5.25);
+            },
+            effectDisplay() { return "x" + format(this.effect()); },
+        },
+        21: {
+            title: "Aubrie's Legend Status",
+            description: "Aubrie turns her fame growth to more LTF point gain!",
+            cost: new Decimal(20),
+            unlocked() { return hasUpgrade("enchant", 15); },
+            effect() {
+                return player.aub.points.add(10).log10().pow(5.6);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
     },
-    bars: {
-        enchantTwoBar: {
-            direction: RIGHT,
-            fillStyle: {'background-color' : "#bd80e8"},
-            width: 280,
-            height: 40,
-            unlocked() { return hasUpgrade("enchant", 11) && player.points.lte("1e151500"); },
-            progress() { return player.points.log10().div(150000); },
-            display() { return format(player.points.log10().div(1500)) + "% to Ninja Enchant"; },
+    buyables: {
+        11: {
+            title: "Trimmers",
+            description: "Every level boosts efficiency of the static LTF upgrades by (^+1.00)",
+            cost(x) { 
+                let scaling = new Decimal(2);
+                let baseCost = new Decimal(10);
+                let subtractionFactor = new Decimal(0);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) scaling = scaling.times(5);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) baseCost = new Decimal("1.2676506e31");
+                if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
+                return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
+            unlocked() {
+                return player.enchant.peak.gte("1e500000") || getBuyableAmount(this.layer, this.id).gte(1);  
+            },
+            effect(x) {
+                return new Decimal(1).times(x);
+            },
+            canAfford() { return player.enchant.points.gte(this.cost()) },
+            buy() {
+                player.enchant.points = player.enchant.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+            },
+            // Display the effect and buyable
+            style() {
+            if (player.enchant.points.gte(this.cost(getBuyableAmount(this.layer, this.id))))
+                return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-a-hair-clipper-trimmer-isolated-on-white-background-png-image_12654207.png')", "background-size": "100%", "background-position": "0px -3px", "opacity": "0.75", "background-color": "#bd80e8"};
+            else return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://png.pngtree.com/png-vector/20240611/ourmid/pngtree-a-hair-clipper-trimmer-isolated-on-white-background-png-image_12654207.png')", "background-size": "100%", "background-position": "0px -3px", "opacity": "0.5", "background-color": "#bf8f8f"};},
+            display() {
+                let amt = getBuyableAmount(this.layer, this.id); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: ^+${format(effect)}<br>
+                    Cost: ${format(cost)} Enchantment Points`;
+            },
         },
-        enchantThreeBar: {
+        12: {
+            title: "Shears",
+            description: "Every level boosts the initial values of the Ninja upgrades by (^+1.50)",
+            cost(x) { 
+                let scaling = new Decimal(2);
+                let baseCost = new Decimal(200);
+                let subtractionFactor = new Decimal(0);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) scaling = scaling.times(5);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) baseCost = new Decimal("2.5353012e32");
+                if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
+                return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
+            unlocked() {
+                return player.enchant.peak.gte("1e720000") || getBuyableAmount(this.layer, this.id).gte(1);  
+            },
+            effect(x) {
+                return new Decimal(1.5).times(x);
+            },
+            canAfford() { return player.enchant.points.gte(this.cost()) },
+            buy() {
+                player.enchant.points = player.enchant.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+            },
+            // Display the effect and buyable
+            style() {
+            if (player.enchant.points.gte(this.cost(getBuyableAmount(this.layer, this.id))))
+                return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://materialkitchen.com/cdn/shop/products/GoodShearsPDP_grande.png?v=1759441665')", "background-size": "110%", "background-position": "-8px -40px", "opacity": "0.75", "background-color": "#bd80e8", "background-repeat": "no-repeat"};
+            else return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://materialkitchen.com/cdn/shop/products/GoodShearsPDP_grande.png?v=1759441665')", "background-size": "110%", "background-position": "-8px -40px", "opacity": "0.5", "background-color": "#bf8f8f", "background-repeat": "no-repeat"};},
+            display() {
+                let amt = getBuyableAmount(this.layer, this.id); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: ^+${format(effect)}<br>
+                    Cost: ${format(cost)} Enchantment Points`;
+            },
+        },
+        13: {
+            title: "Meme Expander",
+            description: "Every level boosts the initial values of the massive upgrades by (^+2.00) and raises the Massive-point-based boost of 'Massive Point Boost' by (+^0.50)",
+            cost(x) { 
+                let scaling = new Decimal(2);
+                let baseCost = new Decimal(10000);
+                let subtractionFactor = new Decimal(0);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) scaling = scaling.times(5);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) baseCost = new Decimal("1.2676506e34");
+                if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
+                return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
+            unlocked() {
+                return player.enchant.peak.gte("1e1000000") || getBuyableAmount(this.layer, this.id).gte(1);  
+            },
+            effect(x) {
+                return new Decimal(2).times(x);
+            },
+            canAfford() { return player.enchant.points.gte(this.cost()) },
+            buy() {
+                player.enchant.points = player.enchant.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+            },
+            // Display the effect and buyable
+            style() {
+            if (player.enchant.points.gte(this.cost(getBuyableAmount(this.layer, this.id))))
+                return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://cdn-icons-png.flaticon.com/512/4599/4599691.png')", "background-size": "90%", "background-position": "8px 10px", "opacity": "0.75", "background-color": "#bd80e8", "background-repeat": "no-repeat"};
+            else return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://cdn-icons-png.flaticon.com/512/4599/4599691.png')", "background-size": "90%", "background-position": "8px 10px", "opacity": "0.5", "background-color": "#bf8f8f", "background-repeat": "no-repeat"};},
+            display() {
+                let amt = getBuyableAmount(this.layer, this.id); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: ^+${format(effect)} MPU init, ^+${format(effect.div(4))} MPB boost<br>
+                    Cost: ${format(cost)} Enchantment Points`;
+            },
+        },
+    },
+    bars: {
+        artifactBar: {
             direction: RIGHT,
             fillStyle: {'background-color' : "#bd80e8"},
             width: 280,
             height: 40,
-            unlocked() { return hasUpgrade("enchant", 12) && player.points.lte("1e202000"); },
-            progress() { return player.points.log10().div(200000); },
-            display() { return format(player.points.log10().div(2000)) + "% to Massive Enchant"; },
+            unlocked() { return player.points.gte("1e200000") && player.points.lte("1e505000"); },
+            progress() { return player.points.log10().div(500000); },
+            display() { return format(player.points.log10().div(5000)) + "% to unlocking Artifacts"; },
+        },
+        elementalBar: {
+            direction: RIGHT,
+            fillStyle: {'background-color' : "#b24de8"},
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e5000000") && player.points.lte("1e20200000"); },
+            progress() { return player.points.log10().div(20000000); },
+            display() { return format(player.points.log10().div(200000)) + "% to unlocking Elements"; },
+        },
+        nextArtifact: {
+            direction: RIGHT,
+            fillStyle: {'background-color' : "#bd80e8"},
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e500000") && player.points.lte("1e1005000000"); },
+            progress() { 
+                let subValue = new Decimal(500000);
+                let divValue = new Decimal(220000);
+                if (player.enchant.peak.gte("1e720000")) subValue = new Decimal(720000);
+                if (player.enchant.peak.gte("1e720000")) divValue = new Decimal(280000);
+                if (player.enchant.peak.gte("1e1000000")) subValue = new Decimal(1000000);
+                if (player.enchant.peak.gte("1e1000000")) divValue = new Decimal(350000);
+                return player.points.log10().sub(subValue).div(divValue); },
+            display() { 
+                let subValue = new Decimal(500000);
+                let divValue = new Decimal(2200);
+                if (player.enchant.peak.gte("1e720000")) subValue = new Decimal(720000);
+                if (player.enchant.peak.gte("1e720000")) divValue = new Decimal(2800);
+                if (player.enchant.peak.gte("1e1000000")) subValue = new Decimal(1000000);
+                if (player.enchant.peak.gte("1e1000000")) divValue = new Decimal(3500);
+                return format(player.points.log10().sub(subValue).div(divValue)) + "% to unlocking Next Artifact"; },
         },
     },
     milestones: {
@@ -4567,11 +4749,20 @@ addLayer("enchant", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
-                ["bar", "enchantTwoBar"],
-                ["bar", "enchantThreeBar"],
+                ["bar", "artifactBar"],
+                ["bar", "elementalBar"],
                 "upgrades",
                 "milestones",
             ],
         },
+        "Artifacts": {
+            content: [
+                "main-display",
+                ["bar", "nextArtifact"],
+                "buyables",
+            ],
+            unlocked() { return player.points.gte("1e500000") || getBuyableAmount("enchant", 11).gte(1); },
+        },
     },
 });
+// ["row",[ ["upgrade",51], ["upgrade",52], ["upgrade",53], ["upgrade",54], ["upgrade",55]]], etc works.
