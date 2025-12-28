@@ -92,6 +92,7 @@ addLayer("ltf", {
             cost: new Decimal(2),
             effect() {
                 let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                if (hasUpgrade("enchant", 11)) expBoost = expBoost.times(5);
                 return new Decimal(2).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
@@ -103,6 +104,7 @@ addLayer("ltf", {
             unlocked() { return hasUpgrade("ltf", 11); },
             effect() {
                 let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                if (hasUpgrade("enchant", 11)) expBoost = expBoost.times(5);
                 return new Decimal(2).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
@@ -124,6 +126,7 @@ addLayer("ltf", {
             unlocked() { return hasUpgrade("ltf", 13); },
             effect() {
                 let expBoost = new Decimal(1).add(buyableEffect("enchant",11));
+                if (hasUpgrade("enchant", 11)) expBoost = expBoost.times(5);
                 return new Decimal(2.5).pow(expBoost);
             },
             effectDisplay() { return "x" + format(this.effect()); },
@@ -382,6 +385,7 @@ addLayer("ninja", {
             cost: new Decimal(1),
             effect() {
                 let expBoost = new Decimal(1).add(buyableEffect("enchant",12));
+                if (hasUpgrade("enchant", 12)) expBoost = expBoost.times(5);
                 return new Decimal(3).pow(expBoost); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
@@ -393,6 +397,7 @@ addLayer("ninja", {
             unlocked() { return hasUpgrade("ninja", 11); },
             effect() {
                 let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                if (hasUpgrade("enchant", 12)) initMulti = initMulti.pow(5);
                 let base = player.ninja.points.add(1).pow(0.175).times(initMulti);
                 let diminishingFactor = new Decimal(1); // Default factor
 
@@ -419,6 +424,7 @@ addLayer("ninja", {
             unlocked() { return hasUpgrade("ninja", 12); },
             effect() {
                 let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                if (hasUpgrade("enchant", 12)) initMulti = initMulti.pow(5);
                 let base = player.ninja.points.div(3).add(1).pow(0.35).times(initMulti); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
@@ -474,6 +480,7 @@ addLayer("ninja", {
             unlocked() { return hasUpgrade("ninja", 21); },
             effect() {
                 let initMulti = new Decimal(1.44).pow(new Decimal(1).add(buyableEffect("enchant",12)));
+                if (hasUpgrade("enchant", 12)) initMulti = initMulti.pow(5);
                 let base = player.ninja.points.div(4).add(1).pow(0.55).times(initMulti);
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
@@ -690,6 +697,7 @@ addLayer("massive", {
             cost: new Decimal(1),
             effect() {
                 let initMulti = new Decimal(1.1).pow(new Decimal(1).add(buyableEffect("enchant",13)));
+                if (hasUpgrade("enchant", 13)) initMulti = initMulti.pow(5);
                 let base = player.massive.points.div(2).add(1).pow(0.26).times(initMulti); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
@@ -730,6 +738,7 @@ addLayer("massive", {
             unlocked() { return hasUpgrade("massive", 12); },
             effect() {
                 let initMulti = new Decimal(1.2).pow(new Decimal(1).add(buyableEffect("enchant",13)));
+                if (hasUpgrade("enchant", 13)) initMulti = initMulti.pow(5);
                 let base = player.massive.points.div(3).add(1).pow(0.22).times(initMulti); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
 
@@ -1254,8 +1263,10 @@ addLayer("ct", {
         if (player.ct.engagement.gt(1000)) decayValue = decayValue.times(player.ct.engagement.log10().div(3).pow(2));
         if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
              player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(decayValue)))},
-    onPrestige() {player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
-              player.ct.bestResetGain = new Decimal(0)},
+    onPrestige() {
+        if (inChallenge("infi", 31)) player.ct.engagement = new Decimal("0");
+        else player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
+        player.ct.bestResetGain = new Decimal(0)},
 
     gainExp() { // Exponential bonus to prestige point gain
         return new Decimal(1); // Default is no additional exponential scaling
@@ -1281,7 +1292,9 @@ addLayer("ct", {
             description: "Codename Trademark development begins! Multiply point gain by 5.",
             cost: new Decimal(1),
             effect() {
-                return new Decimal(5); // Simple multiplier
+                let expBoost = new Decimal(1).add(buyableEffect("enchant", 21));
+                if (hasUpgrade("enchant", 14)) expBoost = expBoost.times(5);
+                return new Decimal(5).pow(expBoost); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1291,7 +1304,9 @@ addLayer("ct", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("ct", 11); },
             effect() {
-                return new Decimal(3);
+                let expBoost = new Decimal(1).add(buyableEffect("enchant", 21));
+                if (hasUpgrade("enchant", 14)) expBoost = expBoost.times(5);
+                return new Decimal(3).pow(expBoost); // Simple multiplier
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1301,7 +1316,9 @@ addLayer("ct", {
             cost: new Decimal(3),
             unlocked() { return hasUpgrade("ct", 12); },
             effect() {
-                return player.ct.points.times(2).add(10).log10().pow(2.4).times(1.25);
+                let initMulti = new Decimal(1.25).pow(new Decimal(1).add(buyableEffect("enchant",21)));
+                if (hasUpgrade("enchant", 14)) initMulti = initMulti.pow(5);
+                return player.ct.points.times(2).add(10).log10().pow(2.4).times(initMulti);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1311,7 +1328,9 @@ addLayer("ct", {
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("ct", 13); },
             effect() {
-                return player.ct.points.times(2).add(10).log10().pow(2).times(1.3);
+                let initMulti = new Decimal(1.3).pow(new Decimal(1).add(buyableEffect("enchant",21)));
+                if (hasUpgrade("enchant", 14)) initMulti = initMulti.pow(5);
+                return player.ct.points.times(2).add(10).log10().pow(2).times(initMulti);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -1321,9 +1340,24 @@ addLayer("ct", {
             cost: new Decimal(20),
             unlocked() { return hasUpgrade("ct", 21); },
             effect() {
-                return player.points.div(100000000).add(1).pow(0.01);
+                let base =  player.points.div(100000000).add(1).pow(0.01); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.points.gte(new Decimal("1e5000"))) {
+                    diminishingFactor = player.points.div("1e5000").pow(0.005); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.points.gte("1e5000"); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         23: {
             title: "Grind CT",
@@ -1331,7 +1365,9 @@ addLayer("ct", {
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("ct", 22); },
             effect() {
-                let base = player.ct.points.div(2).add(1).pow(0.125).times(1.1); // Original effect formula
+                let initMulti = new Decimal(1.1).pow(new Decimal(1).add(buyableEffect("enchant",21)));
+                if (hasUpgrade("enchant", 14)) initMulti = initMulti.pow(5);
+                let base = player.ct.points.div(2).add(1).pow(0.125).times(initMulti); // Original effect formula
                 let firstDiminishingFactor = new Decimal(1); // Default factor for first softcap
                 let secondDiminishingFactor = new Decimal(1); // Default factor for second softcap
 
@@ -1395,9 +1431,24 @@ addLayer("ct", {
             cost: new Decimal(1e12),
             unlocked() { return hasUpgrade("ct", 31); },
             effect() {
-                return player.ltf.points.div(100000).add(1).pow(0.01225);
+                let base = player.ltf.points.div(100000).add(1).pow(0.01225); // Original effect formula
+                let diminishingFactor = new Decimal(1); // Default factor
+
+                // Apply diminishing factor only if points exceed the threshold
+                if (player.ltf.points.gte(new Decimal("1e3200"))) {
+                    diminishingFactor = player.ltf.points.div("1e3200").pow(0.006125); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.ltf.points.gte("1e3200"); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         33: {
             title: "Codename Synergy",
@@ -2168,7 +2219,12 @@ addLayer("infi", {
     buyables: {
         11: {
             title: "Point Boost",
-            description: "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)",
+            description() {
+                let desc = "Boosts point generation based on your infinity points and level.";
+                if (player.infi.points.gte(1e6)) desc = "Boosts point generation based on your infinity points and level. (Begins to softcap past 1e6 IP)";
+                if (player.infi.points.gte(1e96)) desc = "Boosts point generation based on your infinity points and level. (Begins to softcap strongly past 1e96 IP)";
+                return desc;
+            },
             cost(x) { 
                 let totalcost = new Decimal(10).times(new Decimal(11).add(x).div(6).pow(x));
                 if (x.gte(70)) totalcost = totalcost.pow(new Decimal(1.05).pow(x.sub(70)));
@@ -2184,12 +2240,12 @@ addLayer("infi", {
             effect(x) {
                 let base = player.infi.points.times(2).add(1).pow(0.125).pow(x); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
-
-                // Apply diminishing factor only if points exceed the threshold
+                let powerFactor = new Decimal(1);
                 if (player.infi.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.infi.points.div(1e6).pow(0.0625).pow(x); // Slight division factor
                 }
-                return base.div(diminishingFactor); // Apply the diminishing factor
+                if (player.infi.points.gte(1e96)) powerFactor = new Decimal(1).div(player.infi.points.log10().div(96).pow(new Decimal(0.875).sub(new Decimal("0.881819").pow(player.infi.points.log10().pow(0.45)))));
+                return base.div(diminishingFactor).pow(powerFactor); // Apply the diminishing factor
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
@@ -2202,7 +2258,7 @@ addLayer("infi", {
                 let cost = this.cost(amt); // Cost for the next level
                 let effect = this.effect(amt); // Current effect of the buyable
                 return `
-                    ${this.description}<br>
+                    ${this.description()}<br>
                     Level: ${format(amt)}<br>
                     Effect: x${format(effect)}<br>
                     Cost: ${format(cost)} Infinity Points`;
@@ -2210,7 +2266,12 @@ addLayer("infi", {
         },
         12: {
             title: "LTF Boost",
-            description: "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)",
+            description() {
+                let desc = "Boosts LTF gain based on your infinity points and level.";
+                if (player.infi.points.gte(1e6)) desc = "Boosts LTF gain based on your infinity points and level. (Begins to softcap past 1e6 IP)";
+                if (player.infi.points.gte(1e96)) desc = "Boosts LTF gain based on your infinity points and level. (Begins to softcap strongly past 1e96 IP)";
+                return desc;
+            },
             cost(x) { 
                 let totalcost = new Decimal(100).times(new Decimal(11).add(x).div(6).pow(x));
                 if (x.gte(70)) totalcost = totalcost.pow(new Decimal(1.05).pow(x.sub(70)));
@@ -2226,12 +2287,12 @@ addLayer("infi", {
             effect(x) {
                 let base = player.infi.points.add(1).pow(0.1).pow(x); // Original effect formula
                 let diminishingFactor = new Decimal(1); // Default factor
-
-                // Apply diminishing factor only if points exceed the threshold
+                let powerFactor = new Decimal(1);
                 if (player.infi.points.gte(new Decimal(1e6))) {
                     diminishingFactor = player.infi.points.div(1e6).pow(0.05).pow(x); // Slight division factor
+                    if (player.infi.points.gte(1e96)) powerFactor = new Decimal(1).div(player.infi.points.log10().div(96).pow(new Decimal(0.875).sub(new Decimal("0.881819").pow(player.infi.points.log10().pow(0.45)))));
                 }
-                return base.div(diminishingFactor); // Apply the diminishing factor
+                return base.div(diminishingFactor).pow(powerFactor); // Apply the diminishing factor
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
@@ -2244,7 +2305,7 @@ addLayer("infi", {
                 let cost = this.cost(amt); // Cost for the next level
                 let effect = this.effect(amt); // Current effect of the buyable
                 return `
-                    ${this.description}<br>
+                    ${this.description()}<br>
                     Level: ${format(amt)}<br>
                     Effect: x${format(effect)}<br>
                     Cost: ${format(cost)} Infinity Points`;
@@ -2257,7 +2318,7 @@ addLayer("infi", {
             challengeDescription: "All point gain is raised to the power of 0.9 and then divided by 100.",
             goalDescription()  {
                 let pointGoal = new Decimal(1.7976e308);
-                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5200").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
                 return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Point gain is boosted based on Infinity points.",
             unlocked() { return hasUpgrade("infi", 24); },
@@ -2296,7 +2357,7 @@ addLayer("infi", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal(1.7976e308);
-                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5200").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -2314,7 +2375,7 @@ addLayer("infi", {
             challengeDescription: "You cannot gain Ninja points or Madelizers.",
             goalDescription()  {
             let pointGoal = new Decimal(1e85);
-            if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2600").pow(player.infi.IC2Completions.times(0.0625).add(0.9375).pow(1.25));
+            if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(0.925).pow(1.25));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
@@ -2353,7 +2414,7 @@ addLayer("infi", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal(1e85);
-                if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2600").pow(player.infi.IC2Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(0.925).pow(1.25));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -2371,7 +2432,7 @@ addLayer("infi", {
             challengeDescription: "CT shuts down, so you can no longer gain CT subs.",
             goalDescription()  {
             let pointGoal = new Decimal("1e450");
-            if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6250").pow(player.infi.IC3Completions.times(0.0625).add(0.9375).pow(1.25));
+            if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
@@ -2410,7 +2471,7 @@ addLayer("infi", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal("1e450");
-                if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6250").pow(player.infi.IC3Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -3682,7 +3743,7 @@ addLayer("gal", {
         },
         14: {
             title: "Extra Completions I",
-            description: "You can now complete IC Challenges up to 5 times. This upgrade persists through higher layer resets.",
+            description: "You can now complete IC Challenges up to 5 times. This upgrade + first 3 now persist through higher layer resets.",
             cost: new Decimal(20),
             unlocked() { return hasUpgrade("gal", 13) || player.liquid.galUpgrades.gte(1); },
         },
@@ -3786,13 +3847,16 @@ addLayer("liquid", {
             cost: new Decimal(1),
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.times(4).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(4e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(1).pow(5.4).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(5.4).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
-                let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
+                let isSoftcapped = player.liquid.points.gte(2.5e7); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -3808,13 +3872,16 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.times(2).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(2e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(1).pow(3.6).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(3.6).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
-                let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
+                let isSoftcapped = player.liquid.points.gte(5e7); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -3836,10 +3903,13 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(1e8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(1).pow(2.4).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(2.4).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
@@ -3858,13 +3928,16 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.div(2).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(5e8)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(1).div(8).pow(0.5));
-                return inflateTime.add(1).pow(1.6).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(1).div(8).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(1.6).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
-                let isSoftcapped = player.liquid.points.gte(1e9); // Check if softcap applies
+                let isSoftcapped = player.liquid.points.gte(2e8); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
@@ -3886,10 +3959,13 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.div(100).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
-                return inflateTime.add(1).pow(0.4).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.4).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e11); // Check if softcap applies
@@ -3908,10 +3984,13 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.div(1e4).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
-                return inflateTime.add(1).pow(0.14).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(4).div(9).pow(0.5));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.14).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e13); // Check if softcap applies
@@ -3930,10 +4009,13 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.div(1e6).add(10).log10();
-                if (hasMilestone("liquid", 2)) inflateTime = inflateTime.add(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (liquidExp.gte(1e9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
-                return inflateTime.add(1).pow(0.05).pow(liquidExp.pow(1.25));
+                if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
+                if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
+                if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(6).div(9).pow(0.75));
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.05).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e15); // Check if softcap applies
@@ -3990,11 +4072,11 @@ addLayer("liquid", {
     challenges: {
         11: {
             name: "Deflation",
-            challengeDescription: "Point gain is raised to the ^0.4 and then divided by /1e20.",
-            goalDescription: "Reach 1e1000 points.",
+            challengeDescription: "Point gain is raised to the ^0.5 and then divided by /1e20.",
+            goalDescription: "Reach 1e360 points.",
             rewardDescription: "LC inflators now explosively boost point gain.",
             unlocked() { return hasUpgrade("liquid", 21); },
-            canComplete: function() { return player.points.gte("1e1000") },
+            canComplete: function() { return player.points.gte("1e360") },
             rewardEffect() {
                 return player.liquid.points.add(1).pow(10);
             },
@@ -4018,8 +4100,11 @@ addLayer("liquid", {
         2: {
             requirementDescription: "10 LC Inflators",
             effectDescription() {
-                let formatItem = formatTime(player.liquid.points.add(1).log10().pow(4).times(150));
-                if (player.liquid.points.add(1).log10().pow(4).times(150).gte(3.1536e307)) formatItem = format(player.liquid.points.add(1).log10().pow(4).times(30)) + " seconds of";
+                let bankedTime = player.liquid.points.add(1).log10().pow(4).times(150);
+                if (player.liquid.points.gte(1e6)) bankedTime = bankedTime.div(player.liquid.points.log10().div(6).pow(3));
+                if (player.liquid.points.gte(1e32)) bankedTime = bankedTime.div(player.liquid.points.log10().div(32).pow(0.8));
+                let formatItem = formatTime(bankedTime);
+                if (bankedTime.gte(3.1536e307)) formatItem = format(bankedTime) + " seconds of";
                 return "You now receive banked time towards LC inflator upgrade effects based on LC inflators. Currently: " + formatItem + " banked time"; },
             unlocked() {return hasMilestone("liquid", 1); },
             done() { return player.liquid.total.gte(10); },
@@ -4475,6 +4560,9 @@ addLayer("enchant", {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
             peak: new Decimal(0),
+            adventureHP: new Decimal(100),
+            maxAdventureHP: new Decimal(100),
+            adventureLevel: new Decimal(0),
         };
     },
     color: "#bd80e8", // light purple
@@ -4500,6 +4588,10 @@ addLayer("enchant", {
     },
     update() {
         if (player.points.gt(player.enchant.peak)) player.enchant.peak = player.points;
+        if (player.points.gte("1e1300000")) player.enchant.adventureHP = player.enchant.adventureHP.sub(new Decimal("0.00000001").times(player.points.add(1).log10().sub(1200000)));
+        if (player.enchant.adventureHP.lte("0.00001")) {player.enchant.adventureLevel = player.enchant.adventureLevel.add(1);
+player.enchant.maxAdventureHP = player.enchant.maxAdventureHP.times(1.5);
+player.enchant.adventureHP = player.enchant.maxAdventureHP;}
     },
     row: 5, // Row in the tree (5 = sixth row)
     branches: ["liquid"],
@@ -4517,7 +4609,7 @@ addLayer("enchant", {
     upgrades: {
         11: {
             title: "Enchant Low Taper Fade!",
-            description: "Polish your low taper fade skills, boosting point gain based on LTF points!",
+            description: "Polish your low taper fade skills, boosting point gain based on LTF points, and boost LTF statics by ^5!",
             cost: new Decimal(1),
             effect() {
                 return player.ltf.points.div(10).add(10).log10().pow(3.65);
@@ -4526,7 +4618,7 @@ addLayer("enchant", {
         },
         12: {
             title: "Enchant Ninja!",
-            description: "Ninja keeps dragging his meme, and this causes points to receive another boost!",
+            description: "Ninja keeps dragging his meme, and this causes points to receive another boost, and boost Ninja statics/inits by ^5!",
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("enchant", 11); },
             effect() {
@@ -4536,7 +4628,7 @@ addLayer("enchant", {
         },
         13: {
             title: "Enchant Massive!",
-            description: "Another point boost, this time by massive points since the massiveness grew out of control.",
+            description: "Another point boost, this time by massive points since the massiveness grew out of control, and boost Massive statics/inits by ^5!",
             cost: new Decimal(5),
             unlocked() { return hasUpgrade("enchant", 12); },
             effect() {
@@ -4546,7 +4638,7 @@ addLayer("enchant", {
         },
         14: {
             title: "Enchant CT!",
-            description: "CT subscribers are infused with legendary Stat Wars essence, making them boost LTF points.",
+            description: "CT subscribers are infused with legendary Stat Wars essence, making them boost LTF points, and boost CT statics/inits by ^5!",
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("enchant", 13); },
             effect() {
@@ -4556,21 +4648,21 @@ addLayer("enchant", {
         },
         15: {
             title: "Madelyn's Adorable!",
-            description: "Madelyn transforms to become more beautiful and gleaming, making her points boost LTF points.",
+            description: "Madelyn transforms to become more beautiful and gleaming, making her points boost LTF points, and boost Madelizer statics/inits by ^5!",
             cost: new Decimal(20),
             unlocked() { return hasUpgrade("enchant", 14); },
             effect() {
-                return player.mady.points.add(10).log10().pow(5.25);
+                return player.mady.points.add(10).log10().pow(4.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Aubrie's Legend Status",
-            description: "Aubrie turns her fame growth to more LTF point gain!",
+            description: "Aubrie turns her fame growth to more LTF point gain, and boost Aubrinator statics/inits by ^5!",
             cost: new Decimal(20),
             unlocked() { return hasUpgrade("enchant", 15); },
             effect() {
-                return player.aub.points.add(10).log10().pow(5.6);
+                return player.aub.points.add(10).log10().pow(5.1);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -4690,6 +4782,44 @@ addLayer("enchant", {
                     Cost: ${format(cost)} Enchantment Points`;
             },
         },
+        21: {
+            title: "FYSC Coding Laptop",
+            description: "Every level boosts the initial values of the CT upgrades by (^+1.50)",
+            cost(x) { 
+                let scaling = new Decimal(2);
+                let baseCost = new Decimal(1000000);
+                let subtractionFactor = new Decimal(0);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) scaling = scaling.times(5);
+                if (getBuyableAmount(this.layer, this.id).gte(100)) baseCost = new Decimal("1.2676506e36");
+                if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
+                return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
+            unlocked() {
+                return player.enchant.peak.gte("1e1350000") || getBuyableAmount(this.layer, this.id).gte(1);  
+            },
+            effect(x) {
+                return new Decimal(1.5).times(x);
+            },
+            canAfford() { return player.enchant.points.gte(this.cost()) },
+            buy() {
+                player.enchant.points = player.enchant.points.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+            },
+            // Display the effect and buyable
+            style() {
+            if (player.enchant.points.gte(this.cost(getBuyableAmount(this.layer, this.id))))
+                return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://png.pngtree.com/png-vector/20250322/ourmid/pngtree-laptop-icon-with-a-coding-screen-png-image_15853412.png')", "background-size": "100%", "background-position": "0px 0px", "opacity": "0.75", "background-color": "#bd80e8", "background-repeat": "no-repeat"};
+            else return {"border-radius": "25px", "height": "175px", "width": "175px", "background-image": "url('https://png.pngtree.com/png-vector/20250322/ourmid/pngtree-laptop-icon-with-a-coding-screen-png-image_15853412.png')", "background-size": "100%", "background-position": "0px 0px", "opacity": "0.5", "background-color": "#bf8f8f", "background-repeat": "no-repeat"};},
+            display() {
+                let amt = getBuyableAmount(this.layer, this.id); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: ^+${format(effect)}<br>
+                    Cost: ${format(cost)} Enchantment Points`;
+            },
+        },
     },
     bars: {
         artifactBar: {
@@ -4709,6 +4839,15 @@ addLayer("enchant", {
             unlocked() { return player.points.gte("1e5000000") && player.points.lte("1e20200000"); },
             progress() { return player.points.log10().div(20000000); },
             display() { return format(player.points.log10().div(200000)) + "% to unlocking Elements"; },
+        },
+        adventureBar: {
+            direction: RIGHT,
+            fillStyle: {'background-color' : "#f01e1a"},
+            width: 280,
+            height: 40,
+            unlocked() { return player.points.gte("1e1300000"); },
+            progress() { return player.enchant.adventureHP.div(player.enchant.maxAdventureHP); },
+            display() { return "Level " + player.enchant.adventureLevel + " (" + format(player.enchant.adventureHP) + "/" + format(player.enchant.maxAdventureHP) + ")"; },
         },
         nextArtifact: {
             direction: RIGHT,
@@ -4762,6 +4901,13 @@ addLayer("enchant", {
                 "buyables",
             ],
             unlocked() { return player.points.gte("1e500000") || getBuyableAmount("enchant", 11).gte(1); },
+        },
+        "Adventure": {
+            content: [
+                "main-display",
+                ["bar", "adventureBar"],
+            ],
+            unlocked() { return player.points.gte("1e1300000") || getBuyableAmount("enchant", 11).gte(1); },
         },
     },
 });
