@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.1",
+	num: "5.3",
 	name: "The Enchantment Grind",
 }
 
@@ -465,8 +465,24 @@ let changelog = `<h1>Changelog:</h1><br>
 		<h3>v5.1</h3><br>
 		- Added Artifacts to Enchantment layer, with 3 new buyables.<br>
 		- Added 3 new upgrades to Enchantment layer.<br>
-		- Changed second mantissa transition to e10M instead of e1M.`
-
+		- Changed second mantissa transition to e10M instead of e1M.<br>
+		<h3>v5.1.1</h3><br>
+		- Added ^5 static and initial effects to the first enchantment upgrades.<br>
+		<h3>v5.2</h3><br>
+		- Strengthened softcap to strength effect of liquidcashews upgrades. (originally 0.5, now 0.75)<br>
+		- Added 2 softcaps to LC inflator milestone 3's effect, one at 1e6 and one at 1e32.<br>
+		- Added 1 more Artifact.<br>
+		- Made extra completion requirements for Infinity Challenges start slightly later.<br>
+		- IC2 and IC3 extra completion requirements scale slightly faster.<br>
+		<h3>v5.2.1</h3><br>
+		- Reverted LC inflator upgrade SC effect back to 0.5, and fixed its behavior, as it did not start at the intended 1e8 resources.<br>
+		- Slightly nerfed LC inflator upgrade effects.<br>
+		<h3>v5.3</h3><br>
+		- Fixed a game-breaking bug that crashed the game upon attempting to reset for CT points in IC 3:1, even though you're not supposed to anyway.<br>
+		- Introduced an Infinity buyable softcap effect at 1e96 IP.<br>
+		- Adjusted LC inflator challenge goal to be 1e360 points, and made its exponent penalty ^0.5 instead of ^0.4.<br>
+		- Also tweaked Infinity buyables to show softcaps dynamically instead of always alerting about the 1e6 one.<br>
+		-Added softcaps for CT upgrades 2:2 and 3:2 at 1e5000 points and 1e3200 LTF points respectively.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
@@ -562,7 +578,7 @@ function getPointGen() {
 	gain = gain.pow(buyableEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
-	if (inChallenge("liquid", 11)) gain = gain.pow(0.4).div(1e20);
+	if (inChallenge("liquid", 11)) gain = gain.pow(0.5).div(1e20);
 	return gain
 }
 
