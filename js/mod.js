@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.3",
+	num: "5.4",
 	name: "The Enchantment Grind",
 }
 
@@ -481,8 +481,14 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed a game-breaking bug that crashed the game upon attempting to reset for CT points in IC 3:1, even though you're not supposed to anyway.<br>
 		- Introduced an Infinity buyable softcap effect at 1e96 IP.<br>
 		- Adjusted LC inflator challenge goal to be 1e360 points, and made its exponent penalty ^0.5 instead of ^0.4.<br>
-		- Also tweaked Infinity buyables to show softcaps dynamically instead of always alerting about the 1e6 one.<br>
-		-Added softcaps for CT upgrades 2:2 and 3:2 at 1e5000 points and 1e3200 LTF points respectively.`
+		- Also tweaked Infinity buyable displays to show softcaps dynamically instead of always alerting about the 1e6 one.<br>
+		- Added softcaps for CT upgrades 2:2 and 3:2 at 1e5000 points and 1e3200 LTF points respectively.<br>
+		<h3>v5.4</h3><br>
+		- Due to the v5.3 nerfs, Enchantment's prior goal of e100k was now deemed impossible, so its requirement has been drastically nerfed to e20k.<br>
+		- Points required to unlock Artifacts were also greatly reduced, starting at e40k now instead of e200k.<br>
+		- Added Adventure to Enchantment (basic as of now, unlocks at e60k score).<br>
+		- Added Element progress bar to Enchantment, fills at e2M. Elemental features will come soon.<br>
+		- LC Inflator milestone which makes Artifacts 1% stronger has been pushed to 1e20 LC inflators, yet the effect is still yet to be applied. This will be applied by v5.5.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
