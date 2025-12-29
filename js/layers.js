@@ -4122,10 +4122,10 @@ addLayer("liquid", {
             done() { return player.liquid.total.gte(100); },
         },
         5: {
-            requirementDescription: "1000000 LC Inflators",
+            requirementDescription: "1e20 LC Inflators",
             effectDescription: "Artifacts are 1% stronger.",
             unlocked() {return hasMilestone("liquid", 4); },
-            done() { return player.liquid.total.gte(1000000); },
+            done() { return player.liquid.total.gte("1e20"); },
         },
         6: {
             requirementDescription: "1e30 LC Inflators",
@@ -4526,7 +4526,7 @@ addLayer("revo", {
     milestones: {
         0: {
             requirementDescription: "1.00e40 ◎",
-            effectDescription: "Circle Master as of 4.2.1! LTF point gain is increased by 40%.",
+            effectDescription: "Circle Master as of 5.4! LTF point gain is increased by 40%.",
             done() { return player.revo.points.gte(1e40); },
         },
     },
@@ -4566,16 +4566,16 @@ addLayer("enchant", {
         };
     },
     color: "#bd80e8", // light purple
-    requires: new Decimal("1e100000"), // Points required to unlock this layer
+    requires: new Decimal("1e20000"), // Points required to unlock this layer
     resource: "enchantment points", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.000005, // Scaling factor for prestige points
+    exponent: 0.000025, // Scaling factor for prestige points
 
     layerShown() {
-        // Check if the player has e80k score or 1 Enchantment Point
-        return player.points.gte("1e80000") || player.enchant.unlocked==true;
+        // Check if the player has e16k score or unlocked the layer already
+        return player.points.gte("1e16000") || player.enchant.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -4588,7 +4588,7 @@ addLayer("enchant", {
     },
     update() {
         if (player.points.gt(player.enchant.peak)) player.enchant.peak = player.points;
-        if (player.points.gte("1e1300000")) player.enchant.adventureHP = player.enchant.adventureHP.sub(new Decimal("0.00000001").times(player.points.add(1).log10().sub(1200000)));
+        if (player.points.gte("1e60000")) player.enchant.adventureHP = player.enchant.adventureHP.sub(new Decimal("0.0000001").times(player.points.add(1).log10().sub(50000)));
         if (player.enchant.adventureHP.lte("0.00001")) {player.enchant.adventureLevel = player.enchant.adventureLevel.add(1);
 player.enchant.maxAdventureHP = player.enchant.maxAdventureHP.times(1.5);
 player.enchant.adventureHP = player.enchant.maxAdventureHP;}
@@ -4680,7 +4680,7 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
                 return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
             unlocked() {
-                return player.enchant.peak.gte("1e500000") || getBuyableAmount(this.layer, this.id).gte(1);  
+                return player.enchant.peak.gte("1e40000") || getBuyableAmount(this.layer, this.id).gte(1);  
             },
             effect(x) {
                 return new Decimal(1).times(x);
@@ -4718,7 +4718,7 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
                 return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
             unlocked() {
-                return player.enchant.peak.gte("1e720000") || getBuyableAmount(this.layer, this.id).gte(1);  
+                return player.enchant.peak.gte("1e60000") || getBuyableAmount(this.layer, this.id).gte(1);  
             },
             effect(x) {
                 return new Decimal(1.5).times(x);
@@ -4756,7 +4756,7 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
                 return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
             unlocked() {
-                return player.enchant.peak.gte("1e1000000") || getBuyableAmount(this.layer, this.id).gte(1);  
+                return player.enchant.peak.gte("1e90000") || getBuyableAmount(this.layer, this.id).gte(1);  
             },
             effect(x) {
                 return new Decimal(2).times(x);
@@ -4794,7 +4794,7 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 if (getBuyableAmount(this.layer, this.id).gte(100)) subtractionFactor = new Decimal("100");
                 return scaling.pow(x.sub(subtractionFactor)).times(baseCost); },
             unlocked() {
-                return player.enchant.peak.gte("1e1350000") || getBuyableAmount(this.layer, this.id).gte(1);  
+                return player.enchant.peak.gte("1e130000") || getBuyableAmount(this.layer, this.id).gte(1);  
             },
             effect(x) {
                 return new Decimal(1.5).times(x);
@@ -4827,25 +4827,25 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
             fillStyle: {'background-color' : "#bd80e8"},
             width: 280,
             height: 40,
-            unlocked() { return player.points.gte("1e200000") && player.points.lte("1e505000"); },
-            progress() { return player.points.log10().div(500000); },
-            display() { return format(player.points.log10().div(5000)) + "% to unlocking Artifacts"; },
+            unlocked() { return player.points.gte("1e20000") && player.points.lte("1e40040"); },
+            progress() { return player.points.log10().div(40000); },
+            display() { return format(player.points.log10().div(400)) + "% to unlocking Artifacts"; },
         },
         elementalBar: {
             direction: RIGHT,
             fillStyle: {'background-color' : "#b24de8"},
             width: 280,
             height: 40,
-            unlocked() { return player.points.gte("1e5000000") && player.points.lte("1e20200000"); },
-            progress() { return player.points.log10().div(20000000); },
-            display() { return format(player.points.log10().div(200000)) + "% to unlocking Elements"; },
+            unlocked() { return player.points.gte("1e500000") && player.points.lte("1e2002000"); },
+            progress() { return player.points.log10().div(2000000); },
+            display() { return format(player.points.log10().div(20000)) + "% to unlocking Elements"; },
         },
         adventureBar: {
             direction: RIGHT,
             fillStyle: {'background-color' : "#f01e1a"},
             width: 280,
             height: 40,
-            unlocked() { return player.points.gte("1e1300000"); },
+            unlocked() { return player.points.gte("1e60000"); },
             progress() { return player.enchant.adventureHP.div(player.enchant.maxAdventureHP); },
             display() { return "Level " + player.enchant.adventureLevel + " (" + format(player.enchant.adventureHP) + "/" + format(player.enchant.maxAdventureHP) + ")"; },
         },
@@ -4854,22 +4854,22 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
             fillStyle: {'background-color' : "#bd80e8"},
             width: 280,
             height: 40,
-            unlocked() { return player.points.gte("1e500000") && player.points.lte("1e1005000000"); },
+            unlocked() { return player.points.gte("1e40000") && player.points.lte("1e100500000"); },
             progress() { 
-                let subValue = new Decimal(500000);
-                let divValue = new Decimal(220000);
-                if (player.enchant.peak.gte("1e720000")) subValue = new Decimal(720000);
-                if (player.enchant.peak.gte("1e720000")) divValue = new Decimal(280000);
-                if (player.enchant.peak.gte("1e1000000")) subValue = new Decimal(1000000);
-                if (player.enchant.peak.gte("1e1000000")) divValue = new Decimal(350000);
+                let subValue = new Decimal(40000);
+                let divValue = new Decimal(20000);
+                if (player.enchant.peak.gte("1e60000")) subValue = new Decimal(60000);
+                if (player.enchant.peak.gte("1e60000")) divValue = new Decimal(30000);
+                if (player.enchant.peak.gte("1e90000")) subValue = new Decimal(90000);
+                if (player.enchant.peak.gte("1e90000")) divValue = new Decimal(40000);
                 return player.points.log10().sub(subValue).div(divValue); },
             display() { 
-                let subValue = new Decimal(500000);
-                let divValue = new Decimal(2200);
-                if (player.enchant.peak.gte("1e720000")) subValue = new Decimal(720000);
-                if (player.enchant.peak.gte("1e720000")) divValue = new Decimal(2800);
-                if (player.enchant.peak.gte("1e1000000")) subValue = new Decimal(1000000);
-                if (player.enchant.peak.gte("1e1000000")) divValue = new Decimal(3500);
+                let subValue = new Decimal(40000);
+                let divValue = new Decimal(200);
+                if (player.enchant.peak.gte("1e60000")) subValue = new Decimal(60000);
+                if (player.enchant.peak.gte("1e60000")) divValue = new Decimal(300);
+                if (player.enchant.peak.gte("1e90000")) subValue = new Decimal(90000);
+                if (player.enchant.peak.gte("1e90000")) divValue = new Decimal(400);
                 return format(player.points.log10().sub(subValue).div(divValue)) + "% to unlocking Next Artifact"; },
         },
     },
@@ -4900,14 +4900,14 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 ["bar", "nextArtifact"],
                 "buyables",
             ],
-            unlocked() { return player.points.gte("1e500000") || getBuyableAmount("enchant", 11).gte(1); },
+            unlocked() { return player.points.gte("1e40000") || getBuyableAmount("enchant", 11).gte(1); },
         },
         "Adventure": {
             content: [
                 "main-display",
                 ["bar", "adventureBar"],
             ],
-            unlocked() { return player.points.gte("1e1300000") || getBuyableAmount("enchant", 11).gte(1); },
+            unlocked() { return player.points.gte("1e60000") || getBuyableAmount("enchant", 11).gte(1); },
         },
     },
 });
