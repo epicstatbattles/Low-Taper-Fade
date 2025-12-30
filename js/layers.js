@@ -352,7 +352,7 @@ addLayer("ninja", {
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
-        if (hasMilestone("liquid", 1)) mult = mult.times(100);
+        if (hasMilestone("liquid", 4)) mult = mult.times(100);
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("infi", 21)) mult = mult.times(0);
         if (inChallenge("vex", 11)) mult = mult.times(0);
@@ -664,7 +664,7 @@ addLayer("massive", {
         if (hasUpgrade("revo", 14)) mult = mult.times(upgradeEffect("revo", 14));
         if (hasUpgrade("vex", 24)) mult = mult.times(upgradeEffect("vex", 24));
         if (hasChallenge("vex", 11)) mult = mult.times(challengeEffect("vex", 11));
-        if (hasMilestone("liquid", 1)) mult = mult.times(100);
+        if (hasMilestone("liquid", 4)) mult = mult.times(100);
         if (hasUpgrade("liquid", 14)) mult = mult.times(upgradeEffect("liquid", 14));
         if (inChallenge("sunny", 11)) mult = mult.times(0);
         return mult;
@@ -904,7 +904,7 @@ addLayer("mady", {
     baseAmount() { return player.ninja.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.27, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
+    autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e450"),
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
@@ -934,6 +934,7 @@ addLayer("mady", {
         if (hasUpgrade("vex", 23)) mult = mult.times(upgradeEffect("vex", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        if (hasMilestone("liquid", 5)) mult = mult.times(25);
         if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         mult = mult.times(buyableEffect("vex", 11));
         return mult;
@@ -1220,7 +1221,7 @@ addLayer("ct", {
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.1625, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
+    autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e400"),
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
@@ -1254,6 +1255,7 @@ addLayer("ct", {
         if (hasUpgrade("sunny", 11)) mult = mult.times(upgradeEffect("sunny", 11));
         if (hasUpgrade("sunny", 14)) mult = mult.times(upgradeEffect("sunny", 14));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
+        if (hasMilestone("liquid", 5)) mult = mult.times(25);
         if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
@@ -1523,7 +1525,7 @@ addLayer("aub", {
     baseAmount() { return player.massive.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: 0.34, // Scaling factor for prestige points
-    autoUpgrade() { return hasUpgrade("infi", 32); },
+    autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e360"),
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
@@ -1555,6 +1557,7 @@ addLayer("aub", {
         if (hasUpgrade("sunny", 23)) mult = mult.times(upgradeEffect("sunny", 23));
         if (hasUpgrade("enhance", 21)) mult = mult.times(upgradeEffect("enhance", 21));
         if (hasUpgrade("aub", 32)) mult = mult.times(upgradeEffect("aub", 32));
+        if (hasMilestone("liquid", 5)) mult = mult.times(25);
         if (hasUpgrade("liquid", 15)) mult = mult.times(upgradeEffect("liquid", 15));
         mult = mult.times(buyableEffect("sunny", 11));
         if (inChallenge("vex", 11)) mult = mult.times(0);
@@ -1862,12 +1865,16 @@ addLayer("infi", {
         if (getResetGain("infi", "normal").gte("1e75")) scpwr = scpwr.div(getResetGain("infi", "normal").log10().div(75).pow(0.25));
         return scpwr;
     },
-
+    passiveGeneration() {
+        let passive = new Decimal(0);
+        if (hasMilestone("liquid", 5)) passive = passive.add("1e-6");
+        return passive;
+    },
     layerShown() {
         // Check if the player has at least 1e200 points
         return player.points.gte(new Decimal(1e200)) || player.infi.unlocked==true;
     },
-
+    autoUpgrade() { return hasMilestone("liquid", 5) && player.infi.points.gte(1e50); },
     gainMult() { // Multiplicative bonus to prestige point gain
         let mult = new Decimal(1);
         if (hasUpgrade("massive", 21)) mult = mult.times(upgradeEffect("massive", 21));
@@ -2249,8 +2256,15 @@ addLayer("infi", {
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
-                player.infi.points = player.infi.points.sub(this.cost())
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                let bulkBuy = 1;
+                if (hasMilestone("liquid", 6)) bulkBuy = 5;
+                if (hasMilestone("liquid", 7)) bulkBuy = 10;
+                for (let i = 0; i < bulkBuy; i++) {
+                    if(this.canAfford()) {
+                        player.infi.points = player.infi.points.sub(this.cost())
+                        setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))}
+                    else {break}
+                }
             },
             // Display the effect
             display() {
@@ -2296,8 +2310,15 @@ addLayer("infi", {
             },
             canAfford() { return player.infi.points.gte(this.cost()) },
             buy() {
-                player.infi.points = player.infi.points.sub(this.cost())
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+                let bulkBuy = 1;
+                if (hasMilestone("liquid", 6)) bulkBuy = 5;
+                if (hasMilestone("liquid", 7)) bulkBuy = 10;
+                for (let i = 0; i < bulkBuy; i++) {
+                    if(this.canAfford()) {
+                        player.infi.points = player.infi.points.sub(this.cost())
+                        setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))}
+                    else {break}
+                }
             },
             // Display the effect
             display() {
@@ -2319,6 +2340,7 @@ addLayer("infi", {
             goalDescription()  {
                 let pointGoal = new Decimal(1.7976e308);
                 if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC1Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(1).pow(1.28));
                 return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Point gain is boosted based on Infinity points.",
             unlocked() { return hasUpgrade("infi", 24); },
@@ -2358,6 +2380,7 @@ addLayer("infi", {
             canComplete: function() { 
                 let pointGoal = new Decimal(1.7976e308);
                 if (player.infi.IC1Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(0.9375).pow(1.25));
+                if (player.infi.IC1Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e5400").pow(player.infi.IC1Completions.times(0.0625).add(1).pow(1.28));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -2376,6 +2399,7 @@ addLayer("infi", {
             goalDescription()  {
             let pointGoal = new Decimal(1e85);
             if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(0.925).pow(1.25));
+                if (player.infi.IC2Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(1).pow(1.28));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "LTF points and Infinity points boost CT subscriber, Madelizer, and Aubrinator gain.",
             unlocked() { return hasChallenge("infi", 11); },
@@ -2415,6 +2439,7 @@ addLayer("infi", {
             canComplete: function() { 
                 let pointGoal = new Decimal(1e85);
                 if (player.infi.IC2Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(0.925).pow(1.25));
+                if (player.infi.IC2Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e2700").pow(player.infi.IC2Completions.times(0.075).add(1).pow(1.28));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -2433,6 +2458,7 @@ addLayer("infi", {
             goalDescription()  {
             let pointGoal = new Decimal("1e450");
             if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
+                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(1).pow(1.28));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
@@ -2472,6 +2498,7 @@ addLayer("infi", {
             canComplete: function() { 
                 let pointGoal = new Decimal("1e450");
                 if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
+                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(1).pow(1.28));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -3750,7 +3777,7 @@ addLayer("gal", {
         15: {
             title: "Extra Completions II",
             description: "You can now complete Layer 5 challenges up to 5 times and IC challenges up to 10 times. This upgrade persists through higher layer resets.",
-            cost: new Decimal(30),
+            cost: new Decimal(28),
             unlocked() { return hasUpgrade("gal", 14); },
         },
     },
@@ -4122,16 +4149,28 @@ addLayer("liquid", {
             done() { return player.liquid.total.gte(100); },
         },
         5: {
-            requirementDescription: "1e20 LC Inflators",
-            effectDescription: "Artifacts are 1% stronger.",
+            requirementDescription: "100000 LC Inflators",
+            effectDescription: "Generate +100% of all Layer 3 currencies/second, gain a 25x boost to L3 currencies, and retain autobuy for L3 upgrades. You now also generate 0.0001% of IP/s and begin to autobuy Infinity upgrades when above 1e50 IP.",
             unlocked() {return hasMilestone("liquid", 4); },
-            done() { return player.liquid.total.gte("1e20"); },
+            done() { return player.liquid.total.gte("100000"); },
         },
         6: {
+            requirementDescription: "200000 LC Inflators",
+            effectDescription: "You can now buy up to 5 Infinity buyables at once.",
+            unlocked() {return hasMilestone("liquid", 5); },
+            done() { return player.liquid.total.gte("200000"); },
+        },
+        7: {
+            requirementDescription: "1e20 LC Inflators",
+            effectDescription: "Artifacts are 1% stronger, and bulk purchase for Infinity buyables becomes 10.",
+            unlocked() {return hasMilestone("liquid", 6); },
+            done() { return player.liquid.total.gte("1e20"); },
+        },
+        8: {
             requirementDescription: "1e30 LC Inflators",
             effectDescription: "You did it!!",
-            unlocked() {return hasMilestone("liquid", 5); },
-            done() { return player.liquid.total.gte(1e30); },
+            unlocked() {return hasMilestone("liquid", 7); },
+            done() { return player.liquid.total.gte("1e30"); },
         },
     },
 
