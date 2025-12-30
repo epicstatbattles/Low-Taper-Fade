@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.4.1",
+	num: "5.4.2",
 	name: "The Enchantment Grind",
 }
 
@@ -493,7 +493,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Fixed automation starting at the wrong LC Inflator milestone (Milestone 5 L2 autoupgrade triggering at milestone 2 instead).<br>
 		- Added 2 LC inflator milestones, with milestone 6 now granting L3 and Infinity automation, and milestone 7 introducing bulk Infinity buyable purchase.<br>
 		- Reduced Galaxy Upgrade 5's cost to 28 galaxies.<br>
-		- Slightly increased IC goals past completion 5.`
+		- Slightly increased IC goals past completion 5.<br>
+		<h3>v5.4.2</h3><br>
+		- Buffed LC inflator buyable's effect and made it more affordable.<br>
+		- Added softcaps for the points-boost-themselves upgrades past e10k score.<br>
+		- IC3's extra requirement scaling past 5 is slightly less aggressive.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
