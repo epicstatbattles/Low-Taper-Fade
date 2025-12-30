@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.4",
+	num: "5.4.1",
 	name: "The Enchantment Grind",
 }
 
@@ -488,7 +488,12 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Points required to unlock Artifacts were also greatly reduced, starting at e40k now instead of e200k.<br>
 		- Added Adventure to Enchantment (basic as of now, unlocks at e60k score).<br>
 		- Added Element progress bar to Enchantment, fills at e2M. Elemental features will come soon.<br>
-		- LC Inflator milestone which makes Artifacts 1% stronger has been pushed to 1e20 LC inflators, yet the effect is still yet to be applied. This will be applied by v5.5.`
+		- LC Inflator milestone which makes Artifacts 1% stronger has been pushed to 1e20 LC inflators, yet the effect is still yet to be applied. This will be applied by v5.5.<br>
+		<h3>v5.4.1</h3><br>
+		- Fixed automation starting at the wrong LC Inflator milestone (Milestone 5 L2 autoupgrade triggering at milestone 2 instead).<br>
+		- Added 2 LC inflator milestones, with milestone 6 now granting L3 and Infinity automation, and milestone 7 introducing bulk Infinity buyable purchase.<br>
+		- Reduced Galaxy Upgrade 5's cost to 28 galaxies.<br>
+		- Slightly increased IC goals past completion 5.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
@@ -581,6 +586,8 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 4)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 5)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 6)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 7)) gain = gain.times(upgradeEffect("enhance", 21));
+	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 8)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
