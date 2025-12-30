@@ -469,9 +469,22 @@ addLayer("ninja", {
             cost: new Decimal(10),
             unlocked() { return hasUpgrade("ninja", 14); },
             effect() {
-                return player.points.div(1000).add(1).pow(0.1);
+                let base =  player.points.div(1000).add(1).pow(0.1); // Original effect formula
+                let diminishingFactor = new Decimal(1);
+                if (player.points.gte(new Decimal("1e10000"))) {
+                    diminishingFactor = player.points.div("1e10000").pow(0.05); // Slight division factor
+                }
+                return base.div(diminishingFactor); // Apply the diminishing factor
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.points.gte("1e10000"); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         22: {
             title: "Massive Meme Enhancer",
@@ -726,10 +739,21 @@ addLayer("massive", {
                 let expBoost = new Decimal(1).add(buyableEffect("enchant",13).div(4));
                 let massiveEffect = player.massive.points.add(10).log10().pow(1.2).pow(expBoost); // Effect based on massive points
                 let normalEffect = player.points.div(10).add(1).pow(0.112); // Effect based on normal points
-
-                return normalEffect.times(massiveEffect);
+                let diminishingFactor = new Decimal(1);
+                if (player.points.gte(new Decimal("1e10000"))) {
+                    diminishingFactor = player.points.div("1e10000").pow(0.056); // Slight division factor
+                }
+                return normalEffect.times(massiveEffect).div(diminishingFactor);
             },
-            effectDisplay() { return "x" + format(this.effect()); },
+            effectDisplay() {
+                let isSoftcapped = player.points.gte("1e10000"); // Check if softcap applies
+                let display = "x" + format(this.effect()); // Base effect display
+
+                if (isSoftcapped) {
+                    display += " (SC)"; // Append softcap indicator
+                }
+                return display; // Return the final string
+            },
         },
         13: {
             title: "Massive Ninja Boost",
@@ -914,6 +938,7 @@ addLayer("mady", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 5)) passive = passive.add("1");
         return passive;
     },
     layerShown() {
@@ -1231,6 +1256,7 @@ addLayer("ct", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 5)) passive = passive.add("1");
         return passive;
     },
     layerShown() {
@@ -1535,6 +1561,7 @@ addLayer("aub", {
     passiveGeneration() {
         let passive = new Decimal(0);
         if (hasMilestone("liquid", 4)) passive = passive.add("1e-12");
+        if (hasMilestone("liquid", 5)) passive = passive.add("1");
         return passive;
     },
     layerShown() {
@@ -2458,7 +2485,7 @@ addLayer("infi", {
             goalDescription()  {
             let pointGoal = new Decimal("1e450");
             if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
-                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(1).pow(1.28));
+                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.95).pow(1.28));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Unlock 4 new infinity upgrades and boost their own gain.",
             unlocked() { return hasChallenge("infi", 21); },
@@ -2498,7 +2525,7 @@ addLayer("infi", {
             canComplete: function() { 
                 let pointGoal = new Decimal("1e450");
                 if (player.infi.IC3Completions.gte(1) && hasUpgrade("gal", 14)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.925).pow(1.25));
-                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(1).pow(1.28));
+                if (player.infi.IC3Completions.gte(5) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6500").pow(player.infi.IC3Completions.times(0.075).add(0.95).pow(1.28));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -4065,7 +4092,7 @@ addLayer("liquid", {
         11: {
             title: "Massive Point Boost",
             description: "Boosts point gain drastically based on level of this buyable.",
-            cost(x) { return new Decimal(100).times(new Decimal(7).add(x).div(2).pow(x)); },  // The cost formula
+            cost(x) { return new Decimal(100).times(new Decimal(9).add(x).div(4).pow(x)); },  // The cost formula
 
             // Unlock condition
             unlocked() {
@@ -4076,7 +4103,7 @@ addLayer("liquid", {
             effect(x) {
                 let scaler=new Decimal(1);
                 if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
-                return new Decimal(10).pow(x.pow(2)).pow(scaler);
+                return new Decimal(1000000).pow(x.pow(1.5)).pow(scaler);
             },
             canAfford() { return player.liquid.points.gte(this.cost()) },
             buy() {
