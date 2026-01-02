@@ -2846,7 +2846,7 @@ addLayer("vex", {
             challengeDescription: "All people layers before Infinity (Ninja, Madelizers, and Aubrinators) do not work.",
             goalDescription()  {
             let pointGoal = new Decimal("1e90");
-            if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e480").pow(player.vex.vexCompletions.times(0.0625).add(0.9375).pow(1.3));
+            if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e1350").pow(player.vex.vexCompletions.times(0.15).add(0.85).pow(1.3));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Vexbolts points boost Ninja and massive point gain.",
             unlocked() { return hasUpgrade("vex", 21); },
@@ -2880,7 +2880,7 @@ addLayer("vex", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal("1e90");
-                if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e480").pow(player.vex.vexCompletions.times(0.0625).add(0.9375).pow(1.3));
+                if (player.vex.vexCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e1350").pow(player.vex.vexCompletions.times(0.15).add(0.85).pow(1.3));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -3241,7 +3241,7 @@ addLayer("enhance", {
             challengeDescription: "Point gain starts divided by 1e12, and further divides by 10 every 10 seconds.",
             goalDescription()  {
             let pointGoal = new Decimal("1e720");
-            if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6000").pow(player.enhance.enhanceCompletions.times(0.0625).add(0.9375).pow(1.3));
+            if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e7200").pow(player.enhance.enhanceCompletions.times(0.1).add(0.9).pow(1.3));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "Point gain gets better over time in this Enhancer reset. The rate of increase is based on Enhancers.",
             unlocked() { return hasUpgrade("enhance", 21); },
@@ -3275,7 +3275,7 @@ addLayer("enhance", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal("1e720");
-                if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e6000").pow(player.enhance.enhanceCompletions.times(0.0625).add(0.9375).pow(1.3));
+                if (player.enhance.enhanceCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e7200").pow(player.enhance.enhanceCompletions.times(0.1).add(0.9).pow(1.3));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -3620,7 +3620,7 @@ addLayer("sunny", {
             challengeDescription: "Massive points and Aubrinators cannot be obtained.",
             goalDescription()  {
             let pointGoal = new Decimal("1e180");
-            if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e625").pow(player.sunny.sunnyCompletions.times(0.0625).add(0.9375).pow(1.3));
+            if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e1760").pow(player.sunny.sunnyCompletions.times(0.12).add(0.88).pow(1.3));
             return "Reach " + format(pointGoal) + " points."},
             rewardDescription: "SunnyV2 points drastically boost LTF point gain.",
             unlocked() { return hasUpgrade("sunny", 21); },
@@ -3654,7 +3654,7 @@ addLayer("sunny", {
             },
             canComplete: function() { 
                 let pointGoal = new Decimal("1e180");
-                if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e625").pow(player.sunny.sunnyCompletions.times(0.0625).add(0.9375).pow(1.3));
+                if (player.sunny.sunnyCompletions.gte(1) && hasUpgrade("gal", 15)) pointGoal = new Decimal("1e1760").pow(player.sunny.sunnyCompletions.times(0.12).add(0.88).pow(1.3));
                 return player.points.gte(pointGoal); 
             },
             rewardEffect() {
@@ -4064,7 +4064,7 @@ addLayer("liquid", {
             effect() {
                 let inflateTime = new Decimal(player.liquid.resetTime);
                 let inflateTimeBonus = new Decimal(0);
-                let liquidExp = player.liquid.points.div(1e6).add(10).log10();
+                let liquidExp = player.liquid.points.div(1e7).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
@@ -4072,7 +4072,7 @@ addLayer("liquid", {
                 return inflateTime.add(inflateTimeBonus).add(1).pow(0.05).pow(liquidExp.pow(1.2));
             },
             effectDisplay() {
-                let isSoftcapped = player.liquid.points.gte(1e15); // Check if softcap applies
+                let isSoftcapped = player.liquid.points.gte(1e16); // Check if softcap applies
                 let display = "x" + format(this.effect()); // Base effect display
 
                 if (isSoftcapped) {
