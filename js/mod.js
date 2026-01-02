@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.4.2",
+	num: "5.4.4",
 	name: "The Enchantment Grind",
 }
 
@@ -497,7 +497,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		<h3>v5.4.2</h3><br>
 		- Buffed LC inflator buyable's effect and made it more affordable.<br>
 		- Added softcaps for the points-boost-themselves upgrades past e10k score.<br>
-		- IC3's extra requirement scaling past 5 is slightly less aggressive.`
+		- IC3's extra requirement scaling past 5 is slightly less aggressive.<br>
+		<h3>v5.4.3</h3><br>
+		- Adjusted Layer 5 challenge completion goals past the first completion.<br>
+		<h3>v5.4.4</h3><br>
+		- Slightly toned down LC inflator upgrade 2:4's effect.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
