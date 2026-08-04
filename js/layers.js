@@ -18,6 +18,7 @@ addLayer("ltf", {
     softcap: new Decimal("1e2000"),
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("ltf", "normal").gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").log10().div(5000).pow(0.25));
         return scpwr;
     },
@@ -316,7 +317,8 @@ addLayer("ninja", {
     exponent: 0.4, // Scaling factor for prestige points
     softcap: new Decimal("1e1500"),
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("ninja", "normal").gte("1e3750")) scpwr = scpwr.div(getResetGain("ninja", "normal").log10().div(3750).pow(0.25));
         return scpwr;
     },
@@ -640,7 +642,8 @@ addLayer("massive", {
     exponent: 0.25, // Scaling factor for prestige points
     softcap: new Decimal("1e800"),
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("massive", "normal").gte("1e2000")) scpwr = scpwr.div(getResetGain("massive", "normal").log10().div(2000).pow(0.25));
         return scpwr;
     },
@@ -931,7 +934,8 @@ addLayer("mady", {
     autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e450"),
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("mady", "normal").gte("1e1125")) scpwr = scpwr.div(getResetGain("mady", "normal").log10().div(1125).pow(0.25));
         return scpwr;
     },
@@ -1236,6 +1240,7 @@ addLayer("ct", {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
             engagement: new Decimal(0), // Generates LTF points based on CT sub gain
+            bestEngagement: new Decimal(0),
             bestResetGain: new Decimal(0), // Best reset gain in the reset
         };
     },
@@ -1249,7 +1254,8 @@ addLayer("ct", {
     autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e400"),
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("ct", "normal").gte("1e1000")) scpwr = scpwr.div(getResetGain("ct", "normal").log10().div(1000).pow(0.25));
         return scpwr;
     },
@@ -1286,11 +1292,13 @@ addLayer("ct", {
         if (inChallenge("infi", 31)) mult = mult.times(0);
         return mult;
     },
-    update() {
-        let decayValue = new Decimal(0.05);
+    update(timeDiff) {
+        let decayValue = new Decimal(timeDiff);
         if (player.ct.engagement.gt(1000)) decayValue = decayValue.times(player.ct.engagement.log10().div(3).pow(2));
+        if (hasUpgrade("liquid", 41)) decayValue = decayValue.div(2.5);
         if (getResetGain("ct", "normal").gt(player.ct.bestResetGain)) player.ct.bestResetGain = getResetGain("ct", "normal"); 
-             player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(decayValue)))},
+        player.ct.engagement = player.ct.engagement.times((new Decimal(0.99).pow(decayValue)));
+        if(player.ct.engagement.gte(player.ct.bestEngagement)) player.ct.bestEngagement=player.ct.engagement;},
     onPrestige() {
         if (inChallenge("infi", 31)) player.ct.engagement = new Decimal("0");
         else player.ct.engagement = player.ct.engagement.add(player.ct.bestResetGain.log(10).add(1).pow(1.25));
@@ -1554,7 +1562,8 @@ addLayer("aub", {
     autoUpgrade() { return hasUpgrade("infi", 32) || hasMilestone("liquid", 5); },
     softcap: new Decimal("1e360"),
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("aub", "normal").gte("1e900")) scpwr = scpwr.div(getResetGain("aub", "normal").log10().div(900).pow(0.25));
         return scpwr;
     },
@@ -1888,7 +1897,8 @@ addLayer("infi", {
     exponent: 0.025, // Scaling factor for prestige points
     softcap: new Decimal(1e30), // IP gain slows past 1e30
     softcapPower() { 
-        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500)); 
+        let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
+        if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
         if (getResetGain("infi", "normal").gte("1e75")) scpwr = scpwr.div(getResetGain("infi", "normal").log10().div(75).pow(0.25));
         return scpwr;
     },
@@ -3324,8 +3334,10 @@ addLayer("enhance", {
             }],
                 "resource-display",
                 ["display-text", function() {
+                    let scpwr = new Decimal(50).add(player.enhance.shards.div(5));
+                    if (hasUpgrade("liquid", 43)) scpwr = new Decimal(50).add(player.enhance.shards.div(5).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
                     if (hasUpgrade("enhance", 21) || hasUpgrade("vex", 21) || hasUpgrade("sunny", 21)) {
-                        return "You have " + player.enhance.shards + " shards, making the pre-layer-5 resource softcaps become " + new Decimal(50).add(player.enhance.shards.div(5)) + "% instead of 50%";
+                        return "You have " + player.enhance.shards + " shards, making the pre-layer-5 resource softcaps become " + format(scpwr) + "% instead of 50%";
                     }
                     return "";
                 }],
@@ -3856,6 +3868,11 @@ addLayer("liquid", {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
             galUpgrades: new Decimal(0),
+            dilationPointFactor: new Decimal(0.2),
+            dilationUpgradeFactor: new Decimal(0.25),
+            bestDilationScore: new Decimal(0),
+            dilationPoints: new Decimal(0),
+            dilationPointDivision: new Decimal("1e30"),
         };
     },
     color: "#d7520f", // distinct orange
@@ -3865,6 +3882,8 @@ addLayer("liquid", {
     baseAmount() { return player.ltf.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
     exponent: new Decimal("0.003010299957"), // Scaling factor for prestige points
+    softcap: new Decimal("1e12"),
+    softcapPower: new Decimal("0.5"),
 
     layerShown() {
         // Check if the player has 1e3400 LTF points or more
@@ -3886,6 +3905,15 @@ addLayer("liquid", {
     hotkeys: [
         { key: "7", description: "7: LC inflator Reset", onPress() { if (canReset(this.layer)) doReset(this.layer); } },
     ],
+    update(timeDiff) {
+        let dilationPointGen = player.liquid.bestDilationScore.add(1).log10().pow(1.2).div(2500).pow(1.5).times(buyableEffect("liquid", 21)).times(timeDiff);
+        if(hasUpgrade("liquid", 45)) dilationPointGen = dilationPointGen.times(upgradeEffect("liquid", 45));
+        if (player.points.gt(player.liquid.bestDilationScore) && inChallenge("liquid", 21)) player.liquid.bestDilationScore = player.points;
+        if (hasChallenge("liquid", 21)) player.liquid.dilationPoints = player.liquid.dilationPoints.add(dilationPointGen);
+        player.liquid.dilationPointFactor = new Decimal(0.2).pow(buyableEffect("liquid", 23));
+        player.liquid.dilationUpgradeFactor = new Decimal(0.25).pow(buyableEffect("liquid", 23));
+        player.liquid.dilationPointDivision = new Decimal("1e30").pow(buyableEffect("liquid", 23));
+    },
     infoboxes:{
         1: {
             title: "About This Layer",
@@ -3900,14 +3928,16 @@ addLayer("liquid", {
             description: "Gain a drastic point multiplier that increases over time, and gets faster based on LC inflators!",
             cost: new Decimal(1),
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
                 let liquidExp = player.liquid.points.times(4).add(10).log10();
+                let dilationFactor = new Decimal(1);
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(5.4).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(5.4).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(2.5e7); // Check if softcap applies
@@ -3925,14 +3955,16 @@ addLayer("liquid", {
             cost: new Decimal(2),
             unlocked() { return hasUpgrade("liquid", 11); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.times(2).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(3.6).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(3.6).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(5e7); // Check if softcap applies
@@ -3956,14 +3988,16 @@ addLayer("liquid", {
             cost: new Decimal(25),
             unlocked() { return hasUpgrade("liquid", 13); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().div(8).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(2.4).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(2.4).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e8); // Check if softcap applies
@@ -3981,14 +4015,16 @@ addLayer("liquid", {
             cost: new Decimal(200),
             unlocked() { return hasUpgrade("liquid", 14); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.div(2).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(8)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(1).div(8).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(1.6).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(1.6).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(2e8); // Check if softcap applies
@@ -4012,14 +4048,16 @@ addLayer("liquid", {
             cost: new Decimal(10000),
             unlocked() { return hasUpgrade("liquid", 21); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.div(100).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(2).div(9).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(0.4).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.4).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e11); // Check if softcap applies
@@ -4037,14 +4075,16 @@ addLayer("liquid", {
             cost: new Decimal(1e6),
             unlocked() { return hasUpgrade("liquid", 22); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.div(1e4).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(4).div(9).pow(0.5));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(0.14).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.14).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e13); // Check if softcap applies
@@ -4062,14 +4102,16 @@ addLayer("liquid", {
             cost: new Decimal(1e8),
             unlocked() { return hasUpgrade("liquid", 23); },
             effect() {
-                let inflateTime = new Decimal(player.liquid.resetTime);
+                let inflateTime = new Decimal(player.liquid.resetTime).times(buyableEffect("liquid", 24));
                 let inflateTimeBonus = new Decimal(0);
+                let dilationFactor = new Decimal(1);
                 let liquidExp = player.liquid.points.div(1e7).add(10).log10();
                 if (hasMilestone("liquid", 2)) inflateTimeBonus = inflateTimeBonus.add(player.liquid.points.add(1).log10().pow(4).times(150));
                 if (player.liquid.points.gte(1e6)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(6).pow(3));
                 if (player.liquid.points.gte(1e32)) inflateTimeBonus = inflateTimeBonus.div(player.liquid.points.log10().div(32).pow(0.8));
                 if (liquidExp.gte(9)) liquidExp = liquidExp.div(player.liquid.points.log10().sub(6).div(9).pow(0.75));
-                return inflateTime.add(inflateTimeBonus).add(1).pow(0.05).pow(liquidExp.pow(1.2));
+                if (inChallenge("liquid", 21)) dilationFactor = player.liquid.dilationUpgradeFactor;
+                return inflateTime.add(inflateTimeBonus).add(1).pow(0.05).pow(liquidExp.pow(1.2)).pow(dilationFactor);
             },
             effectDisplay() {
                 let isSoftcapped = player.liquid.points.gte(1e16); // Check if softcap applies
@@ -4082,10 +4124,173 @@ addLayer("liquid", {
             },
         },
         25: {
+            title: "Dilation",
+            description: "Unlock dilation (new tab).",
+            cost: new Decimal(1e9),
+            unlocked() { return hasUpgrade("liquid", 24); },
+        },
+        31: {
             title: "Ultimate Inflation.",
             description: "Buyable formula is improved by ^2.",
             cost: new Decimal(1e12),
-            unlocked() { return hasUpgrade("liquid", 24); },
+            unlocked() { return hasUpgrade("liquid", 25); },
+        },
+        41: {
+            title: "Engaged Viewers",
+            description: "Engagement decays 60% slower, and its peak value this Infinity also boosts point gain.",
+            style() {
+                if (player.liquid.dilationPoints.gte(this.cost) && !hasUpgrade(this.layer, this.id))  {
+                    return {
+                        "background-color": "#058022", // can complete
+                    };
+                } else if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#06cc35",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            currencyDisplayName: "Dilation Points",
+            currencyInternalName: "dilationPoints",
+            currencyLocation() { return player.liquid; },
+            cost: new Decimal(1000),
+            unlocked() { return getBuyableAmount("liquid", 21).gte(2); },
+            effect() {
+                let base = player.ct.bestEngagement.div(20000).add(1).pow(3.6); 
+                let diminishingFactor = new Decimal(1); 
+                if (player.ct.bestEngagement.gte(new Decimal(1e12))) {
+                    diminishingFactor = player.ct.bestEngagement.div(1e12).pow(1.8);
+                }
+                return base.div(diminishingFactor); 
+            },
+            effectDisplay() {
+                let isSoftcapped = player.ct.bestEngagement.gte(1e12);
+                let display = "x" + format(this.effect());
+                if (isSoftcapped) {
+                    display += " (SC)";
+                }
+                return display;
+            },
+        },
+        42: {
+            title: "Dilated Exponents",
+            description: "The second buyable is now twice as strong while dilated.",
+            style() {
+                if (player.liquid.dilationPoints.gte(this.cost) && !hasUpgrade(this.layer, this.id))  {
+                    return {
+                        "background-color": "#058022", // can complete
+                    };
+                } else if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#06cc35",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            currencyDisplayName: "Dilation Points",
+            currencyInternalName: "dilationPoints",
+            currencyLocation() { return player.liquid; },
+            cost: new Decimal(5000),
+            unlocked() { return hasUpgrade("liquid", 41); },
+        },
+        43: {
+            title: "Time Shards",
+            description: "Shards gain a boost to their effect based on DP.",
+            style() {
+                if (player.liquid.dilationPoints.gte(this.cost) && !hasUpgrade(this.layer, this.id))  {
+                    return {
+                        "background-color": "#058022", // can complete
+                    };
+                } else if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#06cc35",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            currencyDisplayName: "Dilation Points",
+            currencyInternalName: "dilationPoints",
+            currencyLocation() { return player.liquid; },
+            cost: new Decimal(50000),
+            unlocked() { return hasUpgrade("liquid", 42); },
+            effect() {
+                let formula = player.liquid.dilationPoints.add(1).log10().pow(0.4).times(5).sub(0.5);
+                if (player.liquid.dilationPoints.gte(new Decimal(1e30))) {
+                    formula = new Decimal(18.9903).times(player.liquid.dilationPoints.log10().div(30).pow(0.25));
+                }
+                return formula;
+            },
+            effectDisplay() {
+                let isSoftcapped = player.liquid.dilationPoints.gte(1e30);
+                let display = "+" + format(this.effect()) + "%";
+                if (isSoftcapped) {
+                    display += " (SC)";
+                }
+                return display;
+            },
+        },
+        44: {
+            title: "Eternity",
+            description: "Unlock Eternity (Prestige Layer at 1.79e308 IP)",
+            style() {
+                if (player.liquid.dilationPoints.gte(this.cost) && !hasUpgrade(this.layer, this.id))  {
+                    return {
+                        "background-color": "#058022", // can complete
+                    };
+                } else if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#06cc35",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            currencyDisplayName: "Dilation Points",
+            currencyInternalName: "dilationPoints",
+            currencyLocation() { return player.liquid; },
+            cost: new Decimal(100000),
+            unlocked() { return hasUpgrade("liquid", 43); },
+        },
+        45: {
+            title: "Dilated DP",
+            description: "Gain more DP based on total DP buyable levels (1.02^x).",
+            style() {
+                if (player.liquid.dilationPoints.gte(this.cost) && !hasUpgrade(this.layer, this.id))  {
+                    return {
+                        "background-color": "#058022", // can complete
+                    };
+                } else if (hasUpgrade(this.layer, this.id)) {
+                    return {
+                        "background-color": "#06cc35",
+                    };
+                } else {
+                    return {
+                        "background-color": "#bf8f8f", 
+                    };
+                }
+            },
+            currencyDisplayName: "Dilation Points",
+            currencyInternalName: "dilationPoints",
+            currencyLocation() { return player.liquid; },
+            cost: new Decimal(1000000),
+            unlocked() { return hasUpgrade("liquid", 44); },
+            effect() {
+                return new Decimal(1.02).pow(getBuyableAmount("liquid", 21).add(getBuyableAmount("liquid", 22)).add(getBuyableAmount("liquid", 23)).add(getBuyableAmount("liquid", 24)));
+            },
+            effectDisplay() {
+                return "x" + format(this.effect());
+            },
         },
     },
     buyables: {
@@ -4102,8 +4307,9 @@ addLayer("liquid", {
             // Effect of the buyable
             effect(x) {
                 let scaler=new Decimal(1);
-                if (hasUpgrade("liquid", 25)) scaler = scaler.add(1);
-                return new Decimal(1000000).pow(x.pow(1.5)).pow(scaler);
+                if (hasUpgrade("liquid", 31)) scaler = scaler.add(1);
+                if (inChallenge("liquid", 21)) scaler = scaler.times(player.liquid.dilationUpgradeFactor);
+                return new Decimal(100000).pow(x.pow(1.5)).pow(scaler);
             },
             canAfford() { return player.liquid.points.gte(this.cost()) },
             buy() {
@@ -4122,6 +4328,140 @@ addLayer("liquid", {
                     Cost: ${format(cost)} LC Inflators`;
             },
         },
+        21: {
+            title: "Dilation Point Booster",
+            description: "Boost DP gain by 1.2x.",
+            cost(x) { return new Decimal(5).times(new Decimal(64).add(x).div(50).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return hasChallenge("liquid", 21);  // Buyable unlocks when player has completed the challenge
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1.2).pow(x);
+            },
+            canAfford() { return player.liquid.dilationPoints.gte(this.cost()) },
+            style() {if(this.canAfford()) return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#00731f"};
+                    else return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#bf8f8f"};},
+            buy() {
+                player.liquid.dilationPoints = player.liquid.dilationPoints.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 21); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)}<br>
+                    Cost: ${format(cost)} Dilation Points`;
+            },
+        },
+        22: {
+            title: "Point Exponent 2",
+            description: "Boost point gain by ^+0.002. (multiplicative with Point Exponent 1)",
+            cost(x) { return new Decimal(20).times(new Decimal(29).add(x).div(25).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return getBuyableAmount("liquid", 21).gte(1);  // Buyable unlocks when player has at least 1 of the previous buyable
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                let base = new Decimal(0.002).times(x);
+                if(inChallenge("liquid", 21) && hasUpgrade("liquid", 42)) base = base.times(2);
+                return base;
+            },
+            canAfford() { return player.liquid.dilationPoints.gte(this.cost()) },
+            style() {if(this.canAfford()) return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#00731f"};
+                    else return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#bf8f8f"};},
+            buy() {
+                player.liquid.dilationPoints = player.liquid.dilationPoints.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 22); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: +^${format(effect)}<br>
+                    Cost: ${format(cost)} Dilation Points`;
+            },
+        },
+        23: {
+            title: "Dilation Weakener",
+            description: "Make dilation penalties 1% weaker.",
+            cost(x) { return new Decimal(100).times(new Decimal(34).add(x).div(25).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return getBuyableAmount("liquid", 22).gte(1);  // Buyable unlocks when player has at least 1 of the previous buyable
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(0.99).pow(x);
+            },
+            canAfford() { return player.liquid.dilationPoints.gte(this.cost()) },
+            style() {if(this.canAfford()) return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#00731f"};
+                    else return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#bf8f8f"};},
+            buy() {
+                player.liquid.dilationPoints = player.liquid.dilationPoints.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 23); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: ${format(effect.times(100))}% penalty strength<br>
+                    Cost: ${format(cost)} Dilation Points`;
+            },
+        },
+        24: {
+            title: "Time Accelerator",
+            description: "Time speed of main LC Inflator upgrades increases by +0.5x.",
+            cost(x) { return new Decimal(250).times(new Decimal(29).add(x).div(25).pow(x)); },  // The cost formula
+
+            // Unlock condition
+            unlocked() {
+                return getBuyableAmount("liquid", 23).gte(1);  // Buyable unlocks when player has at least 1 of the previous buyable
+            },
+
+            // Effect of the buyable
+            effect(x) {
+                return new Decimal(1).add(x.div(2));
+            },
+            canAfford() { return player.liquid.dilationPoints.gte(this.cost()) },
+            style() {if(this.canAfford()) return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#00731f"};
+                    else return {"height": "164px", "width": "164px", "border-radius": "15px", "font-size": "63%", "background-color": "#bf8f8f"};},
+            buy() {
+                player.liquid.dilationPoints = player.liquid.dilationPoints.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+            // Display the effect
+            display() {
+                let amt = getBuyableAmount("liquid", 24); // Current level of the buyable
+                let cost = this.cost(amt); // Cost for the next level
+                let effect = this.effect(amt); // Current effect of the buyable
+                return `
+                    ${this.description}<br>
+                    Level: ${format(amt)}<br>
+                    Effect: x${format(effect)} time speed<br>
+                    Cost: ${format(cost)} Dilation Points`;
+            },
+        },
     },
     challenges: {
         11: {
@@ -4132,10 +4472,37 @@ addLayer("liquid", {
             unlocked() { return hasUpgrade("liquid", 21); },
             canComplete: function() { return player.points.gte("1e360") },
             rewardEffect() {
-                return player.liquid.points.add(1).pow(10);
+                let rewardEff = player.liquid.points.add(1).pow(10)
+                if(inChallenge("liquid", 21)) rewardEff = rewardEff.pow(player.liquid.dilationUpgradeFactor);
+                return rewardEff;
             },
             rewardDisplay() {
                 return format(this.rewardEffect()) + "x to point gain";
+            },
+        },
+        21: {
+            name: "Dilation",
+            challengeDescription() {return "Point gain is raised to the ^"+format(player.liquid.dilationPointFactor)+" and then divided by "+format(player.liquid.dilationPointDivision)+", and all boosts in LC inflators have their effects ^"+ format(player.liquid.dilationUpgradeFactor)+". To start gaining Dilation Points, reach a minimum of 1e80 points. Base DP gain is based on best Dilation Score."},
+            goalDescription() {return `Reach 1e80 points.<br> 
+            Best Dilation Score: ` + format(player.liquid.bestDilationScore);},
+            style() {
+                if(this.canComplete() && player.points.gte(player.liquid.bestDilationScore.pow("0.9999999")) && inChallenge("liquid", 21)) return {
+                    "background-color": "#2f964a", "font-size": "85%", "border-radius": "60px"
+                }
+                else if (hasChallenge("liquid", 21)) return {"background-color": "#008a25", "font-size": "85%", "border-radius": "60px"}
+                else return {
+                    "background-color": "#bf8f8f", "font-size": "85%", "border-radius": "60px"
+                };
+            },
+            unlocked() { return hasUpgrade("liquid", 25); },
+            canComplete: function() { return player.points.gte("1e80") },
+            rewardEffect() {
+            let dilationPointGen = player.liquid.bestDilationScore.add(1).log10().pow(1.2).div(2500).pow(1.5).times(buyableEffect("liquid", 21));
+            if(hasUpgrade("liquid", 45)) dilationPointGen=dilationPointGen.times(upgradeEffect("liquid", 45));
+            return dilationPointGen;
+            },
+            rewardDisplay() {
+                return "+" + format(this.rewardEffect()) + " Dilation Points per second";
             },
         },
     },
@@ -4208,10 +4575,18 @@ addLayer("liquid", {
                 "main-display",
                 "prestige-button",
                 "resource-display",
-                "upgrades",
-                "buyables",
                 ["display-text", function() {
-                        return "You have made a total of " + player.liquid.total + " LC inflators.";
+                    if (player.liquid.points.gte(new Decimal(1e11))) {
+                        return '<span style="color: red;">LC inflator gains will slow down beyond 1e12 LC inflators.</span>';
+                    }
+                    return "";
+                }],
+                "upgrades",
+                ["buyable", 11],
+                ["display-text", function() {
+                    if(player.liquid.points.gte(1e9))
+                    return "You have made a total of " + format(player.liquid.total) + " LC inflators.";
+                    else return "You have made a total of " + player.liquid.total + " LC inflators.";
                 }],
                 "milestones",
             ],
@@ -4219,9 +4594,24 @@ addLayer("liquid", {
         "Challenges": {
             content: [
                 "main-display",
-                "challenges",
+                ["challenge", 11]
             ],
             unlocked() { return hasUpgrade("liquid", 21); },
+        },
+        "Dilation": {
+            content: [
+                ["challenge", 21],
+                ["display-text", function() {
+                    return `<br>
+                    You have <span style="color: #00731f; font-size: 24px; font-family: Lucida Console, Inconsolata; text-shadow: 0 0 4px #00731f;">${format(player.liquid.dilationPoints)}</span> Dilation Points.`;
+                }],
+                ["row",[ ["buyable",21], ["buyable",22], ["buyable",23], ["buyable",24]]],
+                ["row",[ ["upgrade",41], ["upgrade",42], ["upgrade",43], ["upgrade",44], ["upgrade",45]]]
+            ],
+            unlocked() { return hasUpgrade("liquid", 25); },
+            buttonStyle () {
+                return {"border-color" : "#008a25", "color": "#00731f"}
+            }
         },
     },
 });
@@ -4626,22 +5016,23 @@ addLayer("enchant", {
             unlocked: false, // Starts locked until requirements are met
             points: new Decimal(0), // Prestige points for this layer
             peak: new Decimal(0),
+            enchantmentStrength: new Decimal(1),
             adventureHP: new Decimal(100),
             maxAdventureHP: new Decimal(100),
             adventureLevel: new Decimal(0),
         };
     },
     color: "#bd80e8", // light purple
-    requires: new Decimal("1e20000"), // Points required to unlock this layer
+    requires: new Decimal("1e16000"), // Points required to unlock this layer
     resource: "enchantment points", // Prestige currency name
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: 0.000025, // Scaling factor for prestige points
+    exponent: 0.0000625, // Scaling factor for prestige points
 
     layerShown() {
         // Check if the player has e16k score or unlocked the layer already
-        return player.points.gte("1e16000") || player.enchant.unlocked==true;
+        return player.points.gte("1e12800") || player.enchant.unlocked==true;
     },
 
     gainMult() { // Multiplicative bonus to prestige point gain
@@ -4652,9 +5043,10 @@ addLayer("enchant", {
     gainExp() { // Exponential bonus to prestige point gain
         return new Decimal(1); // Default is no additional exponential scaling
     },
-    update() {
+    update(diff) {
         if (player.points.gt(player.enchant.peak)) player.enchant.peak = player.points;
-        if (player.points.gte("1e60000")) player.enchant.adventureHP = player.enchant.adventureHP.sub(new Decimal("0.0000001").times(player.points.add(1).log10().sub(50000)));
+        player.enchant.enchantmentStrength = player.enchant.points.div(10).add(1).log10().pow(0.4).add(1);
+        if (player.points.gte("1e60000")) player.enchant.adventureHP = player.enchant.adventureHP.sub(new Decimal("0.000001").times(player.points.add(1).log10().sub(50000)).times(diff));
         if (player.enchant.adventureHP.lte("0.00001")) {player.enchant.adventureLevel = player.enchant.adventureLevel.add(1);
 player.enchant.maxAdventureHP = player.enchant.maxAdventureHP.times(1.5);
 player.enchant.adventureHP = player.enchant.maxAdventureHP;}
@@ -4668,7 +5060,7 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
         1: {
             title: "About This Layer",
             titleStyle: {'color': '#000000'},
-            body: "The lategame progression mechanic meant to be a grind quest, how far can you venture?",
+            body: "You have gathered so many points that the mythical divine barbers start noticing you, and they grant you some of their essence. Enchantment Strength increases with enchantment points, and it powers your enchantment upgrades.",
             unlocked() { return player.enchant.points.lte(99); }
         },
     },
@@ -4678,57 +5070,57 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
             description: "Polish your low taper fade skills, boosting point gain based on LTF points, and boost LTF statics by ^5!",
             cost: new Decimal(1),
             effect() {
-                return player.ltf.points.div(10).add(10).log10().pow(3.65);
+                return player.ltf.points.div(10).add(10).log10().pow(7).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         12: {
             title: "Enchant Ninja!",
             description: "Ninja keeps dragging his meme, and this causes points to receive another boost, and boost Ninja statics/inits by ^5!",
-            cost: new Decimal(2),
+            cost: new Decimal(3),
             unlocked() { return hasUpgrade("enchant", 11); },
             effect() {
-                return player.ninja.points.div(5).add(10).log10().pow(4.5);
+                return player.ninja.points.div(5).add(10).log10().pow(8.25).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         13: {
             title: "Enchant Massive!",
             description: "Another point boost, this time by massive points since the massiveness grew out of control, and boost Massive statics/inits by ^5!",
-            cost: new Decimal(5),
+            cost: new Decimal(10),
             unlocked() { return hasUpgrade("enchant", 12); },
             effect() {
-                return player.massive.points.div(3).add(10).log10().pow(5.25);
+                return player.massive.points.div(3).add(10).log10().pow(9.5).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         14: {
             title: "Enchant CT!",
             description: "CT subscribers are infused with legendary Stat Wars essence, making them boost LTF points, and boost CT statics/inits by ^5!",
-            cost: new Decimal(10),
+            cost: new Decimal(25),
             unlocked() { return hasUpgrade("enchant", 13); },
             effect() {
-                return player.ct.points.div(2).add(10).log10().pow(4.75);
+                return player.ct.points.div(2).add(10).log10().pow(8).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         15: {
             title: "Madelyn's Adorable!",
             description: "Madelyn transforms to become more beautiful and gleaming, making her points boost LTF points, and boost Madelizer statics/inits by ^5!",
-            cost: new Decimal(20),
+            cost: new Decimal(50),
             unlocked() { return hasUpgrade("enchant", 14); },
             effect() {
-                return player.mady.points.add(10).log10().pow(4.25);
+                return player.mady.points.add(10).log10().pow(8.8).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
         21: {
             title: "Aubrie's Legend Status",
             description: "Aubrie turns her fame growth to more LTF point gain, and boost Aubrinator statics/inits by ^5!",
-            cost: new Decimal(20),
+            cost: new Decimal(100),
             unlocked() { return hasUpgrade("enchant", 15); },
             effect() {
-                return player.aub.points.add(10).log10().pow(5.1);
+                return player.aub.points.add(10).log10().pow(10).pow(player.enchant.enchantmentStrength);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -4954,6 +5346,9 @@ player.enchant.adventureHP = player.enchant.maxAdventureHP;}
                 "main-display",
                 "prestige-button",
                 "resource-display",
+                ["display-text", function() {
+                    return `Enchantment Strength: <span style="color: #bd80e8; font-size: 18px; font-family: Lucida Console, Inconsolata; text-shadow: 0 0 3px #bd80e8;">${format(player.enchant.enchantmentStrength.times(100))}</span>%`;
+                }],
                 ["bar", "artifactBar"],
                 ["bar", "elementalBar"],
                 "upgrades",
