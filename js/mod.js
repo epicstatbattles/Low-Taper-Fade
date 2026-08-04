@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.4.4",
+	num: "5.6",
 	name: "The Enchantment Grind",
 }
 
@@ -501,7 +501,22 @@ let changelog = `<h1>Changelog:</h1><br>
 		<h3>v5.4.3</h3><br>
 		- Adjusted Layer 5 challenge completion goals past the first completion.<br>
 		<h3>v5.4.4</h3><br>
-		- Slightly toned down LC inflator upgrade 2:4's effect.`
+		- Slightly toned down LC inflator upgrade 2:4's effect.<br>
+		<h3>v5.4.5</h3><br>
+		- Reduced Enchantment's goal to probably its final amount, e16k.<br>
+		<h3>v5.5 (The Dilation Update)</h3><br>
+		- Added a new special challenge in the LC inflators layer called Dilation.<br>
+		- In Dilation, points and LC boosts are HUGELY nerfed. The initial goal is 1e85 points to start getting Dilation Points, and after that, you can push for a better score and more DP generation.<br>
+		- Fixed first LC inflator challenge not granting its reward upon completion.<br>
+		- Slightly nerfed LC inflator buyable to compensate for the fix to the first LC inflator challenge.<br>
+		<h3>v5.5.1</h3><br>
+		- Adjusted Point Exponent upgrade to scale in cost slightly faster, but also made its effect/upgrade stronger.<br>
+		- Reduced minimum dilation requirement to 1e80 to gain DP.<br>
+		- Improved enchantment point gain formula.<br>
+		<h3>v5.6</h3><br>
+		- Buffed Dilation Point gain formula so it scales slightly better with best dilation score.<br>
+		- Added 5 new Dilation Upgrades (single-buy).<br>
+		- Added more artifacts!<br>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
@@ -569,7 +584,9 @@ function getPointGen() {
 	let decayFactor = new Decimal(10).pow(enhanceTime.div(10));
 	if (inChallenge("enhance", 11)) gain = gain.div(1e12).div(decayFactor);
 	if (hasChallenge("enhance", 11)) gain = gain.times(challengeEffect("enhance", 11));
+	if (hasChallenge("liquid", 11)) gain = gain.times(challengeEffect("liquid", 11));
 	if (hasUpgrade("liquid", 11)) gain = gain.times(upgradeEffect("liquid", 11));
+	if (hasUpgrade("liquid", 41)) gain = gain.times(upgradeEffect("liquid", 41));
 	gain = gain.times(buyableEffect("revo", 12));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ltf", 0)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("ninja", 0)) gain = gain.times(upgradeEffect("enhance", 21));
@@ -597,9 +614,11 @@ function getPointGen() {
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 7)) gain = gain.times(upgradeEffect("enhance", 21));
 	if (hasUpgrade("enhance", 21) && hasMilestone("liquid", 8)) gain = gain.times(upgradeEffect("enhance", 21));
 	gain = gain.pow(buyableEffect("enhance", 11));
+	gain = gain.pow(buyableEffect("liquid", 22).add(1));
 	if (hasUpgrade("massive", 15)) gain = gain.pow(upgradeEffect("massive", 15));
 	if (inChallenge("infi", 11)) gain = gain.pow(0.9).div(100);
 	if (inChallenge("liquid", 11)) gain = gain.pow(0.5).div(1e20);
+	if (inChallenge("liquid", 21)) gain = gain.pow(player.liquid.dilationPointFactor).div(player.liquid.dilationPointDivision);
 	return gain
 }
 
