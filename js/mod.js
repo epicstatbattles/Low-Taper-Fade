@@ -516,7 +516,8 @@ let changelog = `<h1>Changelog:</h1><br>
 		<h3>v5.6</h3><br>
 		- Buffed Dilation Point gain formula so it scales slightly better with best dilation score.<br>
 		- Added 5 new Dilation Upgrades (single-buy).<br>
-		- Added more artifacts!<br>`
+		- Added more artifacts!<br>
+		- Made the softcaps for all layers LTF to Infinity be based on a small additional percentage of unspent points.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
