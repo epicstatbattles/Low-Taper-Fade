@@ -19,7 +19,7 @@ addLayer("ltf", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.ltf.points.add(getResetGain("ltf", "normal")).gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").add(player.ltf.points.div(100)).log10().div(5000).pow(0.25));
+        if (player.ltf.points.add(getResetGain("ltf", "normal")).gte("1e5000")) scpwr = scpwr.div(getResetGain("ltf", "normal").add(player.ltf.points.div(20)).log10().div(5000).pow(0.25));
         return scpwr;
     },
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 0) || (hasMilestone("ct", 1) && player.ct.engagement.gte(1000)); },
@@ -319,7 +319,7 @@ addLayer("ninja", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.ninja.points.add(getResetGain("ninja", "normal")).gte("1e3750")) scpwr = scpwr.div(getResetGain("ninja", "normal").add(player.ninja.points.div(100)).log10().div(3750).pow(0.25));
+        if (player.ninja.points.add(getResetGain("ninja", "normal")).gte("1e3750")) scpwr = scpwr.div(getResetGain("ninja", "normal").add(player.ninja.points.div(20)).log10().div(3750).pow(0.25));
         return scpwr;
     },
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
@@ -644,7 +644,7 @@ addLayer("massive", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.massive.points.add(getResetGain("massive", "normal")).gte("1e2000")) scpwr = scpwr.div(getResetGain("massive", "normal").add(player.massive.points.div(100)).log10().div(2000).pow(0.25));
+        if (player.massive.points.add(getResetGain("massive", "normal")).gte("1e2000")) scpwr = scpwr.div(getResetGain("massive", "normal").add(player.massive.points.div(20)).log10().div(2000).pow(0.25));
         return scpwr;
     },
     autoUpgrade() { return hasUpgrade("infi", 13) || hasMilestone("liquid", 4); },
@@ -936,7 +936,7 @@ addLayer("mady", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.mady.points.add(getResetGain("mady", "normal")).gte("1e1125")) scpwr = scpwr.div(getResetGain("mady", "normal").add(player.mady.points.div(50)).log10().div(1125).pow(0.25));
+        if (player.mady.points.add(getResetGain("mady", "normal")).gte("1e1125")) scpwr = scpwr.div(getResetGain("mady", "normal").add(player.mady.points.div(10)).log10().div(1125).pow(0.25));
         return scpwr;
     },
     passiveGeneration() {
@@ -1256,7 +1256,7 @@ addLayer("ct", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.ct.points.add(getResetGain("ct", "normal")).gte("1e1000")) scpwr = scpwr.div(getResetGain("ct", "normal").add(player.ct.points.div(50)).log10().div(1000).pow(0.25));
+        if (player.ct.points.add(getResetGain("ct", "normal")).gte("1e1000")) scpwr = scpwr.div(getResetGain("ct", "normal").add(player.ct.points.div(10)).log10().div(1000).pow(0.25));
         return scpwr;
     },
     passiveGeneration() {
@@ -1564,7 +1564,7 @@ addLayer("aub", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.aub.points.add(getResetGain("aub", "normal")).gte("1e900")) scpwr = scpwr.div(getResetGain("aub", "normal").add(player.aub.points.div(50)).log10().div(900).pow(0.25));
+        if (player.aub.points.add(getResetGain("aub", "normal")).gte("1e900")) scpwr = scpwr.div(getResetGain("aub", "normal").add(player.aub.points.div(10)).log10().div(900).pow(0.25));
         return scpwr;
     },
     passiveGeneration() {
@@ -1899,7 +1899,7 @@ addLayer("infi", {
     softcapPower() { 
         let scpwr = new Decimal(0.5).add(player.enhance.shards.div(500));
         if (hasUpgrade("liquid", 43)) scpwr = new Decimal(0.5).add(player.enhance.shards.div(500).times(new Decimal(1).add(upgradeEffect("liquid", 43).div(100))));
-        if (player.infi.points.add(getResetGain("infi", "normal")).gte("1e75")) scpwr = scpwr.div(getResetGain("infi", "normal").add(player.infi.points.div(10)).log10().div(75).pow(0.25));
+        if (player.infi.points.add(getResetGain("infi", "normal")).gte("1e75")) scpwr = scpwr.div(getResetGain("infi", "normal").add(player.infi.points.div(5)).log10().div(75).pow(0.25));
         return scpwr;
     },
     passiveGeneration() {
