@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "5.6",
+	num: "5.6.1",
 	name: "The Enchantment Grind",
 }
 
@@ -517,7 +517,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Buffed Dilation Point gain formula so it scales slightly better with best dilation score.<br>
 		- Added 5 new Dilation Upgrades (single-buy).<br>
 		- Added more artifacts!<br>
-		- Made the softcaps for all layers LTF to Infinity be based on a small additional percentage of unspent points.`
+		- Made the softcaps for all layers LTF to Infinity be based on a small additional percentage of unspent points.<br>
+		<h3>v5.6.1</h3><br>
+		- Adjusted circle gain formula and reworked its exponent to prevent it from closing >160k points.<br>
+		- The softcap strength post-10 upgrades for all 3 circle buyables is slightly stronger.<br>
+		- Weakened Circle Upgrade 3's effect.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, for now...`
 
