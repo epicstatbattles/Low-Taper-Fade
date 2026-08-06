@@ -4631,15 +4631,16 @@ addLayer("revo", {
     baseResource: "points", // Resource used to gain prestige points
     baseAmount() { return player.points; }, // Current amount of baseResource
     type: "normal", // Standard prestige layer type
-    exponent: new Decimal(0.25), // Scaling factor for prestige points
-    softcap: new Decimal(10000),
+    exponent: new Decimal(0.000001), // Scaling factor for prestige points
+    softcap: new Decimal("1e10000"),
     softcapPower: new Decimal(0.5),
     canReset() {
     return getResetGain(this.layer).lt(2) && player.revo.points.lte(1);
     },
     passiveGeneration() {
         let passive = new Decimal(0);
-        if (player.points.gte(10000)) passive = passive.add(new Decimal(0.001).div(player.points.log10().div(4).pow(2)));
+        if (player.points.gte(10000)) passive = passive.add(new Decimal(0.001).times(player.points.div(10000).pow(new Decimal(0.05).div(player.points.add(1).log10().pow(0.15)))).times(player.points.div(1000).log10().pow(0.25)));
+        if (player.points.gte("1e100")) passive = new Decimal("0.199678665").times(player.points.log10().log10().pow(2)).times(player.points.log10().div(100).pow(0.5));
         return passive;
     },
     layerShown() {
@@ -4657,7 +4658,6 @@ addLayer("revo", {
 
     gainExp() {
         let exp = new Decimal(1);// Exponential bonus to prestige point gain
-        if (getResetGain("revo", "normal").gte(10000)) exp = exp.div(getResetGain("revo", "normal").log10().pow(0.25));
         return exp;
     },
 
@@ -4714,7 +4714,7 @@ addLayer("revo", {
             cost: new Decimal(100000),
             unlocked() { return hasUpgrade("revo", 12); },
             effect() {
-                return player.ct.points.div(2).add(10).log10().pow(2);
+                return player.ct.points.div(2).add(10).log10().pow(1.25);
             },
             effectDisplay() { return "x" + format(this.effect()); },
         },
@@ -4886,7 +4886,7 @@ addLayer("revo", {
             // Effect of the buyable
             effect(x) {
                 let effectweaken = new Decimal(1);
-                if (getBuyableAmount("revo", 11).gte(10)) effectweaken=new Decimal(1.1).pow(getBuyableAmount("revo", 11).sub(10)).pow(getBuyableAmount("revo", 11).log10());
+                if (getBuyableAmount("revo", 11).gte(10)) effectweaken=new Decimal(1.12).pow(getBuyableAmount("revo", 11).sub(10)).pow(getBuyableAmount("revo", 11).log10());
                 return new Decimal(1.4).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
@@ -4922,7 +4922,7 @@ addLayer("revo", {
             // Effect of the buyable
             effect(x) {
                 let effectweaken = new Decimal(1);
-                if (getBuyableAmount("revo", 12).gte(10)) effectweaken=new Decimal(1.04).pow(getBuyableAmount("revo", 12).sub(10)).pow(getBuyableAmount("revo", 12).log10());
+                if (getBuyableAmount("revo", 12).gte(10)) effectweaken=new Decimal(1.048).pow(getBuyableAmount("revo", 12).sub(10)).pow(getBuyableAmount("revo", 12).log10());
                 return new Decimal(1.2).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
@@ -4958,7 +4958,7 @@ addLayer("revo", {
             // Effect of the buyable
             effect(x) {
                 let effectweaken = new Decimal(1);
-                if (getBuyableAmount("revo", 13).gte(10)) effectweaken=new Decimal(1.02).pow(getBuyableAmount("revo", 13).sub(10)).pow(getBuyableAmount("revo", 13).log10());
+                if (getBuyableAmount("revo", 13).gte(10)) effectweaken=new Decimal(1.025).pow(getBuyableAmount("revo", 13).sub(10)).pow(getBuyableAmount("revo", 13).log10());
                 return new Decimal(1.1).pow(x).div(effectweaken);
             },
             canAfford() { return player.revo.points.gte(this.cost()) },
