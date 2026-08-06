@@ -1,7 +1,7 @@
 addLayer("ltf", {
     name: "Low Taper Fade", // Full name of the layer
     symbol: "L", // Symbol displayed on the tree
-    position: 1, // Position in the tree
+    position: 1, // Position in the tree!
     startData() {
         return {
             unlocked: true,
